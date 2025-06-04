@@ -6,7 +6,7 @@ const Hero = () => {
     <section 
       className="relative py-16 lg:py-24 bg-cover bg-center bg-no-repeat"
       style={{
-        backgroundImage: 'url(https://images.unsplash.com/photo-1542838132-92c53300491e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80)'
+        backgroundImage: 'url(https://images.unsplash.com/photo-1618386095230-c210e3769fb4?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)'
       }}
     >
       {/* Overlay for better text readability */}
