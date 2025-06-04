@@ -3,17 +3,25 @@ import { Button } from "./ui/button";
 
 const Hero = () => {
   return (
-    <section className="bg-gradient-to-br from-gray-50 to-white py-16 lg:py-24">
-      <div className="container mx-auto px-4">
+    <section 
+      className="relative py-16 lg:py-24 bg-cover bg-center bg-no-repeat"
+      style={{
+        backgroundImage: 'url(https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2081&q=80)'
+      }}
+    >
+      {/* Overlay for better text readability */}
+      <div className="absolute inset-0 bg-black/40"></div>
+      
+      <div className="relative z-10 container mx-auto px-4">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left Content */}
           <div className="space-y-8">
             <div className="space-y-4">
               <h1 className="text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight">
-                <span style={{ color: '#113B39' }}>Repas</span><br />
-                <span style={{ color: '#113B39' }}>prêts-à-manger</span>
+                <span className="text-white drop-shadow-lg">Repas</span><br />
+                <span className="text-white drop-shadow-lg">prêts-à-manger</span>
               </h1>
-              <p className="text-lg text-gray-600 max-w-md">
+              <p className="text-lg text-white/90 max-w-md drop-shadow">
                 Frais et santé, livrés à votre porte
               </p>
             </div>
@@ -25,7 +33,7 @@ const Hero = () => {
               >
                 Commencer
               </Button>
-              <p className="text-sm text-gray-500">
+              <p className="text-sm text-white/80 drop-shadow">
                 Plus de 15 nouveaux repas présentés cette semaine
               </p>
             </div>
@@ -36,32 +44,32 @@ const Hero = () => {
                 <div className="w-12 h-12 mx-auto bg-[#113B39] rounded-full flex items-center justify-center">
                   <span className="text-white font-bold">✓</span>
                 </div>
-                <p className="text-sm text-gray-600">Frais, jamais congelé</p>
+                <p className="text-sm text-white/90 drop-shadow">Frais, jamais congelé</p>
               </div>
               <div className="text-center space-y-2">
                 <div className="w-12 h-12 mx-auto bg-[#113B39] rounded-full flex items-center justify-center">
                   <span className="text-white font-bold">🥗</span>
                 </div>
-                <p className="text-sm text-gray-600">Ingrédients sains</p>
+                <p className="text-sm text-white/90 drop-shadow">Ingrédients sains</p>
               </div>
               <div className="text-center space-y-2">
                 <div className="w-12 h-12 mx-auto bg-[#113B39] rounded-full flex items-center justify-center">
                   <span className="text-white font-bold">⏱</span>
                 </div>
-                <p className="text-sm text-gray-600">Prêt en 2 minutes</p>
+                <p className="text-sm text-white/90 drop-shadow">Prêt en 2 minutes</p>
               </div>
               <div className="text-center space-y-2">
                 <div className="w-12 h-12 mx-auto bg-[#113B39] rounded-full flex items-center justify-center">
                   <span className="text-white font-bold">🚚</span>
                 </div>
-                <p className="text-sm text-gray-600">Entreprise locale à Montréal</p>
+                <p className="text-sm text-white/90 drop-shadow">Entreprise locale à Montréal</p>
               </div>
             </div>
           </div>
 
           {/* Right Content - Hero Image */}
           <div className="relative">
-            <div className="bg-gradient-to-br from-[#D4B961] to-[#525944] rounded-3xl p-8 text-center">
+            <div className="bg-gradient-to-br from-[#D4B961] to-[#525944] rounded-3xl p-8 text-center backdrop-blur-sm bg-white/10">
               <div className="space-y-6">
                 <h2 className="text-3xl font-bold text-white">
                   fit<span className="bg-[#FF4D00] px-2 rounded">meals</span>
