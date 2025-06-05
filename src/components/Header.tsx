@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { Menu, X, ShoppingCart, User } from "lucide-react";
 import { Button } from "./ui/button";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -12,9 +13,11 @@ const Header = () => {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <h1 className="text-2xl font-bold" style={{ color: '#113B39' }}>
-              FitMeals
-            </h1>
+            <Link to="/">
+              <h1 className="text-2xl font-bold" style={{ color: '#113B39' }}>
+                FitMeals
+              </h1>
+            </Link>
           </div>
 
           {/* Desktop Navigation */}
@@ -22,9 +25,9 @@ const Header = () => {
             <a href="#" className="text-gray-700 hover:text-[#113B39] transition-colors">
               Forfaits
             </a>
-            <a href="#" className="text-gray-700 hover:text-[#113B39] transition-colors">
+            <Link to="/menu" className="text-gray-700 hover:text-[#113B39] transition-colors">
               Menu
-            </a>
+            </Link>
             <a href="#" className="text-gray-700 hover:text-[#113B39] transition-colors">
               Recommandations
             </a>
@@ -73,9 +76,9 @@ const Header = () => {
               <a href="#" className="text-gray-700 hover:text-[#113B39] transition-colors">
                 Forfaits
               </a>
-              <a href="#" className="text-gray-700 hover:text-[#113B39] transition-colors">
+              <Link to="/menu" className="text-gray-700 hover:text-[#113B39] transition-colors">
                 Menu
-              </a>
+              </Link>
               <a href="#" className="text-gray-700 hover:text-[#113B39] transition-colors">
                 Recommandations
               </a>
