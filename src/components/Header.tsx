@@ -15,7 +15,7 @@ const Header = () => {
           <div className="flex-shrink-0">
             <Link to="/">
               <h1 className="text-2xl font-bold" style={{ color: '#113B39' }}>
-                FitMeals
+                NutiFit
               </h1>
             </Link>
           </div>
