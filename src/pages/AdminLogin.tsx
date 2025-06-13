@@ -1,5 +1,5 @@
-
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -9,6 +9,7 @@ import { User, ChefHat, Truck } from "lucide-react";
 type UserRole = "owner" | "cook" | "delivery";
 
 const AdminLogin = () => {
+  const navigate = useNavigate();
   const [selectedRole, setSelectedRole] = useState<UserRole | null>(null);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -40,7 +41,11 @@ const AdminLogin = () => {
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
     console.log("Login attempt:", { role: selectedRole, email, password });
-    // TODO: Implement actual authentication logic
+    
+    // Redirect to appropriate dashboard based on role
+    if (selectedRole) {
+      navigate(`/admin/${selectedRole}`);
+    }
   };
 
   const handleRoleSelect = (role: UserRole) => {
