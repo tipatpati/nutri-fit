@@ -1,4 +1,6 @@
 
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { BarChart3, Package, Users, Truck, Settings, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -17,8 +19,13 @@ import {
   SidebarHeader,
   SidebarFooter,
 } from "@/components/ui/sidebar";
+import { useToast } from "@/hooks/use-toast";
 
 const OwnerDashboard = () => {
+  const [activeSection, setActiveSection] = useState("analytics");
+  const navigate = useNavigate();
+  const { toast } = useToast();
+
   const menuItems = [
     { title: "Analytics", icon: BarChart3, id: "analytics" },
     { title: "Inventory", icon: Package, id: "inventory" },
@@ -26,6 +33,128 @@ const OwnerDashboard = () => {
     { title: "Deliveries", icon: Truck, id: "deliveries" },
     { title: "Settings", icon: Settings, id: "settings" },
   ];
+
+  // Mock data
+  const mockStats = {
+    totalRevenue: "€12,450",
+    totalOrders: 156,
+    pendingDeliveries: 23,
+    activeIngredients: 48
+  };
+
+  const handleLogout = () => {
+    toast({
+      title: "Déconnexion",
+      description: "Vous avez été déconnecté avec succès"
+    });
+    navigate("/admin");
+  };
+
+  const renderContent = () => {
+    switch (activeSection) {
+      case "analytics":
+        return (
+          <div className="space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-sm font-medium">Revenus Total</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold text-[#113B39]">{mockStats.totalRevenue}</div>
+                  <p className="text-xs text-green-600">+20.1% ce mois</p>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-sm font-medium">Commandes</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold text-[#113B39]">{mockStats.totalOrders}</div>
+                  <p className="text-xs text-green-600">+15% ce mois</p>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-sm font-medium">Livraisons en attente</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold text-[#FF4D00]">{mockStats.pendingDeliveries}</div>
+                  <p className="text-xs text-gray-600">À traiter</p>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-sm font-medium">Ingrédients actifs</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold text-[#113B39]">{mockStats.activeIngredients}</div>
+                  <p className="text-xs text-gray-600">En stock</p>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+        );
+      case "inventory":
+        return (
+          <div className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-[#113B39]">Gestion des Ingrédients</CardTitle>
+                <CardDescription>Définir les recettes et quantités pour chaque repas</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <p className="text-gray-600">Interface de gestion des ingrédients - À développer</p>
+              </CardContent>
+            </Card>
+          </div>
+        );
+      case "orders":
+        return (
+          <div className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-[#113B39]">Toutes les Commandes</CardTitle>
+                <CardDescription>Vue d'ensemble de toutes les commandes</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <p className="text-gray-600">Liste des commandes - À développer</p>
+              </CardContent>
+            </Card>
+          </div>
+        );
+      case "deliveries":
+        return (
+          <div className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-[#113B39]">Suivi des Livraisons</CardTitle>
+                <CardDescription>Supervision de toutes les livraisons</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <p className="text-gray-600">Interface de suivi - À développer</p>
+              </CardContent>
+            </Card>
+          </div>
+        );
+      case "settings":
+        return (
+          <div className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-[#113B39]">Paramètres</CardTitle>
+                <CardDescription>Configuration du système</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <p className="text-gray-600">Paramètres système - À développer</p>
+              </CardContent>
+            </Card>
+          </div>
+        );
+      default:
+        return null;
+    }
+  };
 
   return (
     <SidebarProvider>
@@ -42,7 +171,10 @@ const OwnerDashboard = () => {
                 <SidebarMenu>
                   {menuItems.map((item) => (
                     <SidebarMenuItem key={item.id}>
-                      <SidebarMenuButton>
+                      <SidebarMenuButton 
+                        isActive={activeSection === item.id}
+                        onClick={() => setActiveSection(item.id)}
+                      >
                         <item.icon className="w-5 h-5" />
                         <span>{item.title}</span>
                       </SidebarMenuButton>
@@ -53,7 +185,7 @@ const OwnerDashboard = () => {
             </SidebarGroup>
           </SidebarContent>
           <SidebarFooter className="border-t border-gray-200 p-4">
-            <Button variant="outline" className="w-full justify-start">
+            <Button variant="outline" className="w-full justify-start" onClick={handleLogout}>
               <LogOut className="w-4 h-4 mr-2" />
               Se déconnecter
             </Button>
@@ -67,37 +199,7 @@ const OwnerDashboard = () => {
           </header>
           
           <main className="flex-1 p-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-[#113B39]">Analytics</CardTitle>
-                  <CardDescription>Vue d'ensemble des performances</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-gray-600">Accès complet aux analytics, revenus, et statistiques</p>
-                </CardContent>
-              </Card>
-              
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-[#113B39]">Inventory</CardTitle>
-                  <CardDescription>Gestion des ingrédients</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-gray-600">Définir les recettes et quantités d'ingrédients</p>
-                </CardContent>
-              </Card>
-              
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-[#113B39]">Orders & Deliveries</CardTitle>
-                  <CardDescription>Supervision complète</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-gray-600">Voir toutes les commandes et livraisons</p>
-                </CardContent>
-              </Card>
-            </div>
+            {renderContent()}
           </main>
         </SidebarInset>
       </div>
