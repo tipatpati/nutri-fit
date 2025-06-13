@@ -1,15 +1,9 @@
-
 import { Button } from "./ui/button";
 import { ArrowRight, Clock, Truck, Heart } from "lucide-react";
-
 const Hero = () => {
-  return (
-    <section 
-      className="relative py-16 lg:py-24 bg-cover bg-center bg-no-repeat"
-      style={{
-        backgroundImage: 'url(https://images.unsplash.com/photo-1618386095230-c210e3769fb4?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)'
-      }}
-    >
+  return <section className="relative py-16 lg:py-24 bg-cover bg-center bg-no-repeat" style={{
+    backgroundImage: 'url(https://images.unsplash.com/photo-1618386095230-c210e3769fb4?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)'
+  }}>
       {/* Overlay for better text readability */}
       <div className="absolute inset-0 bg-black/40"></div>
       
@@ -45,10 +39,7 @@ const Hero = () => {
                   <div className="text-xs font-medium text-[#113B39]">Équilibré</div>
                 </button>
               </div>
-              <Button 
-                size="lg" 
-                className="w-full bg-[#FF4D00] hover:bg-[#FF4D00]/90 text-white text-lg font-semibold py-4"
-              >
+              <Button size="lg" className="w-full bg-[#FF4D00] hover:bg-[#FF4D00]/90 text-white text-lg font-semibold py-4">
                 Commander maintenant
                 <ArrowRight className="ml-2 w-5 h-5" />
               </Button>
@@ -63,7 +54,7 @@ const Hero = () => {
                 <div className="w-12 h-12 mx-auto bg-white/20 backdrop-blur rounded-full flex items-center justify-center">
                   <Heart className="w-6 h-6 text-white" />
                 </div>
-                <p className="text-sm text-white/90 drop-shadow font-medium">Frais, jamais congelé</p>
+                <p className="text-sm text-white/90 drop-shadow font-medium">Frais</p>
               </div>
               <div className="text-center space-y-2">
                 <div className="w-12 h-12 mx-auto bg-white/20 backdrop-blur rounded-full flex items-center justify-center">
@@ -140,8 +131,6 @@ const Hero = () => {
           </div>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default Hero;
