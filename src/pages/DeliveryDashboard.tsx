@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Truck, MapPin, Clock, CheckCircle, LogOut, Navigation, Phone } from "lucide-react";
@@ -131,85 +132,87 @@ const DeliveryDashboard = () => {
     switch (activeSection) {
       case "deliveries":
         return (
-          <div className="space-y-4 lg:space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-6 mb-6 lg:mb-8">
+          <div className="space-y-4 md:space-y-6">
+            <div className="grid grid-cols-3 gap-2 md:gap-4 lg:gap-6 mb-4 md:mb-6 lg:mb-8">
               <Card>
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-[#FF4D00] text-lg lg:text-xl">À Livrer</CardTitle>
-                  <Clock className="h-4 w-4 lg:h-5 lg:w-5 text-[#FF4D00]" />
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 px-2 pt-2 md:px-6 md:pt-6">
+                  <CardTitle className="text-[#FF4D00] text-xs md:text-lg lg:text-xl truncate">À Livrer</CardTitle>
+                  <Clock className="h-3 w-3 md:h-4 md:w-4 lg:h-5 lg:w-5 text-[#FF4D00] flex-shrink-0" />
                 </CardHeader>
-                <CardContent>
-                  <div className="text-xl lg:text-2xl font-bold">{mockDeliveryStats.pending}</div>
-                  <p className="text-xs lg:text-sm text-gray-600">livraisons en attente</p>
+                <CardContent className="px-2 pb-2 md:px-6 md:pb-6">
+                  <div className="text-lg md:text-xl lg:text-2xl font-bold">{mockDeliveryStats.pending}</div>
+                  <p className="text-xs lg:text-sm text-gray-600">en attente</p>
                 </CardContent>
               </Card>
               
               <Card>
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-[#113B39] text-lg lg:text-xl">En Route</CardTitle>
-                  <Truck className="h-4 w-4 lg:h-5 lg:w-5 text-[#113B39]" />
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 px-2 pt-2 md:px-6 md:pt-6">
+                  <CardTitle className="text-[#113B39] text-xs md:text-lg lg:text-xl truncate">En Route</CardTitle>
+                  <Truck className="h-3 w-3 md:h-4 md:w-4 lg:h-5 lg:w-5 text-[#113B39] flex-shrink-0" />
                 </CardHeader>
-                <CardContent>
-                  <div className="text-xl lg:text-2xl font-bold">{mockDeliveryStats.inProgress}</div>
-                  <p className="text-xs lg:text-sm text-gray-600">livraisons en cours</p>
+                <CardContent className="px-2 pb-2 md:px-6 md:pb-6">
+                  <div className="text-lg md:text-xl lg:text-2xl font-bold">{mockDeliveryStats.inProgress}</div>
+                  <p className="text-xs lg:text-sm text-gray-600">en cours</p>
                 </CardContent>
               </Card>
               
               <Card>
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-green-600 text-lg lg:text-xl">Terminées</CardTitle>
-                  <CheckCircle className="h-4 w-4 lg:h-5 lg:w-5 text-green-600" />
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 px-2 pt-2 md:px-6 md:pt-6">
+                  <CardTitle className="text-green-600 text-xs md:text-lg lg:text-xl truncate">Terminées</CardTitle>
+                  <CheckCircle className="h-3 w-3 md:h-4 md:w-4 lg:h-5 lg:w-5 text-green-600 flex-shrink-0" />
                 </CardHeader>
-                <CardContent>
-                  <div className="text-xl lg:text-2xl font-bold">{mockDeliveryStats.completed}</div>
-                  <p className="text-xs lg:text-sm text-gray-600">livrées aujourd'hui</p>
+                <CardContent className="px-2 pb-2 md:px-6 md:pb-6">
+                  <div className="text-lg md:text-xl lg:text-2xl font-bold">{mockDeliveryStats.completed}</div>
+                  <p className="text-xs lg:text-sm text-gray-600">aujourd'hui</p>
                 </CardContent>
               </Card>
             </div>
             
             <Card>
-              <CardHeader>
-                <CardTitle className="text-[#113B39] text-lg lg:text-xl">Livraisons du Jour</CardTitle>
-                <CardDescription className="text-sm lg:text-base">Toutes les livraisons programmées et leur statut</CardDescription>
+              <CardHeader className="px-3 py-3 md:px-6 md:py-6">
+                <CardTitle className="text-[#113B39] text-sm md:text-lg lg:text-xl">Livraisons du Jour</CardTitle>
+                <CardDescription className="text-xs md:text-sm lg:text-base">Toutes les livraisons programmées et leur statut</CardDescription>
               </CardHeader>
-              <CardContent>
-                <div className="overflow-x-auto">
-                  <Table>
-                    <TableHeader>
-                      <TableRow>
-                        <TableHead className="text-xs lg:text-sm">ID</TableHead>
-                        <TableHead className="text-xs lg:text-sm">Client</TableHead>
-                        <TableHead className="text-xs lg:text-sm min-w-[200px]">Adresse</TableHead>
-                        <TableHead className="text-xs lg:text-sm">Contact</TableHead>
-                        <TableHead className="text-xs lg:text-sm">Heure</TableHead>
-                        <TableHead className="text-xs lg:text-sm">Distance</TableHead>
-                        <TableHead className="text-xs lg:text-sm">Commandes</TableHead>
-                        <TableHead className="text-xs lg:text-sm">Statut</TableHead>
-                      </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                      {mockDeliveries.map((delivery) => (
-                        <TableRow key={delivery.id}>
-                          <TableCell className="font-medium text-xs lg:text-sm">{delivery.id}</TableCell>
-                          <TableCell className="text-xs lg:text-sm">{delivery.customer}</TableCell>
-                          <TableCell className="max-w-xs truncate text-xs lg:text-sm">{delivery.address}</TableCell>
-                          <TableCell className="text-xs lg:text-sm">
-                            <div className="flex items-center gap-1">
-                              <Phone className="w-3 h-3" />
-                              <span className="hidden sm:inline">{delivery.phone}</span>
-                              <span className="sm:hidden">Contact</span>
-                            </div>
-                          </TableCell>
-                          <TableCell className="text-xs lg:text-sm">{delivery.time}</TableCell>
-                          <TableCell className="text-xs lg:text-sm">{delivery.distance}</TableCell>
-                          <TableCell className="text-xs lg:text-sm">{delivery.orders}</TableCell>
-                          <TableCell className={`${getStatusColor(delivery.status)} text-xs lg:text-sm`}>
-                            {delivery.status}
-                          </TableCell>
+              <CardContent className="px-3 pb-3 md:px-6 md:pb-6">
+                <div className="overflow-x-auto -mx-3 md:mx-0">
+                  <div className="min-w-full inline-block align-middle">
+                    <Table>
+                      <TableHeader>
+                        <TableRow>
+                          <TableHead className="text-xs px-1 md:px-4">ID</TableHead>
+                          <TableHead className="text-xs px-1 md:px-4 min-w-[80px]">Client</TableHead>
+                          <TableHead className="text-xs px-1 md:px-4 min-w-[120px]">Adresse</TableHead>
+                          <TableHead className="text-xs px-1 md:px-4">Contact</TableHead>
+                          <TableHead className="text-xs px-1 md:px-4">Heure</TableHead>
+                          <TableHead className="text-xs px-1 md:px-4">Distance</TableHead>
+                          <TableHead className="text-xs px-1 md:px-4">Cmd</TableHead>
+                          <TableHead className="text-xs px-1 md:px-4 min-w-[70px]">Statut</TableHead>
                         </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
+                      </TableHeader>
+                      <TableBody>
+                        {mockDeliveries.map((delivery) => (
+                          <TableRow key={delivery.id}>
+                            <TableCell className="font-medium text-xs px-1 md:px-4">{delivery.id}</TableCell>
+                            <TableCell className="text-xs px-1 md:px-4">{delivery.customer}</TableCell>
+                            <TableCell className="max-w-xs truncate text-xs px-1 md:px-4">{delivery.address}</TableCell>
+                            <TableCell className="text-xs px-1 md:px-4">
+                              <div className="flex items-center gap-1">
+                                <Phone className="w-3 h-3 flex-shrink-0" />
+                                <span className="hidden lg:inline truncate">{delivery.phone}</span>
+                                <span className="lg:hidden">Tel</span>
+                              </div>
+                            </TableCell>
+                            <TableCell className="text-xs px-1 md:px-4">{delivery.time}</TableCell>
+                            <TableCell className="text-xs px-1 md:px-4">{delivery.distance}</TableCell>
+                            <TableCell className="text-xs px-1 md:px-4">{delivery.orders}</TableCell>
+                            <TableCell className={`${getStatusColor(delivery.status)} text-xs px-1 md:px-4`}>
+                              <span className="truncate">{delivery.status}</span>
+                            </TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  </div>
                 </div>
               </CardContent>
             </Card>
@@ -217,52 +220,54 @@ const DeliveryDashboard = () => {
         );
       case "routes":
         return (
-          <div className="space-y-4 lg:space-y-6">
+          <div className="space-y-4 md:space-y-6">
             <Card>
-              <CardHeader>
-                <CardTitle className="text-[#113B39] text-lg lg:text-xl">Itinéraires Optimisés</CardTitle>
-                <CardDescription className="text-sm lg:text-base">Planification des tournées de livraison</CardDescription>
+              <CardHeader className="px-3 py-3 md:px-6 md:py-6">
+                <CardTitle className="text-[#113B39] text-sm md:text-lg lg:text-xl">Itinéraires Optimisés</CardTitle>
+                <CardDescription className="text-xs md:text-sm lg:text-base">Planification des tournées de livraison</CardDescription>
               </CardHeader>
-              <CardContent>
-                <div className="overflow-x-auto">
-                  <Table>
-                    <TableHeader>
-                      <TableRow>
-                        <TableHead className="text-xs lg:text-sm">Itinéraire</TableHead>
-                        <TableHead className="text-xs lg:text-sm">Zone</TableHead>
-                        <TableHead className="text-xs lg:text-sm">Livraisons</TableHead>
-                        <TableHead className="text-xs lg:text-sm">Temps estimé</TableHead>
-                        <TableHead className="text-xs lg:text-sm">Distance totale</TableHead>
-                        <TableHead className="text-xs lg:text-sm">Statut</TableHead>
-                        <TableHead className="text-xs lg:text-sm">Actions</TableHead>
-                      </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                      {mockRoutes.map((route) => (
-                        <TableRow key={route.id}>
-                          <TableCell className="font-medium text-xs lg:text-sm">{route.id}</TableCell>
-                          <TableCell className="text-xs lg:text-sm">{route.zone}</TableCell>
-                          <TableCell className="text-xs lg:text-sm">{route.deliveries}</TableCell>
-                          <TableCell className="text-xs lg:text-sm">
-                            <div className="flex items-center gap-1">
-                              <Clock className="w-3 h-3 lg:w-4 lg:h-4" />
-                              {route.estimatedTime}
-                            </div>
-                          </TableCell>
-                          <TableCell className="text-xs lg:text-sm">{route.totalDistance}</TableCell>
-                          <TableCell className={`${getStatusColor(route.status)} text-xs lg:text-sm`}>
-                            {route.status}
-                          </TableCell>
-                          <TableCell>
-                            <Button size="sm" variant="outline" className="flex items-center gap-1 text-xs">
-                              <Navigation className="w-3 h-3" />
-                              <span className="hidden sm:inline">GPS</span>
-                            </Button>
-                          </TableCell>
+              <CardContent className="px-3 pb-3 md:px-6 md:pb-6">
+                <div className="overflow-x-auto -mx-3 md:mx-0">
+                  <div className="min-w-full inline-block align-middle">
+                    <Table>
+                      <TableHeader>
+                        <TableRow>
+                          <TableHead className="text-xs px-2 md:px-4">Itinéraire</TableHead>
+                          <TableHead className="text-xs px-2 md:px-4 min-w-[80px]">Zone</TableHead>
+                          <TableHead className="text-xs px-2 md:px-4">Livraisons</TableHead>
+                          <TableHead className="text-xs px-2 md:px-4 min-w-[80px]">Temps</TableHead>
+                          <TableHead className="text-xs px-2 md:px-4 min-w-[80px]">Distance</TableHead>
+                          <TableHead className="text-xs px-2 md:px-4">Statut</TableHead>
+                          <TableHead className="text-xs px-2 md:px-4">Actions</TableHead>
                         </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
+                      </TableHeader>
+                      <TableBody>
+                        {mockRoutes.map((route) => (
+                          <TableRow key={route.id}>
+                            <TableCell className="font-medium text-xs px-2 md:px-4">{route.id}</TableCell>
+                            <TableCell className="text-xs px-2 md:px-4">{route.zone}</TableCell>
+                            <TableCell className="text-xs px-2 md:px-4">{route.deliveries}</TableCell>
+                            <TableCell className="text-xs px-2 md:px-4">
+                              <div className="flex items-center gap-1">
+                                <Clock className="w-3 h-3 lg:w-4 lg:h-4 flex-shrink-0" />
+                                <span className="truncate">{route.estimatedTime}</span>
+                              </div>
+                            </TableCell>
+                            <TableCell className="text-xs px-2 md:px-4">{route.totalDistance}</TableCell>
+                            <TableCell className={`${getStatusColor(route.status)} text-xs px-2 md:px-4`}>
+                              <span className="truncate">{route.status}</span>
+                            </TableCell>
+                            <TableCell className="px-2 md:px-4">
+                              <Button size="sm" variant="outline" className="flex items-center gap-1 text-xs h-7 px-2">
+                                <Navigation className="w-3 h-3 flex-shrink-0" />
+                                <span className="hidden sm:inline">GPS</span>
+                              </Button>
+                            </TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  </div>
                 </div>
               </CardContent>
             </Card>
@@ -270,52 +275,54 @@ const DeliveryDashboard = () => {
         );
       case "history":
         return (
-          <div className="space-y-4 lg:space-y-6">
+          <div className="space-y-4 md:space-y-6">
             <Card>
-              <CardHeader>
-                <CardTitle className="text-[#113B39] text-lg lg:text-xl">Historique des Performances</CardTitle>
-                <CardDescription className="text-sm lg:text-base">Statistiques des livraisons passées</CardDescription>
+              <CardHeader className="px-3 py-3 md:px-6 md:py-6">
+                <CardTitle className="text-[#113B39] text-sm md:text-lg lg:text-xl">Historique des Performances</CardTitle>
+                <CardDescription className="text-xs md:text-sm lg:text-base">Statistiques des livraisons passées</CardDescription>
               </CardHeader>
-              <CardContent>
-                <div className="overflow-x-auto">
-                  <Table>
-                    <TableHeader>
-                      <TableRow>
-                        <TableHead className="text-xs lg:text-sm">Date</TableHead>
-                        <TableHead className="text-xs lg:text-sm">Livraisons</TableHead>
-                        <TableHead className="text-xs lg:text-sm">Temps moyen</TableHead>
-                        <TableHead className="text-xs lg:text-sm">Satisfaction client</TableHead>
-                      </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                      {mockHistory.map((day, index) => (
-                        <TableRow key={index}>
-                          <TableCell className="font-medium text-xs lg:text-sm">{day.date}</TableCell>
-                          <TableCell className="text-xs lg:text-sm">{day.deliveries}</TableCell>
-                          <TableCell className="text-xs lg:text-sm">{day.avgTime}</TableCell>
-                          <TableCell className="text-green-600 font-medium text-xs lg:text-sm">{day.satisfaction}</TableCell>
+              <CardContent className="px-3 pb-3 md:px-6 md:pb-6">
+                <div className="overflow-x-auto -mx-3 md:mx-0">
+                  <div className="min-w-full inline-block align-middle">
+                    <Table>
+                      <TableHeader>
+                        <TableRow>
+                          <TableHead className="text-xs px-2 md:px-4 min-w-[100px]">Date</TableHead>
+                          <TableHead className="text-xs px-2 md:px-4">Livraisons</TableHead>
+                          <TableHead className="text-xs px-2 md:px-4 min-w-[80px]">Temps moyen</TableHead>
+                          <TableHead className="text-xs px-2 md:px-4 min-w-[90px]">Satisfaction</TableHead>
                         </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
+                      </TableHeader>
+                      <TableBody>
+                        {mockHistory.map((day, index) => (
+                          <TableRow key={index}>
+                            <TableCell className="font-medium text-xs px-2 md:px-4">{day.date}</TableCell>
+                            <TableCell className="text-xs px-2 md:px-4">{day.deliveries}</TableCell>
+                            <TableCell className="text-xs px-2 md:px-4">{day.avgTime}</TableCell>
+                            <TableCell className="text-green-600 font-medium text-xs px-2 md:px-4">{day.satisfaction}</TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  </div>
                 </div>
                 
-                <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="mt-4 md:mt-6 grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4">
                   <Card>
-                    <CardContent className="pt-6">
-                      <div className="text-xl lg:text-2xl font-bold text-[#113B39]">59</div>
+                    <CardContent className="pt-4 md:pt-6 px-3 pb-3 md:px-6 md:pb-6">
+                      <div className="text-lg md:text-xl lg:text-2xl font-bold text-[#113B39]">59</div>
                       <p className="text-xs lg:text-sm text-gray-600">Livraisons cette semaine</p>
                     </CardContent>
                   </Card>
                   <Card>
-                    <CardContent className="pt-6">
-                      <div className="text-xl lg:text-2xl font-bold text-[#FF4D00]">25.5 min</div>
+                    <CardContent className="pt-4 md:pt-6 px-3 pb-3 md:px-6 md:pb-6">
+                      <div className="text-lg md:text-xl lg:text-2xl font-bold text-[#FF4D00]">25.5 min</div>
                       <p className="text-xs lg:text-sm text-gray-600">Temps moyen par livraison</p>
                     </CardContent>
                   </Card>
                   <Card>
-                    <CardContent className="pt-6">
-                      <div className="text-xl lg:text-2xl font-bold text-green-600">96.3%</div>
+                    <CardContent className="pt-4 md:pt-6 px-3 pb-3 md:px-6 md:pb-6">
+                      <div className="text-lg md:text-xl lg:text-2xl font-bold text-green-600">96.3%</div>
                       <p className="text-xs lg:text-sm text-gray-600">Satisfaction moyenne</p>
                     </CardContent>
                   </Card>
@@ -333,13 +340,13 @@ const DeliveryDashboard = () => {
     <SidebarProvider>
       <div className="min-h-screen flex w-full">
         <Sidebar className="border-r border-gray-200 hidden lg:block">
-          <SidebarHeader className="border-b border-gray-200 p-4">
-            <h2 className="text-xl font-bold text-[#113B39]">NutiFit Delivery</h2>
-            <p className="text-sm text-gray-600">Livreur</p>
+          <SidebarHeader className="border-b border-gray-200 p-3 md:p-4">
+            <h2 className="text-lg md:text-xl font-bold text-[#113B39]">NutiFit Delivery</h2>
+            <p className="text-xs md:text-sm text-gray-600">Livreur</p>
           </SidebarHeader>
           <SidebarContent>
             <SidebarGroup>
-              <SidebarGroupLabel>Delivery</SidebarGroupLabel>
+              <SidebarGroupLabel className="text-xs">Delivery</SidebarGroupLabel>
               <SidebarGroupContent>
                 <SidebarMenu>
                   {menuItems.map((item) => (
@@ -347,8 +354,9 @@ const DeliveryDashboard = () => {
                       <SidebarMenuButton 
                         isActive={activeSection === item.id}
                         onClick={() => setActiveSection(item.id)}
+                        className="text-xs md:text-sm"
                       >
-                        <item.icon className="w-5 h-5" />
+                        <item.icon className="w-4 h-4 md:w-5 md:h-5" />
                         <span>{item.title}</span>
                       </SidebarMenuButton>
                     </SidebarMenuItem>
@@ -357,21 +365,21 @@ const DeliveryDashboard = () => {
               </SidebarGroupContent>
             </SidebarGroup>
           </SidebarContent>
-          <SidebarFooter className="border-t border-gray-200 p-4">
-            <Button variant="outline" className="w-full justify-start" onClick={handleLogout}>
-              <LogOut className="w-4 h-4 mr-2" />
+          <SidebarFooter className="border-t border-gray-200 p-3 md:p-4">
+            <Button variant="outline" className="w-full justify-start text-xs md:text-sm" onClick={handleLogout}>
+              <LogOut className="w-3 h-3 md:w-4 md:h-4 mr-1 md:mr-2" />
               Se déconnecter
             </Button>
           </SidebarFooter>
         </Sidebar>
         
-        <SidebarInset className="flex-1">
-          <header className="flex h-14 lg:h-16 shrink-0 items-center gap-2 border-b px-4 lg:px-6">
+        <SidebarInset className="flex-1 min-w-0">
+          <header className="flex h-12 md:h-14 lg:h-16 shrink-0 items-center gap-2 border-b px-3 md:px-4 lg:px-6">
             <SidebarTrigger className="-ml-1" />
-            <h1 className="text-lg lg:text-xl font-semibold text-[#113B39]">Dashboard Livraisons</h1>
+            <h1 className="text-sm md:text-lg lg:text-xl font-semibold text-[#113B39] truncate">Dashboard Livraisons</h1>
           </header>
           
-          <main className="flex-1 p-4 lg:p-6">
+          <main className="flex-1 p-3 md:p-4 lg:p-6 min-w-0">
             {renderContent()}
           </main>
         </SidebarInset>

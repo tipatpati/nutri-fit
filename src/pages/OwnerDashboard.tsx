@@ -90,200 +90,216 @@ const OwnerDashboard = () => {
     switch (activeSection) {
       case "analytics":
         return (
-          <div className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              <Card>
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">Revenus Total</CardTitle>
-                  <TrendingUp className="h-4 w-4 text-green-600" />
+          <div className="space-y-4 md:space-y-6">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 lg:gap-6">
+              <Card className="min-w-0">
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 px-3 pt-3 md:px-6 md:pt-6">
+                  <CardTitle className="text-xs md:text-sm font-medium truncate">Revenus Total</CardTitle>
+                  <TrendingUp className="h-3 w-3 md:h-4 md:w-4 text-green-600 flex-shrink-0" />
                 </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold text-[#113B39]">{mockStats.totalRevenue}</div>
+                <CardContent className="px-3 pb-3 md:px-6 md:pb-6">
+                  <div className="text-lg md:text-2xl font-bold text-[#113B39] truncate">{mockStats.totalRevenue}</div>
                   <p className="text-xs text-green-600">+20.1% ce mois</p>
                 </CardContent>
               </Card>
-              <Card>
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">Commandes</CardTitle>
-                  <Users className="h-4 w-4 text-[#113B39]" />
+              <Card className="min-w-0">
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 px-3 pt-3 md:px-6 md:pt-6">
+                  <CardTitle className="text-xs md:text-sm font-medium">Commandes</CardTitle>
+                  <Users className="h-3 w-3 md:h-4 md:w-4 text-[#113B39] flex-shrink-0" />
                 </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold text-[#113B39]">{mockStats.totalOrders}</div>
+                <CardContent className="px-3 pb-3 md:px-6 md:pb-6">
+                  <div className="text-lg md:text-2xl font-bold text-[#113B39]">{mockStats.totalOrders}</div>
                   <p className="text-xs text-green-600">+15% ce mois</p>
                 </CardContent>
               </Card>
-              <Card>
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">Livraisons en attente</CardTitle>
-                  <Truck className="h-4 w-4 text-[#FF4D00]" />
+              <Card className="min-w-0">
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 px-3 pt-3 md:px-6 md:pt-6">
+                  <CardTitle className="text-xs md:text-sm font-medium truncate">Livraisons</CardTitle>
+                  <Truck className="h-3 w-3 md:h-4 md:w-4 text-[#FF4D00] flex-shrink-0" />
                 </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold text-[#FF4D00]">{mockStats.pendingDeliveries}</div>
+                <CardContent className="px-3 pb-3 md:px-6 md:pb-6">
+                  <div className="text-lg md:text-2xl font-bold text-[#FF4D00]">{mockStats.pendingDeliveries}</div>
                   <p className="text-xs text-gray-600">À traiter</p>
                 </CardContent>
               </Card>
-              <Card>
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">Ingrédients actifs</CardTitle>
-                  <Package className="h-4 w-4 text-[#113B39]" />
+              <Card className="min-w-0">
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 px-3 pt-3 md:px-6 md:pt-6">
+                  <CardTitle className="text-xs md:text-sm font-medium truncate">Ingrédients</CardTitle>
+                  <Package className="h-3 w-3 md:h-4 md:w-4 text-[#113B39] flex-shrink-0" />
                 </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold text-[#113B39]">{mockStats.activeIngredients}</div>
+                <CardContent className="px-3 pb-3 md:px-6 md:pb-6">
+                  <div className="text-lg md:text-2xl font-bold text-[#113B39]">{mockStats.activeIngredients}</div>
                   <p className="text-xs text-gray-600">En stock</p>
                 </CardContent>
               </Card>
             </div>
 
             <Card>
-              <CardHeader>
-                <CardTitle className="text-[#113B39]">Commandes Récentes</CardTitle>
-                <CardDescription>Dernières commandes passées aujourd'hui</CardDescription>
+              <CardHeader className="px-3 py-3 md:px-6 md:py-6">
+                <CardTitle className="text-[#113B39] text-sm md:text-base">Commandes Récentes</CardTitle>
+                <CardDescription className="text-xs md:text-sm">Dernières commandes passées aujourd'hui</CardDescription>
               </CardHeader>
-              <CardContent>
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>Commande</TableHead>
-                      <TableHead>Client</TableHead>
-                      <TableHead>Total</TableHead>
-                      <TableHead>Statut</TableHead>
-                      <TableHead>Heure</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {mockRecentOrders.map((order) => (
-                      <TableRow key={order.id}>
-                        <TableCell className="font-medium">{order.id}</TableCell>
-                        <TableCell>{order.customer}</TableCell>
-                        <TableCell>{order.total}</TableCell>
-                        <TableCell className={getStatusColor(order.status)}>{order.status}</TableCell>
-                        <TableCell>{order.time}</TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
+              <CardContent className="px-3 pb-3 md:px-6 md:pb-6">
+                <div className="overflow-x-auto -mx-3 md:mx-0">
+                  <div className="min-w-full inline-block align-middle">
+                    <Table>
+                      <TableHeader>
+                        <TableRow>
+                          <TableHead className="text-xs px-2 md:px-4">Commande</TableHead>
+                          <TableHead className="text-xs px-2 md:px-4 min-w-[100px]">Client</TableHead>
+                          <TableHead className="text-xs px-2 md:px-4">Total</TableHead>
+                          <TableHead className="text-xs px-2 md:px-4 min-w-[90px]">Statut</TableHead>
+                          <TableHead className="text-xs px-2 md:px-4">Heure</TableHead>
+                        </TableRow>
+                      </TableHeader>
+                      <TableBody>
+                        {mockRecentOrders.map((order) => (
+                          <TableRow key={order.id}>
+                            <TableCell className="font-medium text-xs px-2 md:px-4">{order.id}</TableCell>
+                            <TableCell className="text-xs px-2 md:px-4">{order.customer}</TableCell>
+                            <TableCell className="text-xs px-2 md:px-4">{order.total}</TableCell>
+                            <TableCell className={`${getStatusColor(order.status)} text-xs px-2 md:px-4`}>{order.status}</TableCell>
+                            <TableCell className="text-xs px-2 md:px-4">{order.time}</TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  </div>
+                </div>
               </CardContent>
             </Card>
           </div>
         );
       case "inventory":
         return (
-          <div className="space-y-6">
+          <div className="space-y-4 md:space-y-6">
             <Card>
-              <CardHeader>
-                <CardTitle className="text-[#113B39]">Gestion des Ingrédients</CardTitle>
-                <CardDescription>Stock actuel et niveaux d'alerte</CardDescription>
+              <CardHeader className="px-3 py-3 md:px-6 md:py-6">
+                <CardTitle className="text-[#113B39] text-sm md:text-base">Gestion des Ingrédients</CardTitle>
+                <CardDescription className="text-xs md:text-sm">Stock actuel et niveaux d'alerte</CardDescription>
               </CardHeader>
-              <CardContent>
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>Ingrédient</TableHead>
-                      <TableHead>Quantité</TableHead>
-                      <TableHead>Unité</TableHead>
-                      <TableHead>Niveau min.</TableHead>
-                      <TableHead>Statut</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {mockInventory.map((item, index) => (
-                      <TableRow key={index}>
-                        <TableCell className="font-medium">{item.name}</TableCell>
-                        <TableCell>{item.quantity}</TableCell>
-                        <TableCell>{item.unit}</TableCell>
-                        <TableCell>{item.minLevel}</TableCell>
-                        <TableCell className={`flex items-center gap-2 ${getStatusColor(item.status)}`}>
-                          {item.status === "Stock critique" && <AlertTriangle className="h-4 w-4" />}
-                          {item.status}
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
+              <CardContent className="px-3 pb-3 md:px-6 md:pb-6">
+                <div className="overflow-x-auto -mx-3 md:mx-0">
+                  <div className="min-w-full inline-block align-middle">
+                    <Table>
+                      <TableHeader>
+                        <TableRow>
+                          <TableHead className="text-xs px-2 md:px-4 min-w-[120px]">Ingrédient</TableHead>
+                          <TableHead className="text-xs px-2 md:px-4">Quantité</TableHead>
+                          <TableHead className="text-xs px-2 md:px-4">Unité</TableHead>
+                          <TableHead className="text-xs px-2 md:px-4">Niveau min.</TableHead>
+                          <TableHead className="text-xs px-2 md:px-4 min-w-[100px]">Statut</TableHead>
+                        </TableRow>
+                      </TableHeader>
+                      <TableBody>
+                        {mockInventory.map((item, index) => (
+                          <TableRow key={index}>
+                            <TableCell className="font-medium text-xs px-2 md:px-4">{item.name}</TableCell>
+                            <TableCell className="text-xs px-2 md:px-4">{item.quantity}</TableCell>
+                            <TableCell className="text-xs px-2 md:px-4">{item.unit}</TableCell>
+                            <TableCell className="text-xs px-2 md:px-4">{item.minLevel}</TableCell>
+                            <TableCell className={`flex items-center gap-1 md:gap-2 ${getStatusColor(item.status)} text-xs px-2 md:px-4`}>
+                              {item.status === "Stock critique" && <AlertTriangle className="h-3 w-3 md:h-4 md:w-4 flex-shrink-0" />}
+                              <span className="truncate">{item.status}</span>
+                            </TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  </div>
+                </div>
               </CardContent>
             </Card>
           </div>
         );
       case "orders":
         return (
-          <div className="space-y-6">
+          <div className="space-y-4 md:space-y-6">
             <Card>
-              <CardHeader>
-                <CardTitle className="text-[#113B39]">Toutes les Commandes</CardTitle>
-                <CardDescription>Vue d'ensemble de toutes les commandes du jour</CardDescription>
+              <CardHeader className="px-3 py-3 md:px-6 md:py-6">
+                <CardTitle className="text-[#113B39] text-sm md:text-base">Toutes les Commandes</CardTitle>
+                <CardDescription className="text-xs md:text-sm">Vue d'ensemble de toutes les commandes du jour</CardDescription>
               </CardHeader>
-              <CardContent>
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>ID</TableHead>
-                      <TableHead>Client</TableHead>
-                      <TableHead>Total</TableHead>
-                      <TableHead>Statut</TableHead>
-                      <TableHead>Heure</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {mockRecentOrders.map((order) => (
-                      <TableRow key={order.id}>
-                        <TableCell className="font-medium">{order.id}</TableCell>
-                        <TableCell>{order.customer}</TableCell>
-                        <TableCell>{order.total}</TableCell>
-                        <TableCell className={getStatusColor(order.status)}>{order.status}</TableCell>
-                        <TableCell>{order.time}</TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
+              <CardContent className="px-3 pb-3 md:px-6 md:pb-6">
+                <div className="overflow-x-auto -mx-3 md:mx-0">
+                  <div className="min-w-full inline-block align-middle">
+                    <Table>
+                      <TableHeader>
+                        <TableRow>
+                          <TableHead className="text-xs px-2 md:px-4">ID</TableHead>
+                          <TableHead className="text-xs px-2 md:px-4 min-w-[100px]">Client</TableHead>
+                          <TableHead className="text-xs px-2 md:px-4">Total</TableHead>
+                          <TableHead className="text-xs px-2 md:px-4 min-w-[90px]">Statut</TableHead>
+                          <TableHead className="text-xs px-2 md:px-4">Heure</TableHead>
+                        </TableRow>
+                      </TableHeader>
+                      <TableBody>
+                        {mockRecentOrders.map((order) => (
+                          <TableRow key={order.id}>
+                            <TableCell className="font-medium text-xs px-2 md:px-4">{order.id}</TableCell>
+                            <TableCell className="text-xs px-2 md:px-4">{order.customer}</TableCell>
+                            <TableCell className="text-xs px-2 md:px-4">{order.total}</TableCell>
+                            <TableCell className={`${getStatusColor(order.status)} text-xs px-2 md:px-4`}>{order.status}</TableCell>
+                            <TableCell className="text-xs px-2 md:px-4">{order.time}</TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  </div>
+                </div>
               </CardContent>
             </Card>
           </div>
         );
       case "deliveries":
         return (
-          <div className="space-y-6">
+          <div className="space-y-4 md:space-y-6">
             <Card>
-              <CardHeader>
-                <CardTitle className="text-[#113B39]">Suivi des Livraisons</CardTitle>
-                <CardDescription>Supervision de toutes les livraisons actives</CardDescription>
+              <CardHeader className="px-3 py-3 md:px-6 md:py-6">
+                <CardTitle className="text-[#113B39] text-sm md:text-base">Suivi des Livraisons</CardTitle>
+                <CardDescription className="text-xs md:text-sm">Supervision de toutes les livraisons actives</CardDescription>
               </CardHeader>
-              <CardContent>
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>ID Livraison</TableHead>
-                      <TableHead>Chauffeur</TableHead>
-                      <TableHead>Zone</TableHead>
-                      <TableHead>Commandes</TableHead>
-                      <TableHead>Statut</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {mockActiveDeliveries.map((delivery) => (
-                      <TableRow key={delivery.id}>
-                        <TableCell className="font-medium">{delivery.id}</TableCell>
-                        <TableCell>{delivery.driver}</TableCell>
-                        <TableCell>{delivery.zone}</TableCell>
-                        <TableCell>{delivery.orders}</TableCell>
-                        <TableCell className={getStatusColor(delivery.status)}>{delivery.status}</TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
+              <CardContent className="px-3 pb-3 md:px-6 md:pb-6">
+                <div className="overflow-x-auto -mx-3 md:mx-0">
+                  <div className="min-w-full inline-block align-middle">
+                    <Table>
+                      <TableHeader>
+                        <TableRow>
+                          <TableHead className="text-xs px-2 md:px-4">ID</TableHead>
+                          <TableHead className="text-xs px-2 md:px-4 min-w-[100px]">Chauffeur</TableHead>
+                          <TableHead className="text-xs px-2 md:px-4 min-w-[80px]">Zone</TableHead>
+                          <TableHead className="text-xs px-2 md:px-4">Commandes</TableHead>
+                          <TableHead className="text-xs px-2 md:px-4 min-w-[90px]">Statut</TableHead>
+                        </TableRow>
+                      </TableHeader>
+                      <TableBody>
+                        {mockActiveDeliveries.map((delivery) => (
+                          <TableRow key={delivery.id}>
+                            <TableCell className="font-medium text-xs px-2 md:px-4">{delivery.id}</TableCell>
+                            <TableCell className="text-xs px-2 md:px-4">{delivery.driver}</TableCell>
+                            <TableCell className="text-xs px-2 md:px-4">{delivery.zone}</TableCell>
+                            <TableCell className="text-xs px-2 md:px-4">{delivery.orders}</TableCell>
+                            <TableCell className={`${getStatusColor(delivery.status)} text-xs px-2 md:px-4`}>{delivery.status}</TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  </div>
+                </div>
               </CardContent>
             </Card>
           </div>
         );
       case "settings":
         return (
-          <div className="space-y-6">
+          <div className="space-y-4 md:space-y-6">
             <Card>
-              <CardHeader>
-                <CardTitle className="text-[#113B39]">Paramètres</CardTitle>
-                <CardDescription>Configuration du système</CardDescription>
+              <CardHeader className="px-3 py-3 md:px-6 md:py-6">
+                <CardTitle className="text-[#113B39] text-sm md:text-base">Paramètres</CardTitle>
+                <CardDescription className="text-xs md:text-sm">Configuration du système</CardDescription>
               </CardHeader>
-              <CardContent>
-                <p className="text-gray-600">Paramètres système - À développer</p>
+              <CardContent className="px-3 pb-3 md:px-6 md:pb-6">
+                <p className="text-gray-600 text-xs md:text-sm">Paramètres système - À développer</p>
               </CardContent>
             </Card>
           </div>
@@ -296,14 +312,14 @@ const OwnerDashboard = () => {
   return (
     <SidebarProvider>
       <div className="min-h-screen flex w-full">
-        <Sidebar className="border-r border-gray-200">
-          <SidebarHeader className="border-b border-gray-200 p-4">
-            <h2 className="text-xl font-bold text-[#113B39]">NutiFit Admin</h2>
-            <p className="text-sm text-gray-600">Propriétaire</p>
+        <Sidebar className="border-r border-gray-200 hidden lg:block">
+          <SidebarHeader className="border-b border-gray-200 p-3 md:p-4">
+            <h2 className="text-lg md:text-xl font-bold text-[#113B39]">NutiFit Admin</h2>
+            <p className="text-xs md:text-sm text-gray-600">Propriétaire</p>
           </SidebarHeader>
           <SidebarContent>
             <SidebarGroup>
-              <SidebarGroupLabel>Dashboard</SidebarGroupLabel>
+              <SidebarGroupLabel className="text-xs">Dashboard</SidebarGroupLabel>
               <SidebarGroupContent>
                 <SidebarMenu>
                   {menuItems.map((item) => (
@@ -311,8 +327,9 @@ const OwnerDashboard = () => {
                       <SidebarMenuButton 
                         isActive={activeSection === item.id}
                         onClick={() => setActiveSection(item.id)}
+                        className="text-xs md:text-sm"
                       >
-                        <item.icon className="w-5 h-5" />
+                        <item.icon className="w-4 h-4 md:w-5 md:h-5" />
                         <span>{item.title}</span>
                       </SidebarMenuButton>
                     </SidebarMenuItem>
@@ -321,21 +338,21 @@ const OwnerDashboard = () => {
               </SidebarGroupContent>
             </SidebarGroup>
           </SidebarContent>
-          <SidebarFooter className="border-t border-gray-200 p-4">
-            <Button variant="outline" className="w-full justify-start" onClick={handleLogout}>
-              <LogOut className="w-4 h-4 mr-2" />
+          <SidebarFooter className="border-t border-gray-200 p-3 md:p-4">
+            <Button variant="outline" className="w-full justify-start text-xs md:text-sm" onClick={handleLogout}>
+              <LogOut className="w-3 h-3 md:w-4 md:h-4 mr-1 md:mr-2" />
               Se déconnecter
             </Button>
           </SidebarFooter>
         </Sidebar>
         
-        <SidebarInset className="flex-1">
-          <header className="flex h-16 shrink-0 items-center gap-2 border-b px-6">
+        <SidebarInset className="flex-1 min-w-0">
+          <header className="flex h-12 md:h-16 shrink-0 items-center gap-2 border-b px-3 md:px-6">
             <SidebarTrigger className="-ml-1" />
-            <h1 className="text-xl font-semibold text-[#113B39]">Dashboard Propriétaire</h1>
+            <h1 className="text-sm md:text-xl font-semibold text-[#113B39] truncate">Dashboard Propriétaire</h1>
           </header>
           
-          <main className="flex-1 p-6">
+          <main className="flex-1 p-3 md:p-6 min-w-0">
             {renderContent()}
           </main>
         </SidebarInset>
