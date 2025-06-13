@@ -9,17 +9,17 @@ const Features = () => {
     {
       icon: '🚴',
       title: 'Spécialement pour les athlètes',
-      description: 'Repas conçus par des nutritionnistes sportifs pour optimiser vos performances'
+      description: 'Repas conçus par des nutritionnistes sportifs pour optimiser vos performances et atteindre vos objeectifs'
     },
     {
       icon: '⏱️',
       title: 'Prêt en 2 minutes',
-      description: 'Réchauffez et savourez. Pas de préparation, pas de nettoyage'
+      description: 'Réchauffez et savourez. Pas de préparation, pas de vaisselle.'
     },
     {
       icon: '🌱',
       title: 'Ingrédients de qualité',
-      description: 'Nous utilisons uniquement des ingrédients frais, locaux et biologiques quand possible'
+      description: 'Nous utilisons uniquement des ingrédients frais, locaux et bio'
     }
   ];
 
@@ -28,10 +28,10 @@ const Features = () => {
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-3xl lg:text-4xl font-bold mb-4" style={{ color: '#113B39' }}>
-            Le choix de prêt-à-manger numéro 1 au pays
+            Le choix numéro 1 des sportifs à Oran.
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Partenaire de prêt-à-manger, nous plaçons constamment les normes de goût et qualité au Québec, en Ontario et dans les Maritimes.
+            Votre partenaire pour atteindre vos objectifs de prise de masse, perte de poids ou régime équilibrée.
           </p>
         </div>
 
