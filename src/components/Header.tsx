@@ -13,9 +13,14 @@ const Header = () => {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <Link to="/">
+            <Link to="/" className="flex items-center space-x-2">
+              <img 
+                src="/lovable-uploads/984ab8f5-08ee-4ef8-9620-a3e398af0553.png" 
+                alt="NutriFit Logo" 
+                className="h-10 w-10"
+              />
               <h1 className="text-2xl font-bold" style={{ color: '#113B39' }}>
-                NutiFit
+                NutriFit
               </h1>
             </Link>
           </div>
