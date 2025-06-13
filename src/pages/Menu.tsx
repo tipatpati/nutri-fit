@@ -128,53 +128,53 @@ const Menu = () => {
     <div className="min-h-screen bg-white">
       <Header />
       
-      <main className="container mx-auto px-4 py-8">
+      <main className="container mx-auto px-4 py-6 lg:py-8">
         {/* Header Section */}
-        <div className="text-center mb-8">
-          <h1 className="text-3xl lg:text-4xl font-bold mb-4" style={{ color: '#113B39' }}>
+        <div className="text-center mb-6 lg:mb-8">
+          <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4" style={{ color: '#113B39' }}>
             Menu de la semaine
           </h1>
-          <p className="text-lg text-gray-600 mb-6">
-            Découvrez 15 nouveaux repas prêts-à-manger<br />
+          <p className="text-base lg:text-lg text-gray-600 mb-6">
+            Découvrez 15 nouveaux repas prêts-à-manger<br className="hidden sm:block" />
             chaque semaine et personnalisez-les à votre goût !
           </p>
           
           {/* Filter Tags */}
-          <div className="flex flex-wrap justify-center gap-4 mb-6">
-            <Button variant="outline" className="rounded-full">
+          <div className="flex flex-wrap justify-center gap-2 lg:gap-4 mb-6">
+            <Button variant="outline" className="rounded-full text-xs lg:text-sm px-3 lg:px-4">
               Repas prêts-à-manger
             </Button>
-            <Button variant="outline" className="rounded-full">
+            <Button variant="outline" className="rounded-full text-xs lg:text-sm px-3 lg:px-4">
               Formule familiale
             </Button>
-            <Button variant="outline" className="rounded-full">
+            <Button variant="outline" className="rounded-full text-xs lg:text-sm px-3 lg:px-4">
               Collations
             </Button>
-            <Button variant="outline" className="rounded-full">
+            <Button variant="outline" className="rounded-full text-xs lg:text-sm px-3 lg:px-4">
               Épicerie
             </Button>
           </div>
 
           {/* Week Selector */}
-          <div className="flex items-center justify-center gap-4 mb-8">
-            <span className="text-gray-600">Semaine du</span>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-2 lg:gap-4 mb-6 lg:mb-8">
+            <span className="text-gray-600 text-sm lg:text-base">Semaine du</span>
             <select 
               value={selectedWeek}
               onChange={(e) => setSelectedWeek(e.target.value)}
-              className="border border-gray-300 rounded px-3 py-1"
+              className="border border-gray-300 rounded px-3 py-1 text-sm lg:text-base"
             >
               <option value="8 juin 2025">8 juin 2025</option>
               <option value="15 juin 2025">15 juin 2025</option>
               <option value="22 juin 2025">22 juin 2025</option>
             </select>
-            <Button className="bg-[#113B39] hover:bg-[#113B39]/90 text-white">
+            <Button className="bg-[#113B39] hover:bg-[#113B39]/90 text-white text-sm lg:text-base px-4 lg:px-6">
               Commander
             </Button>
           </div>
         </div>
 
         {/* Meals Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 lg:gap-6 mb-8 lg:mb-12">
           {meals.map((meal) => (
             <Card key={meal.id} className="overflow-hidden hover:shadow-lg transition-shadow">
               <CardContent className="p-0">
@@ -182,24 +182,24 @@ const Menu = () => {
                   <img 
                     src={meal.image} 
                     alt={meal.name}
-                    className="w-full h-48 object-cover"
+                    className="w-full h-40 lg:h-48 object-cover"
                   />
                   {meal.badge && (
                     <div 
-                      className="absolute top-3 left-3 px-2 py-1 rounded text-white text-xs font-medium"
+                      className="absolute top-2 lg:top-3 left-2 lg:left-3 px-2 py-1 rounded text-white text-xs font-medium"
                       style={{ backgroundColor: getCategoryColor(meal.category) }}
                     >
                       {meal.badge}
                     </div>
                   )}
                   {meal.premium && (
-                    <div className="absolute top-3 right-3 bg-white/90 px-2 py-1 rounded text-xs">
+                    <div className="absolute top-2 lg:top-3 right-2 lg:right-3 bg-white/90 px-2 py-1 rounded text-xs">
                       Premium
                     </div>
                   )}
                 </div>
-                <div className="p-4">
-                  <h3 className="font-medium text-[#113B39] text-sm leading-tight">
+                <div className="p-3 lg:p-4">
+                  <h3 className="font-medium text-[#113B39] text-sm lg:text-base leading-tight">
                     {meal.name}
                   </h3>
                 </div>
@@ -209,36 +209,36 @@ const Menu = () => {
         </div>
 
         {/* Load More Button */}
-        <div className="text-center mb-16">
-          <Button className="bg-[#113B39] hover:bg-[#113B39]/90 text-white px-8">
+        <div className="text-center mb-12 lg:mb-16">
+          <Button className="bg-[#113B39] hover:bg-[#113B39]/90 text-white px-6 lg:px-8 text-sm lg:text-base">
             Commander
           </Button>
         </div>
 
         {/* Bottom Section */}
-        <div className="bg-gray-50 rounded-lg p-8 mb-16">
-          <div className="grid lg:grid-cols-2 gap-8 items-center">
+        <div className="bg-gray-50 rounded-lg p-6 lg:p-8 mb-12 lg:mb-16">
+          <div className="grid lg:grid-cols-2 gap-6 lg:gap-8 items-center">
             <div>
-              <h2 className="text-2xl font-bold mb-4" style={{ color: '#113B39' }}>
+              <h2 className="text-xl lg:text-2xl font-bold mb-4" style={{ color: '#113B39' }}>
                 Le choix de prêt-à-manger numéro 1 au pays
               </h2>
-              <p className="text-gray-600 mb-6">
+              <p className="text-gray-600 mb-6 text-sm lg:text-base">
                 Partenaire de prêt-à-manger "top plans entreprises des normes de goût et qualité au Québec, en Ontario et dans les Maritimes.
               </p>
               
               {/* Customer Review */}
-              <div className="bg-white rounded-lg p-6 shadow-sm">
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 bg-[#113B39] rounded-full flex items-center justify-center text-white font-bold">
+              <div className="bg-white rounded-lg p-4 lg:p-6 shadow-sm">
+                <div className="flex items-start gap-3 lg:gap-4">
+                  <div className="w-10 h-10 lg:w-12 lg:h-12 bg-[#113B39] rounded-full flex items-center justify-center text-white font-bold text-sm lg:text-base">
                     L
                   </div>
                   <div className="flex-1">
-                    <div className="flex items-center gap-2 mb-2">
-                      <span className="font-medium">Lacey</span>
-                      <span className="text-sm text-gray-500">19 janvier 2024</span>
+                    <div className="flex flex-col sm:flex-row sm:items-center gap-1 lg:gap-2 mb-2">
+                      <span className="font-medium text-sm lg:text-base">Lacey</span>
+                      <span className="text-xs lg:text-sm text-gray-500">19 janvier 2024</span>
                       <div className="flex text-yellow-400">★★★★★</div>
                     </div>
-                    <p className="text-sm text-gray-600">
+                    <p className="text-xs lg:text-sm text-gray-600">
                       "Les repas étaient vraiment délicieux, surtout les mini quiches! Os, pas, service à la clientèle impeccable..."
                     </p>
                   </div>
@@ -246,30 +246,30 @@ const Menu = () => {
               </div>
             </div>
             
-            <div className="relative">
+            <div className="relative order-first lg:order-last">
               <img 
                 src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=500&h=400&fit=crop"
                 alt="Happy customers with meals"
-                className="rounded-lg w-full"
+                className="rounded-lg w-full h-64 lg:h-auto object-cover"
               />
             </div>
           </div>
         </div>
 
         {/* FAQ Section */}
-        <div className="text-center mb-16">
-          <h2 className="text-2xl font-bold mb-8" style={{ color: '#113B39' }}>
+        <div className="text-center mb-12 lg:mb-16">
+          <h2 className="text-xl lg:text-2xl font-bold mb-6 lg:mb-8" style={{ color: '#113B39' }}>
             Questions fréquemment posées
           </h2>
-          <div className="max-w-2xl mx-auto space-y-4">
-            <div className="border border-gray-200 rounded-lg p-4 text-left">
-              <button className="w-full flex justify-between items-center text-left">
+          <div className="max-w-2xl mx-auto space-y-3 lg:space-y-4">
+            <div className="border border-gray-200 rounded-lg p-3 lg:p-4 text-left">
+              <button className="w-full flex justify-between items-center text-left text-sm lg:text-base">
                 <span>Offrez-vous des options végétariennes?</span>
                 <span>+</span>
               </button>
             </div>
-            <div className="border border-gray-200 rounded-lg p-4 text-left">
-              <button className="w-full flex justify-between items-center text-left">
+            <div className="border border-gray-200 rounded-lg p-3 lg:p-4 text-left">
+              <button className="w-full flex justify-between items-center text-left text-sm lg:text-base">
                 <span>Est-ce que vos repas sont sans ?</span>
                 <span>+</span>
               </button>
@@ -277,7 +277,7 @@ const Menu = () => {
           </div>
           <Button 
             variant="outline" 
-            className="mt-8 border-[#113B39] text-[#113B39] hover:bg-[#113B39] hover:text-white"
+            className="mt-6 lg:mt-8 border-[#113B39] text-[#113B39] hover:bg-[#113B39] hover:text-white text-sm lg:text-base px-4 lg:px-6"
           >
             Voir la FAQ
           </Button>

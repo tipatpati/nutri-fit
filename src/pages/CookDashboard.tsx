@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ChefHat, ClipboardList, Calculator, Package, LogOut, Clock, CheckCircle2 } from "lucide-react";
@@ -94,22 +93,22 @@ const CookDashboard = () => {
     switch (activeSection) {
       case "orders":
         return (
-          <div className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+          <div className="space-y-4 lg:space-y-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6 mb-6 lg:mb-8">
               <Card>
                 <CardHeader>
-                  <CardTitle className="text-[#FF4D00]">Commandes du Jour</CardTitle>
-                  <CardDescription>Total: {mockOrdersByMeal.reduce((sum, meal) => sum + meal.orders, 0)} commandes</CardDescription>
+                  <CardTitle className="text-[#FF4D00] text-lg lg:text-xl">Commandes du Jour</CardTitle>
+                  <CardDescription className="text-sm lg:text-base">Total: {mockOrdersByMeal.reduce((sum, meal) => sum + meal.orders, 0)} commandes</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <div className="flex items-center gap-4">
+                  <div className="flex items-center justify-center gap-4 lg:gap-8">
                     <div className="text-center">
-                      <p className="text-2xl font-bold text-green-600">{mockOrdersByMeal.reduce((sum, meal) => sum + meal.prepared, 0)}</p>
-                      <p className="text-sm text-gray-600">Préparées</p>
+                      <p className="text-xl lg:text-2xl font-bold text-green-600">{mockOrdersByMeal.reduce((sum, meal) => sum + meal.prepared, 0)}</p>
+                      <p className="text-xs lg:text-sm text-gray-600">Préparées</p>
                     </div>
                     <div className="text-center">
-                      <p className="text-2xl font-bold text-[#FF4D00]">{mockOrdersByMeal.reduce((sum, meal) => sum + meal.remaining, 0)}</p>
-                      <p className="text-sm text-gray-600">Restantes</p>
+                      <p className="text-xl lg:text-2xl font-bold text-[#FF4D00]">{mockOrdersByMeal.reduce((sum, meal) => sum + meal.remaining, 0)}</p>
+                      <p className="text-xs lg:text-sm text-gray-600">Restantes</p>
                     </div>
                   </div>
                 </CardContent>
@@ -117,14 +116,14 @@ const CookDashboard = () => {
               
               <Card>
                 <CardHeader>
-                  <CardTitle className="text-[#FF4D00]">Progression</CardTitle>
-                  <CardDescription>Avancement de la préparation</CardDescription>
+                  <CardTitle className="text-[#FF4D00] text-lg lg:text-xl">Progression</CardTitle>
+                  <CardDescription className="text-sm lg:text-base">Avancement de la préparation</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-2">
                     <div className="flex justify-between">
-                      <span>Progression globale</span>
-                      <span className="font-bold text-[#113B39]">
+                      <span className="text-sm lg:text-base">Progression globale</span>
+                      <span className="font-bold text-[#113B39] text-sm lg:text-base">
                         {Math.round((mockOrdersByMeal.reduce((sum, meal) => sum + meal.prepared, 0) / 
                         mockOrdersByMeal.reduce((sum, meal) => sum + meal.orders, 0)) * 100)}%
                       </span>
@@ -145,20 +144,20 @@ const CookDashboard = () => {
             
             <Card>
               <CardHeader>
-                <CardTitle className="text-[#113B39]">Commandes par Type de Repas</CardTitle>
-                <CardDescription>Répartition et progression des commandes du jour</CardDescription>
+                <CardTitle className="text-[#113B39] text-lg lg:text-xl">Commandes par Type de Repas</CardTitle>
+                <CardDescription className="text-sm lg:text-base">Répartition et progression des commandes du jour</CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-3 lg:gap-4">
                   {mockOrdersByMeal.map((meal, index) => (
-                    <div key={index} className="p-4 border rounded-lg text-center hover:shadow-md transition-shadow">
+                    <div key={index} className="p-3 lg:p-4 border rounded-lg text-center hover:shadow-md transition-shadow">
                       <div className="flex items-center justify-center gap-2 mb-2">
-                        <Package className="w-6 h-6 text-[#FF4D00]" />
-                        {meal.remaining === 0 && <CheckCircle2 className="w-5 h-5 text-green-600" />}
+                        <Package className="w-5 h-5 lg:w-6 lg:h-6 text-[#FF4D00]" />
+                        {meal.remaining === 0 && <CheckCircle2 className="w-4 h-4 lg:w-5 lg:h-5 text-green-600" />}
                       </div>
-                      <p className="font-medium">{meal.name}</p>
-                      <p className="text-2xl font-bold text-[#113B39] my-2">{meal.orders}</p>
-                      <p className="text-sm text-gray-600 mb-2">{meal.description}</p>
+                      <p className="font-medium text-sm lg:text-base">{meal.name}</p>
+                      <p className="text-xl lg:text-2xl font-bold text-[#113B39] my-2">{meal.orders}</p>
+                      <p className="text-xs lg:text-sm text-gray-600 mb-2">{meal.description}</p>
                       <div className="text-xs">
                         <p className="text-green-600">Préparées: {meal.prepared}</p>
                         <p className="text-[#FF4D00]">Restantes: {meal.remaining}</p>
@@ -172,37 +171,39 @@ const CookDashboard = () => {
         );
       case "ingredients":
         return (
-          <div className="space-y-6">
+          <div className="space-y-4 lg:space-y-6">
             <Card>
               <CardHeader>
-                <CardTitle className="text-[#FF4D00]">Calcul des Ingrédients</CardTitle>
-                <CardDescription>Quantités nécessaires vs disponibles pour toutes les commandes</CardDescription>
+                <CardTitle className="text-[#FF4D00] text-lg lg:text-xl">Calcul des Ingrédients</CardTitle>
+                <CardDescription className="text-sm lg:text-base">Quantités nécessaires vs disponibles pour toutes les commandes</CardDescription>
               </CardHeader>
               <CardContent>
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>Ingrédient</TableHead>
-                      <TableHead>Quantité nécessaire</TableHead>
-                      <TableHead>Disponible</TableHead>
-                      <TableHead>Statut</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {mockIngredientCalculations.map((item, index) => (
-                      <TableRow key={index}>
-                        <TableCell className="font-medium">{item.ingredient}</TableCell>
-                        <TableCell>{item.totalNeeded}</TableCell>
-                        <TableCell>{item.available}</TableCell>
-                        <TableCell className={getStatusColor(item.status)}>
-                          {item.status}
-                        </TableCell>
+                <div className="overflow-x-auto">
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead className="text-xs lg:text-sm">Ingrédient</TableHead>
+                        <TableHead className="text-xs lg:text-sm">Quantité nécessaire</TableHead>
+                        <TableHead className="text-xs lg:text-sm">Disponible</TableHead>
+                        <TableHead className="text-xs lg:text-sm">Statut</TableHead>
                       </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-                <div className="mt-4 p-4 bg-yellow-50 rounded-lg border-l-4 border-yellow-400">
-                  <p className="text-sm text-yellow-800">
+                    </TableHeader>
+                    <TableBody>
+                      {mockIngredientCalculations.map((item, index) => (
+                        <TableRow key={index}>
+                          <TableCell className="font-medium text-xs lg:text-sm">{item.ingredient}</TableCell>
+                          <TableCell className="text-xs lg:text-sm">{item.totalNeeded}</TableCell>
+                          <TableCell className="text-xs lg:text-sm">{item.available}</TableCell>
+                          <TableCell className={`${getStatusColor(item.status)} text-xs lg:text-sm`}>
+                            {item.status}
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </div>
+                <div className="mt-4 p-3 lg:p-4 bg-yellow-50 rounded-lg border-l-4 border-yellow-400">
+                  <p className="text-xs lg:text-sm text-yellow-800">
                     <strong>Attention:</strong> Quinoa et Huile d'olive en quantité insuffisante. 
                     Contacter le gestionnaire d'inventaire.
                   </p>
@@ -213,40 +214,42 @@ const CookDashboard = () => {
         );
       case "recipes":
         return (
-          <div className="space-y-6">
+          <div className="space-y-4 lg:space-y-6">
             <Card>
               <CardHeader>
-                <CardTitle className="text-[#113B39]">Recettes du Jour</CardTitle>
-                <CardDescription>Recettes à préparer avec détails et quantités</CardDescription>
+                <CardTitle className="text-[#113B39] text-lg lg:text-xl">Recettes du Jour</CardTitle>
+                <CardDescription className="text-sm lg:text-base">Recettes à préparer avec détails et quantités</CardDescription>
               </CardHeader>
               <CardContent>
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>Recette</TableHead>
-                      <TableHead>Catégorie</TableHead>
-                      <TableHead>Temps de préparation</TableHead>
-                      <TableHead>Portions</TableHead>
-                      <TableHead>Ingrédients principaux</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {mockRecipes.map((recipe, index) => (
-                      <TableRow key={index}>
-                        <TableCell className="font-medium">{recipe.name}</TableCell>
-                        <TableCell>{recipe.category}</TableCell>
-                        <TableCell>
-                          <div className="flex items-center gap-1">
-                            <Clock className="w-4 h-4" />
-                            {recipe.prep_time}
-                          </div>
-                        </TableCell>
-                        <TableCell>{recipe.servings}</TableCell>
-                        <TableCell className="text-sm text-gray-600">{recipe.ingredients}</TableCell>
+                <div className="overflow-x-auto">
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead className="text-xs lg:text-sm">Recette</TableHead>
+                        <TableHead className="text-xs lg:text-sm">Catégorie</TableHead>
+                        <TableHead className="text-xs lg:text-sm">Temps de préparation</TableHead>
+                        <TableHead className="text-xs lg:text-sm">Portions</TableHead>
+                        <TableHead className="text-xs lg:text-sm">Ingrédients principaux</TableHead>
                       </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
+                    </TableHeader>
+                    <TableBody>
+                      {mockRecipes.map((recipe, index) => (
+                        <TableRow key={index}>
+                          <TableCell className="font-medium text-xs lg:text-sm">{recipe.name}</TableCell>
+                          <TableCell className="text-xs lg:text-sm">{recipe.category}</TableCell>
+                          <TableCell className="text-xs lg:text-sm">
+                            <div className="flex items-center gap-1">
+                              <Clock className="w-3 h-3 lg:w-4 lg:h-4" />
+                              {recipe.prep_time}
+                            </div>
+                          </TableCell>
+                          <TableCell className="text-xs lg:text-sm">{recipe.servings}</TableCell>
+                          <TableCell className="text-xs lg:text-sm text-gray-600">{recipe.ingredients}</TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </div>
               </CardContent>
             </Card>
           </div>
@@ -259,7 +262,7 @@ const CookDashboard = () => {
   return (
     <SidebarProvider>
       <div className="min-h-screen flex w-full">
-        <Sidebar className="border-r border-gray-200">
+        <Sidebar className="border-r border-gray-200 hidden lg:block">
           <SidebarHeader className="border-b border-gray-200 p-4">
             <h2 className="text-xl font-bold text-[#113B39]">NutiFit Kitchen</h2>
             <p className="text-sm text-gray-600">Cuisinier</p>
@@ -293,12 +296,12 @@ const CookDashboard = () => {
         </Sidebar>
         
         <SidebarInset className="flex-1">
-          <header className="flex h-16 shrink-0 items-center gap-2 border-b px-6">
+          <header className="flex h-14 lg:h-16 shrink-0 items-center gap-2 border-b px-4 lg:px-6">
             <SidebarTrigger className="-ml-1" />
-            <h1 className="text-xl font-semibold text-[#113B39]">Dashboard Cuisine</h1>
+            <h1 className="text-lg lg:text-xl font-semibold text-[#113B39]">Dashboard Cuisine</h1>
           </header>
           
-          <main className="flex-1 p-6">
+          <main className="flex-1 p-4 lg:p-6">
             {renderContent()}
           </main>
         </SidebarInset>

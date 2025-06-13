@@ -99,104 +99,104 @@ const Forfaits = () => {
       <Header />
       
       {/* Hero Section */}
-      <section className="bg-white py-16">
+      <section className="bg-white py-12 lg:py-16">
         <div className="container mx-auto px-4 text-center">
-          <h1 className="text-4xl lg:text-5xl font-bold mb-4" style={{ color: '#113B39' }}>
+          <h1 className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-4" style={{ color: '#113B39' }}>
             Découvrez nos forfaits
           </h1>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <p className="text-base lg:text-lg text-gray-600 max-w-2xl mx-auto">
             Commandez de 6 à 30 repas livrés directement à votre porte.
           </p>
         </div>
       </section>
 
       {/* Main Content */}
-      <section className="py-16">
+      <section className="py-12 lg:py-16">
         <div className="container mx-auto px-4">
           {/* Meal Size Selection */}
-          <div className="max-w-4xl mx-auto mb-16">
-            <div className="text-center mb-8">
-              <h2 className="text-2xl font-bold mb-4" style={{ color: '#113B39' }}>
+          <div className="max-w-4xl mx-auto mb-12 lg:mb-16">
+            <div className="text-center mb-6 lg:mb-8">
+              <h2 className="text-xl lg:text-2xl font-bold mb-4" style={{ color: '#113B39' }}>
                 Manger santé, c'est facile
               </h2>
-              <p className="text-gray-600">
+              <p className="text-gray-600 text-sm lg:text-base">
                 Avec nos repas fraîchement préparés à portée de main, manger santé n'aura jamais été aussi savoureux !
               </p>
             </div>
 
             {/* Meal Size Selector */}
-            <div className="bg-white rounded-2xl p-8 shadow-lg">
-              <h3 className="text-xl font-semibold text-center mb-8" style={{ color: '#113B39' }}>
+            <div className="bg-white rounded-2xl p-6 lg:p-8 shadow-lg">
+              <h3 className="text-lg lg:text-xl font-semibold text-center mb-6 lg:mb-8" style={{ color: '#113B39' }}>
                 Choisissez la taille des repas
               </h3>
               
-              <div className="flex justify-center items-center space-x-8">
+              <div className="flex justify-center items-center space-x-4 lg:space-x-8">
                 <div 
-                  className={`cursor-pointer p-4 rounded-lg border-2 transition-all ${
+                  className={`cursor-pointer p-3 lg:p-4 rounded-lg border-2 transition-all ${
                     selectedSize === "petit" ? "border-[#113B39] bg-[#113B39]/5" : "border-gray-200"
                   }`}
                   onClick={() => setSelectedSize("petit")}
                 >
-                  <div className="w-20 h-16 bg-orange-200 rounded mb-2"></div>
-                  <p className="text-center font-medium">Petit</p>
+                  <div className="w-16 h-12 lg:w-20 lg:h-16 bg-orange-200 rounded mb-2"></div>
+                  <p className="text-center font-medium text-sm lg:text-base">Petit</p>
                 </div>
                 
                 <div 
-                  className={`cursor-pointer p-4 rounded-lg border-2 transition-all relative ${
+                  className={`cursor-pointer p-3 lg:p-4 rounded-lg border-2 transition-all relative ${
                     selectedSize === "regular" ? "border-[#113B39] bg-[#113B39]/5" : "border-gray-200"
                   }`}
                   onClick={() => setSelectedSize("regular")}
                 >
                   {selectedSize === "regular" && (
-                    <Badge className="absolute -top-2 left-1/2 transform -translate-x-1/2 bg-[#113B39]">
+                    <Badge className="absolute -top-2 left-1/2 transform -translate-x-1/2 bg-[#113B39] text-xs">
                       Le plus populaire !
                     </Badge>
                   )}
-                  <div className="w-20 h-16 bg-orange-300 rounded mb-2"></div>
-                  <p className="text-center font-medium">Régulier</p>
+                  <div className="w-16 h-12 lg:w-20 lg:h-16 bg-orange-300 rounded mb-2"></div>
+                  <p className="text-center font-medium text-sm lg:text-base">Régulier</p>
                 </div>
               </div>
             </div>
           </div>
 
           {/* Package Selection */}
-          <div className="max-w-6xl mx-auto mb-16">
-            <h3 className="text-2xl font-bold text-center mb-8" style={{ color: '#113B39' }}>
+          <div className="max-w-6xl mx-auto mb-12 lg:mb-16">
+            <h3 className="text-xl lg:text-2xl font-bold text-center mb-6 lg:mb-8" style={{ color: '#113B39' }}>
               Choisissez le nombre de repas
             </h3>
             
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
               {packages.map((pkg) => {
                 const currentMeal = pkg.meals.find(meal => meal.size === selectedSize);
                 return (
                   <Card key={pkg.id} className={`relative ${pkg.popular ? 'ring-2 ring-[#113B39]' : ''}`}>
                     {pkg.popular && (
-                      <Badge className="absolute -top-2 left-1/2 transform -translate-x-1/2 bg-[#113B39]">
+                      <Badge className="absolute -top-2 left-1/2 transform -translate-x-1/2 bg-[#113B39] text-xs">
                         Le plus populaire !
                       </Badge>
                     )}
                     
                     <CardHeader className="text-center pb-4">
-                      <div className="text-sm text-gray-600 mb-2">
+                      <div className="text-xs lg:text-sm text-gray-600 mb-2">
                         À partir de <span className="font-bold">{pkg.price} $</span>
                       </div>
-                      <CardTitle className="text-xl font-bold" style={{ color: '#113B39' }}>
+                      <CardTitle className="text-lg lg:text-xl font-bold" style={{ color: '#113B39' }}>
                         {pkg.title}
                       </CardTitle>
-                      <p className="text-gray-600 text-sm">{pkg.subtitle}</p>
-                      <p className="text-[#FF4D00] font-medium text-sm">{pkg.description}</p>
+                      <p className="text-gray-600 text-xs lg:text-sm">{pkg.subtitle}</p>
+                      <p className="text-[#FF4D00] font-medium text-xs lg:text-sm">{pkg.description}</p>
                     </CardHeader>
                     
-                    <CardContent className="space-y-4">
+                    <CardContent className="space-y-3 lg:space-y-4">
                       <Button 
-                        className="w-full bg-[#113B39] hover:bg-[#113B39]/90"
+                        className="w-full bg-[#113B39] hover:bg-[#113B39]/90 text-xs lg:text-sm"
                         onClick={() => setSelectedPackage(pkg.id)}
                       >
                         Choisir ce forfait
                       </Button>
                       
                       <div className="space-y-2">
-                        <div className="text-sm">
+                        <div className="text-xs lg:text-sm">
                           <span className="font-bold text-[#113B39]">{currentMeal?.price}$ </span>
                           <span className="text-gray-600">par {currentMeal?.count}</span>
                         </div>
@@ -216,20 +216,20 @@ const Forfaits = () => {
 
           {/* Features Section */}
           <div className="max-w-4xl mx-auto">
-            <h3 className="text-2xl font-bold text-center mb-8" style={{ color: '#113B39' }}>
+            <h3 className="text-xl lg:text-2xl font-bold text-center mb-6 lg:mb-8" style={{ color: '#113B39' }}>
               Le choix de prêt-à-manger numéro 1 au pays
             </h3>
             
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
               {features.map((feature, index) => (
-                <div key={index} className="text-center space-y-4">
-                  <div className="w-16 h-16 mx-auto bg-[#113B39] rounded-full flex items-center justify-center">
-                    <feature.icon className="w-8 h-8 text-white" />
+                <div key={index} className="text-center space-y-3 lg:space-y-4">
+                  <div className="w-12 h-12 lg:w-16 lg:h-16 mx-auto bg-[#113B39] rounded-full flex items-center justify-center">
+                    <feature.icon className="w-6 h-6 lg:w-8 lg:h-8 text-white" />
                   </div>
-                  <h4 className="font-semibold" style={{ color: '#113B39' }}>
+                  <h4 className="font-semibold text-sm lg:text-base" style={{ color: '#113B39' }}>
                     {feature.title}
                   </h4>
-                  <p className="text-gray-600 text-sm">
+                  <p className="text-gray-600 text-xs lg:text-sm">
                     {feature.description}
                   </p>
                 </div>
