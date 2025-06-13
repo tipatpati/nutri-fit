@@ -1,9 +1,10 @@
 
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ChefHat, ClipboardList, Calculator, Package, LogOut } from "lucide-react";
+import { ChefHat, ClipboardList, Calculator, Package, LogOut, Clock, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import {
   Sidebar,
   SidebarContent,
@@ -32,13 +33,45 @@ const CookDashboard = () => {
     { title: "Recettes", icon: ChefHat, id: "recipes" },
   ];
 
-  // Mock data for orders by meal type
+  // Enhanced mock data for orders by meal type
   const mockOrdersByMeal = [
-    { name: "Repas 1", orders: 12, description: "Petit-déjeuner protéiné" },
-    { name: "Repas 2", orders: 8, description: "Collation matinale" },
-    { name: "Repas 3", orders: 15, description: "Déjeuner équilibré" },
-    { name: "Repas 4", orders: 6, description: "Collation après-midi" },
-    { name: "Repas 5", orders: 10, description: "Dîner léger" }
+    { name: "Repas 1", orders: 12, description: "Petit-déjeuner protéiné", prepared: 8, remaining: 4 },
+    { name: "Repas 2", orders: 8, description: "Collation matinale", prepared: 8, remaining: 0 },
+    { name: "Repas 3", orders: 15, description: "Déjeuner équilibré", prepared: 10, remaining: 5 },
+    { name: "Repas 4", orders: 6, description: "Collation après-midi", prepared: 2, remaining: 4 },
+    { name: "Repas 5", orders: 10, description: "Dîner léger", prepared: 0, remaining: 10 }
+  ];
+
+  const mockIngredientCalculations = [
+    { ingredient: "Poulet Bio", totalNeeded: "2.5 kg", available: "3.0 kg", status: "OK" },
+    { ingredient: "Quinoa", totalNeeded: "1.8 kg", available: "1.2 kg", status: "Manque" },
+    { ingredient: "Brocoli", totalNeeded: "2.2 kg", available: "2.5 kg", status: "OK" },
+    { ingredient: "Huile d'olive", totalNeeded: "300 ml", available: "200 ml", status: "Manque" },
+    { ingredient: "Avocat", totalNeeded: "18 pcs", available: "25 pcs", status: "OK" }
+  ];
+
+  const mockRecipes = [
+    { 
+      name: "Bowl Protéiné", 
+      category: "Petit-déjeuner", 
+      prep_time: "15 min", 
+      ingredients: "Quinoa, Œufs, Avocat, Épinards",
+      servings: 12
+    },
+    { 
+      name: "Salade Quinoa", 
+      category: "Déjeuner", 
+      prep_time: "20 min", 
+      ingredients: "Quinoa, Poulet, Légumes verts, Vinaigrette",
+      servings: 15
+    },
+    { 
+      name: "Smoothie Vert", 
+      category: "Collation", 
+      prep_time: "5 min", 
+      ingredients: "Épinards, Banane, Protéine, Lait d'amande",
+      servings: 8
+    }
   ];
 
   const handleLogout = () => {
@@ -47,6 +80,14 @@ const CookDashboard = () => {
       description: "Vous avez été déconnecté avec succès"
     });
     navigate("/admin");
+  };
+
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case "OK": return "text-green-600";
+      case "Manque": return "text-red-600";
+      default: return "text-gray-600";
+    }
   };
 
   const renderContent = () => {
@@ -61,24 +102,41 @@ const CookDashboard = () => {
                   <CardDescription>Total: {mockOrdersByMeal.reduce((sum, meal) => sum + meal.orders, 0)} commandes</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-gray-600">Organisées par type de repas</p>
+                  <div className="flex items-center gap-4">
+                    <div className="text-center">
+                      <p className="text-2xl font-bold text-green-600">{mockOrdersByMeal.reduce((sum, meal) => sum + meal.prepared, 0)}</p>
+                      <p className="text-sm text-gray-600">Préparées</p>
+                    </div>
+                    <div className="text-center">
+                      <p className="text-2xl font-bold text-[#FF4D00]">{mockOrdersByMeal.reduce((sum, meal) => sum + meal.remaining, 0)}</p>
+                      <p className="text-sm text-gray-600">Restantes</p>
+                    </div>
+                  </div>
                 </CardContent>
               </Card>
               
               <Card>
                 <CardHeader>
-                  <CardTitle className="text-[#FF4D00]">Statut Préparation</CardTitle>
-                  <CardDescription>Suivi en temps réel</CardDescription>
+                  <CardTitle className="text-[#FF4D00]">Progression</CardTitle>
+                  <CardDescription>Avancement de la préparation</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-2">
                     <div className="flex justify-between">
-                      <span>En préparation</span>
-                      <span className="font-bold text-[#FF4D00]">25</span>
+                      <span>Progression globale</span>
+                      <span className="font-bold text-[#113B39]">
+                        {Math.round((mockOrdersByMeal.reduce((sum, meal) => sum + meal.prepared, 0) / 
+                        mockOrdersByMeal.reduce((sum, meal) => sum + meal.orders, 0)) * 100)}%
+                      </span>
                     </div>
-                    <div className="flex justify-between">
-                      <span>Prêt</span>
-                      <span className="font-bold text-green-600">26</span>
+                    <div className="w-full bg-gray-200 rounded-full h-2">
+                      <div 
+                        className="bg-green-600 h-2 rounded-full" 
+                        style={{ 
+                          width: `${(mockOrdersByMeal.reduce((sum, meal) => sum + meal.prepared, 0) / 
+                          mockOrdersByMeal.reduce((sum, meal) => sum + meal.orders, 0)) * 100}%` 
+                        }}
+                      ></div>
                     </div>
                   </div>
                 </CardContent>
@@ -88,16 +146,23 @@ const CookDashboard = () => {
             <Card>
               <CardHeader>
                 <CardTitle className="text-[#113B39]">Commandes par Type de Repas</CardTitle>
-                <CardDescription>Répartition des commandes du jour</CardDescription>
+                <CardDescription>Répartition et progression des commandes du jour</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
                   {mockOrdersByMeal.map((meal, index) => (
                     <div key={index} className="p-4 border rounded-lg text-center hover:shadow-md transition-shadow">
-                      <Package className="w-8 h-8 mx-auto mb-2 text-[#FF4D00]" />
+                      <div className="flex items-center justify-center gap-2 mb-2">
+                        <Package className="w-6 h-6 text-[#FF4D00]" />
+                        {meal.remaining === 0 && <CheckCircle2 className="w-5 h-5 text-green-600" />}
+                      </div>
                       <p className="font-medium">{meal.name}</p>
                       <p className="text-2xl font-bold text-[#113B39] my-2">{meal.orders}</p>
-                      <p className="text-sm text-gray-600">{meal.description}</p>
+                      <p className="text-sm text-gray-600 mb-2">{meal.description}</p>
+                      <div className="text-xs">
+                        <p className="text-green-600">Préparées: {meal.prepared}</p>
+                        <p className="text-[#FF4D00]">Restantes: {meal.remaining}</p>
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -111,14 +176,35 @@ const CookDashboard = () => {
             <Card>
               <CardHeader>
                 <CardTitle className="text-[#FF4D00]">Calcul des Ingrédients</CardTitle>
-                <CardDescription>Quantités nécessaires pour toutes les commandes</CardDescription>
+                <CardDescription>Quantités nécessaires vs disponibles pour toutes les commandes</CardDescription>
               </CardHeader>
               <CardContent>
-                <p className="text-gray-600">Interface de calcul automatique - À développer</p>
-                <div className="mt-4 p-4 bg-gray-50 rounded-lg">
-                  <p className="text-sm text-gray-600">
-                    Cette section calculera automatiquement les quantités d'ingrédients
-                    nécessaires basées sur les recettes définies par le propriétaire.
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>Ingrédient</TableHead>
+                      <TableHead>Quantité nécessaire</TableHead>
+                      <TableHead>Disponible</TableHead>
+                      <TableHead>Statut</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {mockIngredientCalculations.map((item, index) => (
+                      <TableRow key={index}>
+                        <TableCell className="font-medium">{item.ingredient}</TableCell>
+                        <TableCell>{item.totalNeeded}</TableCell>
+                        <TableCell>{item.available}</TableCell>
+                        <TableCell className={getStatusColor(item.status)}>
+                          {item.status}
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+                <div className="mt-4 p-4 bg-yellow-50 rounded-lg border-l-4 border-yellow-400">
+                  <p className="text-sm text-yellow-800">
+                    <strong>Attention:</strong> Quinoa et Huile d'olive en quantité insuffisante. 
+                    Contacter le gestionnaire d'inventaire.
                   </p>
                 </div>
               </CardContent>
@@ -130,11 +216,37 @@ const CookDashboard = () => {
           <div className="space-y-6">
             <Card>
               <CardHeader>
-                <CardTitle className="text-[#113B39]">Recettes</CardTitle>
-                <CardDescription>Consultation des recettes pour chaque repas</CardDescription>
+                <CardTitle className="text-[#113B39]">Recettes du Jour</CardTitle>
+                <CardDescription>Recettes à préparer avec détails et quantités</CardDescription>
               </CardHeader>
               <CardContent>
-                <p className="text-gray-600">Bibliothèque des recettes - À développer</p>
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>Recette</TableHead>
+                      <TableHead>Catégorie</TableHead>
+                      <TableHead>Temps de préparation</TableHead>
+                      <TableHead>Portions</TableHead>
+                      <TableHead>Ingrédients principaux</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {mockRecipes.map((recipe, index) => (
+                      <TableRow key={index}>
+                        <TableCell className="font-medium">{recipe.name}</TableCell>
+                        <TableCell>{recipe.category}</TableCell>
+                        <TableCell>
+                          <div className="flex items-center gap-1">
+                            <Clock className="w-4 h-4" />
+                            {recipe.prep_time}
+                          </div>
+                        </TableCell>
+                        <TableCell>{recipe.servings}</TableCell>
+                        <TableCell className="text-sm text-gray-600">{recipe.ingredients}</TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
               </CardContent>
             </Card>
           </div>

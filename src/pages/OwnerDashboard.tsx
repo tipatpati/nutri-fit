@@ -1,9 +1,10 @@
 
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { BarChart3, Package, Users, Truck, Settings, LogOut } from "lucide-react";
+import { BarChart3, Package, Users, Truck, Settings, LogOut, TrendingUp, AlertTriangle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import {
   Sidebar,
   SidebarContent,
@@ -34,13 +35,35 @@ const OwnerDashboard = () => {
     { title: "Settings", icon: Settings, id: "settings" },
   ];
 
-  // Mock data
+  // Enhanced mock data
   const mockStats = {
     totalRevenue: "€12,450",
     totalOrders: 156,
     pendingDeliveries: 23,
     activeIngredients: 48
   };
+
+  const mockRecentOrders = [
+    { id: "#ORD-001", customer: "Marie Dubois", total: "€45.50", status: "Confirmé", time: "14:30" },
+    { id: "#ORD-002", customer: "Jean Martin", total: "€32.00", status: "En préparation", time: "14:15" },
+    { id: "#ORD-003", customer: "Sophie Laurent", total: "€58.75", status: "Livré", time: "13:45" },
+    { id: "#ORD-004", customer: "Pierre Rousseau", total: "€41.25", status: "En route", time: "13:30" },
+    { id: "#ORD-005", customer: "Claire Moreau", total: "€37.80", status: "Confirmé", time: "13:00" }
+  ];
+
+  const mockInventory = [
+    { name: "Poulet Bio", quantity: 25, unit: "kg", status: "En stock", minLevel: 10 },
+    { name: "Quinoa", quantity: 8, unit: "kg", status: "Stock faible", minLevel: 10 },
+    { name: "Brocoli", quantity: 15, unit: "kg", status: "En stock", minLevel: 5 },
+    { name: "Huile d'olive", quantity: 2, unit: "L", status: "Stock critique", minLevel: 5 },
+    { name: "Avocat", quantity: 30, unit: "pcs", status: "En stock", minLevel: 20 }
+  ];
+
+  const mockActiveDeliveries = [
+    { id: "LIV-001", driver: "Marc Leclerc", zone: "Paris 15e", orders: 5, status: "En route" },
+    { id: "LIV-002", driver: "Julie Petit", zone: "Boulogne", orders: 3, status: "En cours" },
+    { id: "LIV-003", driver: "Thomas Blanc", zone: "Neuilly", orders: 7, status: "En préparation" }
+  ];
 
   const handleLogout = () => {
     toast({
@@ -50,6 +73,19 @@ const OwnerDashboard = () => {
     navigate("/admin");
   };
 
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case "En stock": return "text-green-600";
+      case "Stock faible": return "text-yellow-600";
+      case "Stock critique": return "text-red-600";
+      case "Confirmé": return "text-blue-600";
+      case "En préparation": return "text-yellow-600";
+      case "En route": return "text-purple-600";
+      case "Livré": return "text-green-600";
+      default: return "text-gray-600";
+    }
+  };
+
   const renderContent = () => {
     switch (activeSection) {
       case "analytics":
@@ -57,8 +93,9 @@ const OwnerDashboard = () => {
           <div className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               <Card>
-                <CardHeader>
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                   <CardTitle className="text-sm font-medium">Revenus Total</CardTitle>
+                  <TrendingUp className="h-4 w-4 text-green-600" />
                 </CardHeader>
                 <CardContent>
                   <div className="text-2xl font-bold text-[#113B39]">{mockStats.totalRevenue}</div>
@@ -66,8 +103,9 @@ const OwnerDashboard = () => {
                 </CardContent>
               </Card>
               <Card>
-                <CardHeader>
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                   <CardTitle className="text-sm font-medium">Commandes</CardTitle>
+                  <Users className="h-4 w-4 text-[#113B39]" />
                 </CardHeader>
                 <CardContent>
                   <div className="text-2xl font-bold text-[#113B39]">{mockStats.totalOrders}</div>
@@ -75,8 +113,9 @@ const OwnerDashboard = () => {
                 </CardContent>
               </Card>
               <Card>
-                <CardHeader>
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                   <CardTitle className="text-sm font-medium">Livraisons en attente</CardTitle>
+                  <Truck className="h-4 w-4 text-[#FF4D00]" />
                 </CardHeader>
                 <CardContent>
                   <div className="text-2xl font-bold text-[#FF4D00]">{mockStats.pendingDeliveries}</div>
@@ -84,8 +123,9 @@ const OwnerDashboard = () => {
                 </CardContent>
               </Card>
               <Card>
-                <CardHeader>
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                   <CardTitle className="text-sm font-medium">Ingrédients actifs</CardTitle>
+                  <Package className="h-4 w-4 text-[#113B39]" />
                 </CardHeader>
                 <CardContent>
                   <div className="text-2xl font-bold text-[#113B39]">{mockStats.activeIngredients}</div>
@@ -93,6 +133,37 @@ const OwnerDashboard = () => {
                 </CardContent>
               </Card>
             </div>
+
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-[#113B39]">Commandes Récentes</CardTitle>
+                <CardDescription>Dernières commandes passées aujourd'hui</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>Commande</TableHead>
+                      <TableHead>Client</TableHead>
+                      <TableHead>Total</TableHead>
+                      <TableHead>Statut</TableHead>
+                      <TableHead>Heure</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {mockRecentOrders.map((order) => (
+                      <TableRow key={order.id}>
+                        <TableCell className="font-medium">{order.id}</TableCell>
+                        <TableCell>{order.customer}</TableCell>
+                        <TableCell>{order.total}</TableCell>
+                        <TableCell className={getStatusColor(order.status)}>{order.status}</TableCell>
+                        <TableCell>{order.time}</TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </CardContent>
+            </Card>
           </div>
         );
       case "inventory":
@@ -101,10 +172,34 @@ const OwnerDashboard = () => {
             <Card>
               <CardHeader>
                 <CardTitle className="text-[#113B39]">Gestion des Ingrédients</CardTitle>
-                <CardDescription>Définir les recettes et quantités pour chaque repas</CardDescription>
+                <CardDescription>Stock actuel et niveaux d'alerte</CardDescription>
               </CardHeader>
               <CardContent>
-                <p className="text-gray-600">Interface de gestion des ingrédients - À développer</p>
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>Ingrédient</TableHead>
+                      <TableHead>Quantité</TableHead>
+                      <TableHead>Unité</TableHead>
+                      <TableHead>Niveau min.</TableHead>
+                      <TableHead>Statut</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {mockInventory.map((item, index) => (
+                      <TableRow key={index}>
+                        <TableCell className="font-medium">{item.name}</TableCell>
+                        <TableCell>{item.quantity}</TableCell>
+                        <TableCell>{item.unit}</TableCell>
+                        <TableCell>{item.minLevel}</TableCell>
+                        <TableCell className={`flex items-center gap-2 ${getStatusColor(item.status)}`}>
+                          {item.status === "Stock critique" && <AlertTriangle className="h-4 w-4" />}
+                          {item.status}
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
               </CardContent>
             </Card>
           </div>
@@ -115,10 +210,31 @@ const OwnerDashboard = () => {
             <Card>
               <CardHeader>
                 <CardTitle className="text-[#113B39]">Toutes les Commandes</CardTitle>
-                <CardDescription>Vue d'ensemble de toutes les commandes</CardDescription>
+                <CardDescription>Vue d'ensemble de toutes les commandes du jour</CardDescription>
               </CardHeader>
               <CardContent>
-                <p className="text-gray-600">Liste des commandes - À développer</p>
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>ID</TableHead>
+                      <TableHead>Client</TableHead>
+                      <TableHead>Total</TableHead>
+                      <TableHead>Statut</TableHead>
+                      <TableHead>Heure</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {mockRecentOrders.map((order) => (
+                      <TableRow key={order.id}>
+                        <TableCell className="font-medium">{order.id}</TableCell>
+                        <TableCell>{order.customer}</TableCell>
+                        <TableCell>{order.total}</TableCell>
+                        <TableCell className={getStatusColor(order.status)}>{order.status}</TableCell>
+                        <TableCell>{order.time}</TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
               </CardContent>
             </Card>
           </div>
@@ -129,10 +245,31 @@ const OwnerDashboard = () => {
             <Card>
               <CardHeader>
                 <CardTitle className="text-[#113B39]">Suivi des Livraisons</CardTitle>
-                <CardDescription>Supervision de toutes les livraisons</CardDescription>
+                <CardDescription>Supervision de toutes les livraisons actives</CardDescription>
               </CardHeader>
               <CardContent>
-                <p className="text-gray-600">Interface de suivi - À développer</p>
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>ID Livraison</TableHead>
+                      <TableHead>Chauffeur</TableHead>
+                      <TableHead>Zone</TableHead>
+                      <TableHead>Commandes</TableHead>
+                      <TableHead>Statut</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {mockActiveDeliveries.map((delivery) => (
+                      <TableRow key={delivery.id}>
+                        <TableCell className="font-medium">{delivery.id}</TableCell>
+                        <TableCell>{delivery.driver}</TableCell>
+                        <TableCell>{delivery.zone}</TableCell>
+                        <TableCell>{delivery.orders}</TableCell>
+                        <TableCell className={getStatusColor(delivery.status)}>{delivery.status}</TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
               </CardContent>
             </Card>
           </div>
