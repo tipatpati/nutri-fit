@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -42,26 +41,26 @@ const MealSelection = ({
   onProceed,
   onBack
 }: MealSelectionProps) => {
-  // Mock meals data - this would come from backend
+  // Updated meals data with working images
   const meals: Meal[] = [
     {
       id: 1,
       name: "Bol de quinoa à l'épicé",
-      image: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=300&h=200&fit=crop",
+      image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&h=300&fit=crop&crop=center",
       category: "Équilibré",
       premium: false
     },
     {
       id: 2,
       name: "Crevettes à l'ail épicé",
-      image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=300&h=200&fit=crop",
+      image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=400&h=300&fit=crop&crop=center",
       category: "Perte de poids",
       premium: true
     },
     {
       id: 3,
       name: "Repas protéiné",
-      image: "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=300&h=200&fit=crop",
+      image: "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=400&h=300&fit=crop&crop=center",
       category: "Prise de masse",
       premium: true,
       badge: "Repas protéiné"
@@ -69,10 +68,38 @@ const MealSelection = ({
     {
       id: 4,
       name: "Crevettes rôties avec pâtes à la tomate",
-      image: "https://images.unsplash.com/photo-1621996346565-e3dbc353d2e5?w=300&h=200&fit=crop",
+      image: "https://images.unsplash.com/photo-1621996346565-e3dbc353d2e5?w=400&h=300&fit=crop&crop=center",
       category: "Équilibré",
       premium: true,
       badge: "Repas protéiné"
+    },
+    {
+      id: 5,
+      name: "Saumon grillé aux légumes",
+      image: "https://images.unsplash.com/photo-1559847844-5315695dadae?w=400&h=300&fit=crop&crop=center",
+      category: "Prise de masse",
+      premium: false
+    },
+    {
+      id: 6,
+      name: "Bœuf aux champignons",
+      image: "https://images.unsplash.com/photo-1544025162-d76694265947?w=400&h=300&fit=crop&crop=center",
+      category: "Prise de masse",
+      premium: false
+    },
+    {
+      id: 7,
+      name: "Salade de poulet et riz",
+      image: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop&crop=center",
+      category: "Perte de poids",
+      premium: false
+    },
+    {
+      id: 8,
+      name: "Salade de lentilles aux légumes",
+      image: "https://images.unsplash.com/photo-1547592180-85f173990554?w=400&h=300&fit=crop&crop=center",
+      category: "Équilibré",
+      premium: false
     }
   ];
 
@@ -144,6 +171,7 @@ const MealSelection = ({
                     src={meal.image} 
                     alt={meal.name}
                     className="w-full h-40 sm:h-48 object-cover"
+                    loading="lazy"
                   />
                   {meal.badge && (
                     <div 
