@@ -11,30 +11,31 @@ const Header = () => {
   return (
     <header className="bg-white/95 backdrop-blur-xl shadow-lg border-b border-gray-100 sticky top-0 z-50">
       <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-20">
+        <div className="flex items-center justify-between h-16 sm:h-20">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <Link to="/" className="flex items-center space-x-3 group">
+            <Link to="/" className="flex items-center space-x-2 sm:space-x-3 group">
               <div className="relative">
                 <img 
                   src="/lovable-uploads/984ab8f5-08ee-4ef8-9620-a3e398af0553.png" 
                   alt="NutriFit Logo" 
-                  className="h-12 w-12 group-hover:scale-110 transition-transform duration-300"
+                  className="h-10 w-10 sm:h-12 sm:w-12 group-hover:scale-110 transition-transform duration-300"
                 />
                 <div className="absolute inset-0 bg-gradient-to-r from-emerald-400/20 to-orange-400/20 rounded-full blur-lg group-hover:blur-xl transition-all duration-300"></div>
               </div>
               <div>
-                <h1 className="text-3xl font-bold bg-gradient-to-r from-emerald-600 to-orange-500 bg-clip-text text-transparent">
+                <h1 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-emerald-600 to-orange-500 bg-clip-text text-transparent">
                   NutriFit
                 </h1>
-                <p className="text-xs text-gray-500 -mt-1">Nutrition & Fitness</p>
+                <p className="text-xs text-gray-500 -mt-1 hidden sm:block">Nutrition & Fitness</p>
               </div>
             </Link>
           </div>
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center space-x-8">
-            {[
+            {// ... keep existing code (navigation items) the same
+            [
               { to: "/forfaits", label: "Forfaits" },
               { to: "/menu", label: "Menu" },
               { label: "Recommandations" },
@@ -100,8 +101,17 @@ const Header = () => {
             </div>
           </div>
 
-          {/* Mobile menu button */}
-          <div className="lg:hidden">
+          {/* Mobile Actions & Menu Button */}
+          <div className="flex items-center space-x-2 lg:hidden">
+            {/* Mobile cart button */}
+            <button className="relative p-2 text-gray-600 hover:text-emerald-600 hover:bg-emerald-50 rounded-xl transition-colors">
+              <ShoppingCart className="w-5 h-5" />
+              <Badge className="absolute -top-1 -right-1 w-4 h-4 p-0 flex items-center justify-center bg-gradient-to-r from-emerald-500 to-blue-500 text-white text-xs">
+                0
+              </Badge>
+            </button>
+            
+            {/* Mobile menu button */}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="p-2 text-gray-700 hover:text-emerald-600 hover:bg-emerald-50 rounded-xl transition-colors"
@@ -113,25 +123,25 @@ const Header = () => {
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className="lg:hidden py-6 border-t border-gray-100 bg-white/95 backdrop-blur-xl rounded-b-2xl shadow-xl">
-            <nav className="flex flex-col space-y-4">
-              <Link to="/forfaits" className="text-gray-700 hover:text-emerald-600 transition-colors font-medium px-4 py-3 rounded-xl hover:bg-emerald-50">
+          <div className="lg:hidden py-4 sm:py-6 border-t border-gray-100 bg-white/95 backdrop-blur-xl rounded-b-2xl shadow-xl">
+            <nav className="flex flex-col space-y-2 sm:space-y-4">
+              <Link to="/forfaits" className="text-gray-700 hover:text-emerald-600 transition-colors font-medium px-4 py-3 rounded-xl hover:bg-emerald-50/50">
                 Forfaits
               </Link>
-              <Link to="/menu" className="text-gray-700 hover:text-emerald-600 transition-colors font-medium px-4 py-3 rounded-xl hover:bg-emerald-50">
+              <Link to="/menu" className="text-gray-700 hover:text-emerald-600 transition-colors font-medium px-4 py-3 rounded-xl hover:bg-emerald-50/50">
                 Menu
               </Link>
-              <a href="#" className="text-gray-700 hover:text-emerald-600 transition-colors font-medium px-4 py-3 rounded-xl hover:bg-emerald-50">
+              <a href="#" className="text-gray-700 hover:text-emerald-600 transition-colors font-medium px-4 py-3 rounded-xl hover:bg-emerald-50/50">
                 Recommandations
               </a>
-              <a href="#" className="text-gray-700 hover:text-emerald-600 transition-colors font-medium px-4 py-3 rounded-xl hover:bg-emerald-50">
+              <a href="#" className="text-gray-700 hover:text-emerald-600 transition-colors font-medium px-4 py-3 rounded-xl hover:bg-emerald-50/50">
                 Cartes-Cadeaux
               </a>
-              <a href="#" className="text-gray-700 hover:text-emerald-600 transition-colors font-medium px-4 py-3 rounded-xl hover:bg-emerald-50">
+              <a href="#" className="text-gray-700 hover:text-emerald-600 transition-colors font-medium px-4 py-3 rounded-xl hover:bg-emerald-50/50">
                 FAQ
               </a>
               
-              <div className="flex flex-col space-y-3 pt-6 border-t border-gray-100">
+              <div className="flex flex-col space-y-3 pt-4 sm:pt-6 border-t border-gray-100">
                 <Button 
                   variant="outline" 
                   className="border-2 border-emerald-500 text-emerald-600 hover:bg-emerald-500 hover:text-white font-semibold rounded-xl transition-all duration-300"

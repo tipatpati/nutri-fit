@@ -51,52 +51,52 @@ const MealCategories = () => {
   ];
 
   return (
-    <section className="py-24 bg-gradient-to-b from-white via-gray-50/50 to-white">
+    <section className="py-12 sm:py-16 lg:py-24 bg-gradient-to-b from-white via-gray-50/50 to-white">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center px-4 py-2 bg-emerald-100 text-emerald-700 rounded-full font-medium text-sm mb-6">
+        <div className="text-center mb-12 lg:mb-16">
+          <div className="inline-flex items-center px-3 sm:px-4 py-2 bg-emerald-100 text-emerald-700 rounded-full font-medium text-xs sm:text-sm mb-4 lg:mb-6">
             <span className="w-2 h-2 bg-emerald-500 rounded-full mr-2"></span>
             Comment ça fonctionne
           </div>
-          <h2 className="text-4xl lg:text-5xl font-bold mb-6 bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold mb-4 lg:mb-6 bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
             Votre parcours nutrition personnalisé
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-base sm:text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed px-2">
             Explorez nos programmes de repas santé conçus par des nutritionnistes pour répondre précisément à vos objectifs de remise en forme
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-3 gap-8">
+        <div className="grid lg:grid-cols-3 gap-6 lg:gap-8">
           {categories.map((category, index) => (
             <Card key={category.id} className={`group overflow-hidden hover:shadow-2xl transition-all duration-500 border-2 ${category.borderColor} hover:scale-[1.02] bg-gradient-to-br ${category.bgGradient}`}>
               <CardContent className="p-0">
-                <div className={`h-40 bg-gradient-to-br ${category.gradient} flex items-center justify-center text-white text-center relative overflow-hidden`}>
+                <div className={`h-32 sm:h-40 bg-gradient-to-br ${category.gradient} flex items-center justify-center text-white text-center relative overflow-hidden`}>
                   <div className="absolute inset-0 bg-black/10"></div>
                   <div className="relative z-10">
-                    <div className="text-6xl font-bold opacity-20 absolute -top-4 -right-4">
+                    <div className="text-4xl sm:text-6xl font-bold opacity-20 absolute -top-2 sm:-top-4 -right-2 sm:-right-4">
                       {category.step}
                     </div>
-                    <div className="text-3xl font-bold mb-2">{category.step}</div>
-                    <h4 className="text-2xl font-bold">{category.name}</h4>
+                    <div className="text-2xl sm:text-3xl font-bold mb-1 sm:mb-2">{category.step}</div>
+                    <h4 className="text-lg sm:text-2xl font-bold">{category.name}</h4>
                   </div>
                 </div>
                 
-                <div className="p-8 space-y-6">
-                  <p className="text-gray-700 leading-relaxed">{category.description}</p>
+                <div className="p-4 sm:p-6 lg:p-8 space-y-4 sm:space-y-6">
+                  <p className="text-sm sm:text-base text-gray-700 leading-relaxed">{category.description}</p>
                   
-                  <div className="space-y-4">
+                  <div className="space-y-3 sm:space-y-4">
                     {category.meals.map((meal, idx) => (
-                      <div key={idx} className="group/meal border-2 border-gray-100 rounded-xl p-4 hover:border-gray-200 hover:shadow-md transition-all duration-300 bg-white/80 backdrop-blur">
+                      <div key={idx} className="group/meal border-2 border-gray-100 rounded-xl p-3 sm:p-4 hover:border-gray-200 hover:shadow-md transition-all duration-300 bg-white/80 backdrop-blur">
                         <div className="flex items-start justify-between mb-2">
-                          <h5 className="font-semibold text-gray-900 group-hover/meal:text-gray-700 transition-colors">{meal.name}</h5>
+                          <h5 className="font-semibold text-gray-900 group-hover/meal:text-gray-700 transition-colors text-sm sm:text-base">{meal.name}</h5>
                           <div className="flex items-center space-x-1">
                             <Star className="w-3 h-3 fill-yellow-400 text-yellow-400" />
                             <span className="text-xs font-medium text-gray-600">{meal.rating}</span>
                           </div>
                         </div>
-                        <div className="flex justify-between text-sm">
-                          <span className="px-3 py-1 bg-gray-100 rounded-full text-gray-600 font-medium">{meal.calories}</span>
-                          <span className="px-3 py-1 bg-blue-50 text-blue-700 rounded-full font-medium">{meal.protein}</span>
+                        <div className="flex justify-between text-xs sm:text-sm gap-2">
+                          <span className="px-2 sm:px-3 py-1 bg-gray-100 rounded-full text-gray-600 font-medium">{meal.calories}</span>
+                          <span className="px-2 sm:px-3 py-1 bg-blue-50 text-blue-700 rounded-full font-medium">{meal.protein}</span>
                         </div>
                       </div>
                     ))}
@@ -104,7 +104,7 @@ const MealCategories = () => {
                   
                   <Link to="/menu">
                     <Button 
-                      className={`w-full mt-6 bg-gradient-to-r ${category.gradient} hover:shadow-lg hover:shadow-current/25 text-white font-semibold py-3 rounded-xl transition-all duration-300 group-hover:scale-[1.02]`}
+                      className={`w-full mt-4 sm:mt-6 bg-gradient-to-r ${category.gradient} hover:shadow-lg hover:shadow-current/25 text-white font-semibold py-3 rounded-xl transition-all duration-300 group-hover:scale-[1.02] text-sm sm:text-base`}
                     >
                       Découvrir le programme
                       <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -117,14 +117,14 @@ const MealCategories = () => {
         </div>
 
         {/* CTA Section */}
-        <div className="text-center mt-16">
-          <div className="bg-gradient-to-r from-emerald-500 to-blue-500 rounded-3xl p-8 text-white shadow-2xl max-w-4xl mx-auto">
-            <h3 className="text-2xl font-bold mb-4">Prêt à transformer votre alimentation ?</h3>
-            <p className="text-emerald-100 mb-6 text-lg">Rejoignez plus de 10 000 clients satisfaits</p>
+        <div className="text-center mt-12 lg:mt-16">
+          <div className="bg-gradient-to-r from-emerald-500 to-blue-500 rounded-2xl lg:rounded-3xl p-6 lg:p-8 text-white shadow-2xl max-w-4xl mx-auto">
+            <h3 className="text-xl lg:text-2xl font-bold mb-3 lg:mb-4">Prêt à transformer votre alimentation ?</h3>
+            <p className="text-emerald-100 mb-4 lg:mb-6 text-base lg:text-lg">Rejoignez plus de 10 000 clients satisfaits</p>
             <Link to="/menu">
-              <Button size="lg" className="bg-white text-emerald-600 hover:bg-gray-50 font-bold px-8 py-3 rounded-xl shadow-lg">
+              <Button size="lg" className="bg-white text-emerald-600 hover:bg-gray-50 font-bold px-6 lg:px-8 py-3 rounded-xl shadow-lg text-sm sm:text-base">
                 Commencer mon parcours
-                <ArrowRight className="ml-2 w-5 h-5" />
+                <ArrowRight className="ml-2 w-4 h-4 lg:w-5 lg:h-5" />
               </Button>
             </Link>
           </div>
