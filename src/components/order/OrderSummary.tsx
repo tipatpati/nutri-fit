@@ -1,7 +1,9 @@
 
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { ArrowLeft, Calendar, ShoppingBag, CreditCard } from "lucide-react";
+import AddressForm, { AddressFormData } from "./AddressForm";
 
 interface SelectedMeal {
   id: number;
@@ -20,6 +22,9 @@ interface OrderSummaryProps {
 }
 
 const OrderSummary = ({ selectedMeals, onBack, onConfirm }: OrderSummaryProps) => {
+  const [showAddressForm, setShowAddressForm] = useState(false);
+  const [deliveryAddress, setDeliveryAddress] = useState<AddressFormData | null>(null);
+
   // Group meals by date
   const mealsByDate = selectedMeals.reduce((acc, meal) => {
     if (!acc[meal.date]) {
@@ -44,6 +49,45 @@ const OrderSummary = ({ selectedMeals, onBack, onConfirm }: OrderSummaryProps) =
       day: 'numeric' 
     });
   };
+
+  const handleAddressSubmit = (addressData: AddressFormData) => {
+    setDeliveryAddress(addressData);
+    setShowAddressForm(false);
+  };
+
+  const handleFinalConfirm = () => {
+    console.log('Order confirmed with address:', deliveryAddress);
+    onConfirm();
+  };
+
+  if (showAddressForm) {
+    return (
+      <div className="max-w-2xl mx-auto space-y-6">
+        <div className="text-center">
+          <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold mb-2 sm:mb-4 text-slate-800">
+            Adresse de livraison
+          </h2>
+          <p className="text-sm sm:text-base text-gray-600">
+            Veuillez renseigner votre adresse de livraison
+          </p>
+        </div>
+
+        <AddressForm
+          onSubmit={handleAddressSubmit}
+          defaultValues={deliveryAddress || undefined}
+        />
+
+        <Button
+          variant="outline"
+          onClick={() => setShowAddressForm(false)}
+          className="w-full border-2 border-gray-300 text-gray-700 hover:bg-gray-50 py-3 rounded-xl font-semibold"
+        >
+          <ArrowLeft className="w-4 h-4 mr-2" />
+          Retour au résumé
+        </Button>
+      </div>
+    );
+  }
 
   return (
     <div className="max-w-4xl mx-auto space-y-6 sm:space-y-8">
@@ -104,6 +148,37 @@ const OrderSummary = ({ selectedMeals, onBack, onConfirm }: OrderSummaryProps) =
               </CardContent>
             </Card>
           ))}
+
+          {/* Delivery Address Section */}
+          {deliveryAddress && (
+            <Card className="overflow-hidden shadow-lg bg-white/90 backdrop-blur-sm border-0">
+              <CardContent className="p-4 sm:p-6">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-base sm:text-lg font-semibold text-slate-800">
+                    Adresse de livraison
+                  </h3>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setShowAddressForm(true)}
+                    className="text-emerald-600 border-emerald-300 hover:bg-emerald-50"
+                  >
+                    Modifier
+                  </Button>
+                </div>
+                <div className="text-sm sm:text-base text-gray-700 space-y-1">
+                  <p>{deliveryAddress.street}</p>
+                  <p>{deliveryAddress.postalCode} {deliveryAddress.city}</p>
+                  <p>{deliveryAddress.country}</p>
+                  {deliveryAddress.instructions && (
+                    <p className="mt-2 text-gray-600 italic">
+                      Instructions: {deliveryAddress.instructions}
+                    </p>
+                  )}
+                </div>
+              </CardContent>
+            </Card>
+          )}
         </div>
 
         {/* Order Summary */}
@@ -140,13 +215,23 @@ const OrderSummary = ({ selectedMeals, onBack, onConfirm }: OrderSummaryProps) =
               </div>
 
               <div className="space-y-3 sm:space-y-4">
-                <Button
-                  onClick={onConfirm}
-                  className="w-full bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 text-white py-3 sm:py-4 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
-                >
-                  <CreditCard className="w-4 h-4 mr-2" />
-                  Confirmer la commande
-                </Button>
+                {!deliveryAddress ? (
+                  <Button
+                    onClick={() => setShowAddressForm(true)}
+                    className="w-full bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 text-white py-3 sm:py-4 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
+                  >
+                    <CreditCard className="w-4 h-4 mr-2" />
+                    Ajouter une adresse
+                  </Button>
+                ) : (
+                  <Button
+                    onClick={handleFinalConfirm}
+                    className="w-full bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 text-white py-3 sm:py-4 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
+                  >
+                    <CreditCard className="w-4 h-4 mr-2" />
+                    Confirmer la commande
+                  </Button>
+                )}
                 
                 <Button
                   variant="outline"
