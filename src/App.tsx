@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import Menu from "./pages/Menu";
 import Forfaits from "./pages/Forfaits";
+import Order from "./pages/Order";
 import AdminLogin from "./pages/AdminLogin";
 import OwnerDashboard from "./pages/OwnerDashboard";
 import CookDashboard from "./pages/CookDashboard";
@@ -25,6 +26,7 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/menu" element={<Menu />} />
           <Route path="/forfaits" element={<Forfaits />} />
+          <Route path="/order" element={<Order />} />
           <Route path="/admin" element={<AdminLogin />} />
           <Route path="/admin/owner" element={<OwnerDashboard />} />
           <Route path="/admin/cook" element={<CookDashboard />} />
