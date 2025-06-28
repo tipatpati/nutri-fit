@@ -1,8 +1,15 @@
 
 import { Button } from "./ui/button";
 import { ArrowRight, Clock, Truck, Heart } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const Hero = () => {
+  const navigate = useNavigate();
+
+  const handleOrderClick = () => {
+    navigate("/order");
+  };
+
   return (
     <section className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 overflow-hidden">
       {/* Modern gradient overlay */}
@@ -61,7 +68,11 @@ const Hero = () => {
                 </button>
               </div>
               
-              <Button size="lg" className="w-full bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white text-lg font-semibold py-4 rounded-2xl shadow-lg shadow-emerald-500/25 transition-all duration-300 transform hover:scale-[1.02]">
+              <Button 
+                onClick={handleOrderClick}
+                size="lg" 
+                className="w-full bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white text-lg font-semibold py-4 rounded-2xl shadow-lg shadow-emerald-500/25 transition-all duration-300 transform hover:scale-[1.02]"
+              >
                 Commander maintenant
                 <ArrowRight className="ml-2 w-5 h-5" />
               </Button>
