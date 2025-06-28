@@ -1,4 +1,3 @@
-
 import { Button } from "./ui/button";
 import { ArrowRight, Clock, Truck, Heart } from "lucide-react";
 import { useNavigate } from "react-router-dom";
@@ -16,7 +15,7 @@ const Hero = () => {
       <div 
         className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-20"
         style={{
-          backgroundImage: 'url(https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80)'
+          backgroundImage: 'url(/lovable-uploads/ff5ffe15-1c41-47b5-92cd-30cb2ecf8549.png)'
         }}
       ></div>
       
