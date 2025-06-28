@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ChefHat, ClipboardList, Calculator, Package, LogOut, Clock, CheckCircle2 } from "lucide-react";
@@ -84,9 +83,9 @@ const CookDashboard = () => {
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case "OK": return "text-green-600";
+      case "OK": return "text-emerald-600";
       case "Manque": return "text-red-600";
-      default: return "text-gray-600";
+      default: return "text-slate-600";
     }
   };
 
@@ -266,15 +265,15 @@ const CookDashboard = () => {
 
   return (
     <SidebarProvider>
-      <div className="min-h-screen flex w-full">
-        <Sidebar className="border-r border-gray-200 hidden lg:block">
-          <SidebarHeader className="border-b border-gray-200 p-3 md:p-4">
-            <h2 className="text-lg md:text-xl font-bold text-[#113B39]">NutiFit Kitchen</h2>
-            <p className="text-xs md:text-sm text-gray-600">Cuisinier</p>
+      <div className="min-h-screen flex w-full bg-gradient-to-br from-slate-50 via-white to-orange-50/30">
+        <Sidebar className="border-r border-orange-100/50 bg-white/90 backdrop-blur-sm hidden lg:block">
+          <SidebarHeader className="border-b border-orange-100/50 p-4 md:p-6 bg-gradient-to-r from-orange-50/80 to-orange-100/40">
+            <h2 className="text-xl md:text-2xl font-bold bg-gradient-to-r from-orange-600 to-orange-700 bg-clip-text text-transparent">NutiFit Kitchen</h2>
+            <p className="text-sm md:text-base text-slate-600 font-medium">Cuisinier</p>
           </SidebarHeader>
-          <SidebarContent>
+          <SidebarContent className="bg-gradient-to-b from-white/95 to-orange-50/50">
             <SidebarGroup>
-              <SidebarGroupLabel className="text-xs">Kitchen</SidebarGroupLabel>
+              <SidebarGroupLabel className="text-sm font-semibold text-orange-700">Kitchen</SidebarGroupLabel>
               <SidebarGroupContent>
                 <SidebarMenu>
                   {menuItems.map((item) => (
@@ -282,9 +281,9 @@ const CookDashboard = () => {
                       <SidebarMenuButton 
                         isActive={activeSection === item.id}
                         onClick={() => setActiveSection(item.id)}
-                        className="text-xs md:text-sm"
+                        className="text-sm md:text-base hover:bg-orange-50/80 transition-all duration-300 data-[active=true]:bg-gradient-to-r data-[active=true]:from-orange-100 data-[active=true]:to-orange-50 data-[active=true]:text-orange-800 data-[active=true]:font-semibold rounded-xl"
                       >
-                        <item.icon className="w-4 h-4 md:w-5 md:h-5" />
+                        <item.icon className="w-5 h-5 md:w-6 md:h-6" />
                         <span>{item.title}</span>
                       </SidebarMenuButton>
                     </SidebarMenuItem>
@@ -293,21 +292,21 @@ const CookDashboard = () => {
               </SidebarGroupContent>
             </SidebarGroup>
           </SidebarContent>
-          <SidebarFooter className="border-t border-gray-200 p-3 md:p-4">
-            <Button variant="outline" className="w-full justify-start text-xs md:text-sm" onClick={handleLogout}>
-              <LogOut className="w-3 h-3 md:w-4 md:h-4 mr-1 md:mr-2" />
+          <SidebarFooter className="border-t border-orange-100/50 p-4 md:p-6 bg-gradient-to-r from-orange-50/80 to-orange-100/40">
+            <Button variant="outline" className="w-full justify-start text-sm md:text-base border-orange-200 hover:bg-orange-50 hover:border-orange-300 transition-all duration-300 rounded-xl" onClick={handleLogout}>
+              <LogOut className="w-4 h-4 md:w-5 md:h-5 mr-2 md:mr-3" />
               Se déconnecter
             </Button>
           </SidebarFooter>
         </Sidebar>
         
         <SidebarInset className="flex-1 min-w-0">
-          <header className="flex h-12 md:h-14 lg:h-16 shrink-0 items-center gap-2 border-b px-3 md:px-4 lg:px-6">
-            <SidebarTrigger className="-ml-1" />
-            <h1 className="text-sm md:text-lg lg:text-xl font-semibold text-[#113B39] truncate">Dashboard Cuisine</h1>
+          <header className="flex h-16 md:h-20 shrink-0 items-center gap-3 border-b border-orange-100/50 px-4 md:px-8 bg-white/90 backdrop-blur-sm shadow-sm">
+            <SidebarTrigger className="-ml-1 text-orange-700 hover:bg-orange-50 rounded-lg" />
+            <h1 className="text-lg md:text-2xl font-bold bg-gradient-to-r from-slate-800 to-orange-800 bg-clip-text text-transparent truncate">Dashboard Cuisine</h1>
           </header>
           
-          <main className="flex-1 p-3 md:p-4 lg:p-6 min-w-0">
+          <main className="flex-1 p-4 md:p-8 min-w-0 bg-gradient-to-br from-slate-50/50 via-white/30 to-orange-50/50">
             {renderContent()}
           </main>
         </SidebarInset>
