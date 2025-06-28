@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ChefHat, ClipboardList, Calculator, Package, LogOut, Clock, CheckCircle2 } from "lucide-react";
@@ -20,11 +21,13 @@ import {
   SidebarFooter,
 } from "@/components/ui/sidebar";
 import { useToast } from "@/hooks/use-toast";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const CookDashboard = () => {
   const [activeSection, setActiveSection] = useState("orders");
   const navigate = useNavigate();
   const { toast } = useToast();
+  const isMobile = useIsMobile();
 
   const menuItems = [
     { title: "Commandes", icon: ClipboardList, id: "orders" },
@@ -265,15 +268,15 @@ const CookDashboard = () => {
 
   return (
     <SidebarProvider>
-      <div className="min-h-screen flex w-full bg-gradient-to-br from-slate-50 via-white to-orange-50/30">
-        <Sidebar className="border-r border-orange-100/50 bg-white/90 backdrop-blur-sm hidden lg:block">
-          <SidebarHeader className="border-b border-orange-100/50 p-4 md:p-6 bg-gradient-to-r from-orange-50/80 to-orange-100/40">
-            <h2 className="text-xl md:text-2xl font-bold bg-gradient-to-r from-orange-600 to-orange-700 bg-clip-text text-transparent">NutiFit Kitchen</h2>
-            <p className="text-sm md:text-base text-slate-600 font-medium">Cuisinier</p>
+      <div className="min-h-screen flex w-full bg-gradient-to-br from-slate-50 via-white to-orange-50/30 overflow-x-hidden">
+        <Sidebar className={`border-r border-orange-100/50 bg-white/90 backdrop-blur-sm ${isMobile ? 'hidden' : 'block'}`}>
+          <SidebarHeader className="border-b border-orange-100/50 p-3 sm:p-4 md:p-6 bg-gradient-to-r from-orange-50/80 to-orange-100/40">
+            <h2 className="text-lg sm:text-xl md:text-2xl font-bold bg-gradient-to-r from-orange-600 to-orange-700 bg-clip-text text-transparent">NutiFit Kitchen</h2>
+            <p className="text-xs sm:text-sm md:text-base text-slate-600 font-medium">Cuisinier</p>
           </SidebarHeader>
           <SidebarContent className="bg-gradient-to-b from-white/95 to-orange-50/50">
             <SidebarGroup>
-              <SidebarGroupLabel className="text-sm font-semibold text-orange-700">Kitchen</SidebarGroupLabel>
+              <SidebarGroupLabel className="text-xs sm:text-sm font-semibold text-orange-700">Kitchen</SidebarGroupLabel>
               <SidebarGroupContent>
                 <SidebarMenu>
                   {menuItems.map((item) => (
@@ -281,10 +284,10 @@ const CookDashboard = () => {
                       <SidebarMenuButton 
                         isActive={activeSection === item.id}
                         onClick={() => setActiveSection(item.id)}
-                        className="text-sm md:text-base hover:bg-orange-50/80 transition-all duration-300 data-[active=true]:bg-gradient-to-r data-[active=true]:from-orange-100 data-[active=true]:to-orange-50 data-[active=true]:text-orange-800 data-[active=true]:font-semibold rounded-xl"
+                        className="text-xs sm:text-sm md:text-base hover:bg-orange-50/80 transition-all duration-300 data-[active=true]:bg-gradient-to-r data-[active=true]:from-orange-100 data-[active=true]:to-orange-50 data-[active=true]:text-orange-800 data-[active=true]:font-semibold rounded-xl"
                       >
-                        <item.icon className="w-5 h-5 md:w-6 md:h-6" />
-                        <span>{item.title}</span>
+                        <item.icon className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 flex-shrink-0" />
+                        <span className="truncate">{item.title}</span>
                       </SidebarMenuButton>
                     </SidebarMenuItem>
                   ))}
@@ -292,21 +295,21 @@ const CookDashboard = () => {
               </SidebarGroupContent>
             </SidebarGroup>
           </SidebarContent>
-          <SidebarFooter className="border-t border-orange-100/50 p-4 md:p-6 bg-gradient-to-r from-orange-50/80 to-orange-100/40">
-            <Button variant="outline" className="w-full justify-start text-sm md:text-base border-orange-200 hover:bg-orange-50 hover:border-orange-300 transition-all duration-300 rounded-xl" onClick={handleLogout}>
-              <LogOut className="w-4 h-4 md:w-5 md:h-5 mr-2 md:mr-3" />
-              Se déconnecter
+          <SidebarFooter className="border-t border-orange-100/50 p-3 sm:p-4 md:p-6 bg-gradient-to-r from-orange-50/80 to-orange-100/40">
+            <Button variant="outline" className="w-full justify-start text-xs sm:text-sm md:text-base border-orange-200 hover:bg-orange-50 hover:border-orange-300 transition-all duration-300 rounded-xl" onClick={handleLogout}>
+              <LogOut className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 mr-2 flex-shrink-0" />
+              <span className="truncate">Se déconnecter</span>
             </Button>
           </SidebarFooter>
         </Sidebar>
         
         <SidebarInset className="flex-1 min-w-0">
-          <header className="flex h-16 md:h-20 shrink-0 items-center gap-3 border-b border-orange-100/50 px-4 md:px-8 bg-white/90 backdrop-blur-sm shadow-sm">
-            <SidebarTrigger className="-ml-1 text-orange-700 hover:bg-orange-50 rounded-lg" />
-            <h1 className="text-lg md:text-2xl font-bold bg-gradient-to-r from-slate-800 to-orange-800 bg-clip-text text-transparent truncate">Dashboard Cuisine</h1>
+          <header className="flex h-14 sm:h-16 md:h-20 shrink-0 items-center gap-2 sm:gap-3 border-b border-orange-100/50 px-2 sm:px-4 md:px-8 bg-white/90 backdrop-blur-sm shadow-sm">
+            <SidebarTrigger className="-ml-1 text-orange-700 hover:bg-orange-50 rounded-lg p-1 sm:p-2" />
+            <h1 className="text-sm sm:text-lg md:text-2xl font-bold bg-gradient-to-r from-slate-800 to-orange-800 bg-clip-text text-transparent truncate">Dashboard Cuisine</h1>
           </header>
           
-          <main className="flex-1 p-4 md:p-8 min-w-0 bg-gradient-to-br from-slate-50/50 via-white/30 to-orange-50/50">
+          <main className="flex-1 p-2 sm:p-4 md:p-8 min-w-0 bg-gradient-to-br from-slate-50/50 via-white/30 to-orange-50/50 overflow-x-hidden">
             {renderContent()}
           </main>
         </SidebarInset>

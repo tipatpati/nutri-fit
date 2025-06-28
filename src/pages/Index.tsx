@@ -8,13 +8,15 @@ import Footer from "@/components/Footer";
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white overflow-x-hidden">
       <Header />
       <main className="w-full">
         <Hero />
-        <MealCategories />
-        <WeeklyPlanner />
-        <Features />
+        <div className="px-2 sm:px-4">
+          <MealCategories />
+          <WeeklyPlanner />
+          <Features />
+        </div>
       </main>
       <Footer />
     </div>

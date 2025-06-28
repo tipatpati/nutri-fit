@@ -128,17 +128,17 @@ const Menu = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-emerald-50/30">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-emerald-50/30 overflow-x-hidden">
       <Header />
       
-      <main className="container mx-auto px-4 py-8 lg:py-12">
+      <main className="container mx-auto px-2 sm:px-4 py-4 sm:py-8 lg:py-12 max-w-full">
         <MenuHeader selectedWeek={selectedWeek} setSelectedWeek={setSelectedWeek} />
         
         <MealGrid meals={meals} getCategoryColor={getCategoryColor} />
 
         {/* Load More Button */}
-        <div className="text-center mb-16 lg:mb-20">
-          <Button className="bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 text-white px-8 lg:px-12 py-4 lg:py-5 text-base lg:text-lg rounded-xl font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300">
+        <div className="text-center mb-8 sm:mb-16 lg:mb-20 px-2">
+          <Button className="bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 text-white px-6 sm:px-8 lg:px-12 py-3 sm:py-4 lg:py-5 text-sm sm:text-base lg:text-lg rounded-xl font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300 w-full sm:w-auto">
             Commander
           </Button>
         </div>
