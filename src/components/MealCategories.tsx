@@ -2,6 +2,7 @@
 import { Button } from "./ui/button";
 import { Card, CardContent } from "./ui/card";
 import { ArrowRight, Star } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const MealCategories = () => {
   const categories = [
@@ -101,12 +102,14 @@ const MealCategories = () => {
                     ))}
                   </div>
                   
-                  <Button 
-                    className={`w-full mt-6 bg-gradient-to-r ${category.gradient} hover:shadow-lg hover:shadow-current/25 text-white font-semibold py-3 rounded-xl transition-all duration-300 group-hover:scale-[1.02]`}
-                  >
-                    Découvrir le programme
-                    <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                  </Button>
+                  <Link to="/menu">
+                    <Button 
+                      className={`w-full mt-6 bg-gradient-to-r ${category.gradient} hover:shadow-lg hover:shadow-current/25 text-white font-semibold py-3 rounded-xl transition-all duration-300 group-hover:scale-[1.02]`}
+                    >
+                      Découvrir le programme
+                      <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                    </Button>
+                  </Link>
                 </div>
               </CardContent>
             </Card>
@@ -118,10 +121,12 @@ const MealCategories = () => {
           <div className="bg-gradient-to-r from-emerald-500 to-blue-500 rounded-3xl p-8 text-white shadow-2xl max-w-4xl mx-auto">
             <h3 className="text-2xl font-bold mb-4">Prêt à transformer votre alimentation ?</h3>
             <p className="text-emerald-100 mb-6 text-lg">Rejoignez plus de 10 000 clients satisfaits</p>
-            <Button size="lg" className="bg-white text-emerald-600 hover:bg-gray-50 font-bold px-8 py-3 rounded-xl shadow-lg">
-              Commencer mon parcours
-              <ArrowRight className="ml-2 w-5 h-5" />
-            </Button>
+            <Link to="/menu">
+              <Button size="lg" className="bg-white text-emerald-600 hover:bg-gray-50 font-bold px-8 py-3 rounded-xl shadow-lg">
+                Commencer mon parcours
+                <ArrowRight className="ml-2 w-5 h-5" />
+              </Button>
+            </Link>
           </div>
         </div>
       </div>
