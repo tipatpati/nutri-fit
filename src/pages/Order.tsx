@@ -5,6 +5,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import GoalSelection from "@/components/order/GoalSelection";
 import OrderCalendar from "@/components/order/OrderCalendar";
 import MealSelection from "@/components/order/MealSelection";
 import OrderSummary from "@/components/order/OrderSummary";
@@ -20,9 +21,10 @@ interface SelectedMeal {
 }
 
 const Order = () => {
+  const [selectedGoal, setSelectedGoal] = useState<string | null>(null);
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined);
   const [selectedMeals, setSelectedMeals] = useState<SelectedMeal[]>([]);
-  const [currentStep, setCurrentStep] = useState<'date' | 'meals' | 'summary'>('date');
+  const [currentStep, setCurrentStep] = useState<'goal' | 'date' | 'meals' | 'summary'>('goal');
 
   // Mock kitchen capacity data - this would come from backend
   const kitchenCapacity = {
@@ -44,6 +46,14 @@ const Order = () => {
     const dateStr = date.toISOString().split('T')[0];
     const currentOrders = kitchenCapacity.currentOrders[dateStr] || 0;
     return kitchenCapacity.maxMealsPerDay - currentOrders;
+  };
+
+  const handleGoalSelect = (goal: string) => {
+    setSelectedGoal(goal);
+  };
+
+  const handleGoalProceed = () => {
+    setCurrentStep('date');
   };
 
   const handleDateSelect = (date: Date | undefined) => {
@@ -98,6 +108,11 @@ const Order = () => {
     setSelectedDate(undefined);
   };
 
+  const handleBackToGoal = () => {
+    setCurrentStep('goal');
+    setSelectedGoal(null);
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-emerald-50/30 overflow-x-hidden">
       <Header />
@@ -109,33 +124,37 @@ const Order = () => {
             Planifier votre commande
           </h1>
           <p className="text-base sm:text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            Choisissez vos dates et sélectionnez vos repas préférés pour une expérience culinaire personnalisée
+            Choisissez votre objectif, vos dates et sélectionnez vos repas préférés pour une expérience culinaire personnalisée
           </p>
         </div>
 
         {/* Step Indicator */}
         <div className="flex justify-center mb-8 sm:mb-12">
-          <div className="flex items-center space-x-4 sm:space-x-8">
+          <div className="flex items-center space-x-2 sm:space-x-4 lg:space-x-8">
             {[
-              { step: 'date', label: 'Date', number: 1 },
-              { step: 'meals', label: 'Repas', number: 2 },
-              { step: 'summary', label: 'Résumé', number: 3 }
-            ].map((item) => (
+              { step: 'goal', label: 'Objectif', number: 1 },
+              { step: 'date', label: 'Date', number: 2 },
+              { step: 'meals', label: 'Repas', number: 3 },
+              { step: 'summary', label: 'Résumé', number: 4 }
+            ].map((item, index) => (
               <div key={item.step} className="flex items-center">
                 <div className={`w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center text-sm sm:text-base font-semibold transition-all duration-300 ${
                   currentStep === item.step
                     ? 'bg-gradient-to-r from-emerald-500 to-blue-500 text-white shadow-lg'
-                    : currentStep === 'meals' && item.step === 'date' || currentStep === 'summary' && (item.step === 'date' || item.step === 'meals')
+                    : getStepStatus(currentStep, item.step)
                     ? 'bg-emerald-100 text-emerald-700'
                     : 'bg-gray-200 text-gray-500'
                 }`}>
                   {item.number}
                 </div>
-                <span className={`ml-2 text-sm sm:text-base font-medium ${
+                <span className={`ml-2 text-xs sm:text-sm lg:text-base font-medium hidden sm:block ${
                   currentStep === item.step ? 'text-emerald-700' : 'text-gray-500'
                 }`}>
                   {item.label}
                 </span>
+                {index < 3 && (
+                  <div className="hidden lg:block w-8 h-0.5 bg-gray-200 ml-4"></div>
+                )}
               </div>
             ))}
           </div>
@@ -143,12 +162,21 @@ const Order = () => {
 
         {/* Content based on current step */}
         <div className="max-w-6xl mx-auto">
+          {currentStep === 'goal' && (
+            <GoalSelection
+              selectedGoal={selectedGoal}
+              onGoalSelect={handleGoalSelect}
+              onProceed={handleGoalProceed}
+            />
+          )}
+
           {currentStep === 'date' && (
             <OrderCalendar
               selectedDate={selectedDate}
               onDateSelect={handleDateSelect}
               isDateAvailable={isDateAvailable}
               getAvailableSlots={getAvailableSlots}
+              onBack={handleBackToGoal}
             />
           )}
 
@@ -177,6 +205,14 @@ const Order = () => {
       <Footer />
     </div>
   );
+};
+
+// Helper function to determine step status
+const getStepStatus = (currentStep: string, targetStep: string) => {
+  const steps = ['goal', 'date', 'meals', 'summary'];
+  const currentIndex = steps.indexOf(currentStep);
+  const targetIndex = steps.indexOf(targetStep);
+  return targetIndex < currentIndex;
 };
 
 export default Order;

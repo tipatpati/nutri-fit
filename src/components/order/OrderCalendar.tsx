@@ -1,112 +1,164 @@
 
 import { Calendar } from "@/components/ui/calendar";
 import { Card, CardContent } from "@/components/ui/card";
-import { CalendarIcon, Clock, Users } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { ArrowLeft, Calendar as CalendarIcon, AlertCircle } from "lucide-react";
+import { fr } from "date-fns/locale";
 
 interface OrderCalendarProps {
   selectedDate: Date | undefined;
   onDateSelect: (date: Date | undefined) => void;
   isDateAvailable: (date: Date) => boolean;
   getAvailableSlots: (date: Date) => number;
+  onBack?: () => void;
 }
 
-const OrderCalendar = ({ selectedDate, onDateSelect, isDateAvailable, getAvailableSlots }: OrderCalendarProps) => {
+const OrderCalendar = ({ 
+  selectedDate, 
+  onDateSelect, 
+  isDateAvailable, 
+  getAvailableSlots,
+  onBack
+}: OrderCalendarProps) => {
   const today = new Date();
   const maxDate = new Date();
-  maxDate.setDate(today.getDate() + 14); // 2 weeks ahead
+  maxDate.setDate(today.getDate() + 30);
 
-  const isDateDisabled = (date: Date) => {
+  const disabledDays = (date: Date) => {
     const isPast = date < today;
     const isTooFar = date > maxDate;
-    const isUnavailable = !isDateAvailable(date);
+    const isUnavailable = !isPast && !isTooFar && !isDateAvailable(date);
     return isPast || isTooFar || isUnavailable;
   };
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
-      {/* Calendar */}
-      <Card className="overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 bg-white/90 backdrop-blur-sm border-0">
-        <CardContent className="p-4 sm:p-6">
-          <div className="flex items-center mb-4 sm:mb-6">
-            <CalendarIcon className="w-5 h-5 sm:w-6 sm:h-6 text-emerald-600 mr-2 sm:mr-3" />
-            <h2 className="text-lg sm:text-xl font-semibold text-slate-800">
-              Choisissez votre date
-            </h2>
+    <div className="space-y-6 sm:space-y-8">
+      {/* Header */}
+      <div className="text-center">
+        <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold mb-2 sm:mb-4 text-slate-800">
+          Choisissez votre date de livraison
+        </h2>
+        <p className="text-sm sm:text-base text-gray-600">
+          Sélectionnez la date à laquelle vous souhaitez recevoir vos repas
+        </p>
+      </div>
+
+      {/* Calendar Card */}
+      <Card className="max-w-2xl mx-auto shadow-xl bg-white/90 backdrop-blur-sm border-0">
+        <CardContent className="p-4 sm:p-6 lg:p-8">
+          <div className="flex items-center justify-center mb-4 sm:mb-6">
+            <CalendarIcon className="w-5 h-5 text-emerald-600 mr-2" />
+            <h3 className="text-lg sm:text-xl font-semibold text-slate-800">
+              Calendrier des disponibilités
+            </h3>
           </div>
           
-          <Calendar
-            mode="single"
-            selected={selectedDate}
-            onSelect={onDateSelect}
-            disabled={isDateDisabled}
-            className="rounded-lg pointer-events-auto"
-          />
-          
-          <div className="mt-4 sm:mt-6 space-y-2 sm:space-y-3">
-            <div className="flex items-center text-xs sm:text-sm text-gray-600">
-              <div className="w-3 h-3 bg-emerald-500 rounded-full mr-2"></div>
-              Disponible
-            </div>
-            <div className="flex items-center text-xs sm:text-sm text-gray-600">
-              <div className="w-3 h-3 bg-red-500 rounded-full mr-2"></div>
-              Complet
-            </div>
-            <div className="flex items-center text-xs sm:text-sm text-gray-600">
-              <div className="w-3 h-3 bg-gray-300 rounded-full mr-2"></div>
-              Indisponible
+          <div className="flex justify-center">
+            <Calendar
+              mode="single"
+              selected={selectedDate}
+              onSelect={onDateSelect}
+              locale={fr}
+              disabled={disabledDays}
+              className="rounded-xl border-0"
+              classNames={{
+                months: "flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0",
+                month: "space-y-4",
+                caption: "flex justify-center pt-1 relative items-center text-base sm:text-lg font-semibold",
+                caption_label: "text-slate-800",
+                nav: "space-x-1 flex items-center",
+                nav_button: "h-7 w-7 bg-transparent p-0 text-slate-600 hover:bg-emerald-50 hover:text-emerald-600 rounded-lg transition-colors",
+                nav_button_previous: "absolute left-1",
+                nav_button_next: "absolute right-1",
+                table: "w-full border-collapse space-y-1",
+                head_row: "flex",
+                head_cell: "text-slate-600 rounded-md w-8 sm:w-10 font-normal text-xs sm:text-sm",
+                row: "flex w-full mt-2",
+                cell: "relative p-0 text-center text-sm focus-within:relative focus-within:z-20 [&:has([aria-selected])]:bg-emerald-50 [&:has([aria-selected].day-outside)]:bg-emerald-50/50 [&:has([aria-selected].day-range-end)]:rounded-r-md",
+                day: "h-8 w-8 sm:h-10 sm:w-10 p-0 font-normal aria-selected:opacity-100 hover:bg-emerald-50 hover:text-emerald-600 rounded-lg transition-colors text-xs sm:text-sm",
+                day_range_end: "day-range-end",
+                day_selected: "bg-gradient-to-r from-emerald-500 to-blue-500 text-white hover:bg-gradient-to-r hover:from-emerald-600 hover:to-blue-600 hover:text-white focus:bg-gradient-to-r focus:from-emerald-500 focus:to-blue-500 focus:text-white shadow-lg",
+                day_today: "bg-emerald-100 text-emerald-700 font-semibold",
+                day_outside: "day-outside text-slate-400 opacity-50 aria-selected:bg-emerald-50 aria-selected:text-slate-400 aria-selected:opacity-30",
+                day_disabled: "text-slate-300 opacity-50 cursor-not-allowed",
+                day_range_middle: "aria-selected:bg-emerald-50 aria-selected:text-emerald-700",
+                day_hidden: "invisible",
+              }}
+            />
+          </div>
+
+          {/* Legend */}
+          <div className="mt-6 sm:mt-8 space-y-2 sm:space-y-3 text-xs sm:text-sm">
+            <div className="flex items-center justify-center space-x-4 sm:space-x-6">
+              <div className="flex items-center">
+                <div className="w-3 h-3 sm:w-4 sm:h-4 bg-emerald-100 rounded mr-2"></div>
+                <span className="text-gray-600">Aujourd'hui</span>
+              </div>
+              <div className="flex items-center">
+                <div className="w-3 h-3 sm:w-4 sm:h-4 bg-gradient-to-r from-emerald-500 to-blue-500 rounded mr-2"></div>
+                <span className="text-gray-600">Sélectionné</span>
+              </div>
+              <div className="flex items-center">
+                <div className="w-3 h-3 sm:w-4 sm:h-4 bg-gray-200 rounded mr-2"></div>
+                <span className="text-gray-600">Indisponible</span>
+              </div>
             </div>
           </div>
-        </CardContent>
-      </Card>
 
-      {/* Information Panel */}
-      <Card className="overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 bg-white/90 backdrop-blur-sm border-0">
-        <CardContent className="p-4 sm:p-6">
-          <div className="flex items-center mb-4 sm:mb-6">
-            <Clock className="w-5 h-5 sm:w-6 sm:h-6 text-emerald-600 mr-2 sm:mr-3" />
-            <h2 className="text-lg sm:text-xl font-semibold text-slate-800">
-              Informations de livraison
-            </h2>
-          </div>
-
-          <div className="space-y-4 sm:space-y-6">
-            <div className="bg-gradient-to-r from-emerald-50 to-blue-50 p-3 sm:p-4 rounded-xl">
-              <h3 className="font-semibold text-emerald-800 mb-2 text-sm sm:text-base">
-                Créneaux disponibles
-              </h3>
-              <p className="text-xs sm:text-sm text-emerald-700 leading-relaxed">
-                Commandez jusqu'à 14 jours à l'avance. Les livraisons se font tous les jours de 11h à 19h.
-              </p>
-            </div>
-
-            {selectedDate && (
-              <div className="bg-gradient-to-r from-blue-50 to-purple-50 p-3 sm:p-4 rounded-xl">
-                <div className="flex items-center mb-2">
-                  <Users className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600 mr-2" />
-                  <h3 className="font-semibold text-blue-800 text-sm sm:text-base">
-                    Places disponibles
-                  </h3>
-                </div>
-                <p className="text-2xl sm:text-3xl font-bold text-blue-700">
-                  {getAvailableSlots(selectedDate)}
+          {/* Selected Date Info */}
+          {selectedDate && (
+            <div className="mt-6 sm:mt-8 p-4 sm:p-6 bg-gradient-to-r from-emerald-50 to-blue-50 rounded-xl">
+              <div className="text-center">
+                <h4 className="font-semibold text-slate-800 text-sm sm:text-base mb-2">
+                  Date sélectionnée
+                </h4>
+                <p className="text-emerald-700 font-medium text-sm sm:text-base">
+                  {selectedDate.toLocaleDateString('fr-FR', { 
+                    weekday: 'long', 
+                    year: 'numeric', 
+                    month: 'long', 
+                    day: 'numeric' 
+                  })}
                 </p>
-                <p className="text-xs sm:text-sm text-blue-600">
-                  repas disponibles pour le {selectedDate.toLocaleDateString('fr-FR')}
+                <p className="text-gray-600 text-xs sm:text-sm mt-1">
+                  {getAvailableSlots(selectedDate)} créneaux disponibles
                 </p>
               </div>
-            )}
+            </div>
+          )}
+        </CardContent>
+      </Card>
 
-            <div className="bg-gradient-to-r from-amber-50 to-orange-50 p-3 sm:p-4 rounded-xl">
-              <h3 className="font-semibold text-amber-800 mb-2 text-sm sm:text-base">
-                Note importante
-              </h3>
-              <p className="text-xs sm:text-sm text-amber-700 leading-relaxed">
-                Les commandes sont préparées fraîchement chaque jour selon la capacité de notre cuisine.
-              </p>
+      {/* Info Card */}
+      <Card className="max-w-2xl mx-auto bg-gradient-to-r from-blue-50 to-emerald-50 border-0">
+        <CardContent className="p-4 sm:p-6">
+          <div className="flex items-start space-x-3">
+            <AlertCircle className="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" />
+            <div className="text-sm sm:text-base text-blue-800">
+              <p className="font-medium mb-1">Informations importantes :</p>
+              <ul className="space-y-1 text-blue-700">
+                <li>• Livraison gratuite à partir de 30€</li>
+                <li>• Commande possible jusqu'à 30 jours à l'avance</li>
+                <li>• Créneaux limités par jour selon notre capacité de production</li>
+              </ul>
             </div>
           </div>
         </CardContent>
       </Card>
+
+      {/* Back Button */}
+      {onBack && (
+        <div className="flex justify-center pt-4 sm:pt-6">
+          <Button
+            variant="outline"
+            onClick={onBack}
+            className="border-2 border-gray-300 text-gray-700 hover:bg-gray-50 px-6 py-3 rounded-xl font-semibold"
+          >
+            <ArrowLeft className="w-4 h-4 mr-2" />
+            Retour à l'objectif
+          </Button>
+        </div>
+      )}
     </div>
   );
 };
