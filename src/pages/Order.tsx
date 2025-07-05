@@ -97,11 +97,24 @@ const Order = () => {
     if (!selectedDate) return;
 
     const dateStr = selectedDate.toISOString().split('T')[0];
+    const currentTotal = getTotalMealsForDate(selectedDate);
+    const packLimit = getPackMealLimit();
+    const maxLimit = packLimit || getAvailableSlots(selectedDate);
+    
     const existingMealIndex = selectedMeals.findIndex(
       m => m.id === meal.id && m.date === dateStr
     );
 
+    // If trying to add/increase quantity, check if it would exceed the limit
     if (existingMealIndex >= 0) {
+      const currentQuantity = selectedMeals[existingMealIndex].quantity;
+      const quantityDifference = quantity - currentQuantity;
+      
+      // Check if the new total would exceed the limit
+      if (currentTotal + quantityDifference > maxLimit && quantity > currentQuantity) {
+        return; // Don't allow if it would exceed the limit
+      }
+      
       const updated = [...selectedMeals];
       if (quantity === 0) {
         updated.splice(existingMealIndex, 1);
@@ -110,6 +123,11 @@ const Order = () => {
       }
       setSelectedMeals(updated);
     } else if (quantity > 0) {
+      // Check if adding this meal would exceed the limit
+      if (currentTotal + quantity > maxLimit) {
+        return; // Don't allow if it would exceed the limit
+      }
+      
       setSelectedMeals([...selectedMeals, {
         ...meal,
         date: dateStr,
