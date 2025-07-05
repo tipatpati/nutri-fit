@@ -12,9 +12,9 @@ import MealSelection from "@/components/order/MealSelection";
 import OrderSummary from "@/components/order/OrderSummary";
 
 interface SelectedMeal {
-  id: number;
+  id: string;
   name: string;
-  image: string;
+  image_url: string;
   category: string;
   premium: boolean;
   date: string;

@@ -20,6 +20,7 @@ import {
   SidebarFooter,
 } from "@/components/ui/sidebar";
 import { useToast } from "@/hooks/use-toast";
+import RecipeManager from "@/components/admin/RecipeManager";
 
 const OwnerDashboard = () => {
   const [activeSection, setActiveSection] = useState("analytics");
@@ -28,6 +29,7 @@ const OwnerDashboard = () => {
 
   const menuItems = [
     { title: "Analytics", icon: BarChart3, id: "analytics" },
+    { title: "Recipes", icon: Package, id: "recipes" },
     { title: "Inventory", icon: Package, id: "inventory" },
     { title: "Orders", icon: Users, id: "orders" },
     { title: "Deliveries", icon: Truck, id: "deliveries" },
@@ -167,6 +169,12 @@ const OwnerDashboard = () => {
                 </div>
               </CardContent>
             </Card>
+          </div>
+        );
+      case "recipes":
+        return (
+          <div className="space-y-4 md:space-y-6">
+            <RecipeManager />
           </div>
         );
       case "inventory":

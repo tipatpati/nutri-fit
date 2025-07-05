@@ -6,9 +6,9 @@ import { ArrowLeft, Calendar, ShoppingBag, CreditCard } from "lucide-react";
 import AddressForm, { AddressFormData } from "./AddressForm";
 
 interface SelectedMeal {
-  id: number;
+  id: string;
   name: string;
-  image: string;
+  image_url: string;
   category: string;
   premium: boolean;
   date: string;
@@ -118,7 +118,7 @@ const OrderSummary = ({ selectedMeals, onBack, onConfirm }: OrderSummaryProps) =
                   {meals.map((meal) => (
                     <div key={`${meal.id}-${date}`} className="flex items-center space-x-3 sm:space-x-4 p-3 sm:p-4 bg-gray-50 rounded-xl">
                       <img 
-                        src={meal.image} 
+                        src={meal.image_url || 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop&crop=center'} 
                         alt={meal.name}
                         className="w-12 h-12 sm:w-16 sm:h-16 object-cover rounded-lg"
                       />
