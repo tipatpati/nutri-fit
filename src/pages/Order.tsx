@@ -27,6 +27,7 @@ const Order = () => {
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined);
   const [selectedMeals, setSelectedMeals] = useState<SelectedMeal[]>([]);
   const [currentStep, setCurrentStep] = useState<'goal' | 'date' | 'meals' | 'summary'>('goal');
+  const [selectedPackage, setSelectedPackage] = useState<any>(null);
 
   // Handle navigation from forfaits page
   useEffect(() => {
@@ -34,8 +35,26 @@ const Order = () => {
       setCurrentStep('date');
       // Set a default goal when skipping to date step from forfaits
       setSelectedGoal('balanced');
+      // Store package information if coming from forfaits
+      if (location.state?.packageInfo) {
+        setSelectedPackage(location.state.packageInfo);
+      }
     }
   }, [location.state]);
+
+  // Get pack meal limits
+  const getPackMealLimit = () => {
+    if (!selectedPackage) return null;
+    
+    const packLimits = {
+      'express': 4,
+      'performance': 6,
+      'semaine': 8,
+      'objectif': 10
+    };
+    
+    return packLimits[selectedPackage.id] || null;
+  };
 
   // Mock kitchen capacity data - this would come from backend
   const kitchenCapacity = {
@@ -196,8 +215,10 @@ const Order = () => {
               selectedDate={selectedDate}
               selectedMeals={selectedMeals}
               onMealSelect={handleMealSelect}
-              availableSlots={getAvailableSlots(selectedDate)}
+              availableSlots={getPackMealLimit() || getAvailableSlots(selectedDate)}
               totalMealsForDate={getTotalMealsForDate(selectedDate)}
+              packLimit={getPackMealLimit()}
+              selectedPackage={selectedPackage}
               onProceed={handleProceedToSummary}
               onBack={handleBackToCalendar}
             />

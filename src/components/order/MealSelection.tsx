@@ -28,6 +28,8 @@ interface MealSelectionProps {
   onMealSelect: (meal: Meal, quantity: number) => void;
   availableSlots: number;
   totalMealsForDate: number;
+  packLimit?: number | null;
+  selectedPackage?: any;
   onProceed: () => void;
   onBack: () => void;
 }
@@ -38,6 +40,8 @@ const MealSelection = ({
   onMealSelect, 
   availableSlots, 
   totalMealsForDate,
+  packLimit,
+  selectedPackage,
   onProceed,
   onBack
 }: MealSelectionProps) => {
@@ -123,7 +127,8 @@ const MealSelection = ({
   };
 
   const canAddMeal = () => {
-    return totalMealsForDate < availableSlots;
+    const limit = packLimit || availableSlots;
+    return totalMealsForDate < limit;
   };
 
   const hasSelectedMeals = totalMealsForDate > 0;
@@ -146,13 +151,24 @@ const MealSelection = ({
         
         {/* Capacity indicator */}
         <div className="bg-gradient-to-r from-emerald-50 to-blue-50 p-3 sm:p-4 rounded-xl max-w-md mx-auto">
-          <p className="text-sm sm:text-base font-medium text-emerald-800">
-            {totalMealsForDate} / {availableSlots} repas sélectionnés
-          </p>
+          {selectedPackage ? (
+            <>
+              <p className="text-sm font-medium text-emerald-800 mb-1">
+                {selectedPackage.title}
+              </p>
+              <p className="text-sm sm:text-base font-medium text-emerald-800">
+                {totalMealsForDate} / {packLimit} repas sélectionnés
+              </p>
+            </>
+          ) : (
+            <p className="text-sm sm:text-base font-medium text-emerald-800">
+              {totalMealsForDate} / {availableSlots} repas sélectionnés
+            </p>
+          )}
           <div className="w-full bg-emerald-200 rounded-full h-2 mt-2">
             <div 
               className="bg-gradient-to-r from-emerald-500 to-blue-500 h-2 rounded-full transition-all duration-300"
-              style={{ width: `${(totalMealsForDate / availableSlots) * 100}%` }}
+              style={{ width: `${(totalMealsForDate / (packLimit || availableSlots)) * 100}%` }}
             ></div>
           </div>
         </div>
