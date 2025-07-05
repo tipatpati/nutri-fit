@@ -6,70 +6,72 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Check, ShoppingCart, Truck, Clock, ChefHat, Leaf, Star, Heart, Zap, Shield } from "lucide-react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Forfaits = () => {
   const [selectedSize, setSelectedSize] = useState("regular");
   const [selectedPackage, setSelectedPackage] = useState(null);
+  const navigate = useNavigate();
 
   const packages = [
     {
-      id: "6-8",
-      title: "6 à 8 Repas",
-      subtitle: "par semaine",
-      price: "30",
+      id: "express",
+      title: "Pack express",
+      subtitle: "×4 repas",
+      price: "60",
       savings: null,
-      description: "Idéal pour découvrir",
+      description: "Solution rapide",
       popular: false,
       gradient: "from-blue-500 to-cyan-500",
       meals: [
-        { size: "petit", price: "13.8", count: "6 repas" },
-        { size: "regular", price: "14.3", count: "6 repas" },
-        { size: "grand", price: "15.8", count: "6 repas" }
+        { size: "petit", price: "15.0", count: "4 repas" },
+        { size: "regular", price: "15.5", count: "4 repas" },
+        { size: "grand", price: "17.0", count: "4 repas" }
       ]
     },
     {
-      id: "9-13",
-      title: "9 à 13 Repas",
-      subtitle: "par semaine",
-      price: "40",
-      savings: "Économisez 15%",
+      id: "performance",
+      title: "Pack 3 day performance",
+      subtitle: "×6 repas",
+      price: "90",
+      savings: "Économisez 10%",
       description: "Le plus populaire",
       popular: true,
       gradient: "from-emerald-500 to-green-500",
       meals: [
-        { size: "petit", price: "13.6", count: "9 repas" },
-        { size: "regular", price: "14.1", count: "9 repas" },
-        { size: "grand", price: "15.6", count: "9 repas" }
+        { size: "petit", price: "14.5", count: "6 repas" },
+        { size: "regular", price: "15.0", count: "6 repas" },
+        { size: "grand", price: "16.5", count: "6 repas" }
       ]
     },
     {
-      id: "14-21",
-      title: "14 à 21 Repas",
-      subtitle: "par semaine",
-      price: "40",
-      savings: "Économisez 20%",
-      description: "Pour familles",
+      id: "semaine",
+      title: "Pack semaine",
+      subtitle: "×8 repas",
+      price: "115",
+      savings: "Économisez 15%",
+      description: "Une semaine complète",
       popular: false,
       gradient: "from-orange-500 to-red-500",
       meals: [
-        { size: "petit", price: "13.4", count: "14 repas" },
-        { size: "regular", price: "13.9", count: "14 repas" },
-        { size: "grand", price: "15.4", count: "14 repas" }
+        { size: "petit", price: "14.0", count: "8 repas" },
+        { size: "regular", price: "14.5", count: "8 repas" },
+        { size: "grand", price: "16.0", count: "8 repas" }
       ]
     },
     {
-      id: "22-30",
-      title: "22 à 30 Repas",
-      subtitle: "par semaine",
-      price: "40",
-      savings: "Économisez 25%",
-      description: "En quantité",
+      id: "objectif",
+      title: "Pack objectif",
+      subtitle: "×10 repas",
+      price: "140",
+      savings: "Économisez 20%",
+      description: "Atteignez vos objectifs",
       popular: false,
       gradient: "from-purple-500 to-pink-500",
       meals: [
-        { size: "petit", price: "13.2", count: "22 repas" },
-        { size: "regular", price: "13.7", count: "22 repas" },
-        { size: "grand", price: "15.2", count: "22 repas" }
+        { size: "petit", price: "13.5", count: "10 repas" },
+        { size: "regular", price: "14.0", count: "10 repas" },
+        { size: "grand", price: "15.5", count: "10 repas" }
       ]
     }
   ];
@@ -269,7 +271,17 @@ const Forfaits = () => {
                       
                       <Button 
                         className={`w-full bg-gradient-to-r ${pkg.gradient} hover:shadow-lg hover:shadow-current/25 text-white font-semibold py-3 rounded-xl transition-all duration-300 group-hover:scale-[1.02]`}
-                        onClick={() => setSelectedPackage(pkg.id)}
+                        onClick={() => navigate('/order', { 
+                          state: { 
+                            skipToStep: 'date',
+                            selectedPackage: pkg.id,
+                            packageInfo: {
+                              ...pkg,
+                              selectedSize,
+                              selectedMeal: currentMeal
+                            }
+                          } 
+                        })}
                       >
                         Choisir ce forfait
                         <ShoppingCart className="ml-2 w-4 h-4" />

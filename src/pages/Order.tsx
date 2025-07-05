@@ -1,5 +1,6 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import { Calendar } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -21,10 +22,20 @@ interface SelectedMeal {
 }
 
 const Order = () => {
+  const location = useLocation();
   const [selectedGoal, setSelectedGoal] = useState<string | null>(null);
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined);
   const [selectedMeals, setSelectedMeals] = useState<SelectedMeal[]>([]);
   const [currentStep, setCurrentStep] = useState<'goal' | 'date' | 'meals' | 'summary'>('goal');
+
+  // Handle navigation from forfaits page
+  useEffect(() => {
+    if (location.state?.skipToStep === 'date') {
+      setCurrentStep('date');
+      // Set a default goal when skipping to date step from forfaits
+      setSelectedGoal('balanced');
+    }
+  }, [location.state]);
 
   // Mock kitchen capacity data - this would come from backend
   const kitchenCapacity = {
