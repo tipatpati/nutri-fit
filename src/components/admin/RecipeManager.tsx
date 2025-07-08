@@ -1,7 +1,6 @@
 import { Plus, ChefHat } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { DialogTrigger } from "@/components/ui/dialog";
 import { useRecipeManager } from "./recipe/hooks/useRecipeManager";
 import RecipeForm from "./recipe/RecipeForm";
 import RecipeTable from "./recipe/RecipeTable";
@@ -38,24 +37,13 @@ const RecipeManager = () => {
           <CardTitle className="text-[#113B39] text-xl font-bold">Gestion des Recettes</CardTitle>
           <CardDescription className="text-sm">Gérez vos recettes et leur composition nutritionnelle</CardDescription>
         </div>
-        <DialogTrigger asChild>
-          <Button 
-            onClick={() => handleOpenDialog()}
-            className="bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 text-white"
-          >
-            <Plus className="w-4 h-4 mr-2" />
-            Ajouter une recette
-          </Button>
-        </DialogTrigger>
-        
-        <RecipeForm
-          isOpen={isDialogOpen}
-          onClose={handleCloseDialog}
-          editingMeal={editingMeal}
-          formData={formData}
-          setFormData={setFormData}
-          onSave={handleSave}
-        />
+        <Button 
+          onClick={() => handleOpenDialog()}
+          className="bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 text-white"
+        >
+          <Plus className="w-4 h-4 mr-2" />
+          Ajouter une recette
+        </Button>
       </CardHeader>
       
       <CardContent>
@@ -65,6 +53,15 @@ const RecipeManager = () => {
           onDelete={handleDelete}
         />
       </CardContent>
+      
+      <RecipeForm
+        isOpen={isDialogOpen}
+        onClose={handleCloseDialog}
+        editingMeal={editingMeal}
+        formData={formData}
+        setFormData={setFormData}
+        onSave={handleSave}
+      />
     </Card>
   );
 };
