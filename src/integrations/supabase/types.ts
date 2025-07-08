@@ -1637,7 +1637,17 @@ export type Database = {
       }
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _user_id: string
+          _role: Database["public"]["Enums"]["user_role"]
+        }
+        Returns: boolean
+      }
+      is_admin_or_owner: {
+        Args: { _user_id: string }
+        Returns: boolean
+      }
     }
     Enums: {
       order_status:
