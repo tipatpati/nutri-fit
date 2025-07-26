@@ -134,7 +134,7 @@ const CookDashboard = () => {
                   <div className="space-y-2">
                     <div className="flex justify-between">
                       <span className="text-emerald-800 text-xs md:text-sm lg:text-base">Progression globale</span>
-                      <span className="font-bold text-[#113B39] text-xs md:text-sm lg:text-base">
+                      <span className="font-bold text-emerald-800 text-xs md:text-sm lg:text-base">
                         {totalMealsOrdered > 0 ? Math.round((totalMealsPrepared / totalMealsOrdered) * 100) : 0}%
                       </span>
                     </div>
