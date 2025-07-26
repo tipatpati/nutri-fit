@@ -19,39 +19,10 @@ import { ProtectedRoute } from "./components/auth/ProtectedRoute";
 const queryClient = new QueryClient();
 
 const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <BrowserRouter>
-        <Toaster />
-        <Sonner />
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/menu" element={<Menu />} />
-          <Route path="/forfaits" element={<Forfaits />} />
-          <Route path="/order" element={<Order />} />
-          <Route path="/auth" element={<Auth />} />
-        <Route path="/admin" element={<AdminLogin />} />
-        <Route path="/admin/owner" element={
-          <ProtectedRoute>
-            <OwnerDashboard />
-          </ProtectedRoute>
-        } />
-        <Route path="/admin/cook" element={
-          <ProtectedRoute>
-            <CookDashboard />
-          </ProtectedRoute>
-        } />
-        <Route path="/admin/delivery" element={
-          <ProtectedRoute>
-            <DeliveryDashboard />
-          </ProtectedRoute>
-        } />
-        {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-        <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
+  <div>
+    <h1>Test App</h1>
+    <p>If you can see this, React is working</p>
+  </div>
 );
 
 export default App;
