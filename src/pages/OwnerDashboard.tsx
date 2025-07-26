@@ -137,7 +137,7 @@ const OwnerDashboard = () => {
 
             <Card>
               <CardHeader className="px-3 py-3 md:px-6 md:py-6">
-                <CardTitle className="text-[#113B39] text-sm md:text-base">Commandes Récentes</CardTitle>
+                <CardTitle className="text-md-primary text-sm md:text-base">Commandes Récentes</CardTitle>
                 <CardDescription className="text-xs md:text-sm">Dernières commandes passées aujourd'hui</CardDescription>
               </CardHeader>
               <CardContent className="px-3 pb-3 md:px-6 md:pb-6">
