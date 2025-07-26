@@ -138,7 +138,7 @@ const OwnerDashboard = () => {
             <Card>
               <CardHeader className="px-3 py-3 md:px-6 md:py-6">
                 <CardTitle className="text-md-primary text-sm md:text-base">Commandes Récentes</CardTitle>
-                <CardDescription className="text-xs md:text-sm">Dernières commandes passées aujourd'hui</CardDescription>
+                <CardDescription className="text-xs md:text-sm text-md-surface-on-surface">Dernières commandes passées aujourd'hui</CardDescription>
               </CardHeader>
               <CardContent className="px-3 pb-3 md:px-6 md:pb-6">
                 <div className="overflow-x-auto -mx-3 md:mx-0">
