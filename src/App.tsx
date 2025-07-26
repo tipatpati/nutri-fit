@@ -26,6 +26,7 @@ const App = () => (
         <Sonner />
         <Routes>
           <Route path="/" element={<Index />} />
+          <Route path="/forfaits" element={<Forfaits />} />
           <Route path="*" element={<div>Test fallback page</div>} />
         </Routes>
       </BrowserRouter>
