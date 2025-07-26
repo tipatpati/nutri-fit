@@ -79,7 +79,7 @@ const Footer = () => {
             </div>
             
             <div className="space-y-3">
-              <button className="w-full bg-white text-slate-900 px-6 py-3 rounded-xl font-semibold hover:bg-gray-100 transition-all duration-300 hover:scale-105 shadow-lg">
+              <button className="w-full bg-white text-md-surface-on-surface px-6 py-3 rounded-xl font-semibold hover:bg-gray-100 transition-all duration-300 hover:scale-105 shadow-lg">
                 Nous joindre
               </button>
               <button className="w-full bg-gradient-to-r from-emerald-500 to-blue-500 text-white px-6 py-3 rounded-xl font-semibold hover:from-emerald-600 hover:to-blue-600 transition-all duration-300 hover:scale-105 shadow-lg shadow-emerald-500/25">
