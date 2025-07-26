@@ -29,7 +29,13 @@ const App = () => (
           <Route path="/menu" element={<Menu />} />
           <Route path="/forfaits" element={<Forfaits />} />
           <Route path="/order" element={<Order />} />
-          <Route path="*" element={<div>Test fallback page</div>} />
+          <Route path="/auth" element={<Auth />} />
+          <Route path="/admin-login" element={<AdminLogin />} />
+          <Route path="/owner-dashboard" element={<ProtectedRoute><OwnerDashboard /></ProtectedRoute>} />
+          <Route path="/cook-dashboard" element={<ProtectedRoute><CookDashboard /></ProtectedRoute>} />
+          <Route path="/delivery-dashboard" element={<ProtectedRoute><DeliveryDashboard /></ProtectedRoute>} />
+          <Route path="/not-found" element={<NotFound />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </TooltipProvider>
