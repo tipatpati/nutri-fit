@@ -27,6 +27,7 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/forfaits" element={<Forfaits />} />
+          <Route path="/order" element={<Order />} />
           <Route path="*" element={<div>Test fallback page</div>} />
         </Routes>
       </BrowserRouter>
