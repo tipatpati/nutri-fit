@@ -657,6 +657,7 @@ export type Database = {
           availability_end_date: string | null
           availability_start_date: string | null
           badge: string | null
+          base_recipe: boolean | null
           calories_per_serving: number | null
           carbs: string
           carbs_grams: number | null
@@ -684,6 +685,7 @@ export type Database = {
           availability_end_date?: string | null
           availability_start_date?: string | null
           badge?: string | null
+          base_recipe?: boolean | null
           calories_per_serving?: number | null
           carbs: string
           carbs_grams?: number | null
@@ -711,6 +713,7 @@ export type Database = {
           availability_end_date?: string | null
           availability_start_date?: string | null
           badge?: string | null
+          base_recipe?: boolean | null
           calories_per_serving?: number | null
           carbs?: string
           carbs_grams?: number | null

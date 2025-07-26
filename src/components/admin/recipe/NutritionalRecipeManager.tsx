@@ -37,26 +37,13 @@ const NutritionalRecipeManager = () => {
       const { data, error } = await supabase
         .from('meals')
         .select('*')
-        .eq('base_recipe', true)
         .order('created_at', { ascending: false });
 
       if (error) throw error;
       
-      const typedData = data?.map(meal => ({
-        id: meal.id,
-        name: meal.name,
-        description: meal.description,
-        meat: meal.meat,
-        vegetables: meal.vegetables,
-        carbs: meal.carbs,
-        category: meal.category,
-        premium: meal.premium,
-        badge: meal.badge,
-        image_url: meal.image_url,
-        base_recipe: meal.base_recipe
-      })) || [];
-      
-      setBaseRecipes(typedData);
+      // Filter for base recipes on the frontend since the column might not exist yet
+      const baseRecipesData = data?.filter(meal => meal.base_recipe === true) || [];
+      setBaseRecipes(baseRecipesData as Meal[]);
     } catch (error) {
       console.error('Error fetching base recipes:', error);
       toast({
