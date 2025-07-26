@@ -83,7 +83,7 @@ const OwnerDashboard = () => {
       case "En préparation": return "text-amber-600";
       case "En route": return "text-purple-600";
       case "Livré": return "text-emerald-600";
-      default: return "text-slate-600";
+      default: return "text-md-surface-on-surface";
     }
   };
 
@@ -99,38 +99,38 @@ const OwnerDashboard = () => {
                   <TrendingUp className="h-3 w-3 md:h-4 md:w-4 text-green-600 flex-shrink-0" />
                 </CardHeader>
                 <CardContent className="px-3 pb-3 md:px-6 md:pb-6">
-                  <div className="text-lg md:text-2xl font-bold text-[#113B39] truncate">{mockStats.totalRevenue}</div>
+                  <div className="text-lg md:text-2xl font-bold text-md-primary truncate">{mockStats.totalRevenue}</div>
                   <p className="text-xs text-green-600">+20.1% ce mois</p>
                 </CardContent>
               </Card>
               <Card className="min-w-0">
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 px-3 pt-3 md:px-6 md:pt-6">
                   <CardTitle className="text-xs md:text-sm font-medium">Commandes</CardTitle>
-                  <Users className="h-3 w-3 md:h-4 md:w-4 text-[#113B39] flex-shrink-0" />
+                  <Users className="h-3 w-3 md:h-4 md:w-4 text-md-primary flex-shrink-0" />
                 </CardHeader>
                 <CardContent className="px-3 pb-3 md:px-6 md:pb-6">
-                  <div className="text-lg md:text-2xl font-bold text-[#113B39]">{mockStats.totalOrders}</div>
+                  <div className="text-lg md:text-2xl font-bold text-md-primary">{mockStats.totalOrders}</div>
                   <p className="text-xs text-green-600">+15% ce mois</p>
                 </CardContent>
               </Card>
               <Card className="min-w-0">
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 px-3 pt-3 md:px-6 md:pt-6">
                   <CardTitle className="text-xs md:text-sm font-medium truncate">Livraisons</CardTitle>
-                  <Truck className="h-3 w-3 md:h-4 md:w-4 text-[#FF4D00] flex-shrink-0" />
+                  <Truck className="h-3 w-3 md:h-4 md:w-4 text-md-tertiary flex-shrink-0" />
                 </CardHeader>
                 <CardContent className="px-3 pb-3 md:px-6 md:pb-6">
-                  <div className="text-lg md:text-2xl font-bold text-[#FF4D00]">{mockStats.pendingDeliveries}</div>
-                  <p className="text-xs text-gray-600">À traiter</p>
+                  <div className="text-lg md:text-2xl font-bold text-md-tertiary">{mockStats.pendingDeliveries}</div>
+                  <p className="text-xs text-md-surface-on-variant">À traiter</p>
                 </CardContent>
               </Card>
               <Card className="min-w-0">
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 px-3 pt-3 md:px-6 md:pt-6">
                   <CardTitle className="text-xs md:text-sm font-medium truncate">Ingrédients</CardTitle>
-                  <Package className="h-3 w-3 md:h-4 md:w-4 text-[#113B39] flex-shrink-0" />
+                  <Package className="h-3 w-3 md:h-4 md:w-4 text-md-primary flex-shrink-0" />
                 </CardHeader>
                 <CardContent className="px-3 pb-3 md:px-6 md:pb-6">
-                  <div className="text-lg md:text-2xl font-bold text-[#113B39]">{mockStats.activeIngredients}</div>
-                  <p className="text-xs text-gray-600">En stock</p>
+                  <div className="text-lg md:text-2xl font-bold text-md-primary">{mockStats.activeIngredients}</div>
+                  <p className="text-xs text-md-surface-on-variant">En stock</p>
                 </CardContent>
               </Card>
             </div>
@@ -182,7 +182,7 @@ const OwnerDashboard = () => {
           <div className="space-y-4 md:space-y-6">
             <Card>
               <CardHeader className="px-3 py-3 md:px-6 md:py-6">
-                <CardTitle className="text-[#113B39] text-sm md:text-base">Gestion des Ingrédients</CardTitle>
+                <CardTitle className="text-md-primary text-sm md:text-base">Gestion des Ingrédients</CardTitle>
                 <CardDescription className="text-xs md:text-sm">Stock actuel et niveaux d'alerte</CardDescription>
               </CardHeader>
               <CardContent className="px-3 pb-3 md:px-6 md:pb-6">
@@ -224,7 +224,7 @@ const OwnerDashboard = () => {
           <div className="space-y-4 md:space-y-6">
             <Card>
               <CardHeader className="px-3 py-3 md:px-6 md:py-6">
-                <CardTitle className="text-[#113B39] text-sm md:text-base">Toutes les Commandes</CardTitle>
+                <CardTitle className="text-md-primary text-sm md:text-base">Toutes les Commandes</CardTitle>
                 <CardDescription className="text-xs md:text-sm">Vue d'ensemble de toutes les commandes du jour</CardDescription>
               </CardHeader>
               <CardContent className="px-3 pb-3 md:px-6 md:pb-6">
@@ -263,7 +263,7 @@ const OwnerDashboard = () => {
           <div className="space-y-4 md:space-y-6">
             <Card>
               <CardHeader className="px-3 py-3 md:px-6 md:py-6">
-                <CardTitle className="text-[#113B39] text-sm md:text-base">Suivi des Livraisons</CardTitle>
+                <CardTitle className="text-md-primary text-sm md:text-base">Suivi des Livraisons</CardTitle>
                 <CardDescription className="text-xs md:text-sm">Supervision de toutes les livraisons actives</CardDescription>
               </CardHeader>
               <CardContent className="px-3 pb-3 md:px-6 md:pb-6">
@@ -302,11 +302,11 @@ const OwnerDashboard = () => {
           <div className="space-y-4 md:space-y-6">
             <Card>
               <CardHeader className="px-3 py-3 md:px-6 md:py-6">
-                <CardTitle className="text-[#113B39] text-sm md:text-base">Paramètres</CardTitle>
+                <CardTitle className="text-md-primary text-sm md:text-base">Paramètres</CardTitle>
                 <CardDescription className="text-xs md:text-sm">Configuration du système</CardDescription>
               </CardHeader>
               <CardContent className="px-3 pb-3 md:px-6 md:pb-6">
-                <p className="text-gray-600 text-xs md:text-sm">Paramètres système - À développer</p>
+                <p className="text-md-surface-on-variant text-xs md:text-sm">Paramètres système - À développer</p>
               </CardContent>
             </Card>
           </div>
@@ -322,7 +322,7 @@ const OwnerDashboard = () => {
         <Sidebar className="border-r border-emerald-100/50 bg-white/90 backdrop-blur-sm hidden lg:block">
           <SidebarHeader className="border-b border-emerald-100/50 p-4 md:p-6 bg-gradient-to-r from-emerald-50/80 to-emerald-100/40">
             <h2 className="text-xl md:text-2xl font-bold bg-gradient-to-r from-emerald-700 to-emerald-800 bg-clip-text text-transparent">NutiFit Admin</h2>
-            <p className="text-sm md:text-base text-slate-600 font-medium">Propriétaire</p>
+            <p className="text-sm md:text-base text-md-surface-on-variant font-medium">Propriétaire</p>
           </SidebarHeader>
           <SidebarContent className="bg-gradient-to-b from-white/95 to-emerald-50/50">
             <SidebarGroup>
