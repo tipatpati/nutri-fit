@@ -41,46 +41,46 @@ const GoalSelection = ({ selectedGoal, onGoalSelect, onProceed }: GoalSelectionP
   ];
 
   return (
-    <div className="space-y-6 sm:space-y-8">
+    <div className="space-y-md-6 sm:space-y-md-8">
       {/* Header */}
       <div className="text-center">
-        <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold mb-2 sm:mb-4 text-slate-800">
+        <h2 className="md-headline-medium mb-md-2 sm:mb-md-4 text-md-surface-on-surface">
           Quel est votre objectif ?
         </h2>
-        <p className="text-sm sm:text-base text-gray-600">
+        <p className="md-body-large text-md-surface-on-variant">
           Choisissez votre programme nutritionnel adapté à vos besoins
         </p>
       </div>
 
       {/* Goals Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 max-w-5xl mx-auto">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-md-2 sm:gap-md-3 max-w-5xl mx-auto">
         {goals.map((goal) => (
           <Card 
             key={goal.id} 
-            className={`cursor-pointer transition-all duration-300 hover:shadow-xl hover:scale-[1.02] ${
+            className={`cursor-pointer transition-all duration-300 hover:md-elevation-3 hover:scale-[1.02] rounded-lg ${
               selectedGoal === goal.id 
-                ? `ring-2 ring-offset-2 ring-current shadow-xl scale-[1.02] bg-gradient-to-br ${goal.bgGradient}` 
-                : 'hover:shadow-lg bg-white/90'
-            } border-2 ${goal.borderColor}`}
+                ? `md-elevation-2 scale-[1.02] bg-md-primary-container border-md-primary` 
+                : 'md-elevation-1 bg-md-surface-container-low hover:bg-md-surface-container border-md-outline-variant'
+            } border`}
             onClick={() => onGoalSelect(goal.id)}
           >
             <CardContent className="p-0">
-              <div className={`h-24 sm:h-32 bg-gradient-to-br ${goal.gradient} flex items-center justify-center text-white text-center relative overflow-hidden`}>
+              <div className={`h-24 sm:h-32 bg-gradient-to-br ${goal.gradient} flex items-center justify-center text-white text-center relative overflow-hidden rounded-t-lg`}>
                 <div className="absolute inset-0 bg-black/10"></div>
                 <div className="relative z-10">
-                  <div className="text-3xl sm:text-4xl mb-2">{goal.icon}</div>
-                  <h3 className="text-lg sm:text-xl font-bold">{goal.name}</h3>
+                  <div className="text-3xl sm:text-4xl mb-md-1">{goal.icon}</div>
+                  <h3 className="md-title-medium font-bold">{goal.name}</h3>
                 </div>
               </div>
               
-              <div className="p-4 sm:p-6">
-                <p className="text-sm sm:text-base text-gray-700 leading-relaxed">
+              <div className="p-md-2 sm:p-md-3">
+                <p className="md-body-medium text-md-surface-on-variant leading-relaxed">
                   {goal.description}
                 </p>
                 
                 {selectedGoal === goal.id && (
-                  <div className="mt-4 flex items-center justify-center">
-                    <div className="bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full text-sm font-medium">
+                  <div className="mt-md-2 flex items-center justify-center">
+                    <div className="bg-md-primary-container text-md-primary-on-container px-md-2 py-md-1 rounded-full md-label-medium">
                       ✓ Sélectionné
                     </div>
                   </div>
@@ -93,13 +93,15 @@ const GoalSelection = ({ selectedGoal, onGoalSelect, onProceed }: GoalSelectionP
 
       {/* Proceed Button */}
       {selectedGoal && (
-        <div className="flex justify-center pt-4 sm:pt-6">
+        <div className="flex justify-center pt-md-2 sm:pt-md-3">
           <Button
+            variant="filled"
+            size="lg"
             onClick={onProceed}
-            className="bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 text-white px-8 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
+            className="px-md-4 py-md-2"
           >
             Continuer
-            <ArrowRight className="w-4 h-4 ml-2" />
+            <ArrowRight className="w-4 h-4 ml-md-1" />
           </Button>
         </div>
       )}
