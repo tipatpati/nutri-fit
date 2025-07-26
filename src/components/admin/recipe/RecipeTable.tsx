@@ -20,7 +20,7 @@ const RecipeTable = ({ meals, onEdit, onDelete }: RecipeTableProps) => {
       case "Prise de masse": return "text-md-error";
       case "Perte de poids": return "text-md-primary";
       case "Équilibré": return "text-md-tertiary";
-      default: return "text-md-surface-on-variant";
+      default: return "text-emerald-800";
     }
   };
 
@@ -35,7 +35,7 @@ const RecipeTable = ({ meals, onEdit, onDelete }: RecipeTableProps) => {
 
   const getSortIcon = (field: keyof Meal) => {
     if (sortField !== field) {
-      return <ArrowUpDown className="w-4 h-4 ml-1 text-md-surface-on-variant" />;
+      return <ArrowUpDown className="w-4 h-4 ml-1 text-emerald-800" />;
     }
     return sortDirection === 'asc' 
       ? <ArrowUp className="w-4 h-4 ml-1 text-md-primary" />
@@ -64,9 +64,9 @@ const RecipeTable = ({ meals, onEdit, onDelete }: RecipeTableProps) => {
   if (meals.length === 0) {
     return (
       <div className="text-center py-md-8">
-        <ChefHat className="mx-auto h-12 w-12 text-md-surface-on-variant" />
+        <ChefHat className="mx-auto h-12 w-12 text-emerald-800" />
         <p className="mt-md-2 md-body-medium text-md-surface-on-surface">Aucune recette disponible</p>
-        <p className="md-body-small text-md-surface-on-variant">Cliquez sur "Ajouter une recette" pour commencer</p>
+        <p className="md-body-small text-emerald-800">Cliquez sur "Ajouter une recette" pour commencer</p>
       </div>
     );
   }
@@ -139,7 +139,7 @@ const RecipeTable = ({ meals, onEdit, onDelete }: RecipeTableProps) => {
               <TableCell>
                 <div>
                   <div className="md-body-large text-md-surface-on-surface">{meal.name}</div>
-                  <div className="md-body-small text-md-surface-on-variant line-clamp-2 mt-md-1">{meal.description}</div>
+                  <div className="md-body-small text-emerald-800 line-clamp-2 mt-md-1">{meal.description}</div>
                   {meal.badge && (
                     <span className="inline-flex items-center px-md-2 py-md-1 rounded-md-full md-label-small bg-md-tertiary-container text-md-tertiary-container-on mt-md-1">
                       {meal.badge}
@@ -161,7 +161,7 @@ const RecipeTable = ({ meals, onEdit, onDelete }: RecipeTableProps) => {
                     Premium
                   </span>
                 ) : (
-                  <span className="md-body-medium text-md-surface-on-variant">Standard</span>
+                  <span className="md-body-medium text-emerald-800">Standard</span>
                 )}
               </TableCell>
               <TableCell className="text-right">

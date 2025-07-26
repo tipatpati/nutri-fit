@@ -120,7 +120,7 @@ const OwnerDashboard = () => {
                 </CardHeader>
                 <CardContent className="px-3 pb-3 md:px-6 md:pb-6">
                   <div className="text-lg md:text-2xl font-bold text-md-tertiary">{mockStats.pendingDeliveries}</div>
-                  <p className="text-xs text-md-surface-on-variant">À traiter</p>
+                  <p className="text-xs text-emerald-800">À traiter</p>
                 </CardContent>
               </Card>
               <Card className="min-w-0">
@@ -130,7 +130,7 @@ const OwnerDashboard = () => {
                 </CardHeader>
                 <CardContent className="px-3 pb-3 md:px-6 md:pb-6">
                   <div className="text-lg md:text-2xl font-bold text-md-primary">{mockStats.activeIngredients}</div>
-                  <p className="text-xs text-md-surface-on-variant">En stock</p>
+                  <p className="text-xs text-emerald-800">En stock</p>
                 </CardContent>
               </Card>
             </div>
@@ -306,7 +306,7 @@ const OwnerDashboard = () => {
                 <CardDescription className="text-xs md:text-sm">Configuration du système</CardDescription>
               </CardHeader>
               <CardContent className="px-3 pb-3 md:px-6 md:pb-6">
-                <p className="text-md-surface-on-variant text-xs md:text-sm">Paramètres système - À développer</p>
+                <p className="text-emerald-800 text-xs md:text-sm">Paramètres système - À développer</p>
               </CardContent>
             </Card>
           </div>
@@ -322,7 +322,7 @@ const OwnerDashboard = () => {
         <Sidebar className="border-r border-emerald-100/50 bg-white/90 backdrop-blur-sm hidden lg:block">
           <SidebarHeader className="border-b border-emerald-100/50 p-4 md:p-6 bg-gradient-to-r from-emerald-50/80 to-emerald-100/40">
             <h2 className="text-xl md:text-2xl font-bold bg-gradient-to-r from-emerald-700 to-emerald-800 bg-clip-text text-transparent">NutiFit Admin</h2>
-            <p className="text-sm md:text-base text-md-surface-on-variant font-medium">Propriétaire</p>
+            <p className="text-sm md:text-base text-emerald-800 font-medium">Propriétaire</p>
           </SidebarHeader>
           <SidebarContent className="bg-gradient-to-b from-white/95 to-emerald-50/50">
             <SidebarGroup>

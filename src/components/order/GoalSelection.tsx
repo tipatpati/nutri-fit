@@ -47,7 +47,7 @@ const GoalSelection = ({ selectedGoal, onGoalSelect, onProceed }: GoalSelectionP
         <h2 className="md-headline-medium mb-md-2 sm:mb-md-4 text-md-surface-on-surface">
           Quel est votre objectif ?
         </h2>
-        <p className="md-body-large text-md-surface-on-variant">
+        <p className="md-body-large text-emerald-800">
           Choisissez votre programme nutritionnel adapté à vos besoins
         </p>
       </div>
@@ -74,7 +74,7 @@ const GoalSelection = ({ selectedGoal, onGoalSelect, onProceed }: GoalSelectionP
               </div>
               
               <div className="p-md-2 sm:p-md-3">
-                <p className="md-body-medium text-md-surface-on-variant leading-relaxed">
+                <p className="md-body-medium text-emerald-800 leading-relaxed">
                   {goal.description}
                 </p>
                 
