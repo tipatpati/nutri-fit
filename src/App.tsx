@@ -22,9 +22,11 @@ const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
       <BrowserRouter>
+        <Toaster />
+        <Sonner />
         <div>
-          <h1>Test App with QueryClient + Router + Tooltip</h1>
-          <p>Testing TooltipProvider...</p>
+          <h1>Test App with All Providers + Toasters</h1>
+          <p>Testing Toaster components...</p>
         </div>
       </BrowserRouter>
     </TooltipProvider>
