@@ -19,10 +19,12 @@ import { ProtectedRoute } from "./components/auth/ProtectedRoute";
 const queryClient = new QueryClient();
 
 const App = () => (
-  <div>
-    <h1>Test App</h1>
-    <p>If you can see this, React is working</p>
-  </div>
+  <QueryClientProvider client={queryClient}>
+    <div>
+      <h1>Test App with QueryClient</h1>
+      <p>Testing QueryClientProvider...</p>
+    </div>
+  </QueryClientProvider>
 );
 
 export default App;
