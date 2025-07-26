@@ -1,6 +1,8 @@
 
+import React from "react";
 import { Button } from "./ui/button";
 import { ArrowRight, Clock, Truck, Heart } from "lucide-react";
+import { AnimatedArrowRight, AnimatedClock, AnimatedHeart } from "./ui/animated-icon";
 import { useNavigate } from "react-router-dom";
 
 const Hero = () => {
@@ -82,7 +84,7 @@ const Hero = () => {
                 className="w-full bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white text-base lg:text-lg font-semibold py-3 lg:py-4 rounded-xl lg:rounded-2xl shadow-lg shadow-emerald-500/25 transition-all duration-300 transform hover:scale-[1.02]"
               >
                 Commander maintenant
-                <ArrowRight className="ml-2 w-4 h-4 lg:w-5 lg:h-5" />
+                <AnimatedArrowRight className="ml-2" size={20} />
               </Button>
               
               <div className="flex items-center justify-center mt-3 lg:mt-4 space-x-4 lg:space-x-6 text-xs sm:text-sm text-gray-300">
@@ -100,18 +102,20 @@ const Hero = () => {
             {/* Trust Indicators */}
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
               {[
-                { icon: Heart, label: "100% Frais", color: "text-red-400" },
-                { icon: "🥗", label: "Bio & Local", color: "text-green-400" },
-                { icon: Clock, label: "Prêt en 2min", color: "text-blue-400" },
-                { icon: Truck, label: "Livraison rapide", color: "text-purple-400" }
+                { type: 'component', icon: AnimatedHeart, label: "100% Frais", color: "text-red-400" },
+                { type: 'emoji', icon: "🥗", label: "Bio & Local", color: "text-green-400" },
+                { type: 'component', icon: AnimatedClock, label: "Prêt en 2min", color: "text-blue-400" },
+                { type: 'lucide', icon: Truck, label: "Livraison rapide", color: "text-purple-400" }
               ].map((item, index) => (
                 <div key={index} className="text-center space-y-2 lg:space-y-3 group">
                   <div className="w-12 h-12 lg:w-14 lg:h-14 mx-auto bg-white/10 backdrop-blur rounded-xl lg:rounded-2xl flex items-center justify-center border border-white/20 group-hover:scale-110 transition-all duration-300">
-                    {typeof item.icon === 'string' ? (
-                      <span className="text-xl lg:text-2xl">{item.icon}</span>
-                    ) : (
-                      <item.icon className={`w-5 h-5 lg:w-6 lg:h-6 ${item.color}`} />
-                    )}
+                     {item.type === 'emoji' ? (
+                       <span className="text-xl lg:text-2xl">{item.icon as string}</span>
+                     ) : item.type === 'component' ? (
+                       React.createElement(item.icon as React.ComponentType<any>, { size: 24, color: "currentColor", className: item.color })
+                     ) : (
+                       React.createElement(item.icon as React.ComponentType<any>, { className: `w-5 h-5 lg:w-6 lg:h-6 ${item.color}` })
+                     )}
                   </div>
                   <p className="text-xs sm:text-sm text-gray-300 font-medium">{item.label}</p>
                 </div>

@@ -1,8 +1,9 @@
-import { Edit, Trash2, ChefHat, ArrowUpDown, ArrowUp, ArrowDown } from "lucide-react";
+import { ChefHat, ArrowUpDown, ArrowUp, ArrowDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Meal } from "./types";
 import { useState } from "react";
+import { AnimatedEdit, AnimatedTrash } from "@/components/ui/animated-icon";
 
 interface RecipeTableProps {
   meals: Meal[];
@@ -171,7 +172,7 @@ const RecipeTable = ({ meals, onEdit, onDelete }: RecipeTableProps) => {
                     onClick={() => onEdit(meal)}
                     className="md-state-layer"
                   >
-                    <Edit className="w-4 h-4" />
+                    <AnimatedEdit size={16} />
                   </Button>
                   <Button 
                     size="sm" 
@@ -179,7 +180,7 @@ const RecipeTable = ({ meals, onEdit, onDelete }: RecipeTableProps) => {
                     onClick={() => onDelete(meal.id)}
                     className="text-md-error hover:text-md-error md-state-layer"
                   >
-                    <Trash2 className="w-4 h-4" />
+                    <AnimatedTrash size={16} />
                   </Button>
                 </div>
               </TableCell>

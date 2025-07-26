@@ -1,6 +1,7 @@
 
 import { useState } from "react";
-import { Menu, X, ShoppingCart, User, Bell } from "lucide-react";
+import { Bell } from "lucide-react";
+import { AnimatedMenu, AnimatedShoppingCart, AnimatedUser, AnimatedX } from "./ui/animated-icon";
 import { Button } from "./ui/button";
 import { Link } from "react-router-dom";
 import { Badge } from "./ui/badge";
@@ -79,7 +80,7 @@ const Header = () => {
               </button>
               
               <button className="relative p-2 text-gray-600 hover:text-emerald-600 hover:bg-emerald-50 rounded-xl transition-colors group">
-                <ShoppingCart className="w-5 h-5" />
+                <AnimatedShoppingCart size={20} />
                 <Badge className="absolute -top-1 -right-1 w-5 h-5 p-0 flex items-center justify-center bg-gradient-to-r from-emerald-500 to-blue-500 text-white text-xs group-hover:scale-110 transition-transform">
                   0
                 </Badge>
@@ -105,7 +106,7 @@ const Header = () => {
           <div className="flex items-center space-x-2 lg:hidden">
             {/* Mobile cart button */}
             <button className="relative p-2 text-gray-600 hover:text-emerald-600 hover:bg-emerald-50 rounded-xl transition-colors">
-              <ShoppingCart className="w-5 h-5" />
+              <AnimatedShoppingCart size={20} />
               <Badge className="absolute -top-1 -right-1 w-4 h-4 p-0 flex items-center justify-center bg-gradient-to-r from-emerald-500 to-blue-500 text-white text-xs">
                 0
               </Badge>
@@ -116,7 +117,7 @@ const Header = () => {
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="p-2 text-gray-700 hover:text-emerald-600 hover:bg-emerald-50 rounded-xl transition-colors"
             >
-              {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              {isMenuOpen ? <AnimatedX size={24} /> : <AnimatedMenu size={24} isOpen={isMenuOpen} />}
             </button>
           </div>
         </div>
