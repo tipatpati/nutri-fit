@@ -20,10 +20,12 @@ const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <div>
-      <h1>Test App with QueryClient</h1>
-      <p>Testing QueryClientProvider...</p>
-    </div>
+    <BrowserRouter>
+      <div>
+        <h1>Test App with QueryClient + Router</h1>
+        <p>Testing BrowserRouter...</p>
+      </div>
+    </BrowserRouter>
   </QueryClientProvider>
 );
 
