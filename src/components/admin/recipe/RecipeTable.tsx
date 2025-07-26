@@ -1,7 +1,8 @@
-import { Edit, Trash2, ChefHat } from "lucide-react";
+import { Edit, Trash2, ChefHat, ArrowUpDown, ArrowUp, ArrowDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Meal } from "./types";
+import { useState } from "react";
 
 interface RecipeTableProps {
   meals: Meal[];
@@ -10,21 +11,61 @@ interface RecipeTableProps {
 }
 
 const RecipeTable = ({ meals, onEdit, onDelete }: RecipeTableProps) => {
+  const [sortField, setSortField] = useState<keyof Meal | null>(null);
+  const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc');
+
   const getCategoryColor = (category: string) => {
     switch (category) {
-      case "Prise de masse": return "text-orange-600";
-      case "Perte de poids": return "text-emerald-600";
-      case "Équilibré": return "text-amber-600";
-      default: return "text-slate-600";
+      case "Prise de masse": return "text-md-error";
+      case "Perte de poids": return "text-md-primary";
+      case "Équilibré": return "text-md-tertiary";
+      default: return "text-md-surface-on-variant";
     }
   };
 
+  const handleSort = (field: keyof Meal) => {
+    if (sortField === field) {
+      setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc');
+    } else {
+      setSortField(field);
+      setSortDirection('asc');
+    }
+  };
+
+  const getSortIcon = (field: keyof Meal) => {
+    if (sortField !== field) {
+      return <ArrowUpDown className="w-4 h-4 ml-1 text-md-surface-on-variant" />;
+    }
+    return sortDirection === 'asc' 
+      ? <ArrowUp className="w-4 h-4 ml-1 text-md-primary" />
+      : <ArrowDown className="w-4 h-4 ml-1 text-md-primary" />;
+  };
+
+  const sortedMeals = [...meals].sort((a, b) => {
+    if (!sortField) return 0;
+    
+    const aValue = a[sortField];
+    const bValue = b[sortField];
+    
+    if (typeof aValue === 'string' && typeof bValue === 'string') {
+      const comparison = aValue.localeCompare(bValue);
+      return sortDirection === 'asc' ? comparison : -comparison;
+    }
+    
+    if (typeof aValue === 'boolean' && typeof bValue === 'boolean') {
+      const comparison = aValue === bValue ? 0 : aValue ? 1 : -1;
+      return sortDirection === 'asc' ? comparison : -comparison;
+    }
+    
+    return 0;
+  });
+
   if (meals.length === 0) {
     return (
-      <div className="text-center py-8">
-        <ChefHat className="mx-auto h-12 w-12 text-gray-400" />
-        <p className="mt-2 text-sm text-gray-600">Aucune recette disponible</p>
-        <p className="text-xs text-gray-500">Cliquez sur "Ajouter une recette" pour commencer</p>
+      <div className="text-center py-md-8">
+        <ChefHat className="mx-auto h-12 w-12 text-md-surface-on-variant" />
+        <p className="mt-md-2 md-body-medium text-md-surface-on-surface">Aucune recette disponible</p>
+        <p className="md-body-small text-md-surface-on-variant">Cliquez sur "Ajouter une recette" pour commencer</p>
       </div>
     );
   }
@@ -34,60 +75,109 @@ const RecipeTable = ({ meals, onEdit, onDelete }: RecipeTableProps) => {
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead className="min-w-[200px]">Recette</TableHead>
-            <TableHead>Viandes</TableHead>
-            <TableHead>Légumes</TableHead>
-            <TableHead>Glucides</TableHead>
-            <TableHead>Catégorie</TableHead>
-            <TableHead>Premium</TableHead>
+            <TableHead className="min-w-[200px]">
+              <button 
+                className="flex items-center hover:bg-md-surface-variant/20 p-md-1 rounded-md-xs transition-colors duration-md-short4"
+                onClick={() => handleSort('name')}
+              >
+                Recette
+                {getSortIcon('name')}
+              </button>
+            </TableHead>
+            <TableHead>
+              <button 
+                className="flex items-center hover:bg-md-surface-variant/20 p-md-1 rounded-md-xs transition-colors duration-md-short4"
+                onClick={() => handleSort('meat')}
+              >
+                Viandes
+                {getSortIcon('meat')}
+              </button>
+            </TableHead>
+            <TableHead>
+              <button 
+                className="flex items-center hover:bg-md-surface-variant/20 p-md-1 rounded-md-xs transition-colors duration-md-short4"
+                onClick={() => handleSort('vegetables')}
+              >
+                Légumes
+                {getSortIcon('vegetables')}
+              </button>
+            </TableHead>
+            <TableHead>
+              <button 
+                className="flex items-center hover:bg-md-surface-variant/20 p-md-1 rounded-md-xs transition-colors duration-md-short4"
+                onClick={() => handleSort('carbs')}
+              >
+                Glucides
+                {getSortIcon('carbs')}
+              </button>
+            </TableHead>
+            <TableHead>
+              <button 
+                className="flex items-center hover:bg-md-surface-variant/20 p-md-1 rounded-md-xs transition-colors duration-md-short4"
+                onClick={() => handleSort('category')}
+              >
+                Catégorie
+                {getSortIcon('category')}
+              </button>
+            </TableHead>
+            <TableHead>
+              <button 
+                className="flex items-center hover:bg-md-surface-variant/20 p-md-1 rounded-md-xs transition-colors duration-md-short4"
+                onClick={() => handleSort('premium')}
+              >
+                Premium
+                {getSortIcon('premium')}
+              </button>
+            </TableHead>
             <TableHead className="text-right">Actions</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
-          {meals.map((meal) => (
+          {sortedMeals.map((meal) => (
             <TableRow key={meal.id}>
               <TableCell>
                 <div>
-                  <div className="font-medium">{meal.name}</div>
-                  <div className="text-sm text-gray-500 line-clamp-2">{meal.description}</div>
+                  <div className="md-body-large text-md-surface-on-surface">{meal.name}</div>
+                  <div className="md-body-small text-md-surface-on-variant line-clamp-2 mt-md-1">{meal.description}</div>
                   {meal.badge && (
-                    <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-amber-100 text-amber-800 mt-1">
+                    <span className="inline-flex items-center px-md-2 py-md-1 rounded-md-full md-label-small bg-md-tertiary-container text-md-tertiary-container-on mt-md-1">
                       {meal.badge}
                     </span>
                   )}
                 </div>
               </TableCell>
-              <TableCell className="text-sm">{meal.meat}</TableCell>
-              <TableCell className="text-sm">{meal.vegetables}</TableCell>
-              <TableCell className="text-sm">{meal.carbs}</TableCell>
+              <TableCell>{meal.meat}</TableCell>
+              <TableCell>{meal.vegetables}</TableCell>
+              <TableCell>{meal.carbs}</TableCell>
               <TableCell>
-                <span className={`text-sm font-medium ${getCategoryColor(meal.category)}`}>
+                <span className={`md-label-large ${getCategoryColor(meal.category)}`}>
                   {meal.category}
                 </span>
               </TableCell>
               <TableCell>
                 {meal.premium ? (
-                  <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-gradient-to-r from-amber-100 to-amber-200 text-amber-800">
+                  <span className="inline-flex items-center px-md-2 py-md-1 rounded-md-full md-label-small bg-md-secondary-container text-md-secondary-container-on">
                     Premium
                   </span>
                 ) : (
-                  <span className="text-sm text-gray-500">Standard</span>
+                  <span className="md-body-medium text-md-surface-on-variant">Standard</span>
                 )}
               </TableCell>
               <TableCell className="text-right">
-                <div className="flex items-center justify-end space-x-2">
+                <div className="flex items-center justify-end space-x-md-2">
                   <Button 
                     size="sm" 
-                    variant="outline"
+                    variant="text"
                     onClick={() => onEdit(meal)}
+                    className="md-state-layer"
                   >
                     <Edit className="w-4 h-4" />
                   </Button>
                   <Button 
                     size="sm" 
-                    variant="outline"
+                    variant="text"
                     onClick={() => onDelete(meal.id)}
-                    className="text-red-600 hover:text-red-700 hover:border-red-300"
+                    className="text-md-error hover:text-md-error md-state-layer"
                   >
                     <Trash2 className="w-4 h-4" />
                   </Button>
