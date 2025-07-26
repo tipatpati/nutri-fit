@@ -21,6 +21,7 @@ import {
 } from "@/components/ui/sidebar";
 import { useToast } from "@/hooks/use-toast";
 import RecipeManager from "@/components/admin/RecipeManager";
+import NutritionalRecipeManager from "@/components/admin/recipe/NutritionalRecipeManager";
 
 const OwnerDashboard = () => {
   const [activeSection, setActiveSection] = useState("analytics");
@@ -174,6 +175,7 @@ const OwnerDashboard = () => {
       case "recipes":
         return (
           <div className="space-y-4 md:space-y-6">
+            <NutritionalRecipeManager />
             <RecipeManager />
           </div>
         );
