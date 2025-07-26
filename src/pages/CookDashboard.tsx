@@ -95,7 +95,7 @@ const CookDashboard = () => {
             <Card>
               <CardHeader className="px-3 py-3 md:px-6 md:py-6">
                 <CardTitle className="text-[#FF4D00] text-sm md:text-lg lg:text-xl">Date de Production</CardTitle>
-                <CardDescription className="text-xs md:text-sm lg:text-base">Sélectionnez la date pour voir les commandes</CardDescription>
+                <CardDescription className="text-emerald-800 text-xs md:text-sm lg:text-base">Sélectionnez la date pour voir les commandes</CardDescription>
               </CardHeader>
               <CardContent className="px-3 pb-3 md:px-6 md:pb-6">
                 <select 
@@ -114,7 +114,7 @@ const CookDashboard = () => {
               <Card>
                 <CardHeader className="px-3 py-3 md:px-6 md:py-6">
                   <CardTitle className="text-[#FF4D00] text-sm md:text-lg lg:text-xl">Total Commandes</CardTitle>
-                  <CardDescription className="text-xs md:text-sm lg:text-base">{ordersForDate.length} commandes pour le {new Date(selectedDate).toLocaleDateString('fr-FR')}</CardDescription>
+                  <CardDescription className="text-emerald-800 text-xs md:text-sm lg:text-base">{ordersForDate.length} commandes pour le {new Date(selectedDate).toLocaleDateString('fr-FR')}</CardDescription>
                 </CardHeader>
                 <CardContent className="px-3 pb-3 md:px-6 md:pb-6">
                   <div className="flex items-center justify-center gap-2">
@@ -128,12 +128,12 @@ const CookDashboard = () => {
               <Card>
                 <CardHeader className="px-3 py-3 md:px-6 md:py-6">
                   <CardTitle className="text-[#FF4D00] text-sm md:text-lg lg:text-xl">Progression</CardTitle>
-                  <CardDescription className="text-xs md:text-sm lg:text-base">Avancement de la préparation</CardDescription>
+                  <CardDescription className="text-emerald-800 text-xs md:text-sm lg:text-base">Avancement de la préparation</CardDescription>
                 </CardHeader>
                 <CardContent className="px-3 pb-3 md:px-6 md:pb-6">
                   <div className="space-y-2">
                     <div className="flex justify-between">
-                      <span className="text-xs md:text-sm lg:text-base">Progression globale</span>
+                      <span className="text-emerald-800 text-xs md:text-sm lg:text-base">Progression globale</span>
                       <span className="font-bold text-[#113B39] text-xs md:text-sm lg:text-base">
                         {totalMealsOrdered > 0 ? Math.round((totalMealsPrepared / totalMealsOrdered) * 100) : 0}%
                       </span>
@@ -153,7 +153,7 @@ const CookDashboard = () => {
               <Card>
                 <CardHeader className="px-3 py-3 md:px-6 md:py-6">
                   <CardTitle className="text-[#FF4D00] text-sm md:text-lg lg:text-xl">Status</CardTitle>
-                  <CardDescription className="text-xs md:text-sm lg:text-base">Répartition des préparations</CardDescription>
+                  <CardDescription className="text-emerald-800 text-xs md:text-sm lg:text-base">Répartition des préparations</CardDescription>
                 </CardHeader>
                 <CardContent className="px-3 pb-3 md:px-6 md:pb-6">
                   <div className="flex items-center justify-center gap-3 md:gap-4 lg:gap-6">
@@ -173,7 +173,7 @@ const CookDashboard = () => {
             <Card>
               <CardHeader className="px-3 py-3 md:px-6 md:py-6">
                 <CardTitle className="text-[#113B39] text-sm md:text-lg lg:text-xl">Commandes par Repas</CardTitle>
-                <CardDescription className="text-xs md:text-sm lg:text-base">Répartition et progression des commandes du {new Date(selectedDate).toLocaleDateString('fr-FR')}</CardDescription>
+                <CardDescription className="text-emerald-800 text-xs md:text-sm lg:text-base">Répartition et progression des commandes du {new Date(selectedDate).toLocaleDateString('fr-FR')}</CardDescription>
               </CardHeader>
               <CardContent className="px-3 pb-3 md:px-6 md:pb-6">
                 {mealStats.length > 0 ? (
@@ -184,7 +184,7 @@ const CookDashboard = () => {
                           <Package className="w-4 h-4 md:w-5 md:h-5 lg:w-6 lg:h-6 text-[#FF4D00]" />
                           {meal.remaining === 0 && <CheckCircle2 className="w-3 h-3 md:w-4 md:h-4 lg:w-5 lg:h-5 text-green-600" />}
                         </div>
-                        <p className="font-medium text-xs md:text-sm lg:text-base line-clamp-2">{meal.name}</p>
+                        <p className="font-medium text-emerald-800 text-xs md:text-sm lg:text-base line-clamp-2">{meal.name}</p>
                         <p className="text-lg md:text-xl lg:text-2xl font-bold text-[#113B39] my-1 md:my-2">{meal.orders}</p>
                         <p className="text-xs lg:text-sm text-gray-600 mb-1 md:mb-2 line-clamp-2">{meal.description}</p>
                         <div className="text-xs space-y-1">
@@ -210,7 +210,7 @@ const CookDashboard = () => {
             <Card>
               <CardHeader className="px-3 py-3 md:px-6 md:py-6">
                 <CardTitle className="text-[#FF4D00] text-sm md:text-lg lg:text-xl">Calcul des Ingrédients</CardTitle>
-                <CardDescription className="text-xs md:text-sm lg:text-base">Quantités nécessaires vs disponibles pour le {new Date(selectedDate).toLocaleDateString('fr-FR')}</CardDescription>
+                <CardDescription className="text-emerald-800 text-xs md:text-sm lg:text-base">Quantités nécessaires vs disponibles pour le {new Date(selectedDate).toLocaleDateString('fr-FR')}</CardDescription>
               </CardHeader>
               <CardContent className="px-3 pb-3 md:px-6 md:pb-6">
                 <div className="overflow-x-auto -mx-3 md:mx-0">
@@ -257,7 +257,7 @@ const CookDashboard = () => {
             <Card>
               <CardHeader className="px-3 py-3 md:px-6 md:py-6">
                 <CardTitle className="text-[#113B39] text-sm md:text-lg lg:text-xl">Recettes du Jour</CardTitle>
-                <CardDescription className="text-xs md:text-sm lg:text-base">Recettes à préparer avec détails et quantités pour le {new Date(selectedDate).toLocaleDateString('fr-FR')}</CardDescription>
+                <CardDescription className="text-emerald-800 text-xs md:text-sm lg:text-base">Recettes à préparer avec détails et quantités pour le {new Date(selectedDate).toLocaleDateString('fr-FR')}</CardDescription>
               </CardHeader>
               <CardContent className="px-3 pb-3 md:px-6 md:pb-6">
                 <div className="overflow-x-auto -mx-3 md:mx-0">

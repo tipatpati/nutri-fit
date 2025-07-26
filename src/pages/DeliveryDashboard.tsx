@@ -173,7 +173,7 @@ const DeliveryDashboard = () => {
             <Card>
               <CardHeader className="px-3 py-3 md:px-6 md:py-6">
                 <CardTitle className="text-[#113B39] text-sm md:text-lg lg:text-xl">Livraisons du Jour</CardTitle>
-                <CardDescription className="text-xs md:text-sm lg:text-base">Toutes les livraisons programmées et leur statut</CardDescription>
+                <CardDescription className="text-emerald-800 text-xs md:text-sm lg:text-base">Toutes les livraisons programmées et leur statut</CardDescription>
               </CardHeader>
               <CardContent className="px-3 pb-3 md:px-6 md:pb-6">
                 <div className="overflow-x-auto -mx-3 md:mx-0">
@@ -226,7 +226,7 @@ const DeliveryDashboard = () => {
             <Card>
               <CardHeader className="px-3 py-3 md:px-6 md:py-6">
                 <CardTitle className="text-[#113B39] text-sm md:text-lg lg:text-xl">Itinéraires Optimisés</CardTitle>
-                <CardDescription className="text-xs md:text-sm lg:text-base">Planification des tournées de livraison</CardDescription>
+                <CardDescription className="text-emerald-800 text-xs md:text-sm lg:text-base">Planification des tournées de livraison</CardDescription>
               </CardHeader>
               <CardContent className="px-3 pb-3 md:px-6 md:pb-6">
                 <div className="overflow-x-auto -mx-3 md:mx-0">
@@ -281,7 +281,7 @@ const DeliveryDashboard = () => {
             <Card>
               <CardHeader className="px-3 py-3 md:px-6 md:py-6">
                 <CardTitle className="text-[#113B39] text-sm md:text-lg lg:text-xl">Historique des Performances</CardTitle>
-                <CardDescription className="text-xs md:text-sm lg:text-base">Statistiques des livraisons passées</CardDescription>
+                <CardDescription className="text-emerald-800 text-xs md:text-sm lg:text-base">Statistiques des livraisons passées</CardDescription>
               </CardHeader>
               <CardContent className="px-3 pb-3 md:px-6 md:pb-6">
                 <div className="overflow-x-auto -mx-3 md:mx-0">
