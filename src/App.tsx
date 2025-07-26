@@ -24,10 +24,10 @@ const App = () => (
       <BrowserRouter>
         <Toaster />
         <Sonner />
-        <div>
-          <h1>Test App with All Providers + Toasters</h1>
-          <p>Testing Toaster components...</p>
-        </div>
+        <Routes>
+          <Route path="/" element={<Index />} />
+          <Route path="*" element={<div>Test fallback page</div>} />
+        </Routes>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
