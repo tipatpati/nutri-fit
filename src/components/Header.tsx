@@ -53,13 +53,12 @@ const Header = () => {
                     <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-emerald-500 to-orange-500 group-hover:w-full transition-all duration-300"></span>
                   </Link>
                 ) : (
-                  <a 
-                    href="#" 
+                  <button 
                     className="text-gray-700 hover:text-emerald-600 transition-colors font-medium relative py-2"
                   >
                     {item.label}
                     <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-emerald-500 to-orange-500 group-hover:w-full transition-all duration-300"></span>
-                  </a>
+                  </button>
                 )}
               </div>
             ))}
@@ -132,15 +131,15 @@ const Header = () => {
               <Link to="/menu" className="text-gray-700 hover:text-emerald-600 transition-colors font-medium px-4 py-3 rounded-xl hover:bg-emerald-50/50">
                 Menu
               </Link>
-              <a href="#" className="text-gray-700 hover:text-emerald-600 transition-colors font-medium px-4 py-3 rounded-xl hover:bg-emerald-50/50">
+              <button className="text-gray-700 hover:text-emerald-600 transition-colors font-medium px-4 py-3 rounded-xl hover:bg-emerald-50/50 w-full text-left">
                 Recommandations
-              </a>
-              <a href="#" className="text-gray-700 hover:text-emerald-600 transition-colors font-medium px-4 py-3 rounded-xl hover:bg-emerald-50/50">
+              </button>
+              <button className="text-gray-700 hover:text-emerald-600 transition-colors font-medium px-4 py-3 rounded-xl hover:bg-emerald-50/50 w-full text-left">
                 Cartes-Cadeaux
-              </a>
-              <a href="#" className="text-gray-700 hover:text-emerald-600 transition-colors font-medium px-4 py-3 rounded-xl hover:bg-emerald-50/50">
+              </button>
+              <button className="text-gray-700 hover:text-emerald-600 transition-colors font-medium px-4 py-3 rounded-xl hover:bg-emerald-50/50 w-full text-left">
                 FAQ
-              </a>
+              </button>
               
               <div className="flex flex-col space-y-3 pt-4 sm:pt-6 border-t border-gray-100">
                 <Button 
