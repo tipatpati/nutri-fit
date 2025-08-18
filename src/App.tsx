@@ -9,6 +9,7 @@ import Menu from "./pages/Menu";
 import Forfaits from "./pages/Forfaits";
 import Order from "./pages/Order";
 import Auth from "./pages/Auth";
+import ResetPassword from "./pages/ResetPassword";
 import AdminLogin from "./pages/AdminLogin";
 import OwnerDashboard from "./pages/OwnerDashboard";
 import CookDashboard from "./pages/CookDashboard";
@@ -30,6 +31,7 @@ const App = () => (
           <Route path="/forfaits" element={<Forfaits />} />
           <Route path="/order" element={<Order />} />
           <Route path="/auth" element={<Auth />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
           <Route path="/admin-login" element={<AdminLogin />} />
           <Route path="/owner-dashboard" element={<ProtectedRoute><OwnerDashboard /></ProtectedRoute>} />
           <Route path="/cook-dashboard" element={<ProtectedRoute><CookDashboard /></ProtectedRoute>} />
