@@ -5,19 +5,19 @@ import { cn } from "@/lib/utils"
 
 const badgeVariants = cva(
   // Material Design 3 Badge/Chip
-  "inline-flex items-center rounded-md-xs border px-md-2 py-md-1 md-label-small font-medium transition-colors focus:outline-none",
+  "inline-flex items-center rounded-[8px] border px-3 py-1 md-label-small font-medium transition-colors focus:outline-none",
   {
     variants: {
       variant: {
         // Material Design 3 variants
-        filled: "border-transparent bg-md-primary text-md-primary-on-primary hover:bg-md-primary/90",
-        "filled-tonal": "border-transparent bg-md-secondary-container text-md-secondary-on-container hover:bg-md-secondary-container/80",
-        outlined: "border-md-outline text-md-surface-on-surface bg-transparent hover:bg-md-surface-on-surface/8",
+        filled: "border-transparent bg-[hsl(var(--md-sys-color-primary))] text-[hsl(var(--md-sys-color-on-primary))] hover:bg-[hsl(var(--md-sys-color-primary))]/90",
+        "filled-tonal": "border-transparent bg-[hsl(var(--md-sys-color-secondary-container))] text-[hsl(var(--md-sys-color-on-secondary-container))] hover:bg-[hsl(var(--md-sys-color-secondary-container))]/80",
+        outlined: "border-[hsl(var(--md-sys-color-outline))] text-[hsl(var(--md-sys-color-on-surface))] bg-transparent hover:bg-[hsl(var(--md-sys-color-on-surface))]/8",
         // Legacy variants for backward compatibility
-        default: "border-transparent bg-md-primary text-md-primary-on-primary hover:bg-md-primary/90",
-        secondary: "border-transparent bg-md-secondary-container text-md-secondary-on-container hover:bg-md-secondary-container/80",
-        destructive: "border-transparent bg-md-error text-md-error-on-error hover:bg-md-error/90",
-        outline: "border-md-outline text-md-surface-on-surface bg-transparent",
+        default: "border-transparent bg-[hsl(var(--md-sys-color-primary))] text-[hsl(var(--md-sys-color-on-primary))] hover:bg-[hsl(var(--md-sys-color-primary))]/90",
+        secondary: "border-transparent bg-[hsl(var(--md-sys-color-secondary-container))] text-[hsl(var(--md-sys-color-on-secondary-container))] hover:bg-[hsl(var(--md-sys-color-secondary-container))]/80",
+        destructive: "border-transparent bg-[hsl(var(--md-sys-color-error))] text-[hsl(var(--md-sys-color-on-error))] hover:bg-[hsl(var(--md-sys-color-error))]/90",
+        outline: "border-[hsl(var(--md-sys-color-outline))] text-[hsl(var(--md-sys-color-on-surface))] bg-transparent",
       },
     },
     defaultVariants: {

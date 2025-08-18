@@ -73,8 +73,8 @@ const WeeklyPlanner = () => {
   };
 
   return (
-    <section className="py-24 bg-gradient-to-br from-slate-50 via-blue-50/30 to-slate-50">
-      <div className="container mx-auto px-4">
+    <section className="py-16 sm:py-20 lg:py-24 bg-gradient-to-br from-[hsl(var(--md-sys-color-surface-container-low))] via-[hsl(var(--md-sys-color-surface-container))] to-[hsl(var(--md-sys-color-surface-container-low))]">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <div className="inline-flex items-center px-4 py-2 bg-blue-100 text-blue-700 rounded-full font-medium text-sm mb-6">
             <Calendar className="w-4 h-4 mr-2" />

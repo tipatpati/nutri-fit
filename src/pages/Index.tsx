@@ -39,11 +39,9 @@ const Index = () => {
       )}
       <main className="w-full">
         <Hero />
-        <div className="px-2 sm:px-4">
-          <MealCategories />
-          <WeeklyPlanner />
-          <Features />
-        </div>
+        <MealCategories />
+        <WeeklyPlanner />
+        <Features />
       </main>
       <Footer />
     </div>

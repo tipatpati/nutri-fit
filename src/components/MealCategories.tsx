@@ -51,8 +51,8 @@ const MealCategories = () => {
   ];
 
   return (
-    <section className="py-12 sm:py-16 lg:py-24 bg-gradient-to-b from-white via-gray-50/50 to-white">
-      <div className="container mx-auto px-4">
+    <section className="py-16 sm:py-20 lg:py-24 bg-gradient-to-b from-[hsl(var(--md-sys-color-surface))] via-[hsl(var(--md-sys-color-surface-container-low))] to-[hsl(var(--md-sys-color-surface))]">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12 lg:mb-16">
           <div className="inline-flex items-center px-3 sm:px-4 py-2 bg-emerald-100 text-emerald-700 rounded-full font-medium text-xs sm:text-sm mb-4 lg:mb-6">
             <span className="w-2 h-2 bg-emerald-500 rounded-full mr-2"></span>

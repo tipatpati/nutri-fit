@@ -11,7 +11,7 @@ const Header = () => {
 
   return (
     <header className="bg-[hsl(var(--md-sys-color-surface-container))] md-elevation-2 border-b border-[hsl(var(--md-sys-color-outline-variant))] sticky top-0 z-50">
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 sm:h-20">
           {/* Logo */}
           <div className="flex-shrink-0">

@@ -5,7 +5,7 @@ const Footer = () => {
   return (
     <footer className="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white">
       {/* Main Footer Content */}
-      <div className="container mx-auto px-4 py-16">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Brand Section */}
           <div className="space-y-6">
@@ -79,10 +79,10 @@ const Footer = () => {
             </div>
             
             <div className="space-y-3">
-              <button className="w-full bg-white text-md-surface-on-surface px-6 py-3 rounded-xl font-semibold hover:bg-gray-100 transition-all duration-300 hover:scale-105 shadow-lg">
+              <button className="w-full bg-[hsl(var(--md-sys-color-surface))] text-[hsl(var(--md-sys-color-on-surface))] px-6 py-3 rounded-[12px] font-semibold hover:bg-[hsl(var(--md-sys-color-surface-container))] transition-all duration-300 hover:scale-105 md-elevation-1">
                 Nous joindre
               </button>
-              <button className="w-full bg-gradient-to-r from-emerald-500 to-blue-500 text-white px-6 py-3 rounded-xl font-semibold hover:from-emerald-600 hover:to-blue-600 transition-all duration-300 hover:scale-105 shadow-lg shadow-emerald-500/25">
+              <button className="w-full bg-[hsl(var(--md-sys-color-primary))] text-[hsl(var(--md-sys-color-on-primary))] px-6 py-3 rounded-[12px] font-semibold hover:bg-[hsl(var(--md-sys-color-primary))]/90 transition-all duration-300 hover:scale-105 md-elevation-2">
                 Voir la FAQ
               </button>
             </div>
@@ -92,7 +92,7 @@ const Footer = () => {
 
       {/* Newsletter Section */}
       <div className="border-t border-gray-700 bg-gradient-to-r from-slate-800 to-slate-700">
-        <div className="container mx-auto px-4 py-8">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="grid md:grid-cols-2 gap-8 items-center">
             <div>
               <h4 className="text-xl font-bold text-white mb-2">Restez informé</h4>
@@ -114,7 +114,7 @@ const Footer = () => {
 
       {/* Bottom Footer */}
       <div className="border-t border-gray-700 bg-slate-900">
-        <div className="container mx-auto px-4 py-6">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <p className="text-gray-400 text-center md:text-left">
               &copy; 2024 NutriFit. Tous droits réservés.

@@ -30,8 +30,8 @@ const Features = () => {
   ];
 
   return (
-    <section className="py-24 bg-gradient-to-br from-white via-slate-50/30 to-white">
-      <div className="container mx-auto px-4">
+    <section className="py-16 sm:py-20 lg:py-24 bg-gradient-to-br from-[hsl(var(--md-sys-color-surface))] via-[hsl(var(--md-sys-color-surface-container-low))] to-[hsl(var(--md-sys-color-surface))]">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-20">
           <div className="inline-flex items-center px-4 py-2 bg-emerald-100 text-emerald-700 rounded-full font-medium text-sm mb-6">
             <Award className="w-4 h-4 mr-2" />
