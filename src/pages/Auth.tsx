@@ -280,7 +280,7 @@ const Auth = () => {
                         disabled={formLoading}
                       />
                     </div>
-                    <Button type="submit" className="w-full" disabled={formLoading}>
+                    <Button type="submit" variant="filled" className="w-full" disabled={formLoading}>
                       {formLoading ? "Connexion..." : "Se connecter"}
                     </Button>
                     <div className="text-sm text-center">
