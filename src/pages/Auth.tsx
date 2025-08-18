@@ -28,11 +28,14 @@ const Auth = () => {
   const [newPassword, setNewPassword] = useState("");
   const [confirmNewPassword, setConfirmNewPassword] = useState("");
   useEffect(() => {
+    // If arriving from email reset link, enter reset mode immediately
+    if (typeof window !== "undefined" && window.location.hash.includes("type=recovery")) {
+      setIsResetMode(true);
+    }
+
     // Set up auth state listener
     const {
-      data: {
-        subscription
-      }
+      data: { subscription }
     } = supabase.auth.onAuthStateChange((event, session) => {
       setSession(session);
       setUser(session?.user ?? null);
@@ -48,11 +51,7 @@ const Auth = () => {
     });
 
     // Check for existing session
-    supabase.auth.getSession().then(({
-      data: {
-        session
-      }
-    }) => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
       setUser(session?.user ?? null);
       setLoading(false);

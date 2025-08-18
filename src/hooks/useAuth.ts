@@ -8,12 +8,26 @@ export const useAuth = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    const cleanAuthHash = () => {
+      if (typeof window !== 'undefined' && window.location.hash) {
+        const hasAuthHash = /access_token|refresh_token|type=recovery/.test(window.location.hash);
+        if (hasAuthHash) {
+          window.history.replaceState({}, document.title, window.location.pathname + window.location.search);
+        }
+      }
+    };
+
     // Set up auth state listener
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       (event, session) => {
         setSession(session);
         setUser(session?.user ?? null);
         setLoading(false);
+        
+        // After Supabase processes the URL hash, clean it up
+        if (event === 'SIGNED_IN' || event === 'PASSWORD_RECOVERY' || event === 'USER_UPDATED') {
+          setTimeout(() => cleanAuthHash(), 0);
+        }
       }
     );
 
@@ -22,6 +36,11 @@ export const useAuth = () => {
       setSession(session);
       setUser(session?.user ?? null);
       setLoading(false);
+
+      // If we already have a session on load, ensure we clean any auth hash
+      if (session?.user) {
+        cleanAuthHash();
+      }
     });
 
     return () => subscription.unsubscribe();
