@@ -13,25 +13,25 @@ const Index = () => {
   const { user, signOut } = useAuth();
 
   return (
-    <div className="min-h-screen bg-white overflow-x-hidden">
+    <div className="min-h-screen bg-[hsl(var(--md-sys-color-surface))] text-[hsl(var(--md-sys-color-on-surface))] overflow-x-hidden">
       <Header />
       {user && (
-        <div className="bg-primary/10 p-4 text-center">
-          <span className="text-sm">Connecté en tant que {user.email}</span>
-          <Button variant="outline" size="sm" onClick={signOut} className="ml-4">
+        <div className="bg-[hsl(var(--md-sys-color-primary-container))] text-[hsl(var(--md-sys-color-on-primary-container))] p-4 text-center">
+          <span className="md-body-medium">Connecté en tant que {user.email}</span>
+          <Button variant="outlined" size="sm" onClick={signOut} className="ml-4">
             Déconnexion
           </Button>
           <Link to="/admin" className="ml-4">
-            <Button variant="outline" size="sm">
+            <Button variant="outlined" size="sm">
               Accès Admin
             </Button>
           </Link>
         </div>
       )}
       {!user && (
-        <div className="bg-secondary/10 p-4 text-center">
+        <div className="bg-[hsl(var(--md-sys-color-secondary-container))] text-[hsl(var(--md-sys-color-on-secondary-container))] p-4 text-center">
           <Link to="/auth">
-            <Button variant="outline" size="sm">
+            <Button variant="outlined" size="sm">
               Connexion / Inscription
             </Button>
           </Link>

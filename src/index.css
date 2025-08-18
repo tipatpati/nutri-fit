@@ -18,23 +18,23 @@
     --md-sys-color-on-surface: 28 27 31;
     --md-sys-color-on-surface-variant: 73 69 79;
 
-    /* Primary Colors */
-    --md-sys-color-primary: 103 80 164;
-    --md-sys-color-primary-container: 234 221 255;
+    /* Primary Colors - NutriFit Emerald Green */
+    --md-sys-color-primary: 16 185 129;
+    --md-sys-color-primary-container: 220 252 231;
     --md-sys-color-on-primary: 255 255 255;
-    --md-sys-color-on-primary-container: 33 0 93;
+    --md-sys-color-on-primary-container: 6 78 59;
 
-    /* Secondary Colors */
-    --md-sys-color-secondary: 98 91 113;
-    --md-sys-color-secondary-container: 232 222 248;
+    /* Secondary Colors - NutriFit Orange */
+    --md-sys-color-secondary: 249 115 22;
+    --md-sys-color-secondary-container: 255 237 213;
     --md-sys-color-on-secondary: 255 255 255;
-    --md-sys-color-on-secondary-container: 30 25 43;
+    --md-sys-color-on-secondary-container: 154 52 18;
 
-    /* Tertiary Colors */
-    --md-sys-color-tertiary: 125 82 96;
-    --md-sys-color-tertiary-container: 255 216 228;
+    /* Tertiary Colors - NutriFit Blue */
+    --md-sys-color-tertiary: 59 130 246;
+    --md-sys-color-tertiary-container: 219 234 254;
     --md-sys-color-on-tertiary: 255 255 255;
-    --md-sys-color-on-tertiary-container: 55 11 30;
+    --md-sys-color-on-tertiary-container: 30 64 175;
 
     /* Error Colors */
     --md-sys-color-error: 179 38 30;
@@ -128,23 +128,23 @@
     --md-sys-color-on-surface: 230 225 229;
     --md-sys-color-on-surface-variant: 202 196 208;
 
-    /* Primary Colors */
-    --md-sys-color-primary: 208 188 255;
-    --md-sys-color-primary-container: 79 55 139;
-    --md-sys-color-on-primary: 56 30 114;
-    --md-sys-color-on-primary-container: 234 221 255;
+    /* Primary Colors - NutriFit Emerald Green Dark */
+    --md-sys-color-primary: 52 211 153;
+    --md-sys-color-primary-container: 6 78 59;
+    --md-sys-color-on-primary: 6 78 59;
+    --md-sys-color-on-primary-container: 220 252 231;
 
-    /* Secondary Colors */
-    --md-sys-color-secondary: 204 194 220;
-    --md-sys-color-secondary-container: 74 68 88;
-    --md-sys-color-on-secondary: 51 45 65;
-    --md-sys-color-on-secondary-container: 232 222 248;
+    /* Secondary Colors - NutriFit Orange Dark */
+    --md-sys-color-secondary: 251 146 60;
+    --md-sys-color-secondary-container: 154 52 18;
+    --md-sys-color-on-secondary: 154 52 18;
+    --md-sys-color-on-secondary-container: 255 237 213;
 
-    /* Tertiary Colors */
-    --md-sys-color-tertiary: 239 184 200;
-    --md-sys-color-tertiary-container: 99 59 72;
-    --md-sys-color-on-tertiary: 80 37 50;
-    --md-sys-color-on-tertiary-container: 255 216 228;
+    /* Tertiary Colors - NutriFit Blue Dark */
+    --md-sys-color-tertiary: 96 165 250;
+    --md-sys-color-tertiary-container: 30 64 175;
+    --md-sys-color-on-tertiary: 30 64 175;
+    --md-sys-color-on-tertiary-container: 219 234 254;
 
     /* Error Colors */
     --md-sys-color-error: 242 184 181;
