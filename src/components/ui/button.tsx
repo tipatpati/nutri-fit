@@ -10,23 +10,23 @@ const buttonVariants = cva(
     variants: {
       variant: {
         // Material Design 3 Filled Button
-        filled: "bg-md-primary text-md-primary-on-primary hover:shadow-md md-elevation-1 hover:md-elevation-2 rounded-[20px] px-md-3 py-md-2 md-label-large",
+        filled: "bg-[hsl(var(--md-sys-color-primary))] text-[hsl(var(--md-sys-color-on-primary))] hover:shadow-md md-elevation-1 hover:md-elevation-2 rounded-[20px] px-md-3 py-md-2 md-label-large",
         // Material Design 3 Filled Tonal Button
-        "filled-tonal": "bg-md-secondary-container text-md-secondary-on-container hover:shadow-md md-elevation-1 hover:md-elevation-2 rounded-[20px] px-md-3 py-md-2 md-label-large",
+        "filled-tonal": "bg-[hsl(var(--md-sys-color-secondary-container))] text-[hsl(var(--md-sys-color-on-secondary-container))] hover:shadow-md md-elevation-1 hover:md-elevation-2 rounded-[20px] px-md-3 py-md-2 md-label-large",
         // Material Design 3 Outlined Button
-        outlined: "border border-md-outline text-md-primary bg-transparent hover:bg-md-primary/8 focus:bg-md-primary/12 active:bg-md-primary/16 rounded-[20px] px-md-3 py-md-2 md-label-large",
+        outlined: "border border-[hsl(var(--md-sys-color-outline))] text-[hsl(var(--md-sys-color-primary))] bg-transparent hover:bg-[hsl(var(--md-sys-color-primary)/0.08)] focus:bg-[hsl(var(--md-sys-color-primary)/0.12)] active:bg-[hsl(var(--md-sys-color-primary)/0.16)] rounded-[20px] px-md-3 py-md-2 md-label-large",
         // Material Design 3 Text Button
-        text: "text-md-primary bg-transparent hover:bg-md-primary/8 focus:bg-md-primary/12 active:bg-md-primary/16 rounded-[20px] px-md-3 py-md-2 md-label-large",
+        text: "text-[hsl(var(--md-sys-color-primary))] bg-transparent hover:bg-[hsl(var(--md-sys-color-primary)/0.08)] focus:bg-[hsl(var(--md-sys-color-primary)/0.12)] active:bg-[hsl(var(--md-sys-color-primary)/0.16)] rounded-[20px] px-md-3 py-md-2 md-label-large",
         // Material Design 3 Elevated Button
-        elevated: "bg-md-surface-container-low text-md-primary shadow-md hover:shadow-lg md-elevation-1 hover:md-elevation-2 rounded-[20px] px-md-3 py-md-2 md-label-large",
+        elevated: "bg-[hsl(var(--md-sys-color-surface-container-low))] text-[hsl(var(--md-sys-color-primary))] shadow-md hover:shadow-lg md-elevation-1 hover:md-elevation-2 rounded-[20px] px-md-3 py-md-2 md-label-large",
         // Legacy variants for backward compatibility
         default: "bg-primary text-primary-foreground hover:bg-primary/90 rounded-md px-4 py-2",
-        destructive: "bg-md-error text-md-error-on-error hover:shadow-md md-elevation-1 hover:md-elevation-2 rounded-[20px] px-md-3 py-md-2 md-label-large",
+        destructive: "bg-[hsl(var(--md-sys-color-error))] text-[hsl(var(--md-sys-color-on-error))] hover:shadow-md md-elevation-1 hover:md-elevation-2 rounded-[20px] px-md-3 py-md-2 md-label-large",
         secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80 rounded-md px-4 py-2",
         ghost: "hover:bg-accent hover:text-accent-foreground rounded-md px-4 py-2",
         link: "text-primary underline-offset-4 hover:underline rounded-md px-4 py-2",
         // Backward compatibility alias
-        outline: "border border-md-outline text-md-primary bg-transparent hover:bg-md-primary/8 focus:bg-md-primary/12 active:bg-md-primary/16 rounded-[20px] px-md-3 py-md-2 md-label-large",
+        outline: "border border-[hsl(var(--md-sys-color-outline))] text-[hsl(var(--md-sys-color-primary))] bg-transparent hover:bg-[hsl(var(--md-sys-color-primary)/0.08)] focus:bg-[hsl(var(--md-sys-color-primary)/0.12)] active:bg-[hsl(var(--md-sys-color-primary)/0.16)] rounded-[20px] px-md-3 py-md-2 md-label-large",
       },
       size: {
         // Material Design 3 sizes
