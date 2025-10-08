@@ -1,21 +1,21 @@
-import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
+import { newsletterSchema, type NewsletterFormData } from "@/shared/validation";
 
 export const NewsletterForm = () => {
-  const [email, setEmail] = useState("");
+  const form = useForm<NewsletterFormData>({
+    resolver: zodResolver(newsletterSchema),
+    defaultValues: {
+      email: "",
+    },
+  });
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    if (!email || !email.includes("@")) {
-      toast.error("Veuillez entrer une adresse email valide");
-      return;
-    }
-    
+  const onSubmit = (data: NewsletterFormData) => {
     // TODO: Add newsletter subscription logic
     toast.success("Merci de vous être abonné à notre newsletter !");
-    setEmail("");
+    form.reset();
   };
 
   return (
@@ -28,21 +28,28 @@ export const NewsletterForm = () => {
               Recevez nos dernières offres et conseils nutrition
             </p>
           </div>
-          <form onSubmit={handleSubmit} className="flex space-x-md-3">
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="Votre adresse email"
-              className="flex-1 px-md-4 py-md-3 rounded-md-lg bg-md-surface-container border border-md-outline text-md-on-surface placeholder-md-on-surface-variant focus:outline-none focus:ring-2 focus:ring-md-primary focus:border-transparent backdrop-blur"
-            />
-            <Button 
-              type="submit"
-              className="bg-gradient-to-r from-md-primary to-md-tertiary text-md-on-primary px-md-6 py-md-3 rounded-md-lg font-semibold hover:opacity-90 transition-all duration-md-medium2 hover:scale-105 md-elevation-2"
-            >
-              S'abonner
-            </Button>
-          </form>
+          <div>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="flex space-x-md-3">
+              <input
+                type="email"
+                {...form.register("email")}
+                placeholder="Votre adresse email"
+                className="flex-1 px-md-4 py-md-3 rounded-md-lg bg-md-surface-container border border-md-outline text-md-on-surface placeholder-md-on-surface-variant focus:outline-none focus:ring-2 focus:ring-md-primary focus:border-transparent backdrop-blur"
+              />
+              <Button 
+                type="submit"
+                disabled={form.formState.isSubmitting}
+                className="bg-gradient-to-r from-md-primary to-md-tertiary text-md-on-primary px-md-6 py-md-3 rounded-md-lg font-semibold hover:opacity-90 transition-all duration-md-medium2 hover:scale-105 md-elevation-2"
+              >
+                {form.formState.isSubmitting ? "Envoi..." : "S'abonner"}
+              </Button>
+            </form>
+            {form.formState.errors.email && (
+              <p className="text-md-error md-label-small mt-md-2">
+                {form.formState.errors.email.message}
+              </p>
+            )}
+          </div>
         </div>
       </div>
     </div>

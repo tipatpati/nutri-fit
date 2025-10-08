@@ -3,6 +3,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Minus, Plus, ArrowLeft, ArrowRight } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import { MealCardSkeleton } from "@/presentation/components/molecules/Loading/MealCardSkeleton";
+import { getCategoryColor } from "@/shared/design-system";
 
 interface Meal {
   id: string;
@@ -69,18 +71,6 @@ const MealSelection = ({
     }
   };
 
-  const getCategoryColor = (category: string) => {
-    switch (category) {
-      case "Prise de masse":
-        return "#FF4D00";
-      case "Perte de poids":
-        return "#113B39";
-      case "Équilibré":
-        return "#D4B961";
-      default:
-        return "#113B39";
-    }
-  };
 
   const getMealQuantity = (mealId: string) => {
     const dateStr = selectedDate.toISOString().split('T')[0];
@@ -96,13 +86,13 @@ const MealSelection = ({
   const hasSelectedMeals = totalMealsForDate > 0;
 
   return (
-    <div className="space-y-6 sm:space-y-8">
+    <div className="space-y-md-6 sm:space-y-md-8">
       {/* Header */}
       <div className="text-center">
-        <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold mb-2 sm:mb-4 text-slate-800">
+        <h2 className="md-headline-large mb-md-2 sm:mb-md-4 text-md-on-surface">
           Sélectionnez vos repas
         </h2>
-        <p className="text-sm sm:text-base text-gray-600 mb-4">
+        <p className="md-body-medium text-md-on-surface-variant mb-md-4">
           Pour le {selectedDate.toLocaleDateString('fr-FR', { 
             weekday: 'long', 
             year: 'numeric', 
@@ -112,24 +102,24 @@ const MealSelection = ({
         </p>
         
         {/* Capacity indicator */}
-        <div className="bg-gradient-to-r from-emerald-50 to-blue-50 p-3 sm:p-4 rounded-xl max-w-md mx-auto">
+        <div className="bg-md-primary-container p-md-3 sm:p-md-4 rounded-md-lg max-w-md mx-auto">
           {selectedPackage ? (
             <>
-              <p className="text-sm font-medium text-emerald-800 mb-1">
+              <p className="md-label-medium text-md-primary-on-container mb-md-1">
                 {selectedPackage.title}
               </p>
-              <p className="text-sm sm:text-base font-medium text-emerald-800">
+              <p className="md-body-medium text-md-primary-on-container">
                 {totalMealsForDate} / {packLimit} repas sélectionnés
               </p>
             </>
           ) : (
-            <p className="text-sm sm:text-base font-medium text-emerald-800">
+            <p className="md-body-medium text-md-primary-on-container">
               {totalMealsForDate} / {availableSlots} repas sélectionnés
             </p>
           )}
-          <div className="w-full bg-emerald-200 rounded-full h-2 mt-2">
+          <div className="w-full bg-md-primary-container-variant rounded-full h-2 mt-md-2">
             <div 
-              className="bg-gradient-to-r from-emerald-500 to-blue-500 h-2 rounded-full transition-all duration-300"
+              className="bg-gradient-to-r from-md-primary to-md-tertiary h-2 rounded-full transition-all duration-md-medium2"
               style={{ width: `${(totalMealsForDate / (packLimit || availableSlots)) * 100}%` }}
             ></div>
           </div>
@@ -137,12 +127,15 @@ const MealSelection = ({
       </div>
 
       {/* Meals Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
-        {meals.map((meal) => {
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-md-4 sm:gap-md-6">
+        {loading ? (
+          [...Array(8)].map((_, i) => <MealCardSkeleton key={i} />)
+        ) : (
+          meals.map((meal) => {
           const quantity = getMealQuantity(meal.id);
           
           return (
-            <Card key={meal.id} className="overflow-hidden hover:shadow-xl transition-all duration-300 bg-white/90 backdrop-blur-sm border-0 shadow-lg">
+            <Card key={meal.id} className="overflow-hidden hover:shadow-xl transition-all duration-md-medium2 bg-md-surface backdrop-blur-sm border-md-outline-variant md-elevation-1">
               <CardContent className="p-0">
                 <div className="relative overflow-hidden">
                   <img 
@@ -166,25 +159,25 @@ const MealSelection = ({
                   )}
                 </div>
                 
-                <div className="p-3 sm:p-4">
-                  <h3 className="font-semibold text-slate-800 text-sm sm:text-base mb-3 line-clamp-2">
+                <div className="p-md-3 sm:p-md-4">
+                  <h3 className="md-title-medium text-md-on-surface mb-md-3 line-clamp-2">
                     {meal.name}
                   </h3>
                   
                   {/* Quantity selector */}
                   <div className="flex items-center justify-between">
-                    <div className="flex items-center space-x-2">
+                    <div className="flex items-center space-x-md-2">
                       <Button
                         variant="outline"
                         size="sm"
                         onClick={() => onMealSelect(meal, Math.max(0, quantity - 1))}
                         disabled={quantity === 0}
-                        className="w-8 h-8 p-0 rounded-full border-emerald-300 hover:bg-emerald-50"
+                        className="w-8 h-8 p-0 rounded-full border-md-primary hover:bg-md-primary-container"
                       >
                         <Minus className="w-3 h-3" />
                       </Button>
                       
-                      <span className="w-8 text-center font-semibold text-slate-800">
+                      <span className="w-8 text-center font-semibold text-md-on-surface">
                         {quantity}
                       </span>
                       
@@ -193,14 +186,14 @@ const MealSelection = ({
                         size="sm"
                         onClick={() => onMealSelect(meal, quantity + 1)}
                         disabled={!canAddMeal() && quantity === 0}
-                        className="w-8 h-8 p-0 rounded-full border-emerald-300 hover:bg-emerald-50"
+                        className="w-8 h-8 p-0 rounded-full border-md-primary hover:bg-md-primary-container"
                       >
                         <Plus className="w-3 h-3" />
                       </Button>
                     </div>
                     
                     {quantity > 0 && (
-                      <div className="bg-emerald-100 text-emerald-700 px-2 py-1 rounded-full text-xs font-medium">
+                      <div className="bg-md-primary-container text-md-primary-on-container px-md-2 py-md-1 rounded-full md-label-small">
                         Ajouté
                       </div>
                     )}
@@ -209,27 +202,28 @@ const MealSelection = ({
               </CardContent>
             </Card>
           );
-        })}
+        })
+        )}
       </div>
 
       {/* Action buttons */}
-      <div className="flex flex-col sm:flex-row justify-between items-center gap-4 pt-6 sm:pt-8">
+      <div className="flex flex-col sm:flex-row justify-between items-center gap-md-4 pt-md-6 sm:pt-md-8">
         <Button
           variant="outline"
           onClick={onBack}
-          className="border-2 border-gray-300 text-gray-700 hover:bg-gray-50 px-6 py-3 rounded-xl font-semibold w-full sm:w-auto"
+          className="border-2 border-md-outline text-md-on-surface hover:bg-md-surface-container px-md-6 py-md-3 rounded-md-lg font-semibold w-full sm:w-auto"
         >
-          <ArrowLeft className="w-4 h-4 mr-2" />
+          <ArrowLeft className="w-4 h-4 mr-md-2" />
           Retour au calendrier
         </Button>
         
         <Button
           onClick={onProceed}
           disabled={!hasSelectedMeals}
-          className="bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 text-white px-8 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 w-full sm:w-auto"
+          className="bg-md-primary text-md-on-primary hover:bg-md-primary/90 px-md-8 py-md-3 rounded-md-lg font-semibold md-elevation-2 hover:md-elevation-3 transition-all duration-md-medium2 w-full sm:w-auto"
         >
           Continuer
-          <ArrowRight className="w-4 h-4 ml-2" />
+          <ArrowRight className="w-4 h-4 ml-md-2" />
         </Button>
       </div>
     </div>

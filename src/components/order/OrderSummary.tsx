@@ -3,7 +3,8 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { ArrowLeft, Calendar, ShoppingBag, CreditCard } from "lucide-react";
-import AddressForm, { AddressFormData } from "./AddressForm";
+import AddressForm from "./AddressForm";
+import { type AddressFormData } from "@/shared/validation";
 
 interface SelectedMeal {
   id: string;

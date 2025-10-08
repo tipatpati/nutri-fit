@@ -2,7 +2,6 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import * as z from 'zod';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -16,16 +15,7 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { MapPin } from 'lucide-react';
-
-const addressSchema = z.object({
-  street: z.string().min(1, 'L\'adresse est requise'),
-  city: z.string().min(1, 'La ville est requise'),
-  postalCode: z.string().min(5, 'Le code postal doit contenir au moins 5 caractères'),
-  country: z.string().min(1, 'Le pays est requis'),
-  instructions: z.string().optional(),
-});
-
-export type AddressFormData = z.infer<typeof addressSchema>;
+import { addressSchema, type AddressFormData } from '@/shared/validation';
 
 interface AddressFormProps {
   onSubmit: (data: AddressFormData) => void;
@@ -45,11 +35,11 @@ const AddressForm = ({ onSubmit, defaultValues }: AddressFormProps) => {
   });
 
   return (
-    <Card className="shadow-lg bg-white/90 backdrop-blur-sm border-0">
-      <CardContent className="p-4 sm:p-6">
-        <div className="flex items-center mb-4 sm:mb-6">
-          <MapPin className="w-5 h-5 text-emerald-600 mr-2" />
-          <h3 className="text-base sm:text-lg font-semibold text-slate-800">
+    <Card className="md-elevation-2 bg-md-surface border-md-outline">
+      <CardContent className="p-md-4 sm:p-md-6">
+        <div className="flex items-center mb-md-4 sm:mb-md-6">
+          <MapPin className="w-5 h-5 text-md-primary mr-md-2" />
+          <h3 className="md-title-large text-md-on-surface">
             Adresse de livraison
           </h3>
         </div>
@@ -66,7 +56,7 @@ const AddressForm = ({ onSubmit, defaultValues }: AddressFormProps) => {
                     <Input
                       placeholder="123 Rue de la République"
                       {...field}
-                      className="bg-white border-gray-300 focus:border-emerald-500"
+                      className="bg-md-surface border-md-outline focus:border-md-primary"
                     />
                   </FormControl>
                   <FormMessage />
@@ -85,7 +75,7 @@ const AddressForm = ({ onSubmit, defaultValues }: AddressFormProps) => {
                       <Input
                         placeholder="Paris"
                         {...field}
-                        className="bg-white border-gray-300 focus:border-emerald-500"
+                        className="bg-md-surface border-md-outline focus:border-md-primary"
                       />
                     </FormControl>
                     <FormMessage />
@@ -103,7 +93,7 @@ const AddressForm = ({ onSubmit, defaultValues }: AddressFormProps) => {
                       <Input
                         placeholder="75001"
                         {...field}
-                        className="bg-white border-gray-300 focus:border-emerald-500"
+                        className="bg-md-surface border-md-outline focus:border-md-primary"
                       />
                     </FormControl>
                     <FormMessage />
@@ -122,7 +112,7 @@ const AddressForm = ({ onSubmit, defaultValues }: AddressFormProps) => {
                     <Input
                       placeholder="France"
                       {...field}
-                      className="bg-white border-gray-300 focus:border-emerald-500"
+                      className="bg-md-surface border-md-outline focus:border-md-primary"
                     />
                   </FormControl>
                   <FormMessage />
@@ -140,7 +130,7 @@ const AddressForm = ({ onSubmit, defaultValues }: AddressFormProps) => {
                     <Textarea
                       placeholder="Exemple: Sonnez au portail, appartement au 2ème étage..."
                       {...field}
-                      className="bg-white border-gray-300 focus:border-emerald-500 min-h-[80px]"
+                      className="bg-md-surface border-md-outline focus:border-md-primary min-h-[80px]"
                     />
                   </FormControl>
                   <FormMessage />
@@ -150,7 +140,7 @@ const AddressForm = ({ onSubmit, defaultValues }: AddressFormProps) => {
 
             <Button
               type="submit"
-              className="w-full bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 text-white py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
+              className="w-full bg-md-primary text-md-on-primary hover:bg-md-primary/90 py-md-3 rounded-md-lg font-semibold md-elevation-2 hover:md-elevation-3 transition-all duration-md-medium2"
             >
               Confirmer l'adresse
             </Button>
