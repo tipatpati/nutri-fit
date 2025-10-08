@@ -40,9 +40,14 @@ export const HeaderActions = () => {
           </Link>
         </>
       ) : (
-        <Button variant="ghost" onClick={() => useAuthStore.getState().signOut()}>
-          Déconnexion
-        </Button>
+        <>
+          <Link to="/profile">
+            <Button variant="ghost">Mon Profil</Button>
+          </Link>
+          <Button variant="ghost" onClick={() => useAuthStore.getState().signOut()}>
+            Déconnexion
+          </Button>
+        </>
       )}
     </div>
   );
