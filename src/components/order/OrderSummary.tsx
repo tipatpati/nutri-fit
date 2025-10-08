@@ -63,12 +63,12 @@ const OrderSummary = ({ selectedMeals, onBack, onConfirm }: OrderSummaryProps) =
 
   if (showAddressForm) {
     return (
-      <div className="max-w-2xl mx-auto space-y-6">
+      <div className="max-w-2xl mx-auto space-y-md-5">
         <div className="text-center">
-          <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold mb-2 sm:mb-4 text-slate-800">
+          <h2 className="md-headline-medium mb-md-3 text-md-on-surface">
             Adresse de livraison
           </h2>
-          <p className="text-sm sm:text-base text-gray-600">
+          <p className="md-body-large text-md-on-surface-variant">
             Veuillez renseigner votre adresse de livraison
           </p>
         </div>
@@ -79,11 +79,12 @@ const OrderSummary = ({ selectedMeals, onBack, onConfirm }: OrderSummaryProps) =
         />
 
         <Button
-          variant="outline"
+          variant="outlined"
+          size="lg"
           onClick={() => setShowAddressForm(false)}
-          className="w-full border-2 border-gray-300 text-gray-700 hover:bg-gray-50 py-3 rounded-xl font-semibold"
+          className="w-full"
         >
-          <ArrowLeft className="w-4 h-4 mr-2" />
+          <ArrowLeft className="w-5 h-5 mr-md-2" />
           Retour au résumé
         </Button>
       </div>
@@ -91,55 +92,55 @@ const OrderSummary = ({ selectedMeals, onBack, onConfirm }: OrderSummaryProps) =
   }
 
   return (
-    <div className="max-w-4xl mx-auto space-y-6 sm:space-y-8">
+    <div className="max-w-4xl mx-auto space-y-md-6 sm:space-y-md-8">
       {/* Header */}
       <div className="text-center">
-        <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold mb-2 sm:mb-4 text-slate-800">
+        <h2 className="md-headline-medium mb-md-3 text-md-on-surface">
           Résumé de votre commande
         </h2>
-        <p className="text-sm sm:text-base text-gray-600">
+        <p className="md-body-large text-md-on-surface-variant">
           Vérifiez votre sélection avant de confirmer
         </p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-md-5 sm:gap-md-6">
         {/* Order Details */}
-        <div className="lg:col-span-2 space-y-4 sm:space-y-6">
+        <div className="lg:col-span-2 space-y-md-4 sm:space-y-md-5">
           {Object.entries(mealsByDate).map(([date, meals]) => (
-            <Card key={date} className="overflow-hidden shadow-lg bg-white/90 backdrop-blur-sm border-0">
-              <CardContent className="p-4 sm:p-6">
-                <div className="flex items-center mb-4">
-                  <Calendar className="w-5 h-5 text-emerald-600 mr-2" />
-                  <h3 className="text-base sm:text-lg font-semibold text-slate-800">
+            <Card key={date} className="overflow-hidden bg-md-surface-container border-md-outline-variant border md-elevation-1">
+              <CardContent className="p-md-4 sm:p-md-6">
+                <div className="flex items-center mb-md-4">
+                  <Calendar className="w-5 h-5 text-md-primary mr-md-2" />
+                  <h3 className="md-title-large text-md-on-surface capitalize">
                     {formatDate(date)}
                   </h3>
                 </div>
                 
-                <div className="space-y-3 sm:space-y-4">
+                <div className="space-y-md-3">
                   {meals.map((meal) => (
-                    <div key={`${meal.id}-${date}`} className="flex items-center space-x-3 sm:space-x-4 p-3 sm:p-4 bg-gray-50 rounded-xl">
+                    <div key={`${meal.id}-${date}`} className="flex items-center gap-md-3 sm:gap-md-4 p-md-3 sm:p-md-4 bg-md-surface rounded-md-md border border-md-outline-variant">
                       <img 
                         src={meal.image_url || 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop&crop=center'} 
                         alt={meal.name}
-                        className="w-12 h-12 sm:w-16 sm:h-16 object-cover rounded-lg"
+                        className="w-14 h-14 sm:w-18 sm:h-18 object-cover rounded-md-sm"
                       />
                       <div className="flex-1 min-w-0">
-                        <h4 className="font-medium text-slate-800 text-sm sm:text-base line-clamp-1">
+                        <h4 className="md-title-medium text-md-on-surface line-clamp-1">
                           {meal.name}
                         </h4>
-                        <div className="flex items-center gap-2 mt-1">
-                          <span className="text-xs sm:text-sm text-gray-600">
+                        <div className="flex items-center gap-md-2 mt-md-1">
+                          <span className="md-body-small text-md-on-surface-variant">
                             Quantité: {meal.quantity}
                           </span>
                           {meal.premium && (
-                            <span className="bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full text-xs font-medium">
+                            <span className="bg-md-tertiary-container text-md-on-tertiary-container px-md-2 py-md-1 rounded-full md-label-small font-medium">
                               Premium
                             </span>
                           )}
                         </div>
                       </div>
                       <div className="text-right">
-                        <p className="font-semibold text-slate-800 text-sm sm:text-base">
+                        <p className="md-title-medium font-bold text-md-on-surface">
                           {((meal.premium ? 15.99 : 12.99) * meal.quantity).toFixed(2)}€
                         </p>
                       </div>
@@ -152,27 +153,26 @@ const OrderSummary = ({ selectedMeals, onBack, onConfirm }: OrderSummaryProps) =
 
           {/* Delivery Address Section */}
           {deliveryAddress && (
-            <Card className="overflow-hidden shadow-lg bg-white/90 backdrop-blur-sm border-0">
-              <CardContent className="p-4 sm:p-6">
-                <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-base sm:text-lg font-semibold text-slate-800">
+            <Card className="overflow-hidden bg-md-surface-container border-md-outline-variant border md-elevation-1">
+              <CardContent className="p-md-4 sm:p-md-6">
+                <div className="flex items-center justify-between mb-md-4">
+                  <h3 className="md-title-large text-md-on-surface">
                     Adresse de livraison
                   </h3>
                   <Button
-                    variant="outline"
+                    variant="outlined"
                     size="sm"
                     onClick={() => setShowAddressForm(true)}
-                    className="text-emerald-600 border-emerald-300 hover:bg-emerald-50"
                   >
                     Modifier
                   </Button>
                 </div>
-                <div className="text-sm sm:text-base text-gray-700 space-y-1">
+                <div className="md-body-medium text-md-on-surface space-y-md-1">
                   <p>{deliveryAddress.street}</p>
                   <p>{deliveryAddress.postalCode} {deliveryAddress.city}</p>
                   <p>{deliveryAddress.country}</p>
                   {deliveryAddress.instructions && (
-                    <p className="mt-2 text-gray-600 italic">
+                    <p className="mt-md-2 text-md-on-surface-variant md-body-small">
                       Instructions: {deliveryAddress.instructions}
                     </p>
                   )}
@@ -184,63 +184,68 @@ const OrderSummary = ({ selectedMeals, onBack, onConfirm }: OrderSummaryProps) =
 
         {/* Order Summary */}
         <div className="lg:col-span-1">
-          <Card className="sticky top-24 shadow-lg bg-white/90 backdrop-blur-sm border-0">
-            <CardContent className="p-4 sm:p-6">
-              <div className="flex items-center mb-4 sm:mb-6">
-                <ShoppingBag className="w-5 h-5 text-emerald-600 mr-2" />
-                <h3 className="text-base sm:text-lg font-semibold text-slate-800">
-                  Total de la commande
+          <Card className="sticky top-24 bg-md-surface-container border-md-outline-variant border md-elevation-2">
+            <CardContent className="p-md-5 sm:p-md-6">
+              <div className="flex items-center mb-md-5 sm:mb-md-6">
+                <ShoppingBag className="w-5 h-5 text-md-primary mr-md-2" />
+                <h3 className="md-title-large text-md-on-surface">
+                  Total
                 </h3>
               </div>
               
-              <div className="space-y-3 sm:space-y-4 mb-6">
-                <div className="flex justify-between items-center py-2 border-b border-gray-100">
-                  <span className="text-sm sm:text-base text-gray-600">Nombre de repas</span>
-                  <span className="font-medium text-slate-800">{totalMeals}</span>
+              <div className="space-y-md-3 sm:space-y-md-4 mb-md-6">
+                <div className="flex justify-between items-center py-md-2 border-b border-md-outline-variant">
+                  <span className="md-body-medium text-md-on-surface-variant">Nombre de repas</span>
+                  <span className="md-body-medium font-semibold text-md-on-surface">{totalMeals}</span>
                 </div>
                 
-                <div className="flex justify-between items-center py-2 border-b border-gray-100">
-                  <span className="text-sm sm:text-base text-gray-600">Sous-total</span>
-                  <span className="font-medium text-slate-800">{totalPrice.toFixed(2)}€</span>
+                <div className="flex justify-between items-center py-md-2 border-b border-md-outline-variant">
+                  <span className="md-body-medium text-md-on-surface-variant">Sous-total</span>
+                  <span className="md-body-medium font-semibold text-md-on-surface">{totalPrice.toFixed(2)}€</span>
                 </div>
                 
-                <div className="flex justify-between items-center py-2 border-b border-gray-100">
-                  <span className="text-sm sm:text-base text-gray-600">Livraison</span>
-                  <span className="font-medium text-green-600">Gratuite</span>
+                <div className="flex justify-between items-center py-md-2 border-b border-md-outline-variant">
+                  <span className="md-body-medium text-md-on-surface-variant">Livraison</span>
+                  <span className="md-body-medium font-semibold text-md-primary">Gratuite</span>
                 </div>
                 
-                <div className="flex justify-between items-center py-3 sm:py-4 bg-gradient-to-r from-emerald-50 to-blue-50 rounded-xl px-3 sm:px-4">
-                  <span className="text-base sm:text-lg font-semibold text-slate-800">Total</span>
-                  <span className="text-lg sm:text-xl font-bold text-emerald-700">{totalPrice.toFixed(2)}€</span>
+                <div className="flex justify-between items-center py-md-4 bg-md-primary-container rounded-md-md px-md-4">
+                  <span className="md-title-medium font-bold text-md-on-primary-container">Total</span>
+                  <span className="md-title-large font-bold text-md-on-primary-container">{totalPrice.toFixed(2)}€</span>
                 </div>
               </div>
 
-              <div className="space-y-3 sm:space-y-4">
+              <div className="space-y-md-3">
                 {!deliveryAddress ? (
                   <Button
+                    variant="filled"
+                    size="lg"
                     onClick={() => setShowAddressForm(true)}
-                    className="w-full bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 text-white py-3 sm:py-4 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
+                    className="w-full"
                   >
-                    <CreditCard className="w-4 h-4 mr-2" />
+                    <CreditCard className="w-5 h-5 mr-md-2" />
                     Ajouter une adresse
                   </Button>
                 ) : (
                   <Button
+                    variant="filled"
+                    size="lg"
                     onClick={handleFinalConfirm}
-                    className="w-full bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 text-white py-3 sm:py-4 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
+                    className="w-full"
                   >
-                    <CreditCard className="w-4 h-4 mr-2" />
+                    <CreditCard className="w-5 h-5 mr-md-2" />
                     Confirmer la commande
                   </Button>
                 )}
                 
                 <Button
-                  variant="outline"
+                  variant="outlined"
+                  size="lg"
                   onClick={onBack}
-                  className="w-full border-2 border-gray-300 text-gray-700 hover:bg-gray-50 py-3 rounded-xl font-semibold"
+                  className="w-full"
                 >
-                  <ArrowLeft className="w-4 h-4 mr-2" />
-                  Modifier la sélection
+                  <ArrowLeft className="w-5 h-5 mr-md-2" />
+                  Modifier
                 </Button>
               </div>
             </CardContent>

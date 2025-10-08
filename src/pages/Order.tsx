@@ -162,23 +162,23 @@ const Order = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-emerald-50/30 overflow-x-hidden">
+    <div className="min-h-screen bg-md-surface overflow-x-hidden">
       <Header />
       
-      <main className="container mx-auto px-2 sm:px-4 py-4 sm:py-8 lg:py-12 max-w-7xl">
+      <main className="container mx-auto px-md-2 sm:px-md-4 py-md-4 sm:py-md-6 lg:py-md-8 max-w-7xl">
         {/* Page Header */}
-        <div className="text-center mb-8 sm:mb-12 lg:mb-16">
-          <h1 className="text-2xl sm:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 bg-gradient-to-r from-slate-800 to-emerald-800 bg-clip-text text-transparent">
+        <div className="text-center mb-md-8 sm:mb-md-10 lg:mb-md-12">
+          <h1 className="md-display-small sm:md-display-medium mb-md-3 sm:mb-md-4 text-md-on-surface">
             Planifier votre commande
           </h1>
-          <p className="text-base sm:text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            Choisissez votre objectif, vos dates et sélectionnez vos repas préférés pour une expérience culinaire personnalisée
+          <p className="md-body-large text-md-on-surface-variant max-w-3xl mx-auto">
+            Choisissez votre objectif, vos dates et sélectionnez vos repas préférés
           </p>
         </div>
 
         {/* Step Indicator */}
-        <div className="flex justify-center mb-8 sm:mb-12">
-          <div className="flex items-center space-x-2 sm:space-x-4 lg:space-x-8">
+        <div className="flex justify-center mb-md-8 sm:mb-md-10">
+          <div className="flex items-center gap-md-2 sm:gap-md-3 lg:gap-md-6">
             {[
               { step: 'goal', label: 'Objectif', number: 1 },
               { step: 'date', label: 'Date', number: 2 },
@@ -186,22 +186,22 @@ const Order = () => {
               { step: 'summary', label: 'Résumé', number: 4 }
             ].map((item, index) => (
               <div key={item.step} className="flex items-center">
-                <div className={`w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center text-sm sm:text-base font-semibold transition-all duration-300 ${
+                <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center md-label-large sm:md-title-medium font-semibold transition-all duration-md-medium2 ${
                   currentStep === item.step
-                    ? 'bg-gradient-to-r from-emerald-500 to-blue-500 text-white shadow-lg'
+                    ? 'bg-md-primary text-md-on-primary md-elevation-2'
                     : getStepStatus(currentStep, item.step)
-                    ? 'bg-emerald-100 text-emerald-700'
-                    : 'bg-gray-200 text-gray-500'
+                    ? 'bg-md-primary-container text-md-on-primary-container'
+                    : 'bg-md-surface-variant text-md-on-surface-variant'
                 }`}>
                   {item.number}
                 </div>
-                <span className={`ml-2 text-xs sm:text-sm lg:text-base font-medium hidden sm:block ${
-                  currentStep === item.step ? 'text-emerald-700' : 'text-gray-500'
+                <span className={`ml-md-2 md-label-large sm:md-body-medium font-medium hidden sm:block ${
+                  currentStep === item.step ? 'text-md-primary' : 'text-md-on-surface-variant'
                 }`}>
                   {item.label}
                 </span>
                 {index < 3 && (
-                  <div className="hidden lg:block w-8 h-0.5 bg-gray-200 ml-4"></div>
+                  <div className="hidden lg:block w-12 h-0.5 bg-md-outline-variant ml-md-3"></div>
                 )}
               </div>
             ))}

@@ -35,9 +35,9 @@ const AddressForm = ({ onSubmit, defaultValues }: AddressFormProps) => {
   });
 
   return (
-    <Card className="md-elevation-2 bg-md-surface border-md-outline">
-      <CardContent className="p-md-4 sm:p-md-6">
-        <div className="flex items-center mb-md-4 sm:mb-md-6">
+    <Card className="md-elevation-2 bg-md-surface-container border-md-outline-variant border">
+      <CardContent className="p-md-5 sm:p-md-6">
+        <div className="flex items-center mb-md-5 sm:mb-md-6">
           <MapPin className="w-5 h-5 text-md-primary mr-md-2" />
           <h3 className="md-title-large text-md-on-surface">
             Adresse de livraison
@@ -45,18 +45,17 @@ const AddressForm = ({ onSubmit, defaultValues }: AddressFormProps) => {
         </div>
 
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-md-4">
             <FormField
               control={form.control}
               name="street"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Adresse complète</FormLabel>
+                  <FormLabel className="md-body-medium text-md-on-surface">Adresse complète</FormLabel>
                   <FormControl>
                     <Input
                       placeholder="123 Rue de la République"
                       {...field}
-                      className="bg-md-surface border-md-outline focus:border-md-primary"
                     />
                   </FormControl>
                   <FormMessage />
@@ -64,18 +63,17 @@ const AddressForm = ({ onSubmit, defaultValues }: AddressFormProps) => {
               )}
             />
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-md-4">
               <FormField
                 control={form.control}
                 name="city"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Ville</FormLabel>
+                    <FormLabel className="md-body-medium text-md-on-surface">Ville</FormLabel>
                     <FormControl>
                       <Input
                         placeholder="Paris"
                         {...field}
-                        className="bg-md-surface border-md-outline focus:border-md-primary"
                       />
                     </FormControl>
                     <FormMessage />
@@ -88,12 +86,11 @@ const AddressForm = ({ onSubmit, defaultValues }: AddressFormProps) => {
                 name="postalCode"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Code postal</FormLabel>
+                    <FormLabel className="md-body-medium text-md-on-surface">Code postal</FormLabel>
                     <FormControl>
                       <Input
                         placeholder="75001"
                         {...field}
-                        className="bg-md-surface border-md-outline focus:border-md-primary"
                       />
                     </FormControl>
                     <FormMessage />
@@ -107,12 +104,11 @@ const AddressForm = ({ onSubmit, defaultValues }: AddressFormProps) => {
               name="country"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Pays</FormLabel>
+                  <FormLabel className="md-body-medium text-md-on-surface">Pays</FormLabel>
                   <FormControl>
                     <Input
                       placeholder="France"
                       {...field}
-                      className="bg-md-surface border-md-outline focus:border-md-primary"
                     />
                   </FormControl>
                   <FormMessage />
@@ -125,12 +121,12 @@ const AddressForm = ({ onSubmit, defaultValues }: AddressFormProps) => {
               name="instructions"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Instructions de livraison (optionnel)</FormLabel>
+                  <FormLabel className="md-body-medium text-md-on-surface">Instructions de livraison (optionnel)</FormLabel>
                   <FormControl>
                     <Textarea
                       placeholder="Exemple: Sonnez au portail, appartement au 2ème étage..."
                       {...field}
-                      className="bg-md-surface border-md-outline focus:border-md-primary min-h-[80px]"
+                      className="min-h-[80px]"
                     />
                   </FormControl>
                   <FormMessage />
@@ -139,8 +135,10 @@ const AddressForm = ({ onSubmit, defaultValues }: AddressFormProps) => {
             />
 
             <Button
+              variant="filled"
+              size="lg"
               type="submit"
-              className="w-full bg-md-primary text-md-on-primary hover:bg-md-primary/90 py-md-3 rounded-md-lg font-semibold md-elevation-2 hover:md-elevation-3 transition-all duration-md-medium2"
+              className="w-full"
             >
               Confirmer l'adresse
             </Button>
