@@ -11,21 +11,21 @@ export const HeroTestimonial = ({
   name, 
   role, 
   quote,
-  gradient = "from-md-primary to-md-secondary" 
+  gradient = "from-orange-500 to-amber-500" 
 }: HeroTestimonialProps) => {
   return (
-    <div className="md-surface-container-low/10 backdrop-blur rounded-xl lg:rounded-[16px] p-md-4 lg:p-md-6 border border-md-outline-variant/20">
-      <div className="flex items-start space-x-md-3 lg:space-x-md-4">
-        <div className={`w-10 h-10 lg:w-12 lg:h-12 bg-gradient-to-br ${gradient} rounded-full flex items-center justify-center font-bold text-white md-label-large md-elevation-1 flex-shrink-0`}>
+    <div className="bg-white/5 backdrop-blur-sm rounded-xl p-4 border border-white/10">
+      <div className="flex items-start gap-3">
+        <div className={`w-10 h-10 bg-gradient-to-br ${gradient} rounded-full flex items-center justify-center font-bold text-white text-sm flex-shrink-0`}>
           {initial}
         </div>
         <div className="flex-1 min-w-0">
-          <p className="md-body-small text-gray-200 italic mb-md-2 lg:mb-md-3 leading-relaxed">
+          <p className="text-sm text-gray-300 italic mb-2 leading-relaxed">
             "{quote}"
           </p>
           <div>
-            <p className="md-label-medium text-white">{name}</p>
-            <p className="md-label-small text-gray-300">{role}</p>
+            <p className="text-sm font-semibold text-white">{name}</p>
+            <p className="text-xs text-gray-400">{role}</p>
           </div>
         </div>
       </div>

@@ -17,33 +17,35 @@ export const HeroContent = ({ onOrderClick }: HeroContentProps) => {
   ];
 
   return (
-    <div className="space-y-md-6 lg:space-y-md-8 text-center lg:text-left">
-      <div className="space-y-md-4 lg:space-y-md-6">
-        <div className="inline-flex items-center px-md-3 sm:px-md-4 py-md-2 bg-md-primary/10 border border-md-primary/20 rounded-full backdrop-blur-sm">
-          <Icon name="stopwatch" size={16} className="mr-2 brightness-0 invert opacity-70" />
-          <span className="text-orange-300 md-label-medium">Nouveau - Livraison express en 30 min</span>
-        </div>
-        
-        <h1 className="md-display-large lg:text-[64px] lg:leading-[72px]">
-          <span className="bg-gradient-to-r from-white via-gray-100 to-white bg-clip-text text-transparent">
+    <div className="space-y-10 lg:space-y-12 text-center lg:text-left max-w-2xl mx-auto lg:mx-0">
+      {/* Badge */}
+      <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-full backdrop-blur-sm">
+        <Icon name="stopwatch" size={14} className="brightness-0 invert opacity-60" />
+        <span className="text-orange-300 text-sm font-medium">Livraison express en 30 min</span>
+      </div>
+      
+      {/* Heading */}
+      <div className="space-y-6">
+        <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold leading-tight tracking-tight">
+          <span className="text-white">
             Repas
           </span>
           <br />
-          <span className="bg-gradient-to-r from-orange-400 via-amber-300 to-emerald-300 bg-clip-text text-transparent font-bold">
+          <span className="bg-gradient-to-r from-orange-400 via-amber-300 to-emerald-300 bg-clip-text text-transparent">
             santé & saveur
           </span>
         </h1>
         
-        <p className="md-body-large lg:md-body-large text-gray-200 max-w-xl mx-auto lg:mx-0 leading-relaxed">
+        <p className="text-lg lg:text-xl text-gray-300 leading-relaxed max-w-lg mx-auto lg:mx-0">
           Des repas équilibrés, préparés par des chefs et livrés directement chez vous.
-          <span className="block mt-md-2 text-orange-300 md-label-large font-medium">Commandez en 30 secondes, sans inscription</span>
         </p>
       </div>
 
+      {/* CTA Section */}
       <QuickOrderSection onOrderClick={onOrderClick} />
 
       {/* Trust Indicators */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-md-4 lg:gap-md-6">
+      <div className="grid grid-cols-4 gap-6 pt-4">
         {trustIndicators.map((indicator, index) => (
           <TrustBadge key={index} {...indicator} />
         ))}

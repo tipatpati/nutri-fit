@@ -10,17 +10,17 @@ interface TrustBadgeProps {
 
 export const TrustBadge = ({ icon: Icon, iconComponent, label, iconColor = "text-md-primary" }: TrustBadgeProps) => {
   return (
-    <div className="text-center space-y-md-2 group">
-      <div className="w-12 h-12 lg:w-14 lg:h-14 mx-auto md-surface-container-low backdrop-blur rounded-xl lg:rounded-[16px] flex items-center justify-center border border-md-outline-variant group-hover:scale-110 transition-all duration-300">
+    <div className="text-center space-y-2">
+      <div className="w-12 h-12 mx-auto bg-white/5 backdrop-blur-sm rounded-xl flex items-center justify-center border border-white/10 transition-transform duration-200 hover:scale-105">
         {iconComponent ? (
           iconComponent
         ) : typeof Icon === 'string' ? (
-          <span className="text-xl lg:text-2xl">{Icon}</span>
+          <span className="text-lg">{Icon}</span>
         ) : Icon ? (
-          <Icon className={`w-5 h-5 lg:w-6 lg:h-6 ${iconColor}`} size={24} />
+          <Icon className={`w-5 h-5 ${iconColor}`} size={20} />
         ) : null}
       </div>
-      <p className="md-label-medium text-gray-200">{label}</p>
+      <p className="text-xs font-medium text-gray-300">{label}</p>
     </div>
   );
 };

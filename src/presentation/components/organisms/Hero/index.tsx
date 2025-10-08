@@ -10,26 +10,23 @@ export const Hero = () => {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 overflow-hidden">
-      {/* Background Image */}
+    <section className="relative min-h-screen flex items-center bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 overflow-hidden">
+      {/* Subtle background image */}
       <div 
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-20"
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-10"
         style={{
           backgroundImage: 'url(/lovable-uploads/ff5ffe15-1c41-47b5-92cd-30cb2ecf8549.png)'
         }}
       />
       
-      {/* Modern gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/10 via-transparent to-orange-500/10" />
+      {/* Minimal gradient accent */}
+      <div className="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-orange-500/5" />
       
-      {/* Animated background elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-emerald-400/20 to-transparent rounded-full blur-3xl animate-pulse" />
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-gradient-to-tr from-orange-400/20 to-transparent rounded-full blur-3xl animate-pulse delay-1000" />
-      </div>
+      {/* Single subtle glow effect */}
+      <div className="absolute top-1/4 right-1/4 w-[500px] h-[500px] bg-gradient-to-br from-emerald-400/10 to-transparent rounded-full blur-3xl" />
       
-      <div className="relative z-10 container mx-auto px-md-4 sm:px-md-6 lg:px-md-8 py-md-12 sm:py-md-20">
-        <div className="grid lg:grid-cols-2 gap-md-8 lg:gap-md-16 items-center">
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-20 lg:py-24">
+        <div className="grid lg:grid-cols-[1.1fr,0.9fr] gap-16 lg:gap-20 items-center">
           <HeroContent onOrderClick={handleOrderClick} />
           <HeroSocialProof />
         </div>

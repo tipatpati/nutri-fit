@@ -27,44 +27,50 @@ export const HeroSocialProof = () => {
   ] as const;
 
   return (
-    <div className="relative mt-md-8 lg:mt-0">
-      <div className="md-surface-container-low/10 backdrop-blur-xl border border-md-outline-variant/20 rounded-xl lg:rounded-[24px] p-md-6 lg:p-md-8 md-elevation-2">
-        <div className="space-y-md-6 lg:space-y-md-8">
-          <div className="text-center">
-            <h2 className="md-headline-medium lg:md-headline-large text-white mb-md-3 lg:mb-md-4">
-              nutri<span className="bg-gradient-to-r from-orange-400 to-amber-300 bg-clip-text text-transparent px-md-2 rounded">fit</span>
-            </h2>
-            <div className="flex items-center justify-center space-x-md-2 mb-md-2 lg:mb-md-3">
-              <div className="text-yellow-400 text-xl lg:text-2xl">★★★★★</div>
-              <span className="text-white md-title-medium lg:md-title-large">4.8/5</span>
-            </div>
-            <p className="md-body-medium lg:md-body-large text-gray-300">
-              +842 clients satisfaits ce mois-ci
-            </p>
+    <div className="relative">
+      <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-8 space-y-8">
+        {/* Header */}
+        <div className="text-center pb-6 border-b border-white/10">
+          <h2 className="text-3xl font-bold text-white mb-3">
+            nutri<span className="bg-gradient-to-r from-orange-400 to-amber-300 bg-clip-text text-transparent">fit</span>
+          </h2>
+          <div className="flex items-center justify-center gap-2 mb-2">
+            <div className="text-yellow-400 text-lg">★★★★★</div>
+            <span className="text-white text-lg font-semibold">4.8/5</span>
           </div>
-          
-          <div className="grid grid-cols-1 gap-md-3 lg:gap-md-4">
-            {mealCategories.map((item, index) => (
-              <div key={index} className={`bg-gradient-to-r ${item.color} border backdrop-blur rounded-xl lg:rounded-[16px] p-md-3 lg:p-md-4 hover:scale-[1.02] transition-all duration-300 flex items-start gap-3`}>
-                <div className="flex-shrink-0 mt-1">
-                  <Icon name={item.icon} size={24} className="brightness-0 invert" />
-                </div>
-                <div className="flex-1">
-                  <h3 className="md-label-large text-white mb-md-1 lg:mb-md-2">{item.title}</h3>
-                  <p className="md-body-small lg:md-body-medium text-gray-200 mb-md-2">{item.desc}</p>
-                  <div className="md-label-small bg-white/20 backdrop-blur px-md-2 lg:px-md-3 py-md-1 rounded-full inline-block text-white">
-                    {item.cal}
-                  </div>
+          <p className="text-sm text-gray-400">
+            +842 clients satisfaits ce mois-ci
+          </p>
+        </div>
+        
+        {/* Meal Categories */}
+        <div className="space-y-3">
+          {mealCategories.map((item, index) => (
+            <div 
+              key={index} 
+              className={`bg-gradient-to-r ${item.color} border backdrop-blur rounded-xl p-4 transition-transform duration-200 hover:scale-[1.01] flex items-center gap-3`}
+            >
+              <div className="flex-shrink-0">
+                <Icon name={item.icon} size={20} className="brightness-0 invert" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <h3 className="text-sm font-semibold text-white mb-1">{item.title}</h3>
+                <p className="text-xs text-gray-200 mb-2">{item.desc}</p>
+                <div className="text-xs bg-white/20 backdrop-blur px-2 py-1 rounded-full inline-block text-white font-medium">
+                  {item.cal}
                 </div>
               </div>
-            ))}
-          </div>
-          
+            </div>
+          ))}
+        </div>
+        
+        {/* Testimonial */}
+        <div className="pt-6 border-t border-white/10">
           <HeroTestimonial
             initial="M"
             name="Marc Kouadio"
             role="Client fidèle depuis 8 mois"
-            quote="Interface intuitive, repas délicieux et livraison ultra-rapide. Le service client est exceptionnel !"
+            quote="Interface intuitive, repas délicieux et livraison ultra-rapide."
           />
         </div>
       </div>

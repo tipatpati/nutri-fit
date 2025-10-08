@@ -16,36 +16,33 @@ export const QuickOrderSection = ({ onOrderClick }: QuickOrderSectionProps) => {
   ] as const;
 
   return (
-    <div className="md-surface-container-low/10 backdrop-blur-xl border border-md-outline-variant/20 rounded-xl lg:rounded-[24px] p-md-4 sm:p-md-6 lg:p-md-8 md-elevation-2">
-      <h3 className="text-white md-title-large mb-md-4 lg:mb-md-6 flex items-center justify-center lg:justify-start">
-        <span className="w-2 h-2 bg-orange-400 rounded-full mr-md-3 animate-pulse-subtle"></span>
-        Commande express
-      </h3>
-      
-      <div className="grid grid-cols-3 gap-md-3 lg:gap-md-4 mb-md-4 lg:mb-md-6">
+    <div className="space-y-6">
+      {/* Category Selection */}
+      <div className="grid grid-cols-3 gap-3">
         {categories.map((category, index) => (
           <CategoryBadge key={index} {...category} />
         ))}
       </div>
       
+      {/* CTA Button */}
       <Button 
         onClick={onOrderClick}
-        variant="filled"
         size="lg"
-        className="w-full md-elevation-1 hover:md-elevation-2"
+        className="w-full bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white font-semibold py-6 rounded-xl transition-all duration-200"
       >
         Commander maintenant
         <AnimatedArrowRight className="ml-2" size={20} />
       </Button>
       
-      <div className="flex items-center justify-center mt-md-3 lg:mt-md-4 space-x-md-4 lg:space-x-md-6 md-label-medium text-gray-300">
-        <div className="flex items-center">
-          <Truck className="w-3 h-3 lg:w-4 lg:h-4 mr-md-1 lg:mr-md-2 text-emerald-400" />
-          Livraison gratuite
+      {/* Benefits */}
+      <div className="flex items-center justify-center gap-6 text-sm text-gray-400">
+        <div className="flex items-center gap-2">
+          <Truck className="w-4 h-4 text-emerald-400" />
+          <span>Livraison gratuite</span>
         </div>
-        <div className="flex items-center">
-          <Heart className="w-3 h-3 lg:w-4 lg:h-4 mr-md-1 lg:mr-md-2 text-orange-400" />
-          Sans compte requis
+        <div className="flex items-center gap-2">
+          <Heart className="w-4 h-4 text-orange-400" />
+          <span>Sans inscription</span>
         </div>
       </div>
     </div>

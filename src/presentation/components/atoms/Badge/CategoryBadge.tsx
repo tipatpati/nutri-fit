@@ -11,12 +11,12 @@ export const CategoryBadge = ({ icon, label, gradient, onClick }: CategoryBadgeP
   return (
     <button
       onClick={onClick}
-      className={`group p-md-3 lg:p-md-4 bg-gradient-to-br ${gradient} border border-current/30 rounded-xl lg:rounded-[16px] hover:shadow-md transition-all duration-300 transform hover:scale-105`}
+      className={`group p-4 bg-gradient-to-br ${gradient} border border-white/20 rounded-xl hover:border-white/30 transition-all duration-200 hover:scale-105`}
     >
-      <div className="mb-md-1 lg:mb-md-2 group-hover:scale-110 transition-transform flex items-center justify-center">
-        <Icon name={icon} size={32} className="lg:w-12 lg:h-12 brightness-0 invert" />
+      <div className="mb-2 flex items-center justify-center transition-transform group-hover:scale-110">
+        <Icon name={icon} size={24} className="brightness-0 invert" />
       </div>
-      <div className="md-label-small text-white">{label}</div>
+      <div className="text-xs font-medium text-white leading-tight">{label}</div>
     </button>
   );
 };
