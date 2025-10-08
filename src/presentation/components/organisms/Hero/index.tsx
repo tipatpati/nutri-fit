@@ -25,10 +25,9 @@ export const Hero = () => {
       {/* Single subtle glow effect */}
       <div className="absolute top-1/4 right-1/4 w-[500px] h-[500px] bg-gradient-to-br from-emerald-400/10 to-transparent rounded-full blur-3xl" />
       
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-20 lg:py-24">
-        <div className="grid lg:grid-cols-[1.1fr,0.9fr] gap-16 lg:gap-20 items-center">
+      <div className="relative z-10 w-full max-w-5xl mx-auto px-6 sm:px-8 lg:px-12 py-20 lg:py-32">
+        <div className="flex items-center justify-center">
           <HeroContent onOrderClick={handleOrderClick} />
-          <HeroSocialProof />
         </div>
       </div>
     </section>

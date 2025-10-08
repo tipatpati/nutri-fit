@@ -17,7 +17,7 @@ export const HeroContent = ({ onOrderClick }: HeroContentProps) => {
   ];
 
   return (
-    <div className="space-y-10 lg:space-y-12 text-center lg:text-left max-w-2xl mx-auto lg:mx-0">
+    <div className="space-y-10 lg:space-y-12 text-center max-w-3xl mx-auto">
       {/* Badge */}
       <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-full backdrop-blur-sm">
         <Icon name="stopwatch" size={14} className="brightness-0 invert opacity-60" />
@@ -36,7 +36,7 @@ export const HeroContent = ({ onOrderClick }: HeroContentProps) => {
           </span>
         </h1>
         
-        <p className="text-lg lg:text-xl text-gray-300 leading-relaxed max-w-lg mx-auto lg:mx-0">
+        <p className="text-lg lg:text-xl text-gray-300 leading-relaxed max-w-2xl mx-auto">
           Des repas équilibrés, préparés par des chefs et livrés directement chez vous.
         </p>
       </div>
@@ -45,7 +45,7 @@ export const HeroContent = ({ onOrderClick }: HeroContentProps) => {
       <QuickOrderSection onOrderClick={onOrderClick} />
 
       {/* Trust Indicators */}
-      <div className="grid grid-cols-4 gap-6 pt-4">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 pt-4 max-w-2xl mx-auto">
         {trustIndicators.map((indicator, index) => (
           <TrustBadge key={index} {...indicator} />
         ))}
