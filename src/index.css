@@ -255,14 +255,14 @@
 
 @layer utilities {
   /* Material Design 3 Spacing System (8dp grid) */
-  .md-space-0 { @apply p-0; }
-  .md-space-1 { @apply p-2; } /* 8dp */
-  .md-space-2 { @apply p-4; } /* 16dp */
-  .md-space-3 { @apply p-6; } /* 24dp */
-  .md-space-4 { @apply p-8; } /* 32dp */
-  .md-space-5 { @apply p-10; } /* 40dp */
-  .md-space-6 { @apply p-12; } /* 48dp */
-  .md-space-8 { @apply p-16; } /* 64dp */
+  .md-p-0 { @apply p-0; }
+  .md-p-1 { @apply p-2; } /* 8dp */
+  .md-p-2 { @apply p-4; } /* 16dp */
+  .md-p-3 { @apply p-6; } /* 24dp */
+  .md-p-4 { @apply p-8; } /* 32dp */
+  .md-p-5 { @apply p-10; } /* 40dp */
+  .md-p-6 { @apply p-12; } /* 48dp */
+  .md-p-8 { @apply p-16; } /* 64dp */
 
   /* Material Design 3 Elevation Classes */
   .md-elevation-0 { box-shadow: var(--md-sys-elevation-level0); }
@@ -273,11 +273,27 @@
   .md-elevation-5 { box-shadow: var(--md-sys-elevation-level5); }
 
   /* Material Design 3 Surface Colors */
-  .md-surface { @apply bg-[hsl(var(--md-sys-color-surface))] text-[hsl(var(--md-sys-color-on-surface))]; }
-  .md-surface-variant { @apply bg-[hsl(var(--md-sys-color-surface-variant))] text-[hsl(var(--md-sys-color-on-surface-variant))]; }
-  .md-surface-container { @apply bg-[hsl(var(--md-sys-color-surface-container))] text-[hsl(var(--md-sys-color-on-surface))]; }
-  .md-surface-container-low { @apply bg-[hsl(var(--md-sys-color-surface-container-low))] text-[hsl(var(--md-sys-color-on-surface))]; }
-  .md-surface-container-high { @apply bg-[hsl(var(--md-sys-color-surface-container-high))] text-[hsl(var(--md-sys-color-on-surface))]; }
+  .md-surface { @apply bg-md-surface text-md-surface-on-surface; }
+  .md-surface-variant { @apply bg-md-surface-variant text-md-surface-on-variant; }
+  .md-surface-container { @apply bg-md-surface-container text-md-surface-on-surface; }
+  .md-surface-container-low { @apply bg-md-surface-container-low text-md-surface-on-surface; }
+  .md-surface-container-high { @apply bg-md-surface-container-high text-md-surface-on-surface; }
+
+  /* Primary Color Utilities */
+  .md-primary { @apply bg-md-primary text-md-primary-on-primary; }
+  .md-primary-container { @apply bg-md-primary-container text-md-primary-on-container; }
+  
+  /* Secondary Color Utilities */
+  .md-secondary { @apply bg-md-secondary text-md-secondary-on-secondary; }
+  .md-secondary-container { @apply bg-md-secondary-container text-md-secondary-on-container; }
+
+  /* Tertiary Color Utilities */
+  .md-tertiary { @apply bg-md-tertiary text-md-tertiary-on-tertiary; }
+  .md-tertiary-container { @apply bg-md-tertiary-container text-md-tertiary-on-container; }
+
+  /* Error Color Utilities */
+  .md-error { @apply bg-md-error text-md-error-on-error; }
+  .md-error-container { @apply bg-md-error-container text-md-error-on-container; }
 
   /* Material Design 3 Typography Scale */
   .md-display-large { @apply text-[57px] leading-[64px] font-normal tracking-[-0.25px]; }
@@ -295,4 +311,25 @@
   .md-body-large { @apply text-[16px] leading-[24px] font-normal tracking-[0.5px]; }
   .md-body-medium { @apply text-[14px] leading-[20px] font-normal tracking-[0.25px]; }
   .md-body-small { @apply text-[12px] leading-[16px] font-normal tracking-[0.4px]; }
+
+  /* Interactive Element Animations */
+  .hover-scale {
+    @apply transition-transform duration-200 hover:scale-105;
+  }
+
+  .hover-lift {
+    @apply transition-all duration-300 hover:-translate-y-1 hover:shadow-lg;
+  }
+
+  .story-link {
+    @apply relative inline-block;
+  }
+
+  .story-link::after {
+    @apply content-[''] absolute w-full scale-x-0 h-0.5 bottom-0 left-0 bg-md-primary origin-bottom-right transition-transform duration-300;
+  }
+
+  .story-link:hover::after {
+    @apply scale-x-100 origin-bottom-left;
+  }
 }

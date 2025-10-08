@@ -7,23 +7,11 @@ import MealGrid from "@/components/menu/MealGrid";
 import CustomerReview from "@/components/menu/CustomerReview";
 import FAQ from "@/components/menu/FAQ";
 import { useMeals } from "@/presentation/hooks/useMeals";
+import { getCategoryColor } from "@/shared/design-system";
 
 const Menu = () => {
   const [selectedWeek, setSelectedWeek] = useState("8 juin 2025");
   const { data: meals = [], isLoading: loading } = useMeals({ active: true });
-
-  const getCategoryColor = (category: string) => {
-    switch (category) {
-      case "Prise de masse":
-        return "#FF4D00";
-      case "Perte de poids":
-        return "#113B39";
-      case "Équilibré":
-        return "#D4B961";
-      default:
-        return "#113B39";
-    }
-  };
 
   // Transform meals to match expected format
   const transformedMeals = meals.map(meal => ({
@@ -32,10 +20,10 @@ const Menu = () => {
   }));
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-emerald-50/30 overflow-x-hidden">
+    <div className="min-h-screen md-surface">
       <Header />
       
-      <main className="container mx-auto px-2 sm:px-4 py-4 sm:py-8 lg:py-12 max-w-full">
+      <main className="container mx-auto px-md-2 sm:px-md-3 py-md-3 sm:py-md-4 lg:py-md-6 max-w-full">
         <MenuHeader selectedWeek={selectedWeek} setSelectedWeek={setSelectedWeek} />
         
         <MealGrid meals={transformedMeals as any} getCategoryColor={getCategoryColor} />
