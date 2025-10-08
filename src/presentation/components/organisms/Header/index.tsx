@@ -10,9 +10,9 @@ export const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-40 w-full bg-md-surface md-elevation-1">
-      <div className="container mx-auto px-md-2 sm:px-md-4 lg:px-md-6">
-        <div className="flex h-16 items-center justify-between gap-md-4">
+    <header className="sticky top-0 z-40 w-full bg-slate-900/80 backdrop-blur-md border-b border-white/10">
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+        <div className="flex h-16 items-center justify-between">
           <HeaderLogo />
           
           <DesktopNav />
@@ -22,10 +22,10 @@ export const Header = () => {
           <Button
             variant="ghost"
             size="icon"
-            className="lg:hidden"
+            className="lg:hidden text-white hover:bg-white/10"
             onClick={() => setMobileMenuOpen(true)}
           >
-            <Menu className="h-6 w-6" />
+            <Menu className="h-5 w-5" />
           </Button>
         </div>
       </div>

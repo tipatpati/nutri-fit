@@ -74,56 +74,57 @@ const WeeklyPlanner = () => {
   };
 
   return (
-    <section className="py-16 sm:py-20 lg:py-24 bg-gradient-to-br from-[hsl(var(--md-sys-color-surface-container-low))] via-[hsl(var(--md-sys-color-surface-container))] to-[hsl(var(--md-sys-color-surface-container-low))]">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-20 lg:py-28 bg-slate-50">
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+        {/* Header */}
         <div className="text-center mb-16">
-          <div className="inline-flex items-center px-4 py-2 bg-blue-100 text-blue-700 rounded-full font-medium text-sm mb-6">
-            <Calendar className="w-4 h-4 mr-2" />
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-white rounded-full text-sm font-medium text-slate-700 mb-6 border border-slate-200">
+            <Calendar className="w-4 h-4 text-orange-500" />
             Planification intelligente
           </div>
-          <h2 className="text-4xl lg:text-5xl font-bold mb-6 bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
+          <h2 className="text-4xl lg:text-5xl font-bold text-slate-900 mb-6">
             Personnalisez votre semaine
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-lg text-slate-600 max-w-3xl mx-auto leading-relaxed">
             Planifiez vos repas pour la semaine selon vos objectifs avec notre IA nutritionnelle
           </p>
         </div>
 
         {/* Meal Size Selection */}
         <div className="max-w-2xl mx-auto mb-16">
-          <div className="bg-white rounded-3xl p-8 shadow-xl border border-gray-100">
-            <h3 className="text-2xl font-bold text-center mb-8 text-gray-900">
+          <div className="bg-white rounded-2xl p-8 border border-slate-200">
+            <h3 className="text-2xl font-bold text-center mb-8 text-slate-900">
               Choisissez la taille de vos repas
             </h3>
             
             <div className="grid grid-cols-2 gap-6">
               <div 
-                className={`cursor-pointer p-6 rounded-2xl border-2 transition-all duration-300 ${
+                className={`cursor-pointer p-6 rounded-xl border-2 transition-all duration-200 ${
                   selectedSize === "petit" 
-                    ? "border-blue-500 bg-gradient-to-br from-blue-50 to-indigo-50 shadow-lg scale-105" 
-                    : "border-gray-200 hover:border-gray-300 hover:shadow-md"
+                    ? "border-orange-500 bg-orange-50 shadow-md" 
+                    : "border-slate-200 hover:border-slate-300"
                 }`}
                 onClick={() => setSelectedSize("petit")}
               >
-                <div className="w-20 h-16 bg-gradient-to-br from-orange-200 to-orange-300 rounded-xl mb-4 mx-auto shadow-inner"></div>
-                <p className="text-center font-bold text-lg text-gray-800">Petit</p>
-                <p className="text-center text-sm text-gray-600 mt-1">400-500 cal</p>
+                <div className="w-20 h-16 bg-gradient-to-br from-orange-200 to-orange-300 rounded-xl mb-4 mx-auto"></div>
+                <p className="text-center font-bold text-lg text-slate-800">Petit</p>
+                <p className="text-center text-sm text-slate-600 mt-1">400-500 cal</p>
               </div>
               
               <div 
-                className={`cursor-pointer p-6 rounded-2xl border-2 transition-all duration-300 relative ${
+                className={`cursor-pointer p-6 rounded-xl border-2 transition-all duration-200 relative ${
                   selectedSize === "regular" 
-                    ? "border-blue-500 bg-gradient-to-br from-blue-50 to-indigo-50 shadow-lg scale-105" 
-                    : "border-gray-200 hover:border-gray-300 hover:shadow-md"
+                    ? "border-orange-500 bg-orange-50 shadow-md" 
+                    : "border-slate-200 hover:border-slate-300"
                 }`}
                 onClick={() => setSelectedSize("regular")}
               >
-                <Badge className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white">
+                <Badge className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-orange-500 to-amber-500 text-white border-0">
                   Recommandé
                 </Badge>
-                <div className="w-20 h-16 bg-gradient-to-br from-orange-300 to-orange-400 rounded-xl mb-4 mx-auto shadow-inner"></div>
-                <p className="text-center font-bold text-lg text-gray-800">Régulier</p>
-                <p className="text-center text-sm text-gray-600 mt-1">500-700 cal</p>
+                <div className="w-20 h-16 bg-gradient-to-br from-orange-300 to-orange-400 rounded-xl mb-4 mx-auto"></div>
+                <p className="text-center font-bold text-lg text-slate-800">Régulier</p>
+                <p className="text-center text-sm text-slate-600 mt-1">500-700 cal</p>
               </div>
             </div>
           </div>
@@ -132,10 +133,10 @@ const WeeklyPlanner = () => {
         {/* Weekly Meal Grid */}
         <div className="grid grid-cols-1 md:grid-cols-7 gap-6 mb-12">
           {weekMeals.map((day, index) => (
-            <Card key={index} className="group hover:shadow-xl transition-all duration-500 border-2 border-gray-100 hover:border-blue-200 bg-white/80 backdrop-blur">
+            <Card key={index} className="group hover:shadow-lg transition-all duration-200 border border-slate-200 hover:border-slate-300 bg-white">
               <CardHeader className="pb-4">
-                <CardTitle className="text-center text-lg font-bold text-gray-800 flex items-center justify-center">
-                  <span className="w-3 h-3 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full mr-2"></span>
+                <CardTitle className="text-center text-lg font-bold text-slate-800 flex items-center justify-center gap-2">
+                  <span className="w-2 h-2 bg-orange-500 rounded-full"></span>
                   {day.day}
                 </CardTitle>
               </CardHeader>
@@ -145,26 +146,26 @@ const WeeklyPlanner = () => {
                   return (
                     <div 
                       key={mealIndex}
-                      className={`p-4 rounded-2xl cursor-pointer hover:scale-105 transition-all duration-300 bg-gradient-to-br ${colors.light} border border-gray-200 hover:shadow-md`}
+                      className={`p-4 rounded-xl cursor-pointer hover:scale-105 transition-all duration-200 bg-gradient-to-br ${colors.light} border border-slate-200`}
                     >
                       <div className="text-center space-y-3">
                         <div className="mb-2 flex items-center justify-center">
                           <Icon name={meal.icon} size={40} />
                         </div>
-                        <h5 className="font-bold text-sm text-gray-800 leading-tight">{meal.name}</h5>
+                        <h5 className="font-bold text-sm text-slate-800 leading-tight">{meal.name}</h5>
                         
                         <div className="space-y-2">
                           <div className="flex items-center justify-center space-x-1">
                             <Star className="w-3 h-3 fill-yellow-400 text-yellow-400" />
-                            <span className="text-xs font-medium text-gray-600">{meal.rating}</span>
+                            <span className="text-xs font-medium text-slate-600">{meal.rating}</span>
                           </div>
                           
-                          <div className="text-xs text-gray-600 font-medium">
+                          <div className="text-xs text-slate-600 font-medium">
                             {meal.calories} cal
                           </div>
                           
                           <Badge 
-                            className={`${colors.bg} ${colors.text} text-xs px-3 py-1 font-medium shadow-sm`}
+                            className={`${colors.bg} ${colors.text} text-xs px-3 py-1 font-medium`}
                           >
                             {meal.type}
                           </Badge>
@@ -180,35 +181,35 @@ const WeeklyPlanner = () => {
 
         {/* Stats & CTA */}
         <div className="grid md:grid-cols-3 gap-8 mb-12">
-          <div className="text-center p-6 bg-white rounded-2xl shadow-lg border border-gray-100">
+          <div className="text-center p-6 bg-white rounded-2xl border border-slate-200">
             <div className="w-16 h-16 bg-gradient-to-br from-green-400 to-emerald-500 rounded-full flex items-center justify-center mx-auto mb-4">
               <TrendingUp className="w-8 h-8 text-white" />
             </div>
-            <h4 className="font-bold text-xl text-gray-800 mb-2">+15% d'énergie</h4>
-            <p className="text-gray-600 text-sm">Moyenne constatée chez nos clients</p>
+            <h4 className="font-bold text-xl text-slate-800 mb-2">+15% d'énergie</h4>
+            <p className="text-slate-600 text-sm">Moyenne constatée chez nos clients</p>
           </div>
           
-          <div className="text-center p-6 bg-white rounded-2xl shadow-lg border border-gray-100">
-            <div className="w-16 h-16 bg-gradient-to-br from-blue-400 to-cyan-500 rounded-full flex items-center justify-center mx-auto mb-4">
+          <div className="text-center p-6 bg-white rounded-2xl border border-slate-200">
+            <div className="w-16 h-16 bg-gradient-to-br from-orange-400 to-amber-500 rounded-full flex items-center justify-center mx-auto mb-4">
               <Icon name="stopwatch" size={32} className="brightness-0 invert" />
             </div>
-            <h4 className="font-bold text-xl text-gray-800 mb-2">2 minutes</h4>
-            <p className="text-gray-600 text-sm">Temps de préparation moyen</p>
+            <h4 className="font-bold text-xl text-slate-800 mb-2">2 minutes</h4>
+            <p className="text-slate-600 text-sm">Temps de préparation moyen</p>
           </div>
           
-          <div className="text-center p-6 bg-white rounded-2xl shadow-lg border border-gray-100">
-            <div className="w-16 h-16 bg-gradient-to-br from-purple-400 to-pink-500 rounded-full flex items-center justify-center mx-auto mb-4">
+          <div className="text-center p-6 bg-white rounded-2xl border border-slate-200">
+            <div className="w-16 h-16 bg-gradient-to-br from-orange-400 to-amber-500 rounded-full flex items-center justify-center mx-auto mb-4">
               <Icon name="heart-health" size={32} className="brightness-0 invert" />
             </div>
-            <h4 className="font-bold text-xl text-gray-800 mb-2">Objectifs atteints</h4>
-            <p className="text-gray-600 text-sm">92% de nos clients satisfaits</p>
+            <h4 className="font-bold text-xl text-slate-800 mb-2">Objectifs atteints</h4>
+            <p className="text-slate-600 text-sm">92% de nos clients satisfaits</p>
           </div>
         </div>
 
         <div className="text-center">
           <Button 
             size="lg"
-            className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white px-12 py-4 rounded-2xl font-bold text-lg shadow-lg shadow-blue-500/25 hover:shadow-xl hover:shadow-blue-500/30 transition-all duration-300 transform hover:scale-105"
+            className="bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white px-12 py-6 rounded-xl font-bold text-lg transition-all duration-200"
           >
             Commencer ma planification
             <Calendar className="ml-3 w-5 h-5" />

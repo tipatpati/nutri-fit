@@ -7,14 +7,14 @@ import { footerSections, legalLinks, brandInfo } from "@/shared/data/footerData"
 
 const Footer = () => {
   return (
-    <footer className="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white">
+    <footer className="bg-slate-900 text-white">
       {/* Main Footer Content */}
-      <div className="container mx-auto px-md-4 sm:px-md-6 lg:px-md-8 py-md-16">
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-md-12">
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-16 lg:py-20">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-16">
           {/* Brand Section */}
           <div>
             <FooterBrand />
-            <div className="mt-md-6">
+            <div className="mt-6">
               <FooterSocial />
             </div>
           </div>
@@ -33,18 +33,18 @@ const Footer = () => {
       <NewsletterForm />
 
       {/* Bottom Footer */}
-      <div className="border-t border-md-outline bg-slate-900">
-        <div className="container mx-auto px-md-4 sm:px-md-6 lg:px-md-8 py-md-6">
-          <div className="flex flex-col md:flex-row justify-between items-center space-y-md-4 md:space-y-0">
-            <p className="text-gray-400 md-body-medium text-center md:text-left">
+      <div className="border-t border-white/10">
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-6">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+            <p className="text-sm text-gray-400 text-center md:text-left">
               &copy; {brandInfo.copyright}
             </p>
-            <div className="flex space-x-md-6 md-body-small">
+            <div className="flex gap-6 text-sm">
               {legalLinks.map((link, index) => (
                 <a
                   key={index}
                   href={link.href}
-                  className="text-gray-400 hover:text-orange-400 transition-colors"
+                  className="text-gray-400 hover:text-white transition-colors"
                 >
                   {link.label}
                 </a>

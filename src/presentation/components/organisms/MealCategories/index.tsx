@@ -4,22 +4,24 @@ import { CategoryCTA } from "@/presentation/components/molecules/MealCategories/
 
 const MealCategories = () => {
   return (
-    <section className="py-md-16 sm:py-md-20 lg:py-md-24 bg-gradient-to-b from-md-surface via-md-surface-container-low to-md-surface">
-      <div className="container mx-auto px-md-4 sm:px-md-6 lg:px-md-8">
-        <div className="text-center mb-md-12 lg:mb-md-16">
-          <div className="inline-flex items-center px-md-3 sm:px-md-4 py-md-2 bg-md-primary-container text-md-primary-on-container rounded-full font-medium md-label-large mb-md-4 lg:mb-md-6">
-            <span className="w-2 h-2 bg-md-primary rounded-full mr-md-2"></span>
+    <section className="py-20 lg:py-28 bg-white">
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+        {/* Header */}
+        <div className="text-center mb-16 lg:mb-20 max-w-3xl mx-auto">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-slate-100 rounded-full text-sm font-medium text-slate-700 mb-6">
+            <span className="w-1.5 h-1.5 bg-orange-500 rounded-full"></span>
             Comment ça fonctionne
           </div>
-          <h2 className="md-display-medium mb-md-4 lg:mb-md-6 bg-gradient-to-r from-md-on-surface to-md-on-surface-variant bg-clip-text text-transparent">
+          <h2 className="text-4xl lg:text-5xl font-bold text-slate-900 mb-6">
             Votre parcours nutrition personnalisé
           </h2>
-          <p className="md-body-large text-md-on-surface-variant max-w-3xl mx-auto leading-relaxed px-md-2">
-            Explorez nos programmes de repas santé conçus par des nutritionnistes pour répondre précisément à vos objectifs de remise en forme
+          <p className="text-lg text-slate-600 leading-relaxed">
+            Explorez nos programmes de repas santé conçus par des nutritionnistes pour répondre précisément à vos objectifs
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-3 gap-md-6 lg:gap-md-8">
+        {/* Cards Grid */}
+        <div className="grid lg:grid-cols-3 gap-8 lg:gap-10">
           {mealCategories.map((category) => (
             <CategoryCard key={category.id} category={category} />
           ))}
