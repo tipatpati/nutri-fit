@@ -1,4 +1,3 @@
-
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import Header from "@/components/Header";
@@ -8,15 +7,14 @@ import WeeklyPlanner from "@/components/WeeklyPlanner";
 import Features from "@/components/Features";
 import Footer from "@/components/Footer";
 import { useAuth } from "@/hooks/useAuth";
-
 const Index = () => {
-  const { user, signOut } = useAuth();
-
-  return (
-    <div className="min-h-screen bg-[hsl(var(--md-sys-color-surface))] text-[hsl(var(--md-sys-color-on-surface))] overflow-x-hidden">
+  const {
+    user,
+    signOut
+  } = useAuth();
+  return <div className="min-h-screen bg-[hsl(var(--md-sys-color-surface))] text-[hsl(var(--md-sys-color-on-surface))] overflow-x-hidden">
       <Header />
-      {user && (
-        <div className="bg-[hsl(var(--md-sys-color-primary-container))] text-[hsl(var(--md-sys-color-on-primary-container))] p-4 text-center">
+      {user && <div className="bg-[hsl(var(--md-sys-color-primary-container))] text-[hsl(var(--md-sys-color-on-primary-container))] p-4 text-center">
           <span className="md-body-medium">Connecté en tant que {user.email}</span>
           <Button variant="outlined" size="sm" onClick={signOut} className="ml-4">
             Déconnexion
@@ -26,17 +24,8 @@ const Index = () => {
               Accès Admin
             </Button>
           </Link>
-        </div>
-      )}
-      {!user && (
-        <div className="bg-[hsl(var(--md-sys-color-secondary-container))] text-[hsl(var(--md-sys-color-on-secondary-container))] p-4 text-center">
-          <Link to="/auth">
-            <Button variant="outlined" size="sm">
-              Connexion / Inscription
-            </Button>
-          </Link>
-        </div>
-      )}
+        </div>}
+      {!user}
       <main className="w-full">
         <Hero />
         <MealCategories />
@@ -44,8 +33,6 @@ const Index = () => {
         <Features />
       </main>
       <Footer />
-    </div>
-  );
+    </div>;
 };
-
 export default Index;
