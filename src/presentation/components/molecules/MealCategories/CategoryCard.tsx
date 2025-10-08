@@ -19,23 +19,23 @@ export const CategoryCard = ({ category }: CategoryCardProps) => {
       <CardContent className="p-0">
         {/* Header with gradient */}
         <div 
-          className="h-36 flex items-center justify-center text-white text-center relative overflow-hidden"
+          className="h-32 flex items-center justify-center text-white text-center relative overflow-hidden"
           style={{ background: `linear-gradient(135deg, ${categoryColor}, ${categoryColor}dd)` }}
         >
           <div className="absolute inset-0 bg-black/10"></div>
-          <div className="relative z-10 space-y-3">
-            <div className="text-5xl font-bold opacity-20">{category.step}</div>
-            <h4 className="text-xl font-bold text-white drop-shadow-sm">{category.name}</h4>
+          <div className="relative z-10 space-y-2">
+            <div className="text-4xl font-bold opacity-20">{category.step}</div>
+            <h4 className="text-lg font-bold text-white drop-shadow-sm">{category.name}</h4>
           </div>
         </div>
         
         {/* Content */}
-        <div className="p-6 lg:p-8 space-y-6">
-          <p className="text-slate-600 leading-relaxed">
+        <div className="p-6 space-y-5">
+          <p className="text-slate-600 leading-relaxed text-sm">
             {category.description}
           </p>
           
-          <div className="space-y-3">
+          <div className="space-y-2.5">
             {category.meals.map((meal, idx) => (
               <SampleMealItem key={idx} meal={meal} />
             ))}
@@ -43,7 +43,7 @@ export const CategoryCard = ({ category }: CategoryCardProps) => {
           
           <Link to="/menu">
             <Button 
-              className="w-full mt-4 bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white font-semibold py-6 rounded-xl transition-all duration-200"
+              className="w-full mt-2 bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white font-semibold py-5 rounded-xl transition-all duration-200"
             >
               Découvrir le programme
               <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
