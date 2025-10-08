@@ -16,7 +16,7 @@ const getByText = (container: HTMLElement, text: string | RegExp) => {
 
 describe('CategoryBadge Component', () => {
   const defaultProps = {
-    emoji: '🍽️',
+    icon: 'scale-balance' as const,
     label: 'Équilibré',
     gradient: 'from-emerald-400 to-green-500',
   };
@@ -31,11 +31,11 @@ describe('CategoryBadge Component', () => {
     expect(label).toBeInTheDocument();
   });
 
-  it('should display emoji', () => {
+  it('should display icon', () => {
     const { container } = render(<CategoryBadge {...defaultProps} />);
     
-    const emoji = getByText(container, '🍽️');
-    expect(emoji).toBeInTheDocument();
+    const icon = container.querySelector('img');
+    expect(icon).toBeInTheDocument();
   });
 
   it('should call onClick when clicked', async () => {

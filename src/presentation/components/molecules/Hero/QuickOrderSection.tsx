@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Truck, Heart } from "lucide-react";
 import { AnimatedArrowRight } from "@/components/ui/animated-icon";
 import { CategoryBadge } from "../../atoms/Badge/CategoryBadge";
+import { Icon } from "@/components/ui/icon";
 
 interface QuickOrderSectionProps {
   onOrderClick: () => void;
@@ -9,10 +10,10 @@ interface QuickOrderSectionProps {
 
 export const QuickOrderSection = ({ onOrderClick }: QuickOrderSectionProps) => {
   const categories = [
-    { emoji: "💪", label: "Prise de masse", gradient: "from-orange-500/20 to-orange-600/20" },
-    { emoji: "🏃", label: "Perte de poids", gradient: "from-emerald-500/20 to-emerald-600/20" },
-    { emoji: "⚖️", label: "Équilibré", gradient: "from-yellow-500/20 to-yellow-600/20" },
-  ];
+    { icon: "muscle", label: "Prise de masse", gradient: "from-orange-500/20 to-orange-600/20" },
+    { icon: "running", label: "Perte de poids", gradient: "from-emerald-500/20 to-emerald-600/20" },
+    { icon: "scale-balance", label: "Équilibré", gradient: "from-yellow-500/20 to-yellow-600/20" },
+  ] as const;
 
   return (
     <div className="md-surface-container-low/10 backdrop-blur-xl border border-md-outline-variant/20 rounded-xl lg:rounded-[24px] p-md-4 sm:p-md-6 lg:p-md-8 md-elevation-2">

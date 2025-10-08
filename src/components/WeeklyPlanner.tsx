@@ -4,6 +4,7 @@ import { Button } from "./ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { Badge } from "./ui/badge";
 import { Calendar, Star, TrendingUp } from "lucide-react";
+import { Icon } from "./ui/icon";
 
 const WeeklyPlanner = () => {
   const [selectedWeek, setSelectedWeek] = useState(0);
@@ -15,50 +16,50 @@ const WeeklyPlanner = () => {
     {
       day: 'Lun',
       meals: [
-        { name: 'Saumon grillé', type: 'Équilibré', image: '🐟', calories: 550, rating: 4.8 },
-        { name: 'Poulet teriyaki', type: 'Prise de masse', image: '🍗', calories: 680, rating: 4.9 }
+        { name: 'Saumon grillé', type: 'Équilibré', icon: 'fish' as const, calories: 550, rating: 4.8 },
+        { name: 'Poulet teriyaki', type: 'Prise de masse', icon: 'apple' as const, calories: 680, rating: 4.9 }
       ]
     },
     {
       day: 'Mar', 
       meals: [
-        { name: 'Salade de quinoa', type: 'Perte de poids', image: '🥗', calories: 420, rating: 4.7 },
-        { name: 'Bœuf aux légumes', type: 'Équilibré', image: '🥩', calories: 580, rating: 4.8 }
+        { name: 'Salade de quinoa', type: 'Perte de poids', icon: 'leaves' as const, calories: 420, rating: 4.7 },
+        { name: 'Bœuf aux légumes', type: 'Équilibré', icon: 'apple' as const, calories: 580, rating: 4.8 }
       ]
     },
     {
       day: 'Mer',
       meals: [
-        { name: 'Crevettes à l\'ail', type: 'Perte de poids', image: '🦐', calories: 350, rating: 4.6 },
-        { name: 'Poulet méditerranéen', type: 'Équilibré', image: '🍗', calories: 520, rating: 4.7 }
+        { name: 'Crevettes à l\'ail', type: 'Perte de poids', icon: 'fish' as const, calories: 350, rating: 4.6 },
+        { name: 'Poulet méditerranéen', type: 'Équilibré', icon: 'apple' as const, calories: 520, rating: 4.7 }
       ]
     },
     {
       day: 'Jeu',
       meals: [
-        { name: 'Saumon aux légumes', type: 'Prise de masse', image: '🐟', calories: 650, rating: 4.9 },
-        { name: 'Salade protéinée', type: 'Perte de poids', image: '🥗', calories: 380, rating: 4.5 }
+        { name: 'Saumon aux légumes', type: 'Prise de masse', icon: 'fish' as const, calories: 650, rating: 4.9 },
+        { name: 'Salade protéinée', type: 'Perte de poids', icon: 'leaves' as const, calories: 380, rating: 4.5 }
       ]
     },
     {
       day: 'Ven',
       meals: [
-        { name: 'Bœuf teriyaki', type: 'Prise de masse', image: '🥩', calories: 720, rating: 4.8 },
-        { name: 'Poulet grillé léger', type: 'Perte de poids', image: '🍗', calories: 380, rating: 4.6 }
+        { name: 'Bœuf teriyaki', type: 'Prise de masse', icon: 'apple' as const, calories: 720, rating: 4.8 },
+        { name: 'Poulet grillé léger', type: 'Perte de poids', icon: 'leaves' as const, calories: 380, rating: 4.6 }
       ]
     },
     {
       day: 'Sam',
       meals: [
-        { name: 'Saumon méditerranéen', type: 'Équilibré', image: '🐟', calories: 550, rating: 4.8 },
-        { name: 'Salade de poulet', type: 'Perte de poids', image: '🥗', calories: 350, rating: 4.7 }
+        { name: 'Saumon méditerranéen', type: 'Équilibré', icon: 'fish' as const, calories: 550, rating: 4.8 },
+        { name: 'Salade de poulet', type: 'Perte de poids', icon: 'leaves' as const, calories: 350, rating: 4.7 }
       ]
     },
     {
       day: 'Dim',
       meals: [
-        { name: 'Bœuf aux champignons', type: 'Prise de masse', image: '🥩', calories: 680, rating: 4.9 },
-        { name: 'Poisson aux légumes', type: 'Équilibré', image: '🐟', calories: 520, rating: 4.6 }
+        { name: 'Bœuf aux champignons', type: 'Prise de masse', icon: 'apple' as const, calories: 680, rating: 4.9 },
+        { name: 'Poisson aux légumes', type: 'Équilibré', icon: 'fish' as const, calories: 520, rating: 4.6 }
       ]
     }
   ];
@@ -147,7 +148,9 @@ const WeeklyPlanner = () => {
                       className={`p-4 rounded-2xl cursor-pointer hover:scale-105 transition-all duration-300 bg-gradient-to-br ${colors.light} border border-gray-200 hover:shadow-md`}
                     >
                       <div className="text-center space-y-3">
-                        <div className="text-3xl mb-2">{meal.image}</div>
+                        <div className="mb-2 flex items-center justify-center">
+                          <Icon name={meal.icon} size={40} />
+                        </div>
                         <h5 className="font-bold text-sm text-gray-800 leading-tight">{meal.name}</h5>
                         
                         <div className="space-y-2">
@@ -187,7 +190,7 @@ const WeeklyPlanner = () => {
           
           <div className="text-center p-6 bg-white rounded-2xl shadow-lg border border-gray-100">
             <div className="w-16 h-16 bg-gradient-to-br from-blue-400 to-cyan-500 rounded-full flex items-center justify-center mx-auto mb-4">
-              <span className="text-white font-bold text-xl">⏱️</span>
+              <Icon name="stopwatch" size={32} className="brightness-0 invert" />
             </div>
             <h4 className="font-bold text-xl text-gray-800 mb-2">2 minutes</h4>
             <p className="text-gray-600 text-sm">Temps de préparation moyen</p>
@@ -195,7 +198,7 @@ const WeeklyPlanner = () => {
           
           <div className="text-center p-6 bg-white rounded-2xl shadow-lg border border-gray-100">
             <div className="w-16 h-16 bg-gradient-to-br from-purple-400 to-pink-500 rounded-full flex items-center justify-center mx-auto mb-4">
-              <span className="text-white font-bold text-xl">🎯</span>
+              <Icon name="heart-health" size={32} className="brightness-0 invert" />
             </div>
             <h4 className="font-bold text-xl text-gray-800 mb-2">Objectifs atteints</h4>
             <p className="text-gray-600 text-sm">92% de nos clients satisfaits</p>

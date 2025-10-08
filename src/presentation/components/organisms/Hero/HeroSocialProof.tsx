@@ -1,26 +1,30 @@
 import { HeroTestimonial } from "../../molecules/Hero/HeroTestimonial";
+import { Icon } from "@/components/ui/icon";
 
 export const HeroSocialProof = () => {
   const mealCategories = [
     { 
-      title: "💪 Prise de masse", 
+      icon: "muscle",
+      title: "Prise de masse", 
       desc: "Repas riches en protéines", 
       cal: "650-720 cal", 
       color: "from-orange-500/20 to-red-500/20 border-orange-500/30" 
     },
     { 
-      title: "🏃 Perte de poids", 
+      icon: "running",
+      title: "Perte de poids", 
       desc: "Faibles calories, riches nutriments", 
       cal: "350-420 cal", 
       color: "from-emerald-500/20 to-green-500/20 border-emerald-500/30" 
     },
     { 
-      title: "⚖️ Équilibré", 
+      icon: "scale-balance",
+      title: "Équilibré", 
       desc: "Parfait pour maintenir votre forme", 
       cal: "520-580 cal", 
       color: "from-yellow-500/20 to-amber-500/20 border-yellow-500/30" 
     }
-  ];
+  ] as const;
 
   return (
     <div className="relative mt-md-8 lg:mt-0">
@@ -41,11 +45,16 @@ export const HeroSocialProof = () => {
           
           <div className="grid grid-cols-1 gap-md-3 lg:gap-md-4">
             {mealCategories.map((item, index) => (
-              <div key={index} className={`bg-gradient-to-r ${item.color} border backdrop-blur rounded-xl lg:rounded-[16px] p-md-3 lg:p-md-4 hover:scale-[1.02] transition-all duration-300`}>
-                <h3 className="md-label-large text-white mb-md-1 lg:mb-md-2">{item.title}</h3>
-                <p className="md-body-small lg:md-body-medium text-gray-200 mb-md-2">{item.desc}</p>
-                <div className="md-label-small bg-white/20 backdrop-blur px-md-2 lg:px-md-3 py-md-1 rounded-full inline-block text-white">
-                  {item.cal}
+              <div key={index} className={`bg-gradient-to-r ${item.color} border backdrop-blur rounded-xl lg:rounded-[16px] p-md-3 lg:p-md-4 hover:scale-[1.02] transition-all duration-300 flex items-start gap-3`}>
+                <div className="flex-shrink-0 mt-1">
+                  <Icon name={item.icon} size={24} className="brightness-0 invert" />
+                </div>
+                <div className="flex-1">
+                  <h3 className="md-label-large text-white mb-md-1 lg:mb-md-2">{item.title}</h3>
+                  <p className="md-body-small lg:md-body-medium text-gray-200 mb-md-2">{item.desc}</p>
+                  <div className="md-label-small bg-white/20 backdrop-blur px-md-2 lg:px-md-3 py-md-1 rounded-full inline-block text-white">
+                    {item.cal}
+                  </div>
                 </div>
               </div>
             ))}

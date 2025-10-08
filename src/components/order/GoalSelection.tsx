@@ -2,6 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { ArrowRight } from "lucide-react";
+import { Icon } from "@/components/ui/icon";
 
 interface GoalSelectionProps {
   selectedGoal: string | null;
@@ -18,7 +19,7 @@ const GoalSelection = ({ selectedGoal, onGoalSelect, onProceed }: GoalSelectionP
       gradient: 'from-orange-500 to-red-500',
       bgGradient: 'from-orange-50 to-red-50',
       borderColor: 'border-orange-200',
-      icon: '💪'
+      icon: 'muscle' as const
     },
     {
       id: 'cutting',
@@ -27,7 +28,7 @@ const GoalSelection = ({ selectedGoal, onGoalSelect, onProceed }: GoalSelectionP
       gradient: 'from-emerald-500 to-green-500',
       bgGradient: 'from-emerald-50 to-green-50',
       borderColor: 'border-emerald-200',
-      icon: '🔥'
+      icon: 'running' as const
     },
     {
       id: 'balanced',
@@ -36,7 +37,7 @@ const GoalSelection = ({ selectedGoal, onGoalSelect, onProceed }: GoalSelectionP
       gradient: 'from-yellow-500 to-amber-500',
       bgGradient: 'from-yellow-50 to-amber-50',
       borderColor: 'border-yellow-200',
-      icon: '⚖️'
+      icon: 'scale-balance' as const
     }
   ];
 
@@ -66,10 +67,12 @@ const GoalSelection = ({ selectedGoal, onGoalSelect, onProceed }: GoalSelectionP
           >
             <CardContent className="p-0">
               <div className={`h-28 sm:h-36 bg-gradient-to-br ${goal.gradient} flex items-center justify-center text-white text-center relative overflow-hidden`}>
-                <div className="absolute inset-0 bg-black/10"></div>
+                <div className="absolute inset-0 bg-black/20"></div>
                 <div className="relative z-10">
-                  <div className="text-4xl sm:text-5xl mb-md-2">{goal.icon}</div>
-                  <h3 className="md-title-large font-bold">{goal.name}</h3>
+                  <div className="mb-md-2 flex items-center justify-center">
+                    <Icon name={goal.icon} size={56} className="brightness-0 invert drop-shadow-md" />
+                  </div>
+                  <h3 className="md-title-large font-bold text-white drop-shadow-md">{goal.name}</h3>
                 </div>
               </div>
               

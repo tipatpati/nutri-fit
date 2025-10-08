@@ -2,6 +2,7 @@ import { Clock, Truck, Heart } from "lucide-react";
 import { AnimatedClock, AnimatedHeart } from "@/components/ui/animated-icon";
 import { QuickOrderSection } from "../../molecules/Hero/QuickOrderSection";
 import { TrustBadge } from "../../atoms/Badge/TrustBadge";
+import { Icon } from "@/components/ui/icon";
 
 interface HeroContentProps {
   onOrderClick: () => void;
@@ -10,7 +11,7 @@ interface HeroContentProps {
 export const HeroContent = ({ onOrderClick }: HeroContentProps) => {
   const trustIndicators = [
     { icon: AnimatedHeart, label: "100% Frais", color: "text-md-error" },
-    { icon: "🥗", label: "Bio & Local", color: "text-md-primary" },
+    { iconComponent: <Icon name="leaves" size={20} className="brightness-0 invert" />, label: "Bio & Local", color: "" },
     { icon: AnimatedClock, label: "Prêt en 2min", color: "text-md-tertiary" },
     { icon: Truck, label: "Livraison rapide", color: "text-md-secondary" }
   ];
@@ -19,7 +20,8 @@ export const HeroContent = ({ onOrderClick }: HeroContentProps) => {
     <div className="space-y-md-6 lg:space-y-md-8 text-center lg:text-left">
       <div className="space-y-md-4 lg:space-y-md-6">
         <div className="inline-flex items-center px-md-3 sm:px-md-4 py-md-2 bg-md-primary/10 border border-md-primary/20 rounded-full backdrop-blur-sm">
-          <span className="text-md-primary md-label-medium">✨ Nouveau - Livraison express en 30 min</span>
+          <Icon name="stopwatch" size={16} className="mr-2 brightness-0 invert opacity-70" />
+          <span className="text-orange-300 md-label-medium">Nouveau - Livraison express en 30 min</span>
         </div>
         
         <h1 className="md-display-large lg:text-[64px] lg:leading-[72px]">
