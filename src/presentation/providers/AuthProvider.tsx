@@ -1,9 +1,13 @@
-import { useEffect } from "react";
-import { supabase } from "@/integrations/supabase/client";
-import { useAuthStore } from "@/shared/stores/useAuthStore";
+import { useEffect, ReactNode } from 'react';
+import { supabase } from '@/integrations/supabase/client';
+import { useAuthStore } from '@/shared/stores/useAuthStore';
 
-export const useAuth = () => {
-  const { user, session, loading, setSession, setLoading, signOut: storeSignOut } = useAuthStore();
+interface AuthProviderProps {
+  children: ReactNode;
+}
+
+export const AuthProvider = ({ children }: AuthProviderProps) => {
+  const { setSession, setLoading, signOut } = useAuthStore();
 
   useEffect(() => {
     const cleanAuthHash = () => {
@@ -22,7 +26,7 @@ export const useAuth = () => {
         setLoading(false);
         
         if (event === 'SIGNED_OUT') {
-          storeSignOut();
+          signOut();
         }
         
         // After Supabase processes the URL hash, clean it up
@@ -44,18 +48,7 @@ export const useAuth = () => {
     });
 
     return () => subscription.unsubscribe();
-  }, [setSession, setLoading, storeSignOut]);
+  }, [setSession, setLoading, signOut]);
 
-  const signOut = async () => {
-    await supabase.auth.signOut();
-    storeSignOut();
-  };
-
-  return {
-    user,
-    session,
-    loading,
-    signOut,
-    isAuthenticated: !!user
-  };
+  return <>{children}</>;
 };
