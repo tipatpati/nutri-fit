@@ -18,13 +18,13 @@ export const CategoryCard = ({ category }: CategoryCardProps) => {
     <Card className="group overflow-hidden hover:shadow-2xl transition-all duration-md-long1 border-2 border-md-outline-variant hover:scale-[1.02] bg-md-surface-container-low">
       <CardContent className="p-0">
         <div 
-          className="h-32 sm:h-40 flex items-center justify-center text-md-on-primary text-center relative overflow-hidden"
+          className="h-32 sm:h-40 flex items-center justify-center text-white text-center relative overflow-hidden"
           style={{ background: `linear-gradient(135deg, ${categoryColor}, ${categoryColor}dd)` }}
         >
-          <div className="absolute inset-0 bg-black/10"></div>
+          <div className="absolute inset-0 bg-black/20"></div>
           <div className="relative z-10">
             <StepBadge step={category.step} />
-            <h4 className="md-headline-small font-bold">{category.name}</h4>
+            <h4 className="md-headline-small font-bold text-white drop-shadow-md">{category.name}</h4>
           </div>
         </div>
         

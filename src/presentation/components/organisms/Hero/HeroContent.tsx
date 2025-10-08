@@ -27,14 +27,14 @@ export const HeroContent = ({ onOrderClick }: HeroContentProps) => {
             Repas
           </span>
           <br />
-          <span className="bg-gradient-to-r from-md-primary to-md-secondary bg-clip-text text-transparent">
+          <span className="bg-gradient-to-r from-orange-400 via-amber-300 to-emerald-300 bg-clip-text text-transparent font-bold">
             santé & saveur
           </span>
         </h1>
         
-        <p className="md-body-large lg:md-body-large text-gray-300 max-w-xl mx-auto lg:mx-0 leading-relaxed">
+        <p className="md-body-large lg:md-body-large text-gray-200 max-w-xl mx-auto lg:mx-0 leading-relaxed">
           Des repas équilibrés, préparés par des chefs et livrés directement chez vous.
-          <span className="block mt-md-2 text-md-primary md-label-large">Commandez en 30 secondes, sans inscription</span>
+          <span className="block mt-md-2 text-orange-300 md-label-large font-medium">Commandez en 30 secondes, sans inscription</span>
         </p>
       </div>
 

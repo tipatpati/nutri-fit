@@ -20,12 +20,12 @@ export const HeroTestimonial = ({
           {initial}
         </div>
         <div className="flex-1 min-w-0">
-          <p className="md-body-small text-md-surface-on-variant italic mb-md-2 lg:mb-md-3 leading-relaxed">
+          <p className="md-body-small text-gray-200 italic mb-md-2 lg:mb-md-3 leading-relaxed">
             "{quote}"
           </p>
           <div>
-            <p className="md-label-medium text-md-surface-on-surface">{name}</p>
-            <p className="md-label-small text-md-surface-on-variant">{role}</p>
+            <p className="md-label-medium text-white">{name}</p>
+            <p className="md-label-small text-gray-300">{role}</p>
           </div>
         </div>
       </div>

@@ -27,14 +27,14 @@ export const HeroSocialProof = () => {
       <div className="md-surface-container-low/10 backdrop-blur-xl border border-md-outline-variant/20 rounded-xl lg:rounded-[24px] p-md-6 lg:p-md-8 md-elevation-2">
         <div className="space-y-md-6 lg:space-y-md-8">
           <div className="text-center">
-            <h2 className="md-headline-medium lg:md-headline-large text-md-surface-on-surface mb-md-3 lg:mb-md-4">
-              nutri<span className="bg-gradient-to-r from-md-primary to-md-secondary bg-clip-text text-transparent px-md-2 rounded">fit</span>
+            <h2 className="md-headline-medium lg:md-headline-large text-white mb-md-3 lg:mb-md-4">
+              nutri<span className="bg-gradient-to-r from-orange-400 to-amber-300 bg-clip-text text-transparent px-md-2 rounded">fit</span>
             </h2>
             <div className="flex items-center justify-center space-x-md-2 mb-md-2 lg:mb-md-3">
               <div className="text-yellow-400 text-xl lg:text-2xl">★★★★★</div>
-              <span className="text-md-surface-on-surface md-title-medium lg:md-title-large">4.8/5</span>
+              <span className="text-white md-title-medium lg:md-title-large">4.8/5</span>
             </div>
-            <p className="md-body-medium lg:md-body-large text-md-surface-on-variant">
+            <p className="md-body-medium lg:md-body-large text-gray-300">
               +842 clients satisfaits ce mois-ci
             </p>
           </div>
@@ -42,9 +42,9 @@ export const HeroSocialProof = () => {
           <div className="grid grid-cols-1 gap-md-3 lg:gap-md-4">
             {mealCategories.map((item, index) => (
               <div key={index} className={`bg-gradient-to-r ${item.color} border backdrop-blur rounded-xl lg:rounded-[16px] p-md-3 lg:p-md-4 hover:scale-[1.02] transition-all duration-300`}>
-                <h3 className="md-label-large text-md-surface-on-surface mb-md-1 lg:mb-md-2">{item.title}</h3>
-                <p className="md-body-small lg:md-body-medium text-md-surface-on-variant mb-md-2">{item.desc}</p>
-                <div className="md-label-small bg-white/20 backdrop-blur px-md-2 lg:px-md-3 py-md-1 rounded-full inline-block text-md-surface-on-surface">
+                <h3 className="md-label-large text-white mb-md-1 lg:mb-md-2">{item.title}</h3>
+                <p className="md-body-small lg:md-body-medium text-gray-200 mb-md-2">{item.desc}</p>
+                <div className="md-label-small bg-white/20 backdrop-blur px-md-2 lg:px-md-3 py-md-1 rounded-full inline-block text-white">
                   {item.cal}
                 </div>
               </div>

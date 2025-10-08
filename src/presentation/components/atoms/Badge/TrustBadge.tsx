@@ -17,7 +17,7 @@ export const TrustBadge = ({ icon: Icon, label, iconColor = "text-md-primary" }:
           <Icon className={`w-5 h-5 lg:w-6 lg:h-6 ${iconColor}`} size={24} />
         )}
       </div>
-      <p className="md-label-medium text-md-surface-on-variant">{label}</p>
+      <p className="md-label-medium text-gray-200">{label}</p>
     </div>
   );
 };

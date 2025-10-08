@@ -36,7 +36,7 @@ const Footer = () => {
       <div className="border-t border-md-outline bg-slate-900">
         <div className="container mx-auto px-md-4 sm:px-md-6 lg:px-md-8 py-md-6">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-md-4 md:space-y-0">
-            <p className="text-md-on-surface-variant md-body-medium text-center md:text-left">
+            <p className="text-gray-400 md-body-medium text-center md:text-left">
               &copy; {brandInfo.copyright}
             </p>
             <div className="flex space-x-md-6 md-body-small">
@@ -44,7 +44,7 @@ const Footer = () => {
                 <a
                   key={index}
                   href={link.href}
-                  className="text-md-on-surface-variant hover:text-md-primary transition-colors"
+                  className="text-gray-400 hover:text-orange-400 transition-colors"
                 >
                   {link.label}
                 </a>

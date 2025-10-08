@@ -14,7 +14,7 @@ export const CategoryBadge = ({ emoji, label, gradient, onClick }: CategoryBadge
       <div className="text-2xl lg:text-3xl mb-md-1 lg:mb-md-2 group-hover:scale-110 transition-transform">
         {emoji}
       </div>
-      <div className="md-label-small text-md-surface-on-surface">{label}</div>
+      <div className="md-label-small text-white">{label}</div>
     </button>
   );
 };
