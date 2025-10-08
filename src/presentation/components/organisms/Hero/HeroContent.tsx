@@ -1,4 +1,3 @@
-import { Clock, Truck, Heart } from "lucide-react";
 import { AnimatedClock, AnimatedHeart } from "@/components/ui/animated-icon";
 import { QuickOrderSection } from "../../molecules/Hero/QuickOrderSection";
 import { TrustBadge } from "../../atoms/Badge/TrustBadge";
@@ -10,10 +9,10 @@ interface HeroContentProps {
 
 export const HeroContent = ({ onOrderClick }: HeroContentProps) => {
   const trustIndicators = [
-    { icon: AnimatedHeart, label: "100% Frais", color: "text-md-error" },
+    { icon: AnimatedHeart, label: "100% Frais", color: "text-white" },
     { iconComponent: <Icon name="leaves" size={20} className="brightness-0 invert" />, label: "Bio & Local", color: "" },
-    { icon: AnimatedClock, label: "Prêt en 2min", color: "text-md-tertiary" },
-    { icon: Truck, label: "Livraison rapide", color: "text-md-secondary" }
+    { icon: AnimatedClock, label: "Prêt en 2min", color: "text-white" },
+    { iconComponent: <Icon name="delivery-truck" size={20} className="brightness-0 invert" />, label: "Livraison rapide", color: "" }
   ];
 
   return (

@@ -1,5 +1,4 @@
 import { Button } from "@/components/ui/button";
-import { Truck, Heart } from "lucide-react";
 import { AnimatedArrowRight } from "@/components/ui/animated-icon";
 import { CategoryBadge } from "../../atoms/Badge/CategoryBadge";
 import { Icon } from "@/components/ui/icon";
@@ -37,11 +36,11 @@ export const QuickOrderSection = ({ onOrderClick }: QuickOrderSectionProps) => {
       {/* Benefits */}
       <div className="flex items-center justify-center gap-6 text-sm text-gray-400">
         <div className="flex items-center gap-2">
-          <Truck className="w-4 h-4 text-emerald-400" />
+          <Icon name="delivery-truck" size={16} className="brightness-0 invert opacity-60" />
           <span>Livraison gratuite</span>
         </div>
         <div className="flex items-center gap-2">
-          <Heart className="w-4 h-4 text-orange-400" />
+          <Icon name="heart-health" size={16} className="brightness-0 invert opacity-60" />
           <span>Sans inscription</span>
         </div>
       </div>
