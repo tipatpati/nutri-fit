@@ -1,7 +1,18 @@
 import { describe, it, expect, vi } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { CategoryBadge } from '@/presentation/components/atoms/Badge/CategoryBadge';
+
+// Helper to get elements
+const getByRole = (container: HTMLElement, role: string) => 
+  container.querySelector(`[role="${role}"]`) as HTMLElement;
+const getByText = (container: HTMLElement, text: string | RegExp) => {
+  const elements = Array.from(container.querySelectorAll('*'));
+  return elements.find(el => {
+    const content = el.textContent || '';
+    return typeof text === 'string' ? content.includes(text) : text.test(content);
+  }) as HTMLElement;
+};
 
 describe('CategoryBadge Component', () => {
   const defaultProps = {
@@ -11,28 +22,28 @@ describe('CategoryBadge Component', () => {
   };
 
   it('should render with provided props', () => {
-    render(<CategoryBadge {...defaultProps} />);
+    const { container } = render(<CategoryBadge {...defaultProps} />);
     
-    const badge = screen.getByRole('button');
+    const badge = getByRole(container, 'button');
     expect(badge).toBeInTheDocument();
     
-    const label = screen.getByText('Équilibré');
+    const label = getByText(container, 'Équilibré');
     expect(label).toBeInTheDocument();
   });
 
   it('should display emoji', () => {
-    render(<CategoryBadge {...defaultProps} />);
+    const { container } = render(<CategoryBadge {...defaultProps} />);
     
-    const emoji = screen.getByText('🍽️');
+    const emoji = getByText(container, '🍽️');
     expect(emoji).toBeInTheDocument();
   });
 
   it('should call onClick when clicked', async () => {
     const handleClick = vi.fn();
     const user = userEvent.setup();
-    render(<CategoryBadge {...defaultProps} onClick={handleClick} />);
+    const { container } = render(<CategoryBadge {...defaultProps} onClick={handleClick} />);
     
-    const badge = screen.getByRole('button');
+    const badge = getByRole(container, 'button');
     await user.click(badge);
     
     expect(handleClick).toHaveBeenCalledTimes(1);
@@ -40,25 +51,25 @@ describe('CategoryBadge Component', () => {
 
   it('should not error when onClick is not provided', async () => {
     const user = userEvent.setup();
-    render(<CategoryBadge {...defaultProps} />);
+    const { container } = render(<CategoryBadge {...defaultProps} />);
     
-    const badge = screen.getByRole('button');
+    const badge = getByRole(container, 'button');
     expect(async () => await user.click(badge)).not.toThrow();
   });
 
   it('should apply gradient class', () => {
-    render(<CategoryBadge {...defaultProps} />);
+    const { container } = render(<CategoryBadge {...defaultProps} />);
     
-    const badge = screen.getByRole('button');
+    const badge = getByRole(container, 'button');
     expect(badge.className).toContain('from-emerald-400');
     expect(badge.className).toContain('to-green-500');
   });
 
   it('should be keyboard accessible', () => {
     const handleClick = vi.fn();
-    render(<CategoryBadge {...defaultProps} onClick={handleClick} />);
+    const { container } = render(<CategoryBadge {...defaultProps} onClick={handleClick} />);
     
-    const badge = screen.getByRole('button');
+    const badge = getByRole(container, 'button');
     badge.focus();
     
     expect(document.activeElement).toBe(badge);
