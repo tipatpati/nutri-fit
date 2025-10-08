@@ -18,23 +18,23 @@
     --md-sys-color-on-surface: 28 27 31;
     --md-sys-color-on-surface-variant: 73 69 79;
 
-    /* Primary Colors - NutriFit Emerald Green */
-    --md-sys-color-primary: 16 185 129;
-    --md-sys-color-primary-container: 220 252 231;
-    --md-sys-color-on-primary: 255 255 255;
-    --md-sys-color-on-primary-container: 6 78 59;
+    /* Primary Colors - Dark Teal #113B39 */
+    --md-sys-color-primary: 177 55% 15%;
+    --md-sys-color-primary-container: 177 55% 92%;
+    --md-sys-color-on-primary: 0 0% 100%;
+    --md-sys-color-on-primary-container: 177 55% 8%;
 
-    /* Secondary Colors - NutriFit Orange */
-    --md-sys-color-secondary: 249 115 22;
-    --md-sys-color-secondary-container: 255 237 213;
-    --md-sys-color-on-secondary: 255 255 255;
-    --md-sys-color-on-secondary-container: 154 52 18;
+    /* Secondary Colors - Orange #FF4D00 */
+    --md-sys-color-secondary: 18 100% 50%;
+    --md-sys-color-secondary-container: 18 100% 95%;
+    --md-sys-color-on-secondary: 0 0% 100%;
+    --md-sys-color-on-secondary-container: 18 100% 25%;
 
-    /* Tertiary Colors - NutriFit Blue */
-    --md-sys-color-tertiary: 59 130 246;
-    --md-sys-color-tertiary-container: 219 234 254;
-    --md-sys-color-on-tertiary: 255 255 255;
-    --md-sys-color-on-tertiary-container: 30 64 175;
+    /* Tertiary Colors - Gold #D4B961 */
+    --md-sys-color-tertiary: 46 56% 61%;
+    --md-sys-color-tertiary-container: 46 56% 95%;
+    --md-sys-color-on-tertiary: 46 56% 20%;
+    --md-sys-color-on-tertiary-container: 46 56% 25%;
 
     /* Error Colors */
     --md-sys-color-error: 179 38 30;
@@ -42,9 +42,9 @@
     --md-sys-color-on-error: 255 255 255;
     --md-sys-color-on-error-container: 65 14 11;
 
-    /* Outline Colors */
-    --md-sys-color-outline: 121 116 126;
-    --md-sys-color-outline-variant: 202 196 208;
+    /* Outline Colors - Olive #525944 */
+    --md-sys-color-outline: 75 13% 31%;
+    --md-sys-color-outline-variant: 75 13% 85%;
 
     /* Material Design 3 Elevation Shadows */
     --md-sys-elevation-level0: none;
@@ -128,23 +128,23 @@
     --md-sys-color-on-surface: 230 225 229;
     --md-sys-color-on-surface-variant: 202 196 208;
 
-    /* Primary Colors - NutriFit Emerald Green Dark */
-    --md-sys-color-primary: 52 211 153;
-    --md-sys-color-primary-container: 6 78 59;
-    --md-sys-color-on-primary: 6 78 59;
-    --md-sys-color-on-primary-container: 220 252 231;
+    /* Primary Colors - Dark Teal #113B39 Dark Mode */
+    --md-sys-color-primary: 177 55% 35%;
+    --md-sys-color-primary-container: 177 55% 12%;
+    --md-sys-color-on-primary: 0 0% 100%;
+    --md-sys-color-on-primary-container: 177 55% 85%;
 
-    /* Secondary Colors - NutriFit Orange Dark */
-    --md-sys-color-secondary: 251 146 60;
-    --md-sys-color-secondary-container: 154 52 18;
-    --md-sys-color-on-secondary: 154 52 18;
-    --md-sys-color-on-secondary-container: 255 237 213;
+    /* Secondary Colors - Orange #FF4D00 Dark Mode */
+    --md-sys-color-secondary: 18 100% 65%;
+    --md-sys-color-secondary-container: 18 100% 30%;
+    --md-sys-color-on-secondary: 0 0% 100%;
+    --md-sys-color-on-secondary-container: 18 100% 90%;
 
-    /* Tertiary Colors - NutriFit Blue Dark */
-    --md-sys-color-tertiary: 96 165 250;
-    --md-sys-color-tertiary-container: 30 64 175;
-    --md-sys-color-on-tertiary: 30 64 175;
-    --md-sys-color-on-tertiary-container: 219 234 254;
+    /* Tertiary Colors - Gold #D4B961 Dark Mode */
+    --md-sys-color-tertiary: 46 56% 70%;
+    --md-sys-color-tertiary-container: 46 56% 30%;
+    --md-sys-color-on-tertiary: 46 56% 15%;
+    --md-sys-color-on-tertiary-container: 46 56% 90%;
 
     /* Error Colors */
     --md-sys-color-error: 242 184 181;
@@ -152,9 +152,9 @@
     --md-sys-color-on-error: 105 0 5;
     --md-sys-color-on-error-container: 249 222 220;
 
-    /* Outline Colors */
-    --md-sys-color-outline: 147 143 153;
-    --md-sys-color-outline-variant: 73 69 79;
+    /* Outline Colors - Olive #525944 Dark Mode */
+    --md-sys-color-outline: 75 13% 50%;
+    --md-sys-color-outline-variant: 75 13% 25%;
 
     /* Backward compatibility mapping */
     --background: var(--md-sys-color-surface);
