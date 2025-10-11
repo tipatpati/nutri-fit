@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
+import { AnimatedArrowRight } from "@/components/ui/animated-icon";
 import { Link } from "react-router-dom";
 
 export const CategoryCTA = () => {
@@ -18,7 +18,7 @@ export const CategoryCTA = () => {
             className="bg-md-surface text-md-primary hover:bg-md-surface-container-high font-bold px-md-6 lg:px-md-8 py-md-3 rounded-md-lg md-elevation-2"
           >
             Commencer mon parcours
-            <ArrowRight className="ml-md-2 w-4 h-4 lg:w-5 lg:h-5" />
+            <AnimatedArrowRight className="ml-md-2" size={20} />
           </Button>
         </Link>
       </div>
