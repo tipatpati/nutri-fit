@@ -9,8 +9,8 @@ const Footer = () => {
   return (
     <footer className="bg-slate-900 text-white">
       {/* Main Footer Content */}
-      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-16 lg:py-20">
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-16">
+      <div className="max-w-5xl mx-auto px-6 sm:px-8 lg:px-12 py-14 lg:py-16">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12">
           {/* Brand Section */}
           <div>
             <FooterBrand />
