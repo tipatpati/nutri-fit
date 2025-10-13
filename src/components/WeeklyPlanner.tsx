@@ -9,25 +9,32 @@ import { useMeals } from "@/presentation/hooks/useMeals";
 import { Link } from "react-router-dom";
 
 const WeeklyPlanner = () => {
-  const [selectedCategory, setSelectedCategory] = useState("Tous");
+  const [selectedGoal, setSelectedGoal] = useState<"Prise de masse" | "Perte de poids" | "Équilibré">("Équilibré");
   const { data: meals = [], isLoading } = useMeals({ active: true });
 
-  const categories = ["Tous", "Prise de masse", "Perte de poids", "Équilibré"];
+  const goals = [
+    { name: "Prise de masse", multiplier: 1.3, description: "Portions augmentées" },
+    { name: "Équilibré", multiplier: 1.0, description: "Portions standards" },
+    { name: "Perte de poids", multiplier: 0.8, description: "Portions réduites" }
+  ];
 
-  const filteredMeals = selectedCategory === "Tous" 
-    ? meals 
-    : meals.filter(meal => meal.category === selectedCategory);
+  const currentGoal = goals.find(g => g.name === selectedGoal) || goals[1];
 
-  const getCategoryColor = (category: string) => {
-    switch (category) {
+  const adjustNutrition = (value: number | null) => {
+    if (!value) return 0;
+    return Math.round(value * currentGoal.multiplier);
+  };
+
+  const getGoalColor = (goal: string) => {
+    switch (goal) {
       case 'Prise de masse': 
-        return { bg: 'bg-gradient-to-br from-orange-500 to-red-500', text: 'text-white' };
+        return { bg: 'bg-gradient-to-br from-orange-500 to-red-500', text: 'text-white', light: 'from-orange-50 to-red-50' };
       case 'Perte de poids': 
-        return { bg: 'bg-gradient-to-br from-emerald-500 to-green-500', text: 'text-white' };
+        return { bg: 'bg-gradient-to-br from-emerald-500 to-green-500', text: 'text-white', light: 'from-emerald-50 to-green-50' };
       case 'Équilibré': 
-        return { bg: 'bg-gradient-to-br from-yellow-500 to-amber-500', text: 'text-white' };
+        return { bg: 'bg-gradient-to-br from-yellow-500 to-amber-500', text: 'text-white', light: 'from-yellow-50 to-amber-50' };
       default: 
-        return { bg: 'bg-gray-500', text: 'text-white' };
+        return { bg: 'bg-gray-500', text: 'text-white', light: 'from-gray-50 to-gray-100' };
     }
   };
 
@@ -51,34 +58,48 @@ const WeeklyPlanner = () => {
             Menu complet
           </div>
           <h2 className="md-display-large text-[hsl(var(--md-sys-color-on-surface))] mb-4">
-            Nos repas par objectif
+            Tous nos repas disponibles
           </h2>
           <p className="md-body-large text-neutral-500 max-w-3xl mx-auto leading-relaxed">
-            Découvrez tous nos repas avec leurs ingrédients et valeurs nutritionnelles
+            Chaque repas est disponible pour tous les objectifs - seules les quantités changent
           </p>
         </div>
 
-        {/* Category Filter */}
-        <div className="flex flex-wrap justify-center gap-3 mb-12">
-          {categories.map((category) => (
-            <button
-              key={category}
-              onClick={() => setSelectedCategory(category)}
-              className={`px-6 py-3 rounded-[var(--md-sys-shape-corner-full)] md-label-large transition-all duration-200 ${
-                selectedCategory === category
-                  ? 'bg-[hsl(var(--md-sys-color-primary))] text-white md-elevation-2'
-                  : 'bg-[hsl(var(--md-sys-color-surface))] text-[hsl(var(--md-sys-color-on-surface))] border border-[hsl(var(--md-sys-color-outline-variant))] hover:border-[hsl(var(--md-sys-color-outline))]'
-              }`}
-            >
-              {category}
-            </button>
-          ))}
+        {/* Goal Selector */}
+        <div className="max-w-4xl mx-auto mb-12">
+          <h3 className="md-title-large text-[hsl(var(--md-sys-color-on-surface))] text-center mb-6">
+            Choisissez votre objectif
+          </h3>
+          <div className="grid md:grid-cols-3 gap-4">
+            {goals.map((goal) => {
+              const colors = getGoalColor(goal.name);
+              return (
+                <button
+                  key={goal.name}
+                  onClick={() => setSelectedGoal(goal.name as any)}
+                  className={`p-6 rounded-[var(--md-sys-shape-corner-large)] transition-all duration-200 ${
+                    selectedGoal === goal.name
+                      ? `${colors.bg} ${colors.text} md-elevation-3 scale-105`
+                      : 'bg-[hsl(var(--md-sys-color-surface))] text-[hsl(var(--md-sys-color-on-surface))] border-2 border-[hsl(var(--md-sys-color-outline-variant))] hover:border-[hsl(var(--md-sys-color-outline))]'
+                  }`}
+                >
+                  <div className="md-title-medium mb-2">{goal.name}</div>
+                  <div className={`md-body-small ${selectedGoal === goal.name ? 'text-white/90' : 'text-neutral-500'}`}>
+                    {goal.description}
+                  </div>
+                  <div className={`md-label-large mt-3 ${selectedGoal === goal.name ? 'text-white' : 'text-[hsl(var(--md-sys-color-primary))]'}`}>
+                    × {goal.multiplier}
+                  </div>
+                </button>
+              );
+            })}
+          </div>
         </div>
 
         {/* Meals Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-          {filteredMeals.map((meal) => {
-            const colors = getCategoryColor(meal.category);
+          {meals.map((meal) => {
+            const colors = getGoalColor(selectedGoal);
             return (
               <Card 
                 key={meal.id}
@@ -89,7 +110,7 @@ const WeeklyPlanner = () => {
                     <div className="flex-1">
                       <CardTitle className="md-title-large mb-2">{meal.name}</CardTitle>
                       <Badge className="bg-white/20 text-white border-0">
-                        {meal.category}
+                        {selectedGoal}
                       </Badge>
                     </div>
                     {meal.image_url && (
@@ -146,25 +167,25 @@ const WeeklyPlanner = () => {
                       <div className="p-3 bg-[hsl(var(--md-sys-color-surface-container))] rounded-[var(--md-sys-shape-corner-medium)]">
                         <div className="md-label-small text-neutral-500">Calories</div>
                         <div className="md-title-medium text-[hsl(var(--md-sys-color-on-surface))]">
-                          {meal.calories_per_serving || 0}
+                          {adjustNutrition(meal.calories_per_serving)}
                         </div>
                       </div>
                       <div className="p-3 bg-[hsl(var(--md-sys-color-surface-container))] rounded-[var(--md-sys-shape-corner-medium)]">
                         <div className="md-label-small text-neutral-500">Protéines</div>
                         <div className="md-title-medium text-[hsl(var(--md-sys-color-on-surface))]">
-                          {meal.protein_grams || 0}g
+                          {adjustNutrition(meal.protein_grams)}g
                         </div>
                       </div>
                       <div className="p-3 bg-[hsl(var(--md-sys-color-surface-container))] rounded-[var(--md-sys-shape-corner-medium)]">
                         <div className="md-label-small text-neutral-500">Glucides</div>
                         <div className="md-title-medium text-[hsl(var(--md-sys-color-on-surface))]">
-                          {meal.carbs_grams || 0}g
+                          {adjustNutrition(meal.carbs_grams)}g
                         </div>
                       </div>
                       <div className="p-3 bg-[hsl(var(--md-sys-color-surface-container))] rounded-[var(--md-sys-shape-corner-medium)]">
                         <div className="md-label-small text-neutral-500">Lipides</div>
                         <div className="md-title-medium text-[hsl(var(--md-sys-color-on-surface))]">
-                          {meal.fat_grams || 0}g
+                          {adjustNutrition(meal.fat_grams)}g
                         </div>
                       </div>
                     </div>
