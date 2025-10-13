@@ -7,7 +7,7 @@ import { Truck, Clock, ChefHat, Leaf, Star, Heart, Zap, Shield } from "lucide-re
 import { useState } from "react";
 
 const Forfaits = () => {
-  const [selectedSize, setSelectedSize] = useState("regular");
+  const [selectedGoal, setSelectedGoal] = useState("balanced");
 
   const features = [
     {
@@ -105,33 +105,35 @@ const Forfaits = () => {
               </p>
             </div>
 
-            {/* Enhanced Meal Size Selector */}
+            {/* Enhanced Fitness Goals Selector */}
             <div className="bg-[hsl(var(--md-sys-color-surface-container))] rounded-[var(--md-sys-shape-corner-extra-large)] p-6 lg:p-10 md-elevation-2 border border-[hsl(var(--md-sys-color-outline-variant))]">
               <h3 className="md-title-large text-[hsl(var(--md-sys-color-on-surface))] text-center mb-6 lg:mb-8">
-                Choisissez la taille des repas
+                Choisissez votre objectif fitness
               </h3>
               
               <div className="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-4 lg:space-x-12">
                 {[
-                  { size: "petit", label: "Petit", calories: "300-400 cal", bgClass: "from-orange-200 to-orange-300" },
-                  { size: "regular", label: "Régulier", calories: "450-600 cal", bgClass: "from-orange-300 to-orange-400", popular: true },
-                  { size: "grand", label: "Grand", calories: "650-800 cal", bgClass: "from-orange-400 to-orange-500" }
+                  { goal: "weight_loss", label: "Perte de poids", mealSize: "300-450 cal", bgClass: "from-blue-400 to-blue-500", icon: "🔥" },
+                  { goal: "balanced", label: "Équilibre", mealSize: "450-600 cal", bgClass: "from-emerald-400 to-green-500", popular: true, icon: "⚖️" },
+                  { goal: "muscle_gain", label: "Prise de masse", mealSize: "650-800 cal", bgClass: "from-purple-400 to-pink-500", icon: "💪" }
                 ].map((item) => (
                   <div 
-                    key={item.size}
+                    key={item.goal}
                     className={`group cursor-pointer p-4 sm:p-6 lg:p-8 rounded-[var(--md-sys-shape-corner-large)] border-2 transition-all duration-300 hover:scale-105 relative w-full sm:w-auto ${
-                      selectedSize === item.size ? "border-[hsl(var(--md-sys-color-primary))] bg-[hsl(var(--md-sys-color-primary-container))] md-elevation-2" : "border-[hsl(var(--md-sys-color-outline-variant))] hover:border-[hsl(var(--md-sys-color-outline))]"
+                      selectedGoal === item.goal ? "border-[hsl(var(--md-sys-color-primary))] bg-[hsl(var(--md-sys-color-primary-container))] md-elevation-2" : "border-[hsl(var(--md-sys-color-outline-variant))] hover:border-[hsl(var(--md-sys-color-outline))]"
                     }`}
-                    onClick={() => setSelectedSize(item.size)}
+                    onClick={() => setSelectedGoal(item.goal)}
                   >
                     {item.popular && (
                       <Badge className="absolute -top-2 sm:-top-3 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-[hsl(var(--md-sys-color-primary))] to-[hsl(var(--md-sys-color-secondary))] text-white md-label-small px-3 sm:px-4 py-1">
                         Le plus populaire !
                       </Badge>
                     )}
-                    <div className={`w-16 h-12 sm:w-20 sm:h-16 lg:w-24 lg:h-20 bg-gradient-to-br ${item.bgClass} rounded-[var(--md-sys-shape-corner-medium)] mb-3 sm:mb-4 group-hover:scale-110 transition-transform mx-auto`}></div>
+                    <div className={`w-16 h-12 sm:w-20 sm:h-16 lg:w-24 lg:h-20 bg-gradient-to-br ${item.bgClass} rounded-[var(--md-sys-shape-corner-medium)] mb-3 sm:mb-4 group-hover:scale-110 transition-transform mx-auto flex items-center justify-center text-3xl sm:text-4xl lg:text-5xl`}>
+                      {item.icon}
+                    </div>
                     <p className="text-center md-title-medium text-[hsl(var(--md-sys-color-on-surface))]">{item.label}</p>
-                    <p className="text-center md-body-small text-[hsl(var(--md-sys-color-on-surface-variant))] mt-1">{item.calories}</p>
+                    <p className="text-center md-body-small text-[hsl(var(--md-sys-color-on-surface-variant))] mt-1">Repas de {item.mealSize}</p>
                   </div>
                 ))}
               </div>
