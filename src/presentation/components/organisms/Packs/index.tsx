@@ -22,19 +22,6 @@ const Packs = () => {
   return (
     <section className="py-24 lg:py-32 bg-[hsl(var(--md-sys-color-surface))]">
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-        {/* Header */}
-        <div className="text-center mb-16 lg:mb-20 animate-fade-in">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-[hsl(var(--md-sys-color-surface-container-highest))] rounded-[var(--md-sys-shape-corner-full)] md-label-medium text-[hsl(var(--md-sys-color-on-surface))] border border-[hsl(var(--md-sys-color-outline-variant))] mb-4">
-            <Package className="w-4 h-4 text-[hsl(var(--md-sys-color-secondary))]" />
-            Nos formules
-          </div>
-          <h2 className="md-display-large text-[hsl(var(--md-sys-color-on-surface))] mb-6">
-            Choisissez votre pack
-          </h2>
-          <p className="md-body-large text-neutral-500 max-w-3xl mx-auto leading-relaxed">
-            Des formules flexibles adaptées à vos besoins et votre rythme de vie
-          </p>
-        </div>
 
         {/* Packs Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
