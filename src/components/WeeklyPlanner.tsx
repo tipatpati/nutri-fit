@@ -125,51 +125,62 @@ const WeeklyPlanner = () => {
         </div>
 
         {/* Weekly Meal Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-7 gap-4 lg:gap-5 mb-10">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-3 lg:gap-4 mb-12">
           {weekMeals.map((day, index) => (
-            <Card key={index} className="group hover:shadow-lg transition-all duration-200 border border-slate-200 hover:border-slate-300 bg-white">
-              <CardHeader className="pb-3">
-                <CardTitle className="text-center text-base font-bold text-slate-800 flex items-center justify-center gap-2">
-                  <span className="w-1.5 h-1.5 bg-orange-500 rounded-full"></span>
-                  {day.day}
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
+            <div key={index} className="group">
+              {/* Day Header */}
+              <div className="text-center mb-3">
+                <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-br from-orange-500 to-amber-500 shadow-md mb-2 group-hover:scale-110 transition-transform">
+                  <span className="text-white font-bold text-sm">{day.day}</span>
+                </div>
+              </div>
+
+              {/* Meals */}
+              <div className="space-y-3">
                 {day.meals.map((meal, mealIndex) => {
                   const colors = getTypeColor(meal.type);
                   return (
-                    <div 
+                    <Card 
                       key={mealIndex}
-                      className={`p-4 rounded-xl cursor-pointer hover:scale-105 transition-all duration-200 bg-gradient-to-br ${colors.light} border border-slate-200`}
+                      className="group/meal hover:shadow-xl transition-all duration-300 border-2 border-md-outline-variant hover:border-md-primary cursor-pointer overflow-hidden bg-white"
                     >
-                      <div className="text-center space-y-3">
-                        <div className="mb-2 flex items-center justify-center">
-                          <Icon name={meal.icon} size={40} />
-                        </div>
-                        <h5 className="font-bold text-sm text-slate-800 leading-tight">{meal.name}</h5>
-                        
-                        <div className="space-y-2">
-                          <div className="flex items-center justify-center space-x-1">
-                            <Star className="w-3 h-3 fill-yellow-400 text-yellow-400" />
-                            <span className="text-xs font-medium text-slate-600">{meal.rating}</span>
+                      <CardContent className="p-4">
+                        <div className="flex flex-col items-center text-center space-y-3">
+                          {/* Icon */}
+                          <div className="w-14 h-14 rounded-full bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center group-hover/meal:scale-110 transition-transform">
+                            <Icon name={meal.icon} size={32} />
                           </div>
                           
-                          <div className="text-xs text-slate-600 font-medium">
-                            {meal.calories} cal
+                          {/* Meal Name */}
+                          <h5 className="font-bold text-xs leading-tight text-md-on-surface line-clamp-2 min-h-[2.5rem]">
+                            {meal.name}
+                          </h5>
+                          
+                          {/* Stats */}
+                          <div className="w-full space-y-2">
+                            <div className="flex items-center justify-center gap-2">
+                              <Star className="w-3 h-3 fill-yellow-400 text-yellow-400" />
+                              <span className="text-xs font-semibold text-md-on-surface-variant">{meal.rating}</span>
+                            </div>
+                            
+                            <div className="text-xs font-bold text-md-primary">
+                              {meal.calories} cal
+                            </div>
                           </div>
                           
+                          {/* Category Badge */}
                           <Badge 
-                            className={`${colors.bg} ${colors.text} text-xs px-3 py-1 font-medium`}
+                            className={`${colors.bg} ${colors.text} text-[10px] px-2 py-0.5 font-semibold w-full justify-center`}
                           >
                             {meal.type}
                           </Badge>
                         </div>
-                      </div>
-                    </div>
+                      </CardContent>
+                    </Card>
                   );
                 })}
-              </CardContent>
-            </Card>
+              </div>
+            </div>
           ))}
         </div>
 
