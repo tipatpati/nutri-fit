@@ -10,6 +10,7 @@ import Index from "./pages/Index";
 import Menu from "./pages/Menu";
 import Forfaits from "./pages/Forfaits";
 import Order from "./pages/Order";
+import Orders from "./pages/Orders";
 import Auth from "./pages/Auth";
 import ResetPassword from "./pages/ResetPassword";
 import Profile from "./pages/Profile";
@@ -32,6 +33,7 @@ const App = () => (
               <Route path="/menu" element={<Menu />} />
               <Route path="/forfaits" element={<Forfaits />} />
               <Route path="/order" element={<Order />} />
+              <Route path="/orders" element={<ProtectedRoute><Orders /></ProtectedRoute>} />
               <Route path="/auth" element={<Auth />} />
               <Route path="/reset-password" element={<ResetPassword />} />
               <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />

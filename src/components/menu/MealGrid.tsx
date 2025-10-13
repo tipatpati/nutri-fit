@@ -2,9 +2,9 @@
 import MealCard from "./MealCard";
 
 interface Meal {
-  id: number;
+  id: string;
   name: string;
-  image: string;
+  image_url: string | null;
   category: string;
   premium: boolean;
   badge?: string;

@@ -31,9 +31,9 @@ const renderWithRouter = (component: React.ReactElement) => {
 
 describe('MealCard Component', () => {
   const mockMeal = {
-    id: 1,
+    id: '1',
     name: 'Poulet grillé aux légumes',
-    image: 'https://example.com/meal.jpg',
+    image_url: 'https://example.com/meal.jpg',
     category: 'Équilibré',
     premium: false,
     badge: 'Nouveau',

@@ -1,10 +1,15 @@
 
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { ArrowLeft, Calendar, ShoppingBag, CreditCard } from "lucide-react";
 import AddressForm from "./AddressForm";
 import { type AddressFormData } from "@/shared/validation";
+import { useOrderSubmission } from "@/hooks/useOrderSubmission";
+import { useAuthStore } from "@/shared/stores/useAuthStore";
+import { useCartStore } from "@/shared/stores/useCartStore";
+import { toast } from "@/hooks/use-toast";
 
 interface SelectedMeal {
   id: string;
@@ -23,8 +28,12 @@ interface OrderSummaryProps {
 }
 
 const OrderSummary = ({ selectedMeals, onBack, onConfirm }: OrderSummaryProps) => {
+  const navigate = useNavigate();
   const [showAddressForm, setShowAddressForm] = useState(false);
   const [deliveryAddress, setDeliveryAddress] = useState<AddressFormData | null>(null);
+  const { user } = useAuthStore();
+  const clearCart = useCartStore((state) => state.clearCart);
+  const { mutate: submitOrder, isPending } = useOrderSubmission();
 
   // Group meals by date
   const mealsByDate = selectedMeals.reduce((acc, meal) => {
@@ -57,8 +66,47 @@ const OrderSummary = ({ selectedMeals, onBack, onConfirm }: OrderSummaryProps) =
   };
 
   const handleFinalConfirm = () => {
-    console.log('Order confirmed with address:', deliveryAddress);
-    onConfirm();
+    if (!user) {
+      toast({
+        title: 'Erreur',
+        description: 'Vous devez être connecté pour passer commande',
+        variant: 'destructive',
+      });
+      navigate('/auth');
+      return;
+    }
+
+    if (!deliveryAddress) {
+      toast({
+        title: 'Erreur',
+        description: 'Veuillez renseigner une adresse de livraison',
+        variant: 'destructive',
+      });
+      return;
+    }
+
+    const items = selectedMeals.map(meal => ({
+      mealId: meal.id,
+      mealName: meal.name,
+      quantity: meal.quantity,
+      date: meal.date,
+      price: meal.premium ? 15.99 : 12.99,
+    }));
+
+    submitOrder(
+      {
+        items,
+        address: deliveryAddress,
+        userId: user.id,
+      },
+      {
+        onSuccess: () => {
+          clearCart();
+          onConfirm();
+          navigate('/orders');
+        },
+      }
+    );
   };
 
   if (showAddressForm) {
@@ -231,10 +279,11 @@ const OrderSummary = ({ selectedMeals, onBack, onConfirm }: OrderSummaryProps) =
                     variant="filled"
                     size="lg"
                     onClick={handleFinalConfirm}
+                    disabled={isPending}
                     className="w-full"
                   >
                     <CreditCard className="w-5 h-5 mr-md-2" />
-                    Confirmer la commande
+                    {isPending ? 'Envoi en cours...' : 'Confirmer la commande'}
                   </Button>
                 )}
                 
