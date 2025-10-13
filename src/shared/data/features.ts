@@ -6,22 +6,22 @@ export interface Feature {
 
 export const features: Feature[] = [
   {
-    icon: '🍽️',
+    icon: 'apple',
     title: 'Frais, jamais congelé',
     description: 'Tous nos repas sont préparés frais quotidiennement avec des ingrédients de première qualité sourced localement'
   },
   {
-    icon: '🚴',
+    icon: 'dumbbell',
     title: 'Spécialement pour les athlètes',
     description: 'Repas conçus par des nutritionnistes sportifs certifiés pour optimiser vos performances et atteindre vos objectifs'
   },
   {
-    icon: '⏱️',
+    icon: 'stopwatch',
     title: 'Prêt en 2 minutes',
     description: 'Réchauffez et savourez. Pas de préparation, pas de vaisselle, plus de temps pour vous'
   },
   {
-    icon: '🌱',
+    icon: 'leaves',
     title: 'Ingrédients de qualité',
     description: 'Nous utilisons uniquement des ingrédients frais, locaux et biologiques certifiés'
   }
