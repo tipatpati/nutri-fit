@@ -3,6 +3,9 @@
 ## Overview
 NutiFit uses Material Design 3 (MD3) design system with a custom color palette based on the brand identity. All components must use semantic tokens from `src/index.css` for consistency.
 
+**📚 Related Documentation:**
+- See `TYPOGRAPHY_SYSTEM.md` for complete typography and text color guidelines
+
 ## Color Palette
 
 ### Primary Colors (Dark Teal #113B39)

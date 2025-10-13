@@ -97,14 +97,14 @@ const WeeklyPlanner = () => {
       <div className="max-w-5xl mx-auto px-6 sm:px-8 lg:px-12">
         {/* Header */}
         <div className="text-center mb-12 lg:mb-14 animate-fade-in">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-[hsl(var(--md-sys-color-surface-container-highest))] rounded-[var(--md-sys-shape-corner-full)] md-label-medium text-[hsl(var(--md-sys-color-on-surface))] mb-4 border border-[hsl(var(--md-sys-color-outline-variant))]">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-[hsl(var(--md-sys-color-surface-container-highest))] rounded-[var(--md-sys-shape-corner-full)] md-label-medium border border-[hsl(var(--md-sys-color-outline-variant))] mb-4">
             <Calendar className="w-4 h-4 text-[hsl(var(--md-sys-color-secondary))]" />
             Planification intelligente
           </div>
-          <h2 className="md-display-large text-[hsl(var(--md-sys-color-on-surface))] mb-4">
+          <h2 className="md-display-large mb-4">
             Personnalisez votre semaine
           </h2>
-          <p className="md-body-large text-[hsl(var(--md-sys-color-on-surface-variant))] max-w-3xl mx-auto leading-relaxed">
+          <p className="md-body-large max-w-3xl mx-auto leading-relaxed">
             Planifiez vos repas pour la semaine selon vos objectifs avec notre IA nutritionnelle
           </p>
         </div>
@@ -112,7 +112,7 @@ const WeeklyPlanner = () => {
         {/* Meal Size Selection */}
         <div className="max-w-2xl mx-auto mb-12">
           <div className="bg-[hsl(var(--md-sys-color-surface))] rounded-[var(--md-sys-shape-corner-extra-large)] p-6 lg:p-8 border border-[hsl(var(--md-sys-color-outline-variant))]">
-            <h3 className="md-headline-medium text-center mb-6 text-[hsl(var(--md-sys-color-on-surface))]">
+            <h3 className="md-headline-medium text-center mb-6">
               Choisissez la taille de vos repas
             </h3>
             
@@ -126,8 +126,8 @@ const WeeklyPlanner = () => {
                 onClick={() => setSelectedSize("petit")}
               >
                 <div className="w-20 h-16 bg-gradient-to-br from-[hsl(var(--md-sys-color-secondary))] to-[hsl(var(--md-sys-color-tertiary))] rounded-[var(--md-sys-shape-corner-medium)] mb-4 mx-auto"></div>
-                <p className="text-center font-bold md-title-medium text-[hsl(var(--md-sys-color-on-surface))]">Petit</p>
-                <p className="text-center md-body-small text-[hsl(var(--md-sys-color-on-surface-variant))] mt-1">400-500 cal</p>
+                <p className="text-center font-bold md-title-medium">Petit</p>
+                <p className="text-center md-body-small mt-1">400-500 cal</p>
               </div>
               
               <div 
@@ -142,8 +142,8 @@ const WeeklyPlanner = () => {
                   Recommandé
                 </Badge>
                 <div className="w-20 h-16 bg-gradient-to-br from-[hsl(var(--md-sys-color-secondary))] to-[hsl(var(--md-sys-color-tertiary))] rounded-[var(--md-sys-shape-corner-medium)] mb-4 mx-auto"></div>
-                <p className="text-center font-bold md-title-medium text-[hsl(var(--md-sys-color-on-surface))]">Régulier</p>
-                <p className="text-center md-body-small text-[hsl(var(--md-sys-color-on-surface-variant))] mt-1">500-700 cal</p>
+                <p className="text-center font-bold md-title-medium">Régulier</p>
+                <p className="text-center md-body-small mt-1">500-700 cal</p>
               </div>
             </div>
           </div>
