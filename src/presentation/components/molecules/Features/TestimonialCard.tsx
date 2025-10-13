@@ -14,12 +14,12 @@ export const TestimonialCard = ({ testimonial }: TestimonialCardProps) => {
             <Star key={i} className="w-5 h-5 fill-current" />
           ))}
         </div>
-        <span className="font-semibold md-title-medium text-on-surface">
+        <span className="font-semibold md-title-medium text-[hsl(var(--md-sys-color-on-surface))]">
           {testimonial.rating}/5
         </span>
       </div>
       
-      <p className="md-body-large text-on-surface mb-6 leading-relaxed">
+      <p className="md-body-large text-[hsl(var(--md-sys-color-on-surface))] mb-6 leading-relaxed">
         "{testimonial.content}"
       </p>
       
@@ -28,8 +28,8 @@ export const TestimonialCard = ({ testimonial }: TestimonialCardProps) => {
           {testimonial.initial}
         </div>
         <div>
-          <p className="font-bold md-title-medium text-on-surface">{testimonial.author}</p>
-          <p className="md-body-medium text-on-surface-variant">
+          <p className="font-bold md-title-medium text-[hsl(var(--md-sys-color-on-surface))]">{testimonial.author}</p>
+          <p className="md-body-medium text-neutral-500">
             {testimonial.role} • {testimonial.tenure}
           </p>
         </div>

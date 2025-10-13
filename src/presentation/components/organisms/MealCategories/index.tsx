@@ -30,10 +30,10 @@ const MealCategories = () => {
       <div className="max-w-6xl mx-auto px-6 sm:px-8 lg:px-12">
         {/* Header */}
         <div className="text-center mb-16 lg:mb-20 animate-fade-in">
-          <h2 className="md-display-large text-on-surface mb-6">
+          <h2 className="md-display-large text-[hsl(var(--md-sys-color-on-surface))] mb-6">
             Comment ça fonctionne ?
           </h2>
-          <p className="md-body-large text-on-surface-variant max-w-2xl mx-auto text-neutral-500">
+          <p className="md-body-large text-neutral-500 max-w-2xl mx-auto">
             Économisez du temps et profitez de repas prêts-à-manger nutritifs en 3 étapes faciles
           </p>
         </div>
@@ -56,7 +56,7 @@ const MealCategories = () => {
                 </div>
                 
                 {/* Text Content */}
-                <h3 className="md-headline-medium text-on-surface mb-4">
+                <h3 className="md-headline-medium text-[hsl(var(--md-sys-color-on-surface))] mb-4">
                   {step.title}
                 </h3>
                 
