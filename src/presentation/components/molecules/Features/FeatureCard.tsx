@@ -7,12 +7,12 @@ interface FeatureCardProps {
 
 export const FeatureCard = ({ feature }: FeatureCardProps) => {
   return (
-    <div className="group text-center space-y-6 p-8 bg-white rounded-2xl border border-slate-200 hover:border-slate-300 hover:shadow-md transition-all duration-200">
+    <div className="group text-center space-y-6 p-8 bg-[hsl(var(--md-sys-color-surface))] rounded-[var(--md-sys-shape-corner-extra-large)] border border-[hsl(var(--md-sys-color-outline-variant))] hover:border-[hsl(var(--md-sys-color-outline))] hover:shadow-md transition-all duration-200">
       <FeatureIcon icon={feature.icon} />
-      <h3 className="text-xl font-bold text-slate-900">
+      <h3 className="md-title-large text-on-surface">
         {feature.title}
       </h3>
-      <p className="text-slate-600 leading-relaxed">
+      <p className="md-body-medium text-on-surface-variant leading-relaxed">
         {feature.description}
       </p>
     </div>

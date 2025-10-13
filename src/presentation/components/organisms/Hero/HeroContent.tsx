@@ -20,12 +20,12 @@ export const HeroContent = ({ onOrderClick }: HeroContentProps) => {
       {/* Badge */}
       <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-[var(--md-sys-shape-corner-full)] backdrop-blur-sm">
         <Icon name="stopwatch" size={14} className="brightness-0 invert opacity-60" />
-        <span className="text-[hsl(var(--md-sys-color-secondary))] md-label-medium">Livraison express en 30 min</span>
+        <span className="text-white md-label-medium font-semibold">Livraison express en 30 min</span>
       </div>
       
       {/* Heading */}
       <div className="space-y-6">
-        <h1 className="md-display-large sm:text-6xl lg:text-7xl font-bold leading-tight tracking-tight">
+        <h1 className="md-display-large sm:text-6xl lg:text-7xl font-bold leading-tight tracking-tight text-white">
           <span className="text-white">
             Repas
           </span>
@@ -35,7 +35,7 @@ export const HeroContent = ({ onOrderClick }: HeroContentProps) => {
           </span>
         </h1>
         
-        <p className="md-body-large lg:md-title-large text-gray-300 leading-relaxed max-w-2xl mx-auto">
+        <p className="md-title-large lg:text-xl text-white/90 leading-relaxed max-w-2xl mx-auto font-normal">
           Des repas équilibrés, préparés par des chefs et livrés directement chez vous.
         </p>
       </div>

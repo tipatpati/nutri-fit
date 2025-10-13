@@ -97,14 +97,14 @@ const WeeklyPlanner = () => {
       <div className="max-w-5xl mx-auto px-6 sm:px-8 lg:px-12">
         {/* Header */}
         <div className="text-center mb-12 lg:mb-14 animate-fade-in">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-[hsl(var(--md-sys-color-surface-container-highest))] rounded-[var(--md-sys-shape-corner-full)] md-label-medium border border-[hsl(var(--md-sys-color-outline-variant))] mb-4">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-[hsl(var(--md-sys-color-surface-container-highest))] rounded-[var(--md-sys-shape-corner-full)] md-label-medium text-on-surface border border-[hsl(var(--md-sys-color-outline-variant))] mb-4">
             <Calendar className="w-4 h-4 text-[hsl(var(--md-sys-color-secondary))]" />
             Planification intelligente
           </div>
-          <h2 className="md-display-large mb-4">
+          <h2 className="md-display-large text-on-surface mb-4">
             Personnalisez votre semaine
           </h2>
-          <p className="md-body-large max-w-3xl mx-auto leading-relaxed">
+          <p className="md-body-large text-on-surface-variant max-w-3xl mx-auto leading-relaxed">
             Planifiez vos repas pour la semaine selon vos objectifs avec notre IA nutritionnelle
           </p>
         </div>
@@ -112,7 +112,7 @@ const WeeklyPlanner = () => {
         {/* Meal Size Selection */}
         <div className="max-w-2xl mx-auto mb-12">
           <div className="bg-[hsl(var(--md-sys-color-surface))] rounded-[var(--md-sys-shape-corner-extra-large)] p-6 lg:p-8 border border-[hsl(var(--md-sys-color-outline-variant))]">
-            <h3 className="md-headline-medium text-center mb-6">
+            <h3 className="md-headline-medium text-on-surface text-center mb-6">
               Choisissez la taille de vos repas
             </h3>
             
@@ -126,8 +126,8 @@ const WeeklyPlanner = () => {
                 onClick={() => setSelectedSize("petit")}
               >
                 <div className="w-20 h-16 bg-gradient-to-br from-[hsl(var(--md-sys-color-secondary))] to-[hsl(var(--md-sys-color-tertiary))] rounded-[var(--md-sys-shape-corner-medium)] mb-4 mx-auto"></div>
-                <p className="text-center font-bold md-title-medium">Petit</p>
-                <p className="text-center md-body-small mt-1">400-500 cal</p>
+                <p className="text-center font-bold md-title-medium text-on-surface">Petit</p>
+                <p className="text-center md-body-small text-on-surface-variant mt-1">400-500 cal</p>
               </div>
               
               <div 
@@ -142,8 +142,8 @@ const WeeklyPlanner = () => {
                   Recommandé
                 </Badge>
                 <div className="w-20 h-16 bg-gradient-to-br from-[hsl(var(--md-sys-color-secondary))] to-[hsl(var(--md-sys-color-tertiary))] rounded-[var(--md-sys-shape-corner-medium)] mb-4 mx-auto"></div>
-                <p className="text-center font-bold md-title-medium">Régulier</p>
-                <p className="text-center md-body-small mt-1">500-700 cal</p>
+                <p className="text-center font-bold md-title-medium text-on-surface">Régulier</p>
+                <p className="text-center md-body-small text-on-surface-variant mt-1">500-700 cal</p>
               </div>
             </div>
           </div>
@@ -175,7 +175,7 @@ const WeeklyPlanner = () => {
                 </div>
               </div>
 
-              {/* Meals or Blank */}
+            {/* Meals or Blank */}
               {day.isAvailable ? (
                 <div className="space-y-3">
                   {day.meals.map((meal, mealIndex) => {
@@ -183,7 +183,7 @@ const WeeklyPlanner = () => {
                     return (
                       <Card 
                         key={mealIndex}
-                        className="group/meal hover:shadow-xl transition-all duration-300 border-2 border-md-outline-variant hover:border-md-primary cursor-pointer overflow-hidden bg-white"
+                        className="group/meal hover:shadow-xl transition-all duration-300 border-2 border-[hsl(var(--md-sys-color-outline-variant))] hover:border-[hsl(var(--md-sys-color-primary))] cursor-pointer overflow-hidden bg-[hsl(var(--md-sys-color-surface))]"
                       >
                         <CardContent className="p-4">
                           <div className="flex flex-col items-center text-center space-y-3">
@@ -193,7 +193,7 @@ const WeeklyPlanner = () => {
                             </div>
                             
                             {/* Meal Name */}
-                            <h5 className="font-bold text-xs leading-tight text-md-on-surface line-clamp-2 min-h-[2.5rem]">
+                            <h5 className="font-bold text-xs leading-tight line-clamp-2 min-h-[2.5rem]">
                               {meal.name}
                             </h5>
                             
@@ -201,10 +201,10 @@ const WeeklyPlanner = () => {
                             <div className="w-full space-y-2">
                               <div className="flex items-center justify-center gap-2">
                                 <Star className="w-3 h-3 fill-yellow-400 text-yellow-400" />
-                                <span className="text-xs font-semibold text-md-on-surface-variant">{meal.rating}</span>
+                                <span className="text-xs font-semibold">{meal.rating}</span>
                               </div>
                               
-                              <div className="text-xs font-bold text-md-primary">
+                              <div className="text-xs font-bold text-[hsl(var(--md-sys-color-primary))]">
                                 {meal.calories} cal
                               </div>
                             </div>
@@ -223,11 +223,11 @@ const WeeklyPlanner = () => {
                 </div>
               ) : (
                 <div className="space-y-3">
-                  <Card className="border-2 border-dashed border-slate-300 bg-slate-50">
+                  <Card className="border-2 border-dashed border-[hsl(var(--md-sys-color-outline-variant))] bg-[hsl(var(--md-sys-color-surface-container))]">
                     <CardContent className="p-4">
                       <div className="flex flex-col items-center justify-center h-32 text-center">
-                        <X className="w-8 h-8 text-slate-400 mb-2" />
-                        <p className="text-xs text-slate-500 font-medium">Aucune disponibilité</p>
+                        <X className="w-8 h-8 text-[hsl(var(--md-sys-color-on-surface-variant))] mb-2 opacity-60" />
+                        <p className="text-xs font-medium text-[hsl(var(--md-sys-color-on-surface-variant))]">Aucune disponibilité</p>
                       </div>
                     </CardContent>
                   </Card>
@@ -239,35 +239,35 @@ const WeeklyPlanner = () => {
 
         {/* Stats & CTA */}
         <div className="grid md:grid-cols-3 gap-5 lg:gap-6 mb-10">
-          <div className="text-center p-5 bg-white rounded-2xl border border-slate-200">
+          <div className="text-center p-5 bg-[hsl(var(--md-sys-color-surface))] rounded-[var(--md-sys-shape-corner-extra-large)] border border-[hsl(var(--md-sys-color-outline-variant))]">
             <div className="w-14 h-14 bg-gradient-to-br from-green-400 to-emerald-500 rounded-full flex items-center justify-center mx-auto mb-3">
               <TrendingUp className="w-7 h-7 text-white" />
             </div>
-            <h4 className="font-bold text-lg text-slate-800 mb-1.5">+15% d'énergie</h4>
-            <p className="text-slate-600 text-sm">Moyenne constatée chez nos clients</p>
+            <h4 className="md-title-large text-on-surface mb-1.5">+15% d'énergie</h4>
+            <p className="md-body-small text-on-surface-variant">Moyenne constatée chez nos clients</p>
           </div>
           
-          <div className="text-center p-5 bg-white rounded-2xl border border-slate-200">
-            <div className="w-14 h-14 bg-gradient-to-br from-orange-400 to-amber-500 rounded-full flex items-center justify-center mx-auto mb-3">
+          <div className="text-center p-5 bg-[hsl(var(--md-sys-color-surface))] rounded-[var(--md-sys-shape-corner-extra-large)] border border-[hsl(var(--md-sys-color-outline-variant))]">
+            <div className="w-14 h-14 bg-gradient-to-br from-[hsl(var(--md-sys-color-secondary))] to-[hsl(var(--md-sys-color-tertiary))] rounded-full flex items-center justify-center mx-auto mb-3">
               <Icon name="stopwatch" size={28} className="brightness-0 invert" />
             </div>
-            <h4 className="font-bold text-lg text-slate-800 mb-1.5">2 minutes</h4>
-            <p className="text-slate-600 text-sm">Temps de préparation moyen</p>
+            <h4 className="md-title-large text-on-surface mb-1.5">2 minutes</h4>
+            <p className="md-body-small text-on-surface-variant">Temps de préparation moyen</p>
           </div>
           
-          <div className="text-center p-5 bg-white rounded-2xl border border-slate-200">
-            <div className="w-14 h-14 bg-gradient-to-br from-orange-400 to-amber-500 rounded-full flex items-center justify-center mx-auto mb-3">
+          <div className="text-center p-5 bg-[hsl(var(--md-sys-color-surface))] rounded-[var(--md-sys-shape-corner-extra-large)] border border-[hsl(var(--md-sys-color-outline-variant))]">
+            <div className="w-14 h-14 bg-gradient-to-br from-[hsl(var(--md-sys-color-secondary))] to-[hsl(var(--md-sys-color-tertiary))] rounded-full flex items-center justify-center mx-auto mb-3">
               <Icon name="heart-health" size={28} className="brightness-0 invert" />
             </div>
-            <h4 className="font-bold text-lg text-slate-800 mb-1.5">Objectifs atteints</h4>
-            <p className="text-slate-600 text-sm">92% de nos clients satisfaits</p>
+            <h4 className="md-title-large text-on-surface mb-1.5">Objectifs atteints</h4>
+            <p className="md-body-small text-on-surface-variant">92% de nos clients satisfaits</p>
           </div>
         </div>
 
         <div className="text-center">
           <Button 
             size="lg"
-            className="bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white px-10 py-5 rounded-xl font-bold text-base transition-all duration-200"
+            className="bg-gradient-to-r from-[hsl(var(--md-sys-color-secondary))] to-[hsl(var(--md-sys-color-tertiary))] hover:opacity-90 text-white px-10 py-5 rounded-[var(--md-sys-shape-corner-large)] md-label-large transition-all duration-200"
           >
             Commencer ma planification
             <Calendar className="ml-2.5 w-5 h-5" />

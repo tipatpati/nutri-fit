@@ -7,7 +7,7 @@ import { footerSections, legalLinks, brandInfo } from "@/shared/data/footerData"
 
 const Footer = () => {
   return (
-    <footer className="bg-slate-900 text-white">
+    <footer className="bg-[hsl(var(--md-sys-color-surface-dim))] text-white">
       {/* Main Footer Content */}
       <div className="max-w-5xl mx-auto px-6 sm:px-8 lg:px-12 py-14 lg:py-16">
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12">
@@ -36,15 +36,15 @@ const Footer = () => {
       <div className="border-t border-white/10">
         <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-6">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-sm text-gray-400 text-center md:text-left">
+            <p className="md-body-small text-white/70 text-center md:text-left">
               &copy; {brandInfo.copyright}
             </p>
-            <div className="flex gap-6 text-sm">
+            <div className="flex gap-6">
               {legalLinks.map((link, index) => (
                 <a
                   key={index}
                   href={link.href}
-                  className="text-gray-400 hover:text-white transition-colors"
+                  className="md-body-small text-white/70 hover:text-white transition-colors"
                 >
                   {link.label}
                 </a>

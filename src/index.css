@@ -295,87 +295,79 @@
   .md-error { @apply bg-md-error text-md-error-on-error; }
   .md-error-container { @apply bg-md-error-container text-md-error-on-container; }
 
-  /* Material Design 3 Typography Scale with Semantic Colors */
+  /* Material Design 3 Typography Scale - NO DEFAULT COLORS */
+  /* Colors should be specified contextually based on background */
   
-  /* Display - Primary text (main headings) */
+  /* Display - Primary headings (specify color based on background) */
   .md-display-large { 
     @apply text-[57px] leading-[64px] font-normal tracking-[-0.25px];
-    color: hsl(var(--md-sys-color-on-surface));
   }
   .md-display-medium { 
     @apply text-[45px] leading-[52px] font-normal;
-    color: hsl(var(--md-sys-color-on-surface));
   }
   .md-display-small { 
     @apply text-[36px] leading-[44px] font-normal;
-    color: hsl(var(--md-sys-color-on-surface));
   }
   
   /* Headline - Section headings */
   .md-headline-large { 
     @apply text-[32px] leading-[40px] font-normal;
-    color: hsl(var(--md-sys-color-on-surface));
   }
   .md-headline-medium { 
     @apply text-[28px] leading-[36px] font-normal;
-    color: hsl(var(--md-sys-color-on-surface));
   }
   .md-headline-small { 
     @apply text-[24px] leading-[32px] font-normal;
-    color: hsl(var(--md-sys-color-on-surface));
   }
   
   /* Title - Card titles, subheadings */
   .md-title-large { 
     @apply text-[22px] leading-[28px] font-medium;
-    color: hsl(var(--md-sys-color-on-surface));
   }
   .md-title-medium { 
     @apply text-[16px] leading-[24px] font-medium tracking-[0.1px];
-    color: hsl(var(--md-sys-color-on-surface));
   }
   .md-title-small { 
     @apply text-[14px] leading-[20px] font-medium tracking-[0.1px];
-    color: hsl(var(--md-sys-color-on-surface));
   }
   
-  /* Label - Buttons, badges, emphasis */
+  /* Label - Buttons, badges */
   .md-label-large { 
     @apply text-[14px] leading-[20px] font-medium tracking-[0.1px];
-    color: hsl(var(--md-sys-color-on-surface));
   }
   .md-label-medium { 
     @apply text-[12px] leading-[16px] font-medium tracking-[0.5px];
-    color: hsl(var(--md-sys-color-on-surface));
   }
   .md-label-small { 
     @apply text-[11px] leading-[16px] font-medium tracking-[0.5px];
-    color: hsl(var(--md-sys-color-on-surface-variant));
   }
   
-  /* Body - Regular text, descriptions */
+  /* Body - Regular text */
   .md-body-large { 
     @apply text-[16px] leading-[24px] font-normal tracking-[0.5px];
-    color: hsl(var(--md-sys-color-on-surface-variant));
   }
   .md-body-medium { 
     @apply text-[14px] leading-[20px] font-normal tracking-[0.25px];
-    color: hsl(var(--md-sys-color-on-surface-variant));
   }
   .md-body-small { 
     @apply text-[12px] leading-[16px] font-normal tracking-[0.4px];
-    color: hsl(var(--md-sys-color-on-surface-variant));
   }
 
-  /* Typography Color Utilities */
-  .text-primary { color: hsl(var(--md-sys-color-on-surface)); }
-  .text-secondary { color: hsl(var(--md-sys-color-on-surface-variant)); }
-  .text-tertiary { color: hsl(var(--md-sys-color-on-surface-variant)); opacity: 0.7; }
-  .text-accent { color: hsl(var(--md-sys-color-secondary)); }
-  .text-accent-tertiary { color: hsl(var(--md-sys-color-tertiary)); }
+  /* Typography Color Utilities - Apply explicitly based on background */
+  
+  /* For light backgrounds (surface colors) */
+  .text-on-surface { color: hsl(var(--md-sys-color-on-surface)); }
+  .text-on-surface-variant { color: hsl(var(--md-sys-color-on-surface-variant)); }
+  
+  /* For dark/primary backgrounds */
   .text-on-primary { color: hsl(var(--md-sys-color-on-primary)); }
   .text-on-secondary { color: hsl(var(--md-sys-color-on-secondary)); }
   .text-on-tertiary { color: hsl(var(--md-sys-color-on-tertiary)); }
+  
+  /* Accent colors for emphasis */
+  .text-accent-primary { color: hsl(var(--md-sys-color-primary)); }
+  .text-accent-secondary { color: hsl(var(--md-sys-color-secondary)); }
+  .text-accent-tertiary { color: hsl(var(--md-sys-color-tertiary)); }
 
   /* Interactive Element Animations */
   .hover-scale {
