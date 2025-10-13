@@ -6,17 +6,17 @@
   :root {
     /* Material Design 3 Color Tokens */
     /* Surface Colors */
-    --md-sys-color-surface: 254 247 255;
-    --md-sys-color-surface-dim: 222 216 225;
-    --md-sys-color-surface-bright: 254 247 255;
-    --md-sys-color-surface-container-lowest: 255 255 255;
-    --md-sys-color-surface-container-low: 247 242 250;
-    --md-sys-color-surface-container: 243 237 247;
-    --md-sys-color-surface-container-high: 236 230 240;
-    --md-sys-color-surface-container-highest: 230 224 233;
-    --md-sys-color-surface-variant: 231 224 236;
-    --md-sys-color-on-surface: 28 27 31;
-    --md-sys-color-on-surface-variant: 73 69 79;
+    --md-sys-color-surface: 285 100% 98%;
+    --md-sys-color-surface-dim: 270 17% 86%;
+    --md-sys-color-surface-bright: 285 100% 98%;
+    --md-sys-color-surface-container-lowest: 0 0% 100%;
+    --md-sys-color-surface-container-low: 288 33% 96%;
+    --md-sys-color-surface-container: 286 25% 95%;
+    --md-sys-color-surface-container-high: 270 16% 91%;
+    --md-sys-color-surface-container-highest: 270 15% 90%;
+    --md-sys-color-surface-variant: 270 14% 89%;
+    --md-sys-color-on-surface: 255 7% 11%;
+    --md-sys-color-on-surface-variant: 270 6% 29%;
 
     /* Primary Colors - Dark Teal #113B39 */
     --md-sys-color-primary: 177 55% 15%;
@@ -37,10 +37,10 @@
     --md-sys-color-on-tertiary-container: 46 56% 25%;
 
     /* Error Colors */
-    --md-sys-color-error: 179 38 30;
-    --md-sys-color-error-container: 249 222 220;
-    --md-sys-color-on-error: 255 255 255;
-    --md-sys-color-on-error-container: 65 14 11;
+    --md-sys-color-error: 3 71% 41%;
+    --md-sys-color-error-container: 6 63% 92%;
+    --md-sys-color-on-error: 0 0% 100%;
+    --md-sys-color-on-error-container: 4 71% 15%;
 
     /* Outline Colors - Olive #525944 */
     --md-sys-color-outline: 75 13% 31%;
@@ -116,17 +116,17 @@
   .dark {
     /* Material Design 3 Dark Theme Color Tokens */
     /* Surface Colors */
-    --md-sys-color-surface: 16 14 19;
-    --md-sys-color-surface-dim: 16 14 19;
-    --md-sys-color-surface-bright: 54 47 55;
-    --md-sys-color-surface-container-lowest: 11 10 14;
-    --md-sys-color-surface-container-low: 24 20 24;
-    --md-sys-color-surface-container: 30 26 29;
-    --md-sys-color-surface-container-high: 35 31 35;
-    --md-sys-color-surface-container-highest: 46 41 46;
-    --md-sys-color-surface-variant: 73 69 79;
-    --md-sys-color-on-surface: 230 225 229;
-    --md-sys-color-on-surface-variant: 202 196 208;
+    --md-sys-color-surface: 285 13% 6%;
+    --md-sys-color-surface-dim: 285 13% 6%;
+    --md-sys-color-surface-bright: 280 8% 20%;
+    --md-sys-color-surface-container-lowest: 270 15% 5%;
+    --md-sys-color-surface-container-low: 300 9% 9%;
+    --md-sys-color-surface-container: 320 6% 11%;
+    --md-sys-color-surface-container-high: 300 6% 13%;
+    --md-sys-color-surface-container-highest: 300 5% 17%;
+    --md-sys-color-surface-variant: 270 6% 29%;
+    --md-sys-color-on-surface: 300 9% 89%;
+    --md-sys-color-on-surface-variant: 270 3% 79%;
 
     /* Primary Colors - Dark Teal #113B39 Dark Mode */
     --md-sys-color-primary: 177 55% 35%;
@@ -147,10 +147,10 @@
     --md-sys-color-on-tertiary-container: 46 56% 90%;
 
     /* Error Colors */
-    --md-sys-color-error: 242 184 181;
-    --md-sys-color-error-container: 140 29 24;
-    --md-sys-color-on-error: 105 0 5;
-    --md-sys-color-on-error-container: 249 222 220;
+    --md-sys-color-error: 3 56% 83%;
+    --md-sys-color-error-container: 4 71% 32%;
+    --md-sys-color-on-error: 348 100% 21%;
+    --md-sys-color-on-error-container: 6 63% 92%;
 
     /* Outline Colors - Olive #525944 Dark Mode */
     --md-sys-color-outline: 75 13% 50%;
