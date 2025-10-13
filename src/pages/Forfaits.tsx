@@ -2,6 +2,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Packs from "@/components/Packs";
 import { Badge } from "@/components/ui/badge";
+import { Icon } from "@/components/ui/icon";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Truck, Clock, ChefHat, Leaf, Star, Heart, Zap, Shield } from "lucide-react";
 import { useState } from "react";
@@ -113,9 +114,9 @@ const Forfaits = () => {
               
               <div className="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-4 lg:space-x-12">
                 {[
-                  { goal: "weight_loss", label: "Perte de poids", mealSize: "300-450 cal", bgClass: "from-blue-400 to-blue-500", icon: "🔥" },
-                  { goal: "balanced", label: "Équilibre", mealSize: "450-600 cal", bgClass: "from-emerald-400 to-green-500", popular: true, icon: "⚖️" },
-                  { goal: "muscle_gain", label: "Prise de masse", mealSize: "650-800 cal", bgClass: "from-purple-400 to-pink-500", icon: "💪" }
+                  { goal: "weight_loss", label: "Perte de poids", mealSize: "300-450 cal", bgClass: "from-blue-400 to-blue-500", icon: "running" as const },
+                  { goal: "balanced", label: "Équilibre", mealSize: "450-600 cal", bgClass: "from-emerald-400 to-green-500", popular: true, icon: "scale-balance" as const },
+                  { goal: "muscle_gain", label: "Prise de masse", mealSize: "650-800 cal", bgClass: "from-purple-400 to-pink-500", icon: "muscle" as const }
                 ].map((item) => (
                   <div 
                     key={item.goal}
@@ -129,8 +130,8 @@ const Forfaits = () => {
                         Le plus populaire !
                       </Badge>
                     )}
-                    <div className={`w-16 h-12 sm:w-20 sm:h-16 lg:w-24 lg:h-20 bg-gradient-to-br ${item.bgClass} rounded-[var(--md-sys-shape-corner-medium)] mb-3 sm:mb-4 group-hover:scale-110 transition-transform mx-auto flex items-center justify-center text-3xl sm:text-4xl lg:text-5xl`}>
-                      {item.icon}
+                    <div className={`w-16 h-12 sm:w-20 sm:h-16 lg:w-24 lg:h-20 bg-gradient-to-br ${item.bgClass} rounded-[var(--md-sys-shape-corner-medium)] mb-3 sm:mb-4 group-hover:scale-110 transition-transform mx-auto flex items-center justify-center`}>
+                      <Icon name={item.icon} size={40} className="brightness-0 invert" />
                     </div>
                     <p className="text-center md-title-medium text-[hsl(var(--md-sys-color-on-surface))]">{item.label}</p>
                     <p className="text-center md-body-small text-[hsl(var(--md-sys-color-on-surface-variant))] mt-1">Repas de {item.mealSize}</p>
