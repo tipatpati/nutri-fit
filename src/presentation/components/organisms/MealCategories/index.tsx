@@ -10,19 +10,25 @@ const MealCategories = () => {
       number: '1', 
       title: 'Choisissez votre programme',
       description: 'Sélectionnez l\'objectif qui correspond à vos besoins nutritionnels et fitness',
-      icon: dumbbellIcon
+      icon: dumbbellIcon,
+      bgColor: 'bg-[hsl(var(--md-sys-color-primary-container))]',
+      numberColor: 'text-[hsl(var(--md-sys-color-primary))]'
     },
     { 
       number: '2', 
       title: 'Choisissez votre pack',
       description: 'Configurez votre formule idéale selon vos préférences et votre rythme',
-      icon: shakerBottleIcon
+      icon: shakerBottleIcon,
+      bgColor: 'bg-[hsl(var(--md-sys-color-secondary-container))]',
+      numberColor: 'text-[hsl(var(--md-sys-color-secondary))]'
     },
     { 
       number: '3', 
       title: 'Choisissez la date de livraison',
       description: 'Recevez vos repas préparés directement à votre porte aux dates qui vous conviennent',
-      icon: deliveryTruckIcon
+      icon: deliveryTruckIcon,
+      bgColor: 'bg-[hsl(var(--md-sys-color-tertiary-container))]',
+      numberColor: 'text-[hsl(var(--md-sys-color-tertiary))]'
     }
   ];
 
@@ -48,19 +54,18 @@ const MealCategories = () => {
               style={{ animationDelay: `${index * 150}ms` }}
             >
               {/* Large Step Number Background */}
-              <div className="absolute -top-4 -left-2 text-[120px] lg:text-[140px] font-bold text-[hsl(var(--md-sys-color-primary))] opacity-[0.08] leading-none pointer-events-none transition-opacity group-hover:opacity-[0.12]">
+              <div className={`absolute -top-4 -left-2 text-[120px] lg:text-[140px] font-bold ${step.numberColor} opacity-[0.08] leading-none pointer-events-none transition-opacity group-hover:opacity-[0.12]`}>
                 {step.number}
               </div>
               
               {/* Content Card */}
               <div className="relative pt-8 h-full">
                 {/* Icon Container */}
-                <div className="inline-flex items-center justify-center w-20 h-20 rounded-3xl bg-[hsl(var(--md-sys-color-primary-container))] mb-6 transition-all duration-300 group-hover:scale-110 group-hover:shadow-lg">
+                <div className={`inline-flex items-center justify-center w-20 h-20 rounded-3xl ${step.bgColor} mb-6 transition-all duration-300 group-hover:scale-110 md-elevation-2 group-hover:md-elevation-4`}>
                   <img 
                     src={step.icon} 
                     alt={step.title}
                     className="w-10 h-10 transition-transform duration-300 group-hover:scale-110"
-                    style={{ filter: 'brightness(0) saturate(100%) invert(26%) sepia(89%) saturate(1583%) hue-rotate(338deg) brightness(94%) contrast(101%)' }}
                   />
                 </div>
                 
@@ -76,7 +81,7 @@ const MealCategories = () => {
 
               {/* Connector Arrow (desktop only) */}
               {index < steps.length - 1 && (
-                <div className="hidden md:block absolute top-24 -right-6 lg:-right-10 text-[hsl(var(--md-sys-color-primary))] opacity-20 transition-opacity group-hover:opacity-40">
+                <div className={`hidden md:block absolute top-24 -right-6 lg:-right-10 ${step.numberColor} opacity-20 transition-opacity group-hover:opacity-40`}>
                   <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M5 12h14M12 5l7 7-7 7"/>
                   </svg>
@@ -92,7 +97,7 @@ const MealCategories = () => {
             <Button 
               size="lg" 
               variant="filled"
-              className="px-10 py-6 md-label-large shadow-[hsl(var(--md-sys-color-shadow))] hover:shadow-xl transition-all duration-300 hover:scale-105"
+              className="px-10 py-6 md-label-large md-elevation-2 hover:md-elevation-4 transition-all duration-300 hover:scale-105"
             >
               Commencer
             </Button>
