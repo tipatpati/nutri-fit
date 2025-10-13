@@ -1,91 +1,40 @@
 
-import { useState, useMemo } from "react";
+import { useState } from "react";
 import { Button } from "./ui/button";
-import { Card, CardContent } from "./ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { Badge } from "./ui/badge";
-import { Calendar, Star, TrendingUp, X } from "lucide-react";
+import { Flame, Beef, Apple } from "lucide-react";
 import { Icon } from "./ui/icon";
 import { useMeals } from "@/presentation/hooks/useMeals";
-import { useKitchenCapacity } from "@/hooks/useKitchenCapacity";
-import { format, addDays, startOfDay } from "date-fns";
-import { fr } from "date-fns/locale";
+import { Link } from "react-router-dom";
 
 const WeeklyPlanner = () => {
-  const [selectedSize, setSelectedSize] = useState("regular");
-  const { data: meals = [], isLoading: mealsLoading } = useMeals({ active: true });
-  
-  // Generate next 7 days with actual dates
-  const weekDays = useMemo(() => {
-    const today = startOfDay(new Date());
-    return Array.from({ length: 7 }, (_, i) => {
-      const date = addDays(today, i + 1); // Start from tomorrow
-      return {
-        date,
-        dayName: format(date, 'EEE', { locale: fr }),
-        dayNumber: format(date, 'd'),
-        monthName: format(date, 'MMM', { locale: fr }),
-        fullDate: format(date, 'yyyy-MM-dd')
-      };
-    });
-  }, []);
+  const [selectedCategory, setSelectedCategory] = useState("Tous");
+  const { data: meals = [], isLoading } = useMeals({ active: true });
 
-  const startDate = weekDays[0]?.date || new Date();
-  const endDate = weekDays[weekDays.length - 1]?.date || new Date();
-  const { data: capacityData = [], isLoading: capacityLoading } = useKitchenCapacity(startDate, endDate);
+  const categories = ["Tous", "Prise de masse", "Perte de poids", "Équilibré"];
 
-  // Create week meals with availability check
-  const weekMeals = useMemo(() => {
-    if (!meals.length) return [];
-    
-    const categories = ['Équilibré', 'Prise de masse', 'Perte de poids'];
-    const getIconForMeat = (meat: string) => {
-      const meatLower = meat?.toLowerCase() || '';
-      if (meatLower.includes('saumon') || meatLower.includes('poisson') || meatLower.includes('crevette')) return 'fish' as const;
-      if (meatLower.includes('légume') || meatLower.includes('salade') || meatLower.includes('quinoa')) return 'leaves' as const;
-      return 'apple' as const;
-    };
+  const filteredMeals = selectedCategory === "Tous" 
+    ? meals 
+    : meals.filter(meal => meal.category === selectedCategory);
 
-    return weekDays.map((day, index) => {
-      // Check if this date has available capacity
-      const dayCapacity = capacityData.find(c => c.date === day.fullDate);
-      const isAvailable = dayCapacity ? dayCapacity.availableSlots > 0 : false;
-
-      const dayMeals = categories.slice(0, 2).map((category, catIndex) => {
-        const categoryMeals = meals.filter(m => m.category === category && m.active);
-        const meal = categoryMeals[(index + catIndex) % categoryMeals.length] || categoryMeals[0];
-        
-        if (!meal) return null;
-
-        return {
-          name: meal.name,
-          type: meal.category,
-          icon: getIconForMeat(meal.meat),
-          calories: meal.calories_per_serving || 0,
-          rating: 4.8
-        };
-      }).filter(Boolean);
-
-      return {
-        ...day,
-        meals: dayMeals,
-        isAvailable
-      };
-    });
-  }, [meals, weekDays, capacityData]);
-
-  const getTypeColor = (type: string) => {
-    switch (type) {
-      case 'Prise de masse': return { bg: 'bg-gradient-to-br from-orange-500 to-red-500', text: 'text-white', light: 'from-orange-50 to-red-50' };
-      case 'Perte de poids': return { bg: 'bg-gradient-to-br from-emerald-500 to-green-500', text: 'text-white', light: 'from-emerald-50 to-green-50' };
-      case 'Équilibré': return { bg: 'bg-gradient-to-br from-yellow-500 to-amber-500', text: 'text-white', light: 'from-yellow-50 to-amber-50' };
-      default: return { bg: 'bg-gray-500', text: 'text-white', light: 'from-gray-50 to-gray-100' };
+  const getCategoryColor = (category: string) => {
+    switch (category) {
+      case 'Prise de masse': 
+        return { bg: 'bg-gradient-to-br from-orange-500 to-red-500', text: 'text-white' };
+      case 'Perte de poids': 
+        return { bg: 'bg-gradient-to-br from-emerald-500 to-green-500', text: 'text-white' };
+      case 'Équilibré': 
+        return { bg: 'bg-gradient-to-br from-yellow-500 to-amber-500', text: 'text-white' };
+      default: 
+        return { bg: 'bg-gray-500', text: 'text-white' };
     }
   };
 
-  if (mealsLoading || capacityLoading) {
+  if (isLoading) {
     return (
-      <section className="py-20 lg:py-28 bg-slate-50">
-        <div className="max-w-5xl mx-auto px-6 sm:px-8 lg:px-12">
+      <section className="py-20 lg:py-28 bg-[hsl(var(--md-sys-color-surface-container-low))]">
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
           <div className="text-center">Chargement...</div>
         </div>
       </section>
@@ -94,184 +43,149 @@ const WeeklyPlanner = () => {
 
   return (
     <section className="py-20 lg:py-28 bg-[hsl(var(--md-sys-color-surface-container-low))]">
-      <div className="max-w-5xl mx-auto px-6 sm:px-8 lg:px-12">
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         {/* Header */}
         <div className="text-center mb-12 lg:mb-14 animate-fade-in">
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-[hsl(var(--md-sys-color-surface-container-highest))] rounded-[var(--md-sys-shape-corner-full)] md-label-medium text-[hsl(var(--md-sys-color-on-surface))] border border-[hsl(var(--md-sys-color-outline-variant))] mb-4">
-            <Calendar className="w-4 h-4 text-[hsl(var(--md-sys-color-secondary))]" />
-            Planification intelligente
+            <Beef className="w-4 h-4 text-[hsl(var(--md-sys-color-secondary))]" />
+            Menu complet
           </div>
           <h2 className="md-display-large text-[hsl(var(--md-sys-color-on-surface))] mb-4">
-            Personnalisez votre semaine
+            Nos repas par objectif
           </h2>
           <p className="md-body-large text-neutral-500 max-w-3xl mx-auto leading-relaxed">
-            Planifiez vos repas pour la semaine selon vos objectifs avec notre IA nutritionnelle
+            Découvrez tous nos repas avec leurs ingrédients et valeurs nutritionnelles
           </p>
         </div>
 
-        {/* Meal Size Selection */}
-        <div className="max-w-2xl mx-auto mb-12">
-          <div className="bg-[hsl(var(--md-sys-color-surface))] rounded-[var(--md-sys-shape-corner-extra-large)] p-6 lg:p-8 border border-[hsl(var(--md-sys-color-outline-variant))]">
-            <h3 className="md-headline-medium text-[hsl(var(--md-sys-color-on-surface))] text-center mb-6">
-              Choisissez la taille de vos repas
-            </h3>
-            
-            <div className="grid grid-cols-2 gap-6">
-              <div 
-                className={`cursor-pointer p-6 rounded-[var(--md-sys-shape-corner-large)] border-2 transition-all duration-200 ${
-                  selectedSize === "petit" 
-                    ? "border-[hsl(var(--md-sys-color-secondary))] bg-[hsl(var(--md-sys-color-secondary-container))] md-elevation-2" 
-                    : "border-[hsl(var(--md-sys-color-outline-variant))] hover:border-[hsl(var(--md-sys-color-outline))]"
-                }`}
-                onClick={() => setSelectedSize("petit")}
-              >
-                <div className="w-20 h-16 bg-gradient-to-br from-[hsl(var(--md-sys-color-secondary))] to-[hsl(var(--md-sys-color-tertiary))] rounded-[var(--md-sys-shape-corner-medium)] mb-4 mx-auto"></div>
-                <p className="text-center font-bold md-title-medium text-[hsl(var(--md-sys-color-on-surface))]">Petit</p>
-                <p className="text-center md-body-small text-neutral-500 mt-1">400-500 cal</p>
-              </div>
-              
-              <div 
-                className={`cursor-pointer p-6 rounded-[var(--md-sys-shape-corner-large)] border-2 transition-all duration-200 relative ${
-                  selectedSize === "regular" 
-                    ? "border-[hsl(var(--md-sys-color-secondary))] bg-[hsl(var(--md-sys-color-secondary-container))] md-elevation-2" 
-                    : "border-[hsl(var(--md-sys-color-outline-variant))] hover:border-[hsl(var(--md-sys-color-outline))]"
-                }`}
-                onClick={() => setSelectedSize("regular")}
-              >
-                <Badge className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-[hsl(var(--md-sys-color-secondary))] to-[hsl(var(--md-sys-color-tertiary))] text-white border-0">
-                  Recommandé
-                </Badge>
-                <div className="w-20 h-16 bg-gradient-to-br from-[hsl(var(--md-sys-color-secondary))] to-[hsl(var(--md-sys-color-tertiary))] rounded-[var(--md-sys-shape-corner-medium)] mb-4 mx-auto"></div>
-                <p className="text-center font-bold md-title-medium text-[hsl(var(--md-sys-color-on-surface))]">Régulier</p>
-                <p className="text-center md-body-small text-neutral-500 mt-1">500-700 cal</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Weekly Meal Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-3 lg:gap-4 mb-12">
-          {weekMeals.map((day, index) => (
-            <div key={index} className={`group ${!day.isAvailable ? 'opacity-40' : ''}`}>
-              {/* Day Header */}
-              <div className="text-center mb-3">
-                <div className={`inline-flex flex-col items-center justify-center w-16 h-16 rounded-full shadow-md mb-2 transition-transform ${
-                  day.isAvailable 
-                    ? 'bg-gradient-to-br from-orange-500 to-amber-500 group-hover:scale-110' 
-                    : 'bg-gradient-to-br from-slate-300 to-slate-400 relative'
-                }`}>
-                  {day.isAvailable ? (
-                    <>
-                      <span className="text-white font-bold text-xs">{day.dayName}</span>
-                      <span className="text-white font-bold text-lg">{day.dayNumber}</span>
-                      <span className="text-white text-[10px] opacity-90">{day.monthName}</span>
-                    </>
-                  ) : (
-                    <>
-                      <X className="w-6 h-6 text-white absolute" />
-                      <span className="text-white text-[10px] mt-6 opacity-75">Complet</span>
-                    </>
-                  )}
-                </div>
-              </div>
-
-            {/* Meals or Blank */}
-              {day.isAvailable ? (
-                <div className="space-y-3">
-                  {day.meals.map((meal, mealIndex) => {
-                    const colors = getTypeColor(meal.type);
-                    return (
-                      <Card 
-                        key={mealIndex}
-                        className="group/meal hover:shadow-xl transition-all duration-300 border-2 border-[hsl(var(--md-sys-color-outline-variant))] hover:border-[hsl(var(--md-sys-color-primary))] cursor-pointer overflow-hidden bg-[hsl(var(--md-sys-color-surface))]"
-                      >
-                        <CardContent className="p-4">
-                          <div className="flex flex-col items-center text-center space-y-3">
-                            {/* Icon */}
-                            <div className="w-14 h-14 rounded-full bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center group-hover/meal:scale-110 transition-transform">
-                              <Icon name={meal.icon} size={32} />
-                            </div>
-                            
-                            {/* Meal Name */}
-                            <h5 className="font-bold text-xs leading-tight line-clamp-2 min-h-[2.5rem] text-[hsl(var(--md-sys-color-on-surface))]">
-                              {meal.name}
-                            </h5>
-                            
-                            {/* Stats */}
-                            <div className="w-full space-y-2">
-                              <div className="flex items-center justify-center gap-2">
-                                <Star className="w-3 h-3 fill-yellow-400 text-yellow-400" />
-                                <span className="text-xs font-semibold">{meal.rating}</span>
-                              </div>
-                              
-                              <div className="text-xs font-bold text-[hsl(var(--md-sys-color-primary))]">
-                                {meal.calories} cal
-                              </div>
-                            </div>
-                            
-                            {/* Category Badge */}
-                            <Badge 
-                              className={`${colors.bg} ${colors.text} text-[10px] px-2 py-0.5 font-semibold w-full justify-center`}
-                            >
-                              {meal.type}
-                            </Badge>
-                          </div>
-                        </CardContent>
-                      </Card>
-                    );
-                  })}
-                </div>
-              ) : (
-                <div className="space-y-3">
-                  <Card className="border-2 border-dashed border-[hsl(var(--md-sys-color-outline-variant))] bg-[hsl(var(--md-sys-color-surface-container))]">
-                    <CardContent className="p-4">
-                      <div className="flex flex-col items-center justify-center h-32 text-center">
-                        <X className="w-8 h-8 text-[hsl(var(--md-sys-color-on-surface-variant))] mb-2 opacity-60" />
-                        <p className="text-xs font-medium text-[hsl(var(--md-sys-color-on-surface-variant))]">Aucune disponibilité</p>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </div>
-              )}
-            </div>
+        {/* Category Filter */}
+        <div className="flex flex-wrap justify-center gap-3 mb-12">
+          {categories.map((category) => (
+            <button
+              key={category}
+              onClick={() => setSelectedCategory(category)}
+              className={`px-6 py-3 rounded-[var(--md-sys-shape-corner-full)] md-label-large transition-all duration-200 ${
+                selectedCategory === category
+                  ? 'bg-[hsl(var(--md-sys-color-primary))] text-white md-elevation-2'
+                  : 'bg-[hsl(var(--md-sys-color-surface))] text-[hsl(var(--md-sys-color-on-surface))] border border-[hsl(var(--md-sys-color-outline-variant))] hover:border-[hsl(var(--md-sys-color-outline))]'
+              }`}
+            >
+              {category}
+            </button>
           ))}
         </div>
 
-        {/* Stats & CTA */}
-        <div className="grid md:grid-cols-3 gap-5 lg:gap-6 mb-10">
-          <div className="text-center p-5 bg-[hsl(var(--md-sys-color-surface))] rounded-[var(--md-sys-shape-corner-extra-large)] border border-[hsl(var(--md-sys-color-outline-variant))]">
-            <div className="w-14 h-14 bg-gradient-to-br from-green-400 to-emerald-500 rounded-full flex items-center justify-center mx-auto mb-3">
-              <TrendingUp className="w-7 h-7 text-white" />
-            </div>
-            <h4 className="md-title-large text-[hsl(var(--md-sys-color-on-surface))] mb-1.5">+15% d'énergie</h4>
-            <p className="md-body-small text-neutral-500">Moyenne constatée chez nos clients</p>
-          </div>
-          
-          <div className="text-center p-5 bg-[hsl(var(--md-sys-color-surface))] rounded-[var(--md-sys-shape-corner-extra-large)] border border-[hsl(var(--md-sys-color-outline-variant))]">
-            <div className="w-14 h-14 bg-gradient-to-br from-[hsl(var(--md-sys-color-secondary))] to-[hsl(var(--md-sys-color-tertiary))] rounded-full flex items-center justify-center mx-auto mb-3">
-              <Icon name="stopwatch" size={28} className="brightness-0 invert" />
-            </div>
-            <h4 className="md-title-large text-[hsl(var(--md-sys-color-on-surface))] mb-1.5">2 minutes</h4>
-            <p className="md-body-small text-neutral-500">Temps de préparation moyen</p>
-          </div>
-          
-          <div className="text-center p-5 bg-[hsl(var(--md-sys-color-surface))] rounded-[var(--md-sys-shape-corner-extra-large)] border border-[hsl(var(--md-sys-color-outline-variant))]">
-            <div className="w-14 h-14 bg-gradient-to-br from-[hsl(var(--md-sys-color-secondary))] to-[hsl(var(--md-sys-color-tertiary))] rounded-full flex items-center justify-center mx-auto mb-3">
-              <Icon name="heart-health" size={28} className="brightness-0 invert" />
-            </div>
-            <h4 className="md-title-large text-[hsl(var(--md-sys-color-on-surface))] mb-1.5">Objectifs atteints</h4>
-            <p className="md-body-small text-neutral-500">92% de nos clients satisfaits</p>
-          </div>
+        {/* Meals Grid */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+          {filteredMeals.map((meal) => {
+            const colors = getCategoryColor(meal.category);
+            return (
+              <Card 
+                key={meal.id}
+                className="overflow-hidden hover:md-elevation-4 transition-all duration-300 border border-[hsl(var(--md-sys-color-outline-variant))]"
+              >
+                <CardHeader className={`${colors.bg} ${colors.text} p-6`}>
+                  <div className="flex items-start justify-between">
+                    <div className="flex-1">
+                      <CardTitle className="md-title-large mb-2">{meal.name}</CardTitle>
+                      <Badge className="bg-white/20 text-white border-0">
+                        {meal.category}
+                      </Badge>
+                    </div>
+                    {meal.image_url && (
+                      <img 
+                        src={meal.image_url} 
+                        alt={meal.name} 
+                        className="w-16 h-16 rounded-[var(--md-sys-shape-corner-medium)] object-cover ml-4"
+                      />
+                    )}
+                  </div>
+                </CardHeader>
+
+                <CardContent className="p-6 space-y-6">
+                  {/* Description */}
+                  <p className="md-body-medium text-neutral-500">
+                    {meal.description}
+                  </p>
+
+                  {/* Ingredients */}
+                  <div>
+                    <h4 className="md-title-small text-[hsl(var(--md-sys-color-on-surface))] mb-3 flex items-center gap-2">
+                      <Apple className="w-4 h-4" />
+                      Ingrédients
+                    </h4>
+                    <div className="space-y-2">
+                      <div className="flex items-center gap-2">
+                        <Icon name="fish" size={16} className="text-[hsl(var(--md-sys-color-primary))]" />
+                        <span className="md-body-small text-neutral-500">
+                          <strong className="text-[hsl(var(--md-sys-color-on-surface))]">Protéine:</strong> {meal.meat}
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Icon name="leaves" size={16} className="text-[hsl(var(--md-sys-color-tertiary))]" />
+                        <span className="md-body-small text-neutral-500">
+                          <strong className="text-[hsl(var(--md-sys-color-on-surface))]">Légumes:</strong> {meal.vegetables}
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Icon name="apple" size={16} className="text-[hsl(var(--md-sys-color-secondary))]" />
+                        <span className="md-body-small text-neutral-500">
+                          <strong className="text-[hsl(var(--md-sys-color-on-surface))]">Glucides:</strong> {meal.carbs}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Nutritional Values */}
+                  <div>
+                    <h4 className="md-title-small text-[hsl(var(--md-sys-color-on-surface))] mb-3 flex items-center gap-2">
+                      <Flame className="w-4 h-4" />
+                      Valeurs nutritionnelles
+                    </h4>
+                    <div className="grid grid-cols-2 gap-3">
+                      <div className="p-3 bg-[hsl(var(--md-sys-color-surface-container))] rounded-[var(--md-sys-shape-corner-medium)]">
+                        <div className="md-label-small text-neutral-500">Calories</div>
+                        <div className="md-title-medium text-[hsl(var(--md-sys-color-on-surface))]">
+                          {meal.calories_per_serving || 0}
+                        </div>
+                      </div>
+                      <div className="p-3 bg-[hsl(var(--md-sys-color-surface-container))] rounded-[var(--md-sys-shape-corner-medium)]">
+                        <div className="md-label-small text-neutral-500">Protéines</div>
+                        <div className="md-title-medium text-[hsl(var(--md-sys-color-on-surface))]">
+                          {meal.protein_grams || 0}g
+                        </div>
+                      </div>
+                      <div className="p-3 bg-[hsl(var(--md-sys-color-surface-container))] rounded-[var(--md-sys-shape-corner-medium)]">
+                        <div className="md-label-small text-neutral-500">Glucides</div>
+                        <div className="md-title-medium text-[hsl(var(--md-sys-color-on-surface))]">
+                          {meal.carbs_grams || 0}g
+                        </div>
+                      </div>
+                      <div className="p-3 bg-[hsl(var(--md-sys-color-surface-container))] rounded-[var(--md-sys-shape-corner-medium)]">
+                        <div className="md-label-small text-neutral-500">Lipides</div>
+                        <div className="md-title-medium text-[hsl(var(--md-sys-color-on-surface))]">
+                          {meal.fat_grams || 0}g
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            );
+          })}
         </div>
 
+        {/* CTA */}
         <div className="text-center">
-          <Button 
-            size="lg"
-            className="bg-gradient-to-r from-[hsl(var(--md-sys-color-secondary))] to-[hsl(var(--md-sys-color-tertiary))] hover:opacity-90 text-white px-10 py-5 rounded-[var(--md-sys-shape-corner-large)] md-label-large transition-all duration-200"
-          >
-            Commencer ma planification
-            <Calendar className="ml-2.5 w-5 h-5" />
-          </Button>
+          <Link to="/menu">
+            <Button 
+              size="lg"
+              className="bg-gradient-to-r from-[hsl(var(--md-sys-color-secondary))] to-[hsl(var(--md-sys-color-tertiary))] hover:opacity-90 text-white px-10 py-5 rounded-[var(--md-sys-shape-corner-large)] md-label-large transition-all duration-200"
+            >
+              Commander maintenant
+              <Beef className="ml-2.5 w-5 h-5" />
+            </Button>
+          </Link>
         </div>
       </div>
     </section>
