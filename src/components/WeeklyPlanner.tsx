@@ -93,57 +93,57 @@ const WeeklyPlanner = () => {
   }
 
   return (
-    <section className="py-20 lg:py-28 bg-slate-50">
+    <section className="py-20 lg:py-28 bg-[hsl(var(--md-sys-color-surface-container-low))]">
       <div className="max-w-5xl mx-auto px-6 sm:px-8 lg:px-12">
         {/* Header */}
-        <div className="text-center mb-12 lg:mb-14">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-white rounded-full text-sm font-medium text-slate-700 mb-4 border border-slate-200">
-            <Calendar className="w-4 h-4 text-orange-500" />
+        <div className="text-center mb-12 lg:mb-14 animate-fade-in">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-[hsl(var(--md-sys-color-surface-container-highest))] rounded-[var(--md-sys-shape-corner-full)] md-label-medium text-[hsl(var(--md-sys-color-on-surface))] mb-4 border border-[hsl(var(--md-sys-color-outline-variant))]">
+            <Calendar className="w-4 h-4 text-[hsl(var(--md-sys-color-secondary))]" />
             Planification intelligente
           </div>
-          <h2 className="text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
+          <h2 className="md-display-large text-[hsl(var(--md-sys-color-on-surface))] mb-4">
             Personnalisez votre semaine
           </h2>
-          <p className="text-lg text-slate-600 max-w-3xl mx-auto leading-relaxed">
+          <p className="md-body-large text-[hsl(var(--md-sys-color-on-surface-variant))] max-w-3xl mx-auto leading-relaxed">
             Planifiez vos repas pour la semaine selon vos objectifs avec notre IA nutritionnelle
           </p>
         </div>
 
         {/* Meal Size Selection */}
         <div className="max-w-2xl mx-auto mb-12">
-          <div className="bg-white rounded-2xl p-6 lg:p-8 border border-slate-200">
-            <h3 className="text-2xl font-bold text-center mb-6 text-slate-900">
+          <div className="bg-[hsl(var(--md-sys-color-surface))] rounded-[var(--md-sys-shape-corner-extra-large)] p-6 lg:p-8 border border-[hsl(var(--md-sys-color-outline-variant))]">
+            <h3 className="md-headline-medium text-center mb-6 text-[hsl(var(--md-sys-color-on-surface))]">
               Choisissez la taille de vos repas
             </h3>
             
             <div className="grid grid-cols-2 gap-6">
               <div 
-                className={`cursor-pointer p-6 rounded-xl border-2 transition-all duration-200 ${
+                className={`cursor-pointer p-6 rounded-[var(--md-sys-shape-corner-large)] border-2 transition-all duration-200 ${
                   selectedSize === "petit" 
-                    ? "border-orange-500 bg-orange-50 shadow-md" 
-                    : "border-slate-200 hover:border-slate-300"
+                    ? "border-[hsl(var(--md-sys-color-secondary))] bg-[hsl(var(--md-sys-color-secondary-container))] md-elevation-2" 
+                    : "border-[hsl(var(--md-sys-color-outline-variant))] hover:border-[hsl(var(--md-sys-color-outline))]"
                 }`}
                 onClick={() => setSelectedSize("petit")}
               >
-                <div className="w-20 h-16 bg-gradient-to-br from-orange-200 to-orange-300 rounded-xl mb-4 mx-auto"></div>
-                <p className="text-center font-bold text-lg text-slate-800">Petit</p>
-                <p className="text-center text-sm text-slate-600 mt-1">400-500 cal</p>
+                <div className="w-20 h-16 bg-gradient-to-br from-[hsl(var(--md-sys-color-secondary))] to-[hsl(var(--md-sys-color-tertiary))] rounded-[var(--md-sys-shape-corner-medium)] mb-4 mx-auto"></div>
+                <p className="text-center font-bold md-title-medium text-[hsl(var(--md-sys-color-on-surface))]">Petit</p>
+                <p className="text-center md-body-small text-[hsl(var(--md-sys-color-on-surface-variant))] mt-1">400-500 cal</p>
               </div>
               
               <div 
-                className={`cursor-pointer p-6 rounded-xl border-2 transition-all duration-200 relative ${
+                className={`cursor-pointer p-6 rounded-[var(--md-sys-shape-corner-large)] border-2 transition-all duration-200 relative ${
                   selectedSize === "regular" 
-                    ? "border-orange-500 bg-orange-50 shadow-md" 
-                    : "border-slate-200 hover:border-slate-300"
+                    ? "border-[hsl(var(--md-sys-color-secondary))] bg-[hsl(var(--md-sys-color-secondary-container))] md-elevation-2" 
+                    : "border-[hsl(var(--md-sys-color-outline-variant))] hover:border-[hsl(var(--md-sys-color-outline))]"
                 }`}
                 onClick={() => setSelectedSize("regular")}
               >
-                <Badge className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-orange-500 to-amber-500 text-white border-0">
+                <Badge className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-[hsl(var(--md-sys-color-secondary))] to-[hsl(var(--md-sys-color-tertiary))] text-white border-0">
                   Recommandé
                 </Badge>
-                <div className="w-20 h-16 bg-gradient-to-br from-orange-300 to-orange-400 rounded-xl mb-4 mx-auto"></div>
-                <p className="text-center font-bold text-lg text-slate-800">Régulier</p>
-                <p className="text-center text-sm text-slate-600 mt-1">500-700 cal</p>
+                <div className="w-20 h-16 bg-gradient-to-br from-[hsl(var(--md-sys-color-secondary))] to-[hsl(var(--md-sys-color-tertiary))] rounded-[var(--md-sys-shape-corner-medium)] mb-4 mx-auto"></div>
+                <p className="text-center font-bold md-title-medium text-[hsl(var(--md-sys-color-on-surface))]">Régulier</p>
+                <p className="text-center md-body-small text-[hsl(var(--md-sys-color-on-surface-variant))] mt-1">500-700 cal</p>
               </div>
             </div>
           </div>

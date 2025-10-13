@@ -18,24 +18,24 @@ export const HeroContent = ({ onOrderClick }: HeroContentProps) => {
   return (
     <div className="space-y-10 lg:space-y-12 text-center max-w-3xl mx-auto">
       {/* Badge */}
-      <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-full backdrop-blur-sm">
+      <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-[var(--md-sys-shape-corner-full)] backdrop-blur-sm">
         <Icon name="stopwatch" size={14} className="brightness-0 invert opacity-60" />
-        <span className="text-orange-300 text-sm font-medium">Livraison express en 30 min</span>
+        <span className="text-[hsl(var(--md-sys-color-secondary))] md-label-medium">Livraison express en 30 min</span>
       </div>
       
       {/* Heading */}
       <div className="space-y-6">
-        <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold leading-tight tracking-tight">
+        <h1 className="md-display-large sm:text-6xl lg:text-7xl font-bold leading-tight tracking-tight">
           <span className="text-white">
             Repas
           </span>
           <br />
-          <span className="bg-gradient-to-r from-orange-400 via-amber-300 to-emerald-300 bg-clip-text text-transparent">
+          <span className="bg-gradient-to-r from-[hsl(var(--md-sys-color-secondary))] via-[hsl(var(--md-sys-color-tertiary))] to-[hsl(var(--md-sys-color-primary))] bg-clip-text text-transparent">
             santé & saveur
           </span>
         </h1>
         
-        <p className="text-lg lg:text-xl text-gray-300 leading-relaxed max-w-2xl mx-auto">
+        <p className="md-body-large lg:md-title-large text-gray-300 leading-relaxed max-w-2xl mx-auto">
           Des repas équilibrés, préparés par des chefs et livrés directement chez vous.
         </p>
       </div>
