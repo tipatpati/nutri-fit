@@ -1,68 +1,52 @@
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { Button } from "./ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { Badge } from "./ui/badge";
 import { Calendar, Star, TrendingUp } from "lucide-react";
 import { Icon } from "./ui/icon";
+import { useMeals } from "@/presentation/hooks/useMeals";
 
 const WeeklyPlanner = () => {
-  const [selectedWeek, setSelectedWeek] = useState(0);
   const [selectedSize, setSelectedSize] = useState("regular");
+  const { data: meals = [], isLoading } = useMeals({ active: true });
   
   const days = ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'];
-  
-  const weekMeals = [
-    {
-      day: 'Lun',
-      meals: [
-        { name: 'Saumon grillé', type: 'Équilibré', icon: 'fish' as const, calories: 550, rating: 4.8 },
-        { name: 'Poulet teriyaki', type: 'Prise de masse', icon: 'apple' as const, calories: 680, rating: 4.9 }
-      ]
-    },
-    {
-      day: 'Mar', 
-      meals: [
-        { name: 'Salade de quinoa', type: 'Perte de poids', icon: 'leaves' as const, calories: 420, rating: 4.7 },
-        { name: 'Bœuf aux légumes', type: 'Équilibré', icon: 'apple' as const, calories: 580, rating: 4.8 }
-      ]
-    },
-    {
-      day: 'Mer',
-      meals: [
-        { name: 'Crevettes à l\'ail', type: 'Perte de poids', icon: 'fish' as const, calories: 350, rating: 4.6 },
-        { name: 'Poulet méditerranéen', type: 'Équilibré', icon: 'apple' as const, calories: 520, rating: 4.7 }
-      ]
-    },
-    {
-      day: 'Jeu',
-      meals: [
-        { name: 'Saumon aux légumes', type: 'Prise de masse', icon: 'fish' as const, calories: 650, rating: 4.9 },
-        { name: 'Salade protéinée', type: 'Perte de poids', icon: 'leaves' as const, calories: 380, rating: 4.5 }
-      ]
-    },
-    {
-      day: 'Ven',
-      meals: [
-        { name: 'Bœuf teriyaki', type: 'Prise de masse', icon: 'apple' as const, calories: 720, rating: 4.8 },
-        { name: 'Poulet grillé léger', type: 'Perte de poids', icon: 'leaves' as const, calories: 380, rating: 4.6 }
-      ]
-    },
-    {
-      day: 'Sam',
-      meals: [
-        { name: 'Saumon méditerranéen', type: 'Équilibré', icon: 'fish' as const, calories: 550, rating: 4.8 },
-        { name: 'Salade de poulet', type: 'Perte de poids', icon: 'leaves' as const, calories: 350, rating: 4.7 }
-      ]
-    },
-    {
-      day: 'Dim',
-      meals: [
-        { name: 'Bœuf aux champignons', type: 'Prise de masse', icon: 'apple' as const, calories: 680, rating: 4.9 },
-        { name: 'Poisson aux légumes', type: 'Équilibré', icon: 'fish' as const, calories: 520, rating: 4.6 }
-      ]
-    }
-  ];
+
+  // Create week meals from database
+  const weekMeals = useMemo(() => {
+    if (!meals.length) return [];
+    
+    const categories = ['Équilibré', 'Prise de masse', 'Perte de poids'];
+    const getIconForMeat = (meat: string) => {
+      const meatLower = meat?.toLowerCase() || '';
+      if (meatLower.includes('saumon') || meatLower.includes('poisson') || meatLower.includes('crevette')) return 'fish' as const;
+      if (meatLower.includes('légume') || meatLower.includes('salade') || meatLower.includes('quinoa')) return 'leaves' as const;
+      return 'apple' as const;
+    };
+
+    return days.map((day, index) => {
+      const dayMeals = categories.slice(0, 2).map((category, catIndex) => {
+        const categoryMeals = meals.filter(m => m.category === category && m.active);
+        const meal = categoryMeals[(index + catIndex) % categoryMeals.length] || categoryMeals[0];
+        
+        if (!meal) return null;
+
+        return {
+          name: meal.name,
+          type: meal.category,
+          icon: getIconForMeat(meal.meat),
+          calories: meal.calories_per_serving || 0,
+          rating: 4.8
+        };
+      }).filter(Boolean);
+
+      return {
+        day,
+        meals: dayMeals
+      };
+    });
+  }, [meals]);
 
   const getTypeColor = (type: string) => {
     switch (type) {
@@ -72,6 +56,16 @@ const WeeklyPlanner = () => {
       default: return { bg: 'bg-gray-500', text: 'text-white', light: 'from-gray-50 to-gray-100' };
     }
   };
+
+  if (isLoading) {
+    return (
+      <section className="py-20 lg:py-28 bg-slate-50">
+        <div className="max-w-5xl mx-auto px-6 sm:px-8 lg:px-12">
+          <div className="text-center">Chargement...</div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="py-20 lg:py-28 bg-slate-50">

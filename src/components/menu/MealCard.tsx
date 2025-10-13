@@ -10,7 +10,7 @@ interface MealCardProps {
     premium: boolean;
     badge?: string;
   };
-  getCategoryColor: (category: string) => string;
+  getCategoryColor: (category: string) => { bg: string; text: string; hex: string };
 }
 
 const MealCard = ({ meal, getCategoryColor }: MealCardProps) => {
@@ -27,7 +27,7 @@ const MealCard = ({ meal, getCategoryColor }: MealCardProps) => {
           {meal.badge && (
             <div 
               className="absolute top-md-2 left-md-2 px-md-2 py-md-1 rounded-md-full md-label-small text-white backdrop-blur-sm md-elevation-1"
-              style={{ backgroundColor: getCategoryColor(meal.category) }}
+              style={{ backgroundColor: getCategoryColor(meal.category).hex }}
             >
               {meal.badge}
             </div>

@@ -12,7 +12,7 @@ interface Meal {
 
 interface MealGridProps {
   meals: Meal[];
-  getCategoryColor: (category: string) => string;
+  getCategoryColor: (category: string) => { bg: string; text: string; hex: string };
 }
 
 const MealGrid = ({ meals, getCategoryColor }: MealGridProps) => {

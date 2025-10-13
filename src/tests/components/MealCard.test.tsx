@@ -39,7 +39,7 @@ describe('MealCard Component', () => {
     badge: 'Nouveau',
   };
 
-  const mockGetCategoryColor = (category: string) => '#D4B961';
+  const mockGetCategoryColor = (category: string) => ({ bg: 'bg-yellow-500', text: 'text-white', hex: '#D4B961' });
 
   it('should render meal name', () => {
     const { container } = renderWithRouter(<MealCard meal={mockMeal} getCategoryColor={mockGetCategoryColor} />);

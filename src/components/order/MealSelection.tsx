@@ -147,7 +147,7 @@ const MealSelection = ({
                   {meal.badge && (
                     <div 
                       className="absolute top-md-2 left-md-2 px-md-3 py-md-1 rounded-md-sm text-white md-label-medium font-semibold backdrop-blur-sm md-elevation-2"
-                      style={{ backgroundColor: getCategoryColor(meal.category) }}
+                      style={{ backgroundColor: getCategoryColor(meal.category).hex }}
                     >
                       {meal.badge}
                     </div>
