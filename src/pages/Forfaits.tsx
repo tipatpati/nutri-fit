@@ -1,80 +1,13 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import Packs from "@/components/Packs";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Check, ShoppingCart, Truck, Clock, ChefHat, Leaf, Star, Heart, Zap, Shield } from "lucide-react";
+import { Truck, Clock, ChefHat, Leaf, Star, Heart, Zap, Shield } from "lucide-react";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 const Forfaits = () => {
   const [selectedSize, setSelectedSize] = useState("regular");
-  const [selectedPackage, setSelectedPackage] = useState(null);
-  const navigate = useNavigate();
-
-  const packages = [
-    {
-      id: "express",
-      title: "Pack express",
-      subtitle: "×4 repas",
-      price: "60",
-      savings: null,
-      description: "Solution rapide",
-      popular: false,
-      gradient: "from-blue-500 to-cyan-500",
-      meals: [
-        { size: "petit", price: "15.0", count: "4 repas" },
-        { size: "regular", price: "15.5", count: "4 repas" },
-        { size: "grand", price: "17.0", count: "4 repas" }
-      ]
-    },
-    {
-      id: "performance",
-      title: "Pack 3 day performance",
-      subtitle: "×6 repas",
-      price: "90",
-      savings: "Économisez 10%",
-      description: "Le plus populaire",
-      popular: true,
-      gradient: "from-emerald-500 to-green-500",
-      meals: [
-        { size: "petit", price: "14.5", count: "6 repas" },
-        { size: "regular", price: "15.0", count: "6 repas" },
-        { size: "grand", price: "16.5", count: "6 repas" }
-      ]
-    },
-    {
-      id: "semaine",
-      title: "Pack semaine",
-      subtitle: "×8 repas",
-      price: "115",
-      savings: "Économisez 15%",
-      description: "Une semaine complète",
-      popular: false,
-      gradient: "from-orange-500 to-red-500",
-      meals: [
-        { size: "petit", price: "14.0", count: "8 repas" },
-        { size: "regular", price: "14.5", count: "8 repas" },
-        { size: "grand", price: "16.0", count: "8 repas" }
-      ]
-    },
-    {
-      id: "objectif",
-      title: "Pack objectif",
-      subtitle: "×10 repas",
-      price: "140",
-      savings: "Économisez 20%",
-      description: "Atteignez vos objectifs",
-      popular: false,
-      gradient: "from-purple-500 to-pink-500",
-      meals: [
-        { size: "petit", price: "13.5", count: "10 repas" },
-        { size: "regular", price: "14.0", count: "10 repas" },
-        { size: "grand", price: "15.5", count: "10 repas" }
-      ]
-    }
-  ];
 
   const features = [
     {
@@ -206,105 +139,7 @@ const Forfaits = () => {
           </div>
 
           {/* Enhanced Package Selection */}
-          <div className="max-w-6xl mx-auto mb-14 lg:mb-16">
-            <div className="text-center mb-8 lg:mb-10">
-              <div className="inline-flex items-center px-4 py-2 bg-[hsl(var(--md-sys-color-secondary-container))] text-[hsl(var(--md-sys-color-on-secondary-container))] rounded-[var(--md-sys-shape-corner-full)] md-label-medium mb-4">
-                <span className="w-2 h-2 bg-[hsl(var(--md-sys-color-secondary))] rounded-full mr-2"></span>
-                Étape 2
-              </div>
-              <h3 className="md-headline-large text-[hsl(var(--md-sys-color-on-surface))] mb-4">
-                Choisissez le nombre de repas
-              </h3>
-              <p className="md-body-large text-[hsl(var(--md-sys-color-on-surface-variant))] max-w-3xl mx-auto">
-                Sélectionnez le forfait qui correspond à vos besoins et votre style de vie
-              </p>
-            </div>
-            
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-6">
-              {packages.map((pkg) => {
-                const currentMeal = pkg.meals.find(meal => meal.size === selectedSize);
-                return (
-                  <Card key={pkg.id} className={`group relative overflow-hidden hover:md-elevation-3 transition-all duration-500 border-2 hover:scale-[1.02] ${pkg.popular ? 'ring-2 ring-[hsl(var(--md-sys-color-primary))] border-[hsl(var(--md-sys-color-primary))]' : 'border-[hsl(var(--md-sys-color-outline-variant))] hover:border-[hsl(var(--md-sys-color-outline))]]'}`}>
-                    {pkg.popular && (
-                      <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 z-10">
-                        <Badge className="bg-gradient-to-r from-[hsl(var(--md-sys-color-primary))] to-[hsl(var(--md-sys-color-secondary))] text-white md-label-medium px-6 py-2 md-elevation-2">
-                          ⭐ Le plus populaire !
-                        </Badge>
-                      </div>
-                    )}
-                    
-                    {/* Header with gradient */}
-                    <div className={`h-24 bg-gradient-to-br ${pkg.gradient} flex items-center justify-center relative overflow-hidden`}>
-                      <div className="absolute inset-0 bg-black/10"></div>
-                      <div className="relative z-10 text-center">
-                        <div className="text-white md-title-large font-bold">{pkg.title}</div>
-                        <div className="text-white/80 md-body-medium">{pkg.subtitle}</div>
-                      </div>
-                    </div>
-                    
-                    <CardHeader className="text-center pb-4 pt-6">
-                      <div className="space-y-2">
-                        <div className="md-body-medium text-[hsl(var(--md-sys-color-on-surface-variant))]">
-                          À partir de <span className="md-headline-small text-[hsl(var(--md-sys-color-on-surface))]">{pkg.price} $</span>
-                        </div>
-                        {pkg.savings && (
-                          <Badge variant="outline" className="text-[hsl(var(--md-sys-color-primary))] border-[hsl(var(--md-sys-color-outline))] bg-[hsl(var(--md-sys-color-primary-container))]">
-                            {pkg.savings}
-                          </Badge>
-                        )}
-                        <p className="text-[hsl(var(--md-sys-color-secondary))] md-title-small font-semibold">{pkg.description}</p>
-                      </div>
-                    </CardHeader>
-                    
-                    <CardContent className="space-y-6 pt-0">
-                      <div className="text-center space-y-2">
-                        <div className="md-body-large">
-                          <span className="md-headline-small text-[hsl(var(--md-sys-color-on-surface))]">
-                            {currentMeal?.price}$
-                          </span>
-                          <span className="md-body-medium text-[hsl(var(--md-sys-color-on-surface-variant))] ml-1">par repas</span>
-                        </div>
-                        <div className="md-body-small text-[hsl(var(--md-sys-color-on-surface-variant))]">{currentMeal?.count}</div>
-                      </div>
-                      
-                      <Button 
-                        className={`w-full bg-gradient-to-r ${pkg.gradient} text-white md-label-large py-3 rounded-[var(--md-sys-shape-corner-large)] transition-all duration-300 group-hover:scale-[1.02] md-elevation-1`}
-                        onClick={() => navigate('/order', { 
-                          state: { 
-                            skipToStep: 'date',
-                            selectedPackage: pkg.id,
-                            packageInfo: {
-                              ...pkg,
-                              selectedSize,
-                              selectedMeal: currentMeal
-                            }
-                          } 
-                        })}
-                      >
-                        Choisir ce forfait
-                        <ShoppingCart className="ml-2 w-4 h-4" />
-                      </Button>
-                      
-                      <div className="space-y-2">
-                        <div className="flex items-center md-body-small text-[hsl(var(--md-sys-color-primary))]">
-                          <Check className="w-3 h-3 mr-2" />
-                          <span>Livraison: 30$ de rabais</span>
-                        </div>
-                        <div className="flex items-center md-body-small text-[hsl(var(--md-sys-color-primary))]">
-                          <Check className="w-3 h-3 mr-2" />
-                          <span>En magasin: 30$ de rabais</span>
-                        </div>
-                        <div className="flex items-center md-body-small text-[hsl(var(--md-sys-color-primary))]">
-                          <Check className="w-3 h-3 mr-2" />
-                          <span>Expédition: 30$ de rabais</span>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                );
-              })}
-            </div>
-          </div>
+          <Packs />
 
           {/* Enhanced Features Section */}
           <div className="max-w-5xl mx-auto">
