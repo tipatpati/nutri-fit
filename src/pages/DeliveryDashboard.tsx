@@ -22,93 +22,24 @@ import {
 } from "@/components/ui/sidebar";
 import { useToast } from "@/hooks/use-toast";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { useDeliveryRoutes } from "@/hooks/useDeliveryRoutes";
+import { useDeliveryHistory } from "@/hooks/useDeliveryHistory";
 
 const DeliveryDashboard = () => {
   const [activeSection, setActiveSection] = useState("deliveries");
+  const [selectedDate] = useState(new Date().toISOString().split('T')[0]);
   const navigate = useNavigate();
   const { toast } = useToast();
   const isMobile = useIsMobile();
+
+  // Fetch real data
+  const { data: routesData, isLoading: routesLoading } = useDeliveryRoutes(selectedDate);
+  const { data: historyData, isLoading: historyLoading } = useDeliveryHistory();
 
   const menuItems = [
     { title: "Livraisons", icon: Truck, id: "deliveries" },
     { title: "Itinéraires", icon: MapPin, id: "routes" },
     { title: "Historique", icon: Clock, id: "history" },
-  ];
-
-  // Enhanced delivery data
-  const mockDeliveryStats = {
-    pending: 8,
-    inProgress: 3,
-    completed: 12
-  };
-
-  const mockDeliveries = [
-    { 
-      id: "LIV-001", 
-      customer: "Marie Dubois",
-      address: "123 Rue de la Paix, 75015 Paris", 
-      phone: "06 12 34 56 78",
-      status: "À livrer", 
-      time: "14:30",
-      distance: "2.3 km",
-      orders: 2
-    },
-    { 
-      id: "LIV-002", 
-      customer: "Jean Martin",
-      address: "456 Avenue Victor Hugo, 69001 Lyon", 
-      phone: "06 87 65 43 21",
-      status: "En route", 
-      time: "15:00",
-      distance: "1.8 km",
-      orders: 1
-    },
-    { 
-      id: "LIV-003", 
-      customer: "Sophie Laurent",
-      address: "789 Boulevard Saint-Germain, 75006 Paris", 
-      phone: "06 98 76 54 32",
-      status: "À livrer", 
-      time: "15:30",
-      distance: "3.1 km",
-      orders: 3
-    },
-    { 
-      id: "LIV-004", 
-      customer: "Pierre Rousseau",
-      address: "321 Rue de Rivoli, 75001 Paris", 
-      phone: "06 11 22 33 44",
-      status: "Livré", 
-      time: "13:30",
-      distance: "1.5 km",
-      orders: 1
-    }
-  ];
-
-  const mockRoutes = [
-    {
-      id: "ROUTE-A",
-      zone: "Paris Centre",
-      deliveries: 6,
-      estimatedTime: "2h 30min",
-      totalDistance: "12.5 km",
-      status: "En cours"
-    },
-    {
-      id: "ROUTE-B", 
-      zone: "Paris Sud",
-      deliveries: 4,
-      estimatedTime: "1h 45min",
-      totalDistance: "8.2 km",
-      status: "À démarrer"
-    }
-  ];
-
-  const mockHistory = [
-    { date: "Aujourd'hui", deliveries: 12, avgTime: "25 min", satisfaction: "98%" },
-    { date: "Hier", deliveries: 15, avgTime: "23 min", satisfaction: "96%" },
-    { date: "Il y a 2 jours", deliveries: 18, avgTime: "28 min", satisfaction: "94%" },
-    { date: "Il y a 3 jours", deliveries: 14, avgTime: "26 min", satisfaction: "97%" }
   ];
 
   const handleLogout = () => {
@@ -131,6 +62,12 @@ const DeliveryDashboard = () => {
   };
 
   const renderContent = () => {
+    if (routesLoading || historyLoading) {
+      return <div className="text-center py-8 text-blue-800">Chargement...</div>;
+    }
+
+    const allDeliveries = routesData?.routes.flatMap((route: any) => route.assignments) || [];
+
     switch (activeSection) {
       case "deliveries":
         return (
@@ -142,8 +79,8 @@ const DeliveryDashboard = () => {
                   <Clock className="h-3 w-3 md:h-4 md:w-4 lg:h-5 lg:w-5 text-[#FF4D00] flex-shrink-0" />
                 </CardHeader>
                 <CardContent className="px-2 pb-2 md:px-6 md:pb-6">
-                  <div className="text-lg md:text-xl lg:text-2xl font-bold">{mockDeliveryStats.pending}</div>
-                  <p className="text-xs lg:text-sm text-gray-600">en attente</p>
+                  <div className="text-lg md:text-xl lg:text-2xl font-bold">{routesData?.stats.pending || 0}</div>
+                  <p className="text-xs lg:text-sm text-gray-600">planifiées</p>
                 </CardContent>
               </Card>
               
@@ -153,7 +90,7 @@ const DeliveryDashboard = () => {
                   <Truck className="h-3 w-3 md:h-4 md:w-4 lg:h-5 lg:w-5 text-[#113B39] flex-shrink-0" />
                 </CardHeader>
                 <CardContent className="px-2 pb-2 md:px-6 md:pb-6">
-                  <div className="text-lg md:text-xl lg:text-2xl font-bold">{mockDeliveryStats.inProgress}</div>
+                  <div className="text-lg md:text-xl lg:text-2xl font-bold">{routesData?.stats.inProgress || 0}</div>
                   <p className="text-xs lg:text-sm text-gray-600">en cours</p>
                 </CardContent>
               </Card>
@@ -164,7 +101,7 @@ const DeliveryDashboard = () => {
                   <CheckCircle className="h-3 w-3 md:h-4 md:w-4 lg:h-5 lg:w-5 text-green-600 flex-shrink-0" />
                 </CardHeader>
                 <CardContent className="px-2 pb-2 md:px-6 md:pb-6">
-                  <div className="text-lg md:text-xl lg:text-2xl font-bold">{mockDeliveryStats.completed}</div>
+                  <div className="text-lg md:text-xl lg:text-2xl font-bold">{routesData?.stats.completed || 0}</div>
                   <p className="text-xs lg:text-sm text-gray-600">aujourd'hui</p>
                 </CardContent>
               </Card>
@@ -192,26 +129,30 @@ const DeliveryDashboard = () => {
                         </TableRow>
                       </TableHeader>
                       <TableBody>
-                        {mockDeliveries.map((delivery) => (
-                          <TableRow key={delivery.id}>
-                            <TableCell className="font-medium text-xs px-1 md:px-4">{delivery.id}</TableCell>
-                            <TableCell className="text-xs px-1 md:px-4">{delivery.customer}</TableCell>
-                            <TableCell className="max-w-xs truncate text-xs px-1 md:px-4">{delivery.address}</TableCell>
-                            <TableCell className="text-xs px-1 md:px-4">
-                              <div className="flex items-center gap-1">
-                                <Phone className="w-3 h-3 flex-shrink-0" />
-                                <span className="hidden lg:inline truncate">{delivery.phone}</span>
-                                <span className="lg:hidden">Tel</span>
-                              </div>
-                            </TableCell>
-                            <TableCell className="text-xs px-1 md:px-4">{delivery.time}</TableCell>
-                            <TableCell className="text-xs px-1 md:px-4">{delivery.distance}</TableCell>
-                            <TableCell className="text-xs px-1 md:px-4">{delivery.orders}</TableCell>
-                            <TableCell className={`${getStatusColor(delivery.status)} text-xs px-1 md:px-4`}>
-                              <span className="truncate">{delivery.status}</span>
+                        {allDeliveries.length > 0 ? (
+                          allDeliveries.map((delivery: any) => (
+                            <TableRow key={delivery.id}>
+                              <TableCell className="font-medium text-xs px-1 md:px-4">{delivery.id.slice(0, 8)}</TableCell>
+                              <TableCell className="text-xs px-1 md:px-4">{delivery.customer}</TableCell>
+                              <TableCell className="max-w-xs truncate text-xs px-1 md:px-4">{delivery.address}</TableCell>
+                              <TableCell className="text-xs px-1 md:px-4">
+                                <Phone className="w-3 h-3" />
+                              </TableCell>
+                              <TableCell className="text-xs px-1 md:px-4">{delivery.time}</TableCell>
+                              <TableCell className="text-xs px-1 md:px-4">-</TableCell>
+                              <TableCell className="text-xs px-1 md:px-4">1</TableCell>
+                              <TableCell className={`${getStatusColor(delivery.status)} text-xs px-1 md:px-4`}>
+                                <span className="truncate">{delivery.status}</span>
+                              </TableCell>
+                            </TableRow>
+                          ))
+                        ) : (
+                          <TableRow>
+                            <TableCell colSpan={8} className="text-center text-blue-800 py-4 text-xs">
+                              Aucune livraison pour aujourd'hui
                             </TableCell>
                           </TableRow>
-                        ))}
+                        )}
                       </TableBody>
                     </Table>
                   </div>
@@ -244,29 +185,37 @@ const DeliveryDashboard = () => {
                         </TableRow>
                       </TableHeader>
                       <TableBody>
-                        {mockRoutes.map((route) => (
-                          <TableRow key={route.id}>
-                            <TableCell className="font-medium text-xs px-2 md:px-4">{route.id}</TableCell>
-                            <TableCell className="text-xs px-2 md:px-4">{route.zone}</TableCell>
-                            <TableCell className="text-xs px-2 md:px-4">{route.deliveries}</TableCell>
-                            <TableCell className="text-xs px-2 md:px-4">
-                              <div className="flex items-center gap-1">
-                                <Clock className="w-3 h-3 lg:w-4 lg:h-4 flex-shrink-0" />
-                                <span className="truncate">{route.estimatedTime}</span>
-                              </div>
-                            </TableCell>
-                            <TableCell className="text-xs px-2 md:px-4">{route.totalDistance}</TableCell>
-                            <TableCell className={`${getStatusColor(route.status)} text-xs px-2 md:px-4`}>
-                              <span className="truncate">{route.status}</span>
-                            </TableCell>
-                            <TableCell className="px-2 md:px-4">
-                              <Button size="sm" variant="outline" className="flex items-center gap-1 text-xs h-7 px-2">
-                                <Navigation className="w-3 h-3 flex-shrink-0" />
-                                <span className="hidden sm:inline">GPS</span>
-                              </Button>
+                        {routesData?.routes && routesData.routes.length > 0 ? (
+                          routesData.routes.map((route: any) => (
+                            <TableRow key={route.id}>
+                              <TableCell className="font-medium text-xs px-2 md:px-4">{route.id.slice(0, 8)}</TableCell>
+                              <TableCell className="text-xs px-2 md:px-4">{route.zone}</TableCell>
+                              <TableCell className="text-xs px-2 md:px-4">{route.deliveries}</TableCell>
+                              <TableCell className="text-xs px-2 md:px-4">
+                                <div className="flex items-center gap-1">
+                                  <Clock className="w-3 h-3 lg:w-4 lg:h-4 flex-shrink-0" />
+                                  <span className="truncate">{route.estimatedTime}</span>
+                                </div>
+                              </TableCell>
+                              <TableCell className="text-xs px-2 md:px-4">{route.distance}</TableCell>
+                              <TableCell className={`${getStatusColor(route.status)} text-xs px-2 md:px-4`}>
+                                <span className="truncate">{route.status}</span>
+                              </TableCell>
+                              <TableCell className="px-2 md:px-4">
+                                <Button size="sm" variant="outline" className="flex items-center gap-1 text-xs h-7 px-2">
+                                  <Navigation className="w-3 h-3 flex-shrink-0" />
+                                  <span className="hidden sm:inline">GPS</span>
+                                </Button>
+                              </TableCell>
+                            </TableRow>
+                          ))
+                        ) : (
+                          <TableRow>
+                            <TableCell colSpan={7} className="text-center text-blue-800 py-4 text-xs">
+                              Aucun itinéraire planifié
                             </TableCell>
                           </TableRow>
-                        ))}
+                        )}
                       </TableBody>
                     </Table>
                   </div>
@@ -296,14 +245,22 @@ const DeliveryDashboard = () => {
                         </TableRow>
                       </TableHeader>
                       <TableBody>
-                        {mockHistory.map((day, index) => (
-                          <TableRow key={index}>
-                            <TableCell className="font-medium text-xs px-2 md:px-4">{day.date}</TableCell>
-                            <TableCell className="text-xs px-2 md:px-4">{day.deliveries}</TableCell>
-                            <TableCell className="text-xs px-2 md:px-4">{day.avgTime}</TableCell>
-                            <TableCell className="text-green-600 font-medium text-xs px-2 md:px-4">{day.satisfaction}</TableCell>
+                        {historyData?.history && historyData.history.length > 0 ? (
+                          historyData.history.map((day: any, index: number) => (
+                            <TableRow key={index}>
+                              <TableCell className="font-medium text-xs px-2 md:px-4">{day.date}</TableCell>
+                              <TableCell className="text-xs px-2 md:px-4">{day.deliveries}</TableCell>
+                              <TableCell className="text-xs px-2 md:px-4">{day.avgTime}</TableCell>
+                              <TableCell className="text-green-600 font-medium text-xs px-2 md:px-4">{day.efficiency}</TableCell>
+                            </TableRow>
+                          ))
+                        ) : (
+                          <TableRow>
+                            <TableCell colSpan={4} className="text-center text-blue-800 py-4 text-xs">
+                              Aucun historique disponible
+                            </TableCell>
                           </TableRow>
-                        ))}
+                        )}
                       </TableBody>
                     </Table>
                   </div>
@@ -312,20 +269,20 @@ const DeliveryDashboard = () => {
                 <div className="mt-4 md:mt-6 grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4">
                   <Card>
                     <CardContent className="pt-4 md:pt-6 px-3 pb-3 md:px-6 md:pb-6">
-                      <div className="text-lg md:text-xl lg:text-2xl font-bold text-[#113B39]">59</div>
-                      <p className="text-xs lg:text-sm text-gray-600">Livraisons cette semaine</p>
+                      <div className="text-lg md:text-xl lg:text-2xl font-bold text-[#113B39]">{historyData?.weeklyStats.avgDeliveries || 0}</div>
+                      <p className="text-xs lg:text-sm text-gray-600">Moyenne hebdomadaire</p>
                     </CardContent>
                   </Card>
                   <Card>
                     <CardContent className="pt-4 md:pt-6 px-3 pb-3 md:px-6 md:pb-6">
-                      <div className="text-lg md:text-xl lg:text-2xl font-bold text-[#FF4D00]">25.5 min</div>
-                      <p className="text-xs lg:text-sm text-gray-600">Temps moyen par livraison</p>
+                      <div className="text-lg md:text-xl lg:text-2xl font-bold text-[#FF4D00]">{historyData?.weeklyStats.totalDeliveries || 0}</div>
+                      <p className="text-xs lg:text-sm text-gray-600">Total livraisons (30j)</p>
                     </CardContent>
                   </Card>
                   <Card>
                     <CardContent className="pt-4 md:pt-6 px-3 pb-3 md:px-6 md:pb-6">
-                      <div className="text-lg md:text-xl lg:text-2xl font-bold text-green-600">96.3%</div>
-                      <p className="text-xs lg:text-sm text-gray-600">Satisfaction moyenne</p>
+                      <div className="text-lg md:text-xl lg:text-2xl font-bold text-green-600">{historyData?.weeklyStats.completionRate || '0%'}</div>
+                      <p className="text-xs lg:text-sm text-gray-600">Taux de réussite</p>
                     </CardContent>
                   </Card>
                 </div>
