@@ -168,10 +168,10 @@ const Order = () => {
       <main className="container mx-auto px-4 sm:px-6 py-8 lg:py-12 max-w-6xl">
         {/* Page Header */}
         <div className="text-center mb-10 lg:mb-12">
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-3 text-md-on-surface">
+          <h1 className="md-display-medium text-[hsl(var(--md-sys-color-on-surface))] mb-3">
             Planifier votre commande
           </h1>
-          <p className="text-lg text-md-on-surface-variant max-w-3xl mx-auto">
+          <p className="md-body-large text-[hsl(var(--md-sys-color-on-surface-variant))] max-w-3xl mx-auto">
             Choisissez votre objectif, vos dates et sélectionnez vos repas préférés
           </p>
         </div>

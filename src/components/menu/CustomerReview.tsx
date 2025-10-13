@@ -1,29 +1,29 @@
 
 const CustomerReview = () => {
   return (
-    <div className="bg-gradient-to-br from-white/90 to-emerald-50/80 backdrop-blur-sm rounded-2xl sm:rounded-3xl p-4 sm:p-8 lg:p-12 mb-8 sm:mb-16 lg:mb-20 shadow-xl border border-emerald-100/50 mx-2">
+    <div className="bg-[hsl(var(--md-sys-color-surface-container))] rounded-[var(--md-sys-shape-corner-extra-large)] p-4 sm:p-8 lg:p-12 mb-8 sm:mb-16 lg:mb-20 md-elevation-2 border border-[hsl(var(--md-sys-color-outline-variant))] mx-2">
       <div className="grid lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 items-center">
         <div>
-          <h2 className="text-xl sm:text-3xl lg:text-4xl font-bold mb-4 sm:mb-6 bg-gradient-to-r from-slate-800 to-emerald-800 bg-clip-text text-transparent leading-tight">
+          <h2 className="md-headline-large text-[hsl(var(--md-sys-color-on-surface))] mb-4 sm:mb-6 leading-tight">
             Le choix de prêt-à-manger numéro 1 au pays
           </h2>
-          <p className="text-slate-600 mb-6 sm:mb-8 text-sm sm:text-base lg:text-lg leading-relaxed">
+          <p className="md-body-large text-[hsl(var(--md-sys-color-on-surface-variant))] mb-6 sm:mb-8 leading-relaxed">
             Partenaire de prêt-à-manger "top plans entreprises des normes de goût et qualité au Québec, en Ontario et dans les Maritimes.
           </p>
           
           {/* Customer Review */}
-          <div className="bg-white/90 backdrop-blur-sm rounded-xl sm:rounded-2xl p-4 sm:p-6 lg:p-8 shadow-lg border border-emerald-100/50">
+          <div className="bg-[hsl(var(--md-sys-color-surface))] rounded-[var(--md-sys-shape-corner-large)] p-4 sm:p-6 lg:p-8 md-elevation-1 border border-[hsl(var(--md-sys-color-outline-variant))]">
             <div className="flex items-start gap-3 sm:gap-4 lg:gap-6">
-              <div className="w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 bg-gradient-to-br from-emerald-600 to-emerald-700 rounded-full flex items-center justify-center text-white font-bold text-base sm:text-lg lg:text-xl shadow-lg flex-shrink-0">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 bg-gradient-to-br from-[hsl(var(--md-sys-color-primary))] to-[hsl(var(--md-sys-color-secondary))] rounded-full flex items-center justify-center text-white font-bold md-title-medium md-elevation-1 flex-shrink-0">
                 L
               </div>
               <div className="flex-1 min-w-0">
                 <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2 lg:gap-3 mb-2 sm:mb-3">
-                  <span className="font-semibold text-sm sm:text-base lg:text-lg text-slate-800">Lacey</span>
-                  <span className="text-xs sm:text-sm lg:text-base text-slate-500">19 janvier 2024</span>
-                  <div className="flex text-amber-400 text-sm sm:text-base lg:text-lg">★★★★★</div>
+                  <span className="md-title-medium text-[hsl(var(--md-sys-color-on-surface))]">Lacey</span>
+                  <span className="md-body-small text-[hsl(var(--md-sys-color-on-surface-variant))]">19 janvier 2024</span>
+                  <div className="flex text-[hsl(var(--md-sys-color-tertiary))] md-body-medium">★★★★★</div>
                 </div>
-                <p className="text-xs sm:text-sm lg:text-base text-slate-600 leading-relaxed">
+                <p className="md-body-medium text-[hsl(var(--md-sys-color-on-surface-variant))] leading-relaxed">
                   "Les repas étaient vraiment délicieux, surtout les mini quiches! Os, pas, service à la clientèle impeccable..."
                 </p>
               </div>

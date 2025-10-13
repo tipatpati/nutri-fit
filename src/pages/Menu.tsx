@@ -31,7 +31,9 @@ const Menu = () => {
         {/* Order Button */}
         <div className="text-center mb-8 sm:mb-16 lg:mb-20 px-2">
           <Button 
-            className="bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 text-white px-6 sm:px-8 lg:px-12 py-3 sm:py-4 lg:py-5 text-sm sm:text-base lg:text-lg rounded-xl font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300 w-full sm:w-auto"
+            variant="filled"
+            size="lg"
+            className="px-6 sm:px-8 lg:px-12 py-3 sm:py-4 lg:py-5 md-elevation-2 w-full sm:w-auto"
             onClick={() => window.location.href = '/order'}
           >
             Commander

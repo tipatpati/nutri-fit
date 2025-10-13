@@ -10,15 +10,15 @@ const MenuHeader = ({ selectedWeek, setSelectedWeek }: MenuHeaderProps) => {
   return (
     <div className="text-center mb-8 sm:mb-12 lg:mb-16 px-2">
       <div className="inline-block mb-4 sm:mb-6">
-        <div className="bg-gradient-to-r from-emerald-600/10 to-emerald-400/10 rounded-full px-4 sm:px-6 py-2 border border-emerald-200/50">
-          <span className="text-emerald-700 text-xs sm:text-sm font-medium">Menu Hebdomadaire</span>
+        <div className="bg-[hsl(var(--md-sys-color-primary-container))] rounded-[var(--md-sys-shape-corner-full)] px-4 sm:px-6 py-2 border border-[hsl(var(--md-sys-color-outline-variant))]">
+          <span className="md-label-medium text-[hsl(var(--md-sys-color-on-primary-container))] font-semibold">Menu Hebdomadaire</span>
         </div>
       </div>
       
-      <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 bg-gradient-to-r from-slate-800 via-emerald-800 to-slate-700 bg-clip-text text-transparent leading-tight px-2">
+      <h1 className="md-display-large text-[hsl(var(--md-sys-color-on-surface))] mb-4 sm:mb-6 leading-tight px-2">
         Menu de la semaine
       </h1>
-      <p className="text-base sm:text-lg lg:text-xl text-slate-600 mb-6 sm:mb-8 max-w-2xl mx-auto leading-relaxed px-2">
+      <p className="md-body-large text-[hsl(var(--md-sys-color-on-surface-variant))] mb-6 sm:mb-8 max-w-2xl mx-auto leading-relaxed px-2">
         Découvrez 15 nouveaux repas prêts-à-manger<br className="hidden sm:block" />
         chaque semaine et personnalisez-les à votre goût !
       </p>
@@ -26,7 +26,7 @@ const MenuHeader = ({ selectedWeek, setSelectedWeek }: MenuHeaderProps) => {
       {/* Filter Tags */}
       <div className="flex flex-wrap justify-center gap-2 sm:gap-3 lg:gap-4 mb-6 sm:mb-8 px-2">
         {["Repas prêts-à-manger", "Formule familiale", "Collations", "Épicerie"].map((filter, index) => (
-          <Button key={index} variant="outline" className="rounded-full text-xs sm:text-sm lg:text-base px-3 sm:px-4 lg:px-6 py-2 lg:py-3 border-2 border-emerald-200/60 hover:border-emerald-300 hover:bg-emerald-50/50 transition-all duration-300 backdrop-blur-sm bg-white/80">
+          <Button key={index} variant="outlined" className="md-label-large rounded-[var(--md-sys-shape-corner-full)] px-3 sm:px-4 lg:px-6 py-2 lg:py-3">
             {filter}
           </Button>
         ))}
@@ -34,17 +34,17 @@ const MenuHeader = ({ selectedWeek, setSelectedWeek }: MenuHeaderProps) => {
 
       {/* Week Selector */}
       <div className="flex flex-col gap-3 sm:gap-4 lg:gap-6 mb-8 sm:mb-12 lg:mb-16 px-2">
-        <span className="text-slate-600 text-sm sm:text-base lg:text-lg font-medium">Semaine du</span>
+        <span className="md-title-medium text-[hsl(var(--md-sys-color-on-surface))]">Semaine du</span>
         <select 
           value={selectedWeek}
           onChange={(e) => setSelectedWeek(e.target.value)}
-          className="border-2 border-emerald-200/60 rounded-xl px-3 sm:px-4 py-2 sm:py-3 text-sm sm:text-base lg:text-lg bg-white/80 backdrop-blur-sm hover:border-emerald-300 focus:border-emerald-400 focus:outline-none focus:ring-4 focus:ring-emerald-100 transition-all duration-300 w-full sm:w-auto max-w-xs mx-auto"
+          className="md-body-large text-[hsl(var(--md-sys-color-on-surface))] border-2 border-[hsl(var(--md-sys-color-outline))] rounded-[var(--md-sys-shape-corner-large)] px-3 sm:px-4 py-2 sm:py-3 bg-[hsl(var(--md-sys-color-surface))] hover:border-[hsl(var(--md-sys-color-primary))] focus:border-[hsl(var(--md-sys-color-primary))] focus:outline-none focus:ring-4 focus:ring-[hsl(var(--md-sys-color-primary))]/20 transition-all duration-300 w-full sm:w-auto max-w-xs mx-auto"
         >
           <option value="8 juin 2025">8 juin 2025</option>
           <option value="15 juin 2025">15 juin 2025</option>
           <option value="22 juin 2025">22 juin 2025</option>
         </select>
-        <Button className="bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 text-white text-sm sm:text-base lg:text-lg px-6 sm:px-8 lg:px-10 py-3 lg:py-4 rounded-xl font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300 w-full sm:w-auto">
+        <Button variant="filled" size="lg" className="w-full sm:w-auto">
           Commander
         </Button>
       </div>

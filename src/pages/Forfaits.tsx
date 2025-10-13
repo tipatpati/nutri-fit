@@ -108,49 +108,47 @@ const Forfaits = () => {
       <Header />
       
       {/* Enhanced Hero Section */}
-      <section className="relative bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 py-12 sm:py-24 lg:py-32 overflow-hidden">
+      <section className="relative bg-gradient-to-br from-[hsl(var(--md-sys-color-surface-dim))] via-[hsl(var(--md-sys-color-surface))] to-[hsl(var(--md-sys-color-surface-dim))] py-12 sm:py-24 lg:py-32 overflow-hidden">
         {/* Background Pattern */}
         <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-0 left-0 w-48 h-48 sm:w-96 sm:h-96 bg-gradient-to-br from-emerald-400 to-blue-400 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-0 right-0 w-48 h-48 sm:w-96 sm:h-96 bg-gradient-to-br from-orange-400 to-pink-400 rounded-full blur-3xl"></div>
+          <div className="absolute top-0 left-0 w-48 h-48 sm:w-96 sm:h-96 bg-gradient-to-br from-[hsl(var(--md-sys-color-primary))] to-[hsl(var(--md-sys-color-secondary))] rounded-full blur-3xl"></div>
+          <div className="absolute bottom-0 right-0 w-48 h-48 sm:w-96 sm:h-96 bg-gradient-to-br from-[hsl(var(--md-sys-color-secondary))] to-[hsl(var(--md-sys-color-tertiary))] rounded-full blur-3xl"></div>
         </div>
         
         <div className="relative z-10 container mx-auto px-4 text-center">
-          <div className="inline-flex items-center px-4 sm:px-6 py-2 sm:py-3 bg-gradient-to-r from-emerald-500/20 to-blue-500/20 backdrop-blur-xl border border-white/20 rounded-full font-medium text-xs sm:text-sm mb-6 sm:mb-8 text-white">
-            <Star className="w-3 h-3 sm:w-4 sm:h-4 mr-2 text-yellow-400 flex-shrink-0" />
+          <div className="inline-flex items-center px-4 sm:px-6 py-2 sm:py-3 bg-[hsl(var(--md-sys-color-primary-container))] border border-[hsl(var(--md-sys-color-outline-variant))] rounded-[var(--md-sys-shape-corner-full)] md-label-medium text-[hsl(var(--md-sys-color-on-primary-container))] mb-6 sm:mb-8">
+            <Star className="w-3 h-3 sm:w-4 sm:h-4 mr-2 text-[hsl(var(--md-sys-color-tertiary))] flex-shrink-0" />
             Forfaits Premium NutriFit
           </div>
           
-          <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 sm:mb-8 leading-tight px-2">
-            <span className="bg-gradient-to-r from-white via-gray-100 to-white bg-clip-text text-transparent">
-              Découvrez nos
-            </span>
+          <h1 className="md-display-large text-[hsl(var(--md-sys-color-on-surface))] mb-6 sm:mb-8 leading-tight px-2">
+            <span>Découvrez nos</span>
             <br />
-            <span className="bg-gradient-to-r from-emerald-400 to-orange-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-[hsl(var(--md-sys-color-primary))] to-[hsl(var(--md-sys-color-secondary))] bg-clip-text text-transparent">
               forfaits santé
             </span>
           </h1>
           
-          <p className="text-base sm:text-xl lg:text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed mb-8 sm:mb-12 px-4">
+          <p className="md-body-large text-[hsl(var(--md-sys-color-on-surface-variant))] max-w-4xl mx-auto leading-relaxed mb-8 sm:mb-12 px-4">
             Commandez de 6 à 30 repas livrés directement à votre porte.
-            <span className="block mt-2 text-emerald-400 font-medium">
+            <span className="block mt-2 text-[hsl(var(--md-sys-color-primary))] md-title-medium">
               Nutrition premium • Saveurs authentiques • Qualité garantie
             </span>
           </p>
           
           {/* Trust Indicators */}
-          <div className="flex flex-wrap justify-center items-center gap-4 sm:gap-8 text-gray-300 px-4">
+          <div className="flex flex-wrap justify-center items-center gap-4 sm:gap-8 text-[hsl(var(--md-sys-color-on-surface-variant))] px-4">
             <div className="flex items-center space-x-2">
-              <Shield className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-400 flex-shrink-0" />
-              <span className="font-medium text-xs sm:text-base">Qualité certifiée</span>
+              <Shield className="w-4 h-4 sm:w-5 sm:h-5 text-[hsl(var(--md-sys-color-primary))] flex-shrink-0" />
+              <span className="md-label-large">Qualité certifiée</span>
             </div>
             <div className="flex items-center space-x-2">
-              <Heart className="w-4 h-4 sm:w-5 sm:h-5 text-red-400 flex-shrink-0" />
-              <span className="font-medium text-xs sm:text-base">10K+ clients satisfaits</span>
+              <Heart className="w-4 h-4 sm:w-5 sm:h-5 text-[hsl(var(--md-sys-color-error))] flex-shrink-0" />
+              <span className="md-label-large">10K+ clients satisfaits</span>
             </div>
             <div className="flex items-center space-x-2">
-              <Zap className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-400 flex-shrink-0" />
-              <span className="font-medium text-xs sm:text-base">Livraison express</span>
+              <Zap className="w-4 h-4 sm:w-5 sm:h-5 text-[hsl(var(--md-sys-color-tertiary))] flex-shrink-0" />
+              <span className="md-label-large">Livraison express</span>
             </div>
           </div>
         </div>
@@ -162,21 +160,21 @@ const Forfaits = () => {
           {/* Enhanced Meal Size Selection */}
           <div className="max-w-4xl mx-auto mb-14 lg:mb-16">
             <div className="text-center mb-8 lg:mb-10">
-              <div className="inline-flex items-center px-4 py-2 bg-emerald-100 text-emerald-700 rounded-full font-medium text-sm mb-4">
-                <span className="w-2 h-2 bg-emerald-500 rounded-full mr-2"></span>
+              <div className="inline-flex items-center px-4 py-2 bg-[hsl(var(--md-sys-color-primary-container))] text-[hsl(var(--md-sys-color-on-primary-container))] rounded-[var(--md-sys-shape-corner-full)] md-label-medium mb-4">
+                <span className="w-2 h-2 bg-[hsl(var(--md-sys-color-primary))] rounded-full mr-2"></span>
                 Étape 1
               </div>
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4 bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
+              <h2 className="md-headline-large text-[hsl(var(--md-sys-color-on-surface))] mb-4">
                 Manger santé, c'est facile
               </h2>
-              <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
+              <p className="md-body-large text-[hsl(var(--md-sys-color-on-surface-variant))] max-w-3xl mx-auto leading-relaxed">
                 Avec nos repas fraîchement préparés à portée de main, manger santé n'aura jamais été aussi savoureux !
               </p>
             </div>
 
             {/* Enhanced Meal Size Selector */}
-            <div className="bg-white rounded-2xl p-6 lg:p-10 shadow-2xl border border-gray-100">
-              <h3 className="text-xl lg:text-2xl font-bold text-center mb-6 lg:mb-8" style={{ color: '#113B39' }}>
+            <div className="bg-[hsl(var(--md-sys-color-surface-container))] rounded-[var(--md-sys-shape-corner-extra-large)] p-6 lg:p-10 md-elevation-2 border border-[hsl(var(--md-sys-color-outline-variant))]">
+              <h3 className="md-title-large text-[hsl(var(--md-sys-color-on-surface))] text-center mb-6 lg:mb-8">
                 Choisissez la taille des repas
               </h3>
               
@@ -188,19 +186,19 @@ const Forfaits = () => {
                 ].map((item) => (
                   <div 
                     key={item.size}
-                    className={`group cursor-pointer p-4 sm:p-6 lg:p-8 rounded-xl sm:rounded-2xl border-2 transition-all duration-300 hover:scale-105 relative w-full sm:w-auto ${
-                      selectedSize === item.size ? "border-[#113B39] bg-gradient-to-br from-[#113B39]/5 to-[#113B39]/10 shadow-lg" : "border-gray-200 hover:border-gray-300"
+                    className={`group cursor-pointer p-4 sm:p-6 lg:p-8 rounded-[var(--md-sys-shape-corner-large)] border-2 transition-all duration-300 hover:scale-105 relative w-full sm:w-auto ${
+                      selectedSize === item.size ? "border-[hsl(var(--md-sys-color-primary))] bg-[hsl(var(--md-sys-color-primary-container))] md-elevation-2" : "border-[hsl(var(--md-sys-color-outline-variant))] hover:border-[hsl(var(--md-sys-color-outline))]"
                     }`}
                     onClick={() => setSelectedSize(item.size)}
                   >
                     {item.popular && (
-                      <Badge className="absolute -top-2 sm:-top-3 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-emerald-500 to-blue-500 text-white text-xs px-3 sm:px-4 py-1">
+                      <Badge className="absolute -top-2 sm:-top-3 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-[hsl(var(--md-sys-color-primary))] to-[hsl(var(--md-sys-color-secondary))] text-white md-label-small px-3 sm:px-4 py-1">
                         Le plus populaire !
                       </Badge>
                     )}
-                    <div className={`w-16 h-12 sm:w-20 sm:h-16 lg:w-24 lg:h-20 bg-gradient-to-br ${item.bgClass} rounded-lg sm:rounded-xl mb-3 sm:mb-4 group-hover:scale-110 transition-transform mx-auto`}></div>
-                    <p className="text-center font-bold text-base sm:text-lg">{item.label}</p>
-                    <p className="text-center text-xs sm:text-sm text-gray-500 mt-1">{item.calories}</p>
+                    <div className={`w-16 h-12 sm:w-20 sm:h-16 lg:w-24 lg:h-20 bg-gradient-to-br ${item.bgClass} rounded-[var(--md-sys-shape-corner-medium)] mb-3 sm:mb-4 group-hover:scale-110 transition-transform mx-auto`}></div>
+                    <p className="text-center md-title-medium text-[hsl(var(--md-sys-color-on-surface))]">{item.label}</p>
+                    <p className="text-center md-body-small text-[hsl(var(--md-sys-color-on-surface-variant))] mt-1">{item.calories}</p>
                   </div>
                 ))}
               </div>
@@ -210,14 +208,14 @@ const Forfaits = () => {
           {/* Enhanced Package Selection */}
           <div className="max-w-6xl mx-auto mb-14 lg:mb-16">
             <div className="text-center mb-8 lg:mb-10">
-              <div className="inline-flex items-center px-4 py-2 bg-blue-100 text-blue-700 rounded-full font-medium text-sm mb-4">
-                <span className="w-2 h-2 bg-blue-500 rounded-full mr-2"></span>
+              <div className="inline-flex items-center px-4 py-2 bg-[hsl(var(--md-sys-color-secondary-container))] text-[hsl(var(--md-sys-color-on-secondary-container))] rounded-[var(--md-sys-shape-corner-full)] md-label-medium mb-4">
+                <span className="w-2 h-2 bg-[hsl(var(--md-sys-color-secondary))] rounded-full mr-2"></span>
                 Étape 2
               </div>
-              <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4 bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
+              <h3 className="md-headline-large text-[hsl(var(--md-sys-color-on-surface))] mb-4">
                 Choisissez le nombre de repas
               </h3>
-              <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+              <p className="md-body-large text-[hsl(var(--md-sys-color-on-surface-variant))] max-w-3xl mx-auto">
                 Sélectionnez le forfait qui correspond à vos besoins et votre style de vie
               </p>
             </div>
@@ -226,10 +224,10 @@ const Forfaits = () => {
               {packages.map((pkg) => {
                 const currentMeal = pkg.meals.find(meal => meal.size === selectedSize);
                 return (
-                  <Card key={pkg.id} className={`group relative overflow-hidden hover:shadow-2xl transition-all duration-500 border-2 hover:scale-[1.02] ${pkg.popular ? 'ring-2 ring-emerald-500 border-emerald-200' : 'border-gray-200 hover:border-gray-300'}`}>
+                  <Card key={pkg.id} className={`group relative overflow-hidden hover:md-elevation-3 transition-all duration-500 border-2 hover:scale-[1.02] ${pkg.popular ? 'ring-2 ring-[hsl(var(--md-sys-color-primary))] border-[hsl(var(--md-sys-color-primary))]' : 'border-[hsl(var(--md-sys-color-outline-variant))] hover:border-[hsl(var(--md-sys-color-outline))]]'}`}>
                     {pkg.popular && (
                       <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 z-10">
-                        <Badge className="bg-gradient-to-r from-emerald-500 to-blue-500 text-white text-sm px-6 py-2 shadow-lg">
+                        <Badge className="bg-gradient-to-r from-[hsl(var(--md-sys-color-primary))] to-[hsl(var(--md-sys-color-secondary))] text-white md-label-medium px-6 py-2 md-elevation-2">
                           ⭐ Le plus populaire !
                         </Badge>
                       </div>
@@ -239,38 +237,38 @@ const Forfaits = () => {
                     <div className={`h-24 bg-gradient-to-br ${pkg.gradient} flex items-center justify-center relative overflow-hidden`}>
                       <div className="absolute inset-0 bg-black/10"></div>
                       <div className="relative z-10 text-center">
-                        <div className="text-white font-bold text-lg">{pkg.title}</div>
-                        <div className="text-white/80 text-sm">{pkg.subtitle}</div>
+                        <div className="text-white md-title-large font-bold">{pkg.title}</div>
+                        <div className="text-white/80 md-body-medium">{pkg.subtitle}</div>
                       </div>
                     </div>
                     
                     <CardHeader className="text-center pb-4 pt-6">
                       <div className="space-y-2">
-                        <div className="text-sm text-gray-600">
-                          À partir de <span className="font-bold text-2xl text-gray-900">{pkg.price} $</span>
+                        <div className="md-body-medium text-[hsl(var(--md-sys-color-on-surface-variant))]">
+                          À partir de <span className="md-headline-small text-[hsl(var(--md-sys-color-on-surface))]">{pkg.price} $</span>
                         </div>
                         {pkg.savings && (
-                          <Badge variant="outline" className="text-emerald-600 border-emerald-200 bg-emerald-50">
+                          <Badge variant="outline" className="text-[hsl(var(--md-sys-color-primary))] border-[hsl(var(--md-sys-color-outline))] bg-[hsl(var(--md-sys-color-primary-container))]">
                             {pkg.savings}
                           </Badge>
                         )}
-                        <p className="text-orange-600 font-semibold text-sm">{pkg.description}</p>
+                        <p className="text-[hsl(var(--md-sys-color-secondary))] md-title-small font-semibold">{pkg.description}</p>
                       </div>
                     </CardHeader>
                     
                     <CardContent className="space-y-6 pt-0">
                       <div className="text-center space-y-2">
-                        <div className="text-lg">
-                          <span className="font-bold text-2xl bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
+                        <div className="md-body-large">
+                          <span className="md-headline-small text-[hsl(var(--md-sys-color-on-surface))]">
                             {currentMeal?.price}$
                           </span>
-                          <span className="text-gray-600 text-sm ml-1">par repas</span>
+                          <span className="md-body-medium text-[hsl(var(--md-sys-color-on-surface-variant))] ml-1">par repas</span>
                         </div>
-                        <div className="text-sm text-gray-500">{currentMeal?.count}</div>
+                        <div className="md-body-small text-[hsl(var(--md-sys-color-on-surface-variant))]">{currentMeal?.count}</div>
                       </div>
                       
                       <Button 
-                        className={`w-full bg-gradient-to-r ${pkg.gradient} hover:shadow-lg hover:shadow-current/25 text-white font-semibold py-3 rounded-xl transition-all duration-300 group-hover:scale-[1.02]`}
+                        className={`w-full bg-gradient-to-r ${pkg.gradient} text-white md-label-large py-3 rounded-[var(--md-sys-shape-corner-large)] transition-all duration-300 group-hover:scale-[1.02] md-elevation-1`}
                         onClick={() => navigate('/order', { 
                           state: { 
                             skipToStep: 'date',
@@ -288,15 +286,15 @@ const Forfaits = () => {
                       </Button>
                       
                       <div className="space-y-2">
-                        <div className="flex items-center text-xs text-emerald-600">
+                        <div className="flex items-center md-body-small text-[hsl(var(--md-sys-color-primary))]">
                           <Check className="w-3 h-3 mr-2" />
                           <span>Livraison: 30$ de rabais</span>
                         </div>
-                        <div className="flex items-center text-xs text-emerald-600">
+                        <div className="flex items-center md-body-small text-[hsl(var(--md-sys-color-primary))]">
                           <Check className="w-3 h-3 mr-2" />
                           <span>En magasin: 30$ de rabais</span>
                         </div>
-                        <div className="flex items-center text-xs text-emerald-600">
+                        <div className="flex items-center md-body-small text-[hsl(var(--md-sys-color-primary))]">
                           <Check className="w-3 h-3 mr-2" />
                           <span>Expédition: 30$ de rabais</span>
                         </div>
@@ -311,28 +309,28 @@ const Forfaits = () => {
           {/* Enhanced Features Section */}
           <div className="max-w-5xl mx-auto">
             <div className="text-center mb-10 lg:mb-12">
-              <div className="inline-flex items-center px-4 py-2 bg-purple-100 text-purple-700 rounded-full font-medium text-sm mb-4">
-                <span className="w-2 h-2 bg-purple-500 rounded-full mr-2"></span>
+              <div className="inline-flex items-center px-4 py-2 bg-[hsl(var(--md-sys-color-tertiary-container))] text-[hsl(var(--md-sys-color-on-tertiary-container))] rounded-[var(--md-sys-shape-corner-full)] md-label-medium mb-4">
+                <span className="w-2 h-2 bg-[hsl(var(--md-sys-color-tertiary))] rounded-full mr-2"></span>
                 Pourquoi nous choisir
               </div>
-              <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4 bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
+              <h3 className="md-headline-large text-[hsl(var(--md-sys-color-on-surface))] mb-4">
                 Le choix de prêt-à-manger numéro 1 au pays
               </h3>
-              <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+              <p className="md-body-large text-[hsl(var(--md-sys-color-on-surface-variant))] max-w-3xl mx-auto">
                 Une expérience culinaire exceptionnelle qui transforme votre quotidien
               </p>
             </div>
             
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-6">
               {features.map((feature, index) => (
-                <div key={index} className="group text-center space-y-4 p-5 lg:p-6 bg-white rounded-2xl shadow-xl border border-gray-100 hover:shadow-2xl hover:scale-105 transition-all duration-500">
-                  <div className={`w-14 h-14 lg:w-16 lg:h-16 mx-auto bg-gradient-to-br ${feature.gradient} rounded-xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300`}>
+                <div key={index} className="group text-center space-y-4 p-5 lg:p-6 bg-[hsl(var(--md-sys-color-surface-container))] rounded-[var(--md-sys-shape-corner-extra-large)] md-elevation-1 border border-[hsl(var(--md-sys-color-outline-variant))] hover:md-elevation-3 hover:scale-105 transition-all duration-500">
+                  <div className={`w-14 h-14 lg:w-16 lg:h-16 mx-auto bg-gradient-to-br ${feature.gradient} rounded-[var(--md-sys-shape-corner-large)] flex items-center justify-center md-elevation-1 group-hover:scale-110 transition-transform duration-300`}>
                     <feature.icon className="w-6 h-6 lg:w-7 lg:h-7 text-white" />
                   </div>
-                  <h4 className="font-bold text-base lg:text-lg text-gray-900 group-hover:text-gray-700 transition-colors">
+                  <h4 className="md-title-medium text-[hsl(var(--md-sys-color-on-surface))] group-hover:text-[hsl(var(--md-sys-color-primary))] transition-colors">
                     {feature.title}
                   </h4>
-                  <p className="text-sm text-gray-600 leading-relaxed">
+                  <p className="md-body-medium text-[hsl(var(--md-sys-color-on-surface-variant))] leading-relaxed">
                     {feature.description}
                   </p>
                 </div>

@@ -35,20 +35,20 @@ const OrderCalendar = ({
     <div className="space-y-6 sm:space-y-8">
       {/* Header */}
       <div className="text-center">
-        <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold mb-2 sm:mb-4 text-slate-800">
+        <h2 className="md-headline-medium text-[hsl(var(--md-sys-color-on-surface))] mb-2 sm:mb-4">
           Choisissez votre date de livraison
         </h2>
-        <p className="text-sm sm:text-base text-gray-600">
+        <p className="md-body-large text-[hsl(var(--md-sys-color-on-surface-variant))]">
           Sélectionnez la date à laquelle vous souhaitez recevoir vos repas
         </p>
       </div>
 
       {/* Calendar Card */}
-      <Card className="max-w-2xl mx-auto shadow-xl bg-white/90 backdrop-blur-sm border-0">
+      <Card className="max-w-2xl mx-auto md-elevation-2 bg-[hsl(var(--md-sys-color-surface-container))] border-[hsl(var(--md-sys-color-outline-variant))] border">
         <CardContent className="p-4 sm:p-6 lg:p-8">
           <div className="flex items-center justify-center mb-4 sm:mb-6">
-            <CalendarIcon className="w-5 h-5 text-emerald-600 mr-2" />
-            <h3 className="text-lg sm:text-xl font-semibold text-slate-800">
+            <CalendarIcon className="w-5 h-5 text-[hsl(var(--md-sys-color-primary))] mr-2" />
+            <h3 className="md-title-large text-[hsl(var(--md-sys-color-on-surface))]">
               Calendrier des disponibilités
             </h3>
           </div>
@@ -107,12 +107,12 @@ const OrderCalendar = ({
 
           {/* Selected Date Info */}
           {selectedDate && (
-            <div className="mt-6 sm:mt-8 p-4 sm:p-6 bg-gradient-to-r from-emerald-50 to-blue-50 rounded-xl">
+            <div className="mt-6 sm:mt-8 p-4 sm:p-6 bg-[hsl(var(--md-sys-color-primary-container))] rounded-[var(--md-sys-shape-corner-large)]">
               <div className="text-center">
-                <h4 className="font-semibold text-slate-800 text-sm sm:text-base mb-2">
+                <h4 className="md-title-medium text-[hsl(var(--md-sys-color-on-primary-container))] mb-2">
                   Date sélectionnée
                 </h4>
-                <p className="text-emerald-700 font-medium text-sm sm:text-base">
+                <p className="md-body-large text-[hsl(var(--md-sys-color-on-primary-container))]">
                   {selectedDate.toLocaleDateString('fr-FR', { 
                     weekday: 'long', 
                     year: 'numeric', 
@@ -120,7 +120,7 @@ const OrderCalendar = ({
                     day: 'numeric' 
                   })}
                 </p>
-                <p className="text-gray-600 text-xs sm:text-sm mt-1">
+                <p className="md-body-medium text-[hsl(var(--md-sys-color-on-primary-container))] mt-1">
                   {getAvailableSlots(selectedDate)} créneaux disponibles
                 </p>
               </div>
@@ -130,13 +130,13 @@ const OrderCalendar = ({
       </Card>
 
       {/* Info Card */}
-      <Card className="max-w-2xl mx-auto bg-gradient-to-r from-blue-50 to-emerald-50 border-0">
+      <Card className="max-w-2xl mx-auto bg-[hsl(var(--md-sys-color-tertiary-container))] border-[hsl(var(--md-sys-color-outline-variant))] border">
         <CardContent className="p-4 sm:p-6">
           <div className="flex items-start space-x-3">
-            <AlertCircle className="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" />
-            <div className="text-sm sm:text-base text-blue-800">
-              <p className="font-medium mb-1">Informations importantes :</p>
-              <ul className="space-y-1 text-blue-700">
+            <AlertCircle className="w-5 h-5 text-[hsl(var(--md-sys-color-on-tertiary-container))] mt-0.5 flex-shrink-0" />
+            <div className="md-body-medium text-[hsl(var(--md-sys-color-on-tertiary-container))]">
+              <p className="md-title-medium mb-1">Informations importantes :</p>
+              <ul className="space-y-1">
                 <li>• Livraison gratuite à partir de 30€</li>
                 <li>• Commande possible jusqu'à 30 jours à l'avance</li>
                 <li>• Créneaux limités par jour selon notre capacité de production</li>
@@ -150,9 +150,9 @@ const OrderCalendar = ({
       {onBack && (
         <div className="flex justify-center pt-4 sm:pt-6">
           <Button
-            variant="outline"
+            variant="outlined"
+            size="lg"
             onClick={onBack}
-            className="border-2 border-gray-300 text-gray-700 hover:bg-gray-50 px-6 py-3 rounded-xl font-semibold"
           >
             <ArrowLeft className="w-4 h-4 mr-2" />
             Retour à l'objectif
