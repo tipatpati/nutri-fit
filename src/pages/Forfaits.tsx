@@ -38,7 +38,7 @@ const Forfaits = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-50 overflow-x-hidden">
+    <div className="min-h-screen bg-[hsl(var(--md-sys-color-surface))] overflow-x-hidden">
       <Header />
       
       {/* Enhanced Hero Section */}
