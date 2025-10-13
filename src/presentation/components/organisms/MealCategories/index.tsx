@@ -60,7 +60,7 @@ const MealCategories = () => {
                   {step.title}
                 </h3>
                 
-                <p className="md-body-medium text-on-surface-variant leading-relaxed">
+                <p className="md-body-medium text-neutral-500 leading-relaxed">
                   {step.description}
                 </p>
               </div>
