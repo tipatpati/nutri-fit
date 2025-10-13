@@ -97,7 +97,7 @@ const WeeklyPlanner = () => {
         </div>
 
         {/* Meals Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+        <div className="grid md:grid-cols-2 gap-6 mb-12 max-w-5xl mx-auto">
           {meals.map((meal) => {
             const colors = getGoalColor(selectedGoal);
             return (
