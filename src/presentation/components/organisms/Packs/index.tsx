@@ -8,13 +8,13 @@ import { Link } from "react-router-dom";
 const Packs = () => {
   const packs = [
     {
-      name: "Découverte",
-      mealsPerWeek: 5,
-      pricePerWeek: 45,
+      name: "Pack Express",
+      mealsPerWeek: 4,
+      pricePerWeek: 36,
       pricePerMeal: 9,
       popular: false,
       features: [
-        "5 repas équilibrés par semaine",
+        "4 repas équilibrés par semaine",
         "Livraison 1 fois par semaine",
         "Flexibilité de pause",
         "Menu personnalisable"
@@ -22,13 +22,28 @@ const Packs = () => {
       color: "from-emerald-500 to-green-500"
     },
     {
-      name: "Essentiel",
-      mealsPerWeek: 10,
-      pricePerWeek: 85,
+      name: "Pack 3 Day Performance",
+      mealsPerWeek: 6,
+      pricePerWeek: 51,
       pricePerMeal: 8.5,
+      popular: false,
+      features: [
+        "6 repas équilibrés par semaine",
+        "Livraison 2 fois par semaine",
+        "Flexibilité de pause",
+        "Menu personnalisable",
+        "Support prioritaire"
+      ],
+      color: "from-orange-500 to-red-500"
+    },
+    {
+      name: "Pack Semaine",
+      mealsPerWeek: 8,
+      pricePerWeek: 64,
+      pricePerMeal: 8,
       popular: true,
       features: [
-        "10 repas équilibrés par semaine",
+        "8 repas équilibrés par semaine",
         "Livraison 2 fois par semaine",
         "Flexibilité de pause",
         "Menu personnalisable",
@@ -37,35 +52,18 @@ const Packs = () => {
       color: "from-[hsl(var(--md-sys-color-secondary))] to-[hsl(var(--md-sys-color-tertiary))]"
     },
     {
-      name: "Performance",
-      mealsPerWeek: 14,
-      pricePerWeek: 112,
-      pricePerMeal: 8,
+      name: "Pack Objectif",
+      mealsPerWeek: 10,
+      pricePerWeek: 75,
+      pricePerMeal: 7.5,
       popular: false,
       features: [
-        "14 repas équilibrés par semaine",
+        "10 repas équilibrés par semaine",
         "Livraison 2 fois par semaine",
         "Flexibilité de pause",
         "Menu personnalisable",
         "Support prioritaire",
         "Consultation nutritionniste"
-      ],
-      color: "from-orange-500 to-red-500"
-    },
-    {
-      name: "Athlète",
-      mealsPerWeek: 21,
-      pricePerWeek: 147,
-      pricePerMeal: 7,
-      popular: false,
-      features: [
-        "21 repas équilibrés par semaine",
-        "Livraison 3 fois par semaine",
-        "Flexibilité de pause",
-        "Menu personnalisable",
-        "Support prioritaire",
-        "Consultation nutritionniste",
-        "Suivi personnalisé"
       ],
       color: "from-purple-500 to-pink-500"
     }
