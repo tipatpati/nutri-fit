@@ -4,70 +4,20 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Icon } from "@/components/ui/icon";
 import { Link } from "react-router-dom";
+import { useSubscriptionPlans } from "@/hooks/useSubscriptionPlans";
 
 const Packs = () => {
-  const packs = [
-    {
-      name: "Pack Express",
-      mealsPerWeek: 4,
-      pricePerWeek: 36,
-      pricePerMeal: 9,
-      popular: false,
-      features: [
-        "4 repas équilibrés par semaine",
-        "Livraison 1 fois par semaine",
-        "Flexibilité de pause",
-        "Menu personnalisable"
-      ],
-      color: "from-emerald-500 to-green-500"
-    },
-    {
-      name: "Pack 3 Day Performance",
-      mealsPerWeek: 6,
-      pricePerWeek: 51,
-      pricePerMeal: 8.5,
-      popular: false,
-      features: [
-        "6 repas équilibrés par semaine",
-        "Livraison 2 fois par semaine",
-        "Flexibilité de pause",
-        "Menu personnalisable",
-        "Support prioritaire"
-      ],
-      color: "from-orange-500 to-red-500"
-    },
-    {
-      name: "Pack Semaine",
-      mealsPerWeek: 8,
-      pricePerWeek: 64,
-      pricePerMeal: 8,
-      popular: true,
-      features: [
-        "8 repas équilibrés par semaine",
-        "Livraison 2 fois par semaine",
-        "Flexibilité de pause",
-        "Menu personnalisable",
-        "Support prioritaire"
-      ],
-      color: "from-[hsl(var(--md-sys-color-secondary))] to-[hsl(var(--md-sys-color-tertiary))]"
-    },
-    {
-      name: "Pack Objectif",
-      mealsPerWeek: 10,
-      pricePerWeek: 75,
-      pricePerMeal: 7.5,
-      popular: false,
-      features: [
-        "10 repas équilibrés par semaine",
-        "Livraison 2 fois par semaine",
-        "Flexibilité de pause",
-        "Menu personnalisable",
-        "Support prioritaire",
-        "Consultation nutritionniste"
-      ],
-      color: "from-purple-500 to-pink-500"
-    }
-  ];
+  const { data: plans = [], isLoading } = useSubscriptionPlans();
+
+  if (isLoading) {
+    return (
+      <section className="py-24 lg:py-32 bg-[hsl(var(--md-sys-color-surface))]">
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+          <div className="text-center">Chargement des packs...</div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="py-24 lg:py-32 bg-[hsl(var(--md-sys-color-surface))]">
@@ -88,74 +38,91 @@ const Packs = () => {
 
         {/* Packs Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-          {packs.map((pack, index) => (
-            <Card 
-              key={index}
-              className={`relative overflow-hidden transition-all duration-300 hover:md-elevation-4 ${
-                pack.popular ? 'border-2 border-[hsl(var(--md-sys-color-primary))] md-elevation-2' : 'border border-[hsl(var(--md-sys-color-outline-variant))]'
-              }`}
-            >
-              {pack.popular && (
-                <div className="absolute top-0 right-0 left-0 h-1 bg-gradient-to-r from-[hsl(var(--md-sys-color-primary))] to-[hsl(var(--md-sys-color-tertiary))]" />
-              )}
-              
-              <CardHeader className="space-y-4 pb-6">
-                {pack.popular && (
-                  <Badge className="w-fit bg-gradient-to-r from-[hsl(var(--md-sys-color-primary))] to-[hsl(var(--md-sys-color-tertiary))] text-white border-0">
-                    Plus populaire
-                  </Badge>
+          {plans.map((plan, index) => {
+            const features = Array.isArray(plan.features) ? plan.features : [];
+            const colorClasses = [
+              "from-emerald-500 to-green-500",
+              "from-orange-500 to-red-500",
+              "from-[hsl(var(--md-sys-color-secondary))] to-[hsl(var(--md-sys-color-tertiary))]",
+              "from-purple-500 to-pink-500"
+            ];
+            const color = colorClasses[index % colorClasses.length];
+
+            return (
+              <Card 
+                key={plan.id}
+                className={`relative overflow-hidden transition-all duration-300 hover:md-elevation-4 ${
+                  plan.promoted ? 'border-2 border-[hsl(var(--md-sys-color-primary))] md-elevation-2' : 'border border-[hsl(var(--md-sys-color-outline-variant))]'
+                }`}
+              >
+                {plan.promoted && (
+                  <div className="absolute top-0 right-0 left-0 h-1 bg-gradient-to-r from-[hsl(var(--md-sys-color-primary))] to-[hsl(var(--md-sys-color-tertiary))]" />
                 )}
                 
-                <div>
-                  <CardTitle className="md-headline-medium text-[hsl(var(--md-sys-color-on-surface))] mb-2">
-                    {pack.name}
-                  </CardTitle>
-                  <div className="flex items-baseline gap-2">
-                    <span className="text-4xl font-bold text-[hsl(var(--md-sys-color-on-surface))]">
-                      {pack.pricePerWeek}€
-                    </span>
-                    <span className="md-body-small text-neutral-500">/semaine</span>
-                  </div>
-                  <p className="md-body-small text-neutral-500 mt-1">
-                    {pack.pricePerMeal}€ par repas
-                  </p>
-                </div>
-
-                <div className={`inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r ${pack.color} rounded-[var(--md-sys-shape-corner-full)] text-white`}>
-                  <Icon name="shaker-bottle" size={16} className="brightness-0 invert" />
-                  <span className="md-label-medium">{pack.mealsPerWeek} repas/semaine</span>
-                </div>
-              </CardHeader>
-
-              <CardContent className="space-y-6">
-                <div className="space-y-3">
-                  {pack.features.map((feature, idx) => (
-                    <div key={idx} className="flex items-start gap-3">
-                      <div className="mt-0.5 flex-shrink-0">
-                        <Check className="w-5 h-5 text-[hsl(var(--md-sys-color-primary))]" />
-                      </div>
-                      <span className="md-body-small text-neutral-500">
-                        {feature}
+                <CardHeader className="space-y-4 pb-6">
+                  {plan.promoted && (
+                    <Badge className="w-fit bg-gradient-to-r from-[hsl(var(--md-sys-color-primary))] to-[hsl(var(--md-sys-color-tertiary))] text-white border-0">
+                      Plus populaire
+                    </Badge>
+                  )}
+                  
+                  <div>
+                    <CardTitle className="md-headline-medium text-[hsl(var(--md-sys-color-on-surface))] mb-2">
+                      {plan.name}
+                    </CardTitle>
+                    <div className="flex items-baseline gap-2">
+                      <span className="text-4xl font-bold text-[hsl(var(--md-sys-color-on-surface))]">
+                        {plan.price_per_week}€
                       </span>
+                      <span className="md-body-small text-neutral-500">/semaine</span>
                     </div>
-                  ))}
-                </div>
+                    <p className="md-body-small text-neutral-500 mt-1">
+                      {plan.price_per_meal}€ par repas
+                    </p>
+                  </div>
 
-                <Link to="/forfaits" className="block">
-                  <Button 
-                    className={`w-full ${
-                      pack.popular 
-                        ? 'bg-gradient-to-r from-[hsl(var(--md-sys-color-primary))] to-[hsl(var(--md-sys-color-tertiary))] hover:opacity-90 text-white' 
-                        : ''
-                    }`}
-                    variant={pack.popular ? "default" : "outlined"}
-                  >
-                    Choisir ce pack
-                  </Button>
-                </Link>
-              </CardContent>
-            </Card>
-          ))}
+                  <div className={`inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r ${color} rounded-[var(--md-sys-shape-corner-full)] text-white`}>
+                    <Icon name="shaker-bottle" size={16} className="brightness-0 invert" />
+                    <span className="md-label-medium">{plan.meals_per_week} repas/semaine</span>
+                  </div>
+                </CardHeader>
+
+                <CardContent className="space-y-6">
+                  {plan.description && (
+                    <p className="md-body-small text-neutral-500 mb-4">
+                      {plan.description}
+                    </p>
+                  )}
+                  
+                  <div className="space-y-3">
+                    {features.map((feature: any, idx: number) => (
+                      <div key={idx} className="flex items-start gap-3">
+                        <div className="mt-0.5 flex-shrink-0">
+                          <Check className="w-5 h-5 text-[hsl(var(--md-sys-color-primary))]" />
+                        </div>
+                        <span className="md-body-small text-neutral-500">
+                          {typeof feature === 'string' ? feature : feature.name || ''}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+
+                  <Link to="/forfaits" className="block">
+                    <Button 
+                      className={`w-full ${
+                        plan.promoted 
+                          ? 'bg-gradient-to-r from-[hsl(var(--md-sys-color-primary))] to-[hsl(var(--md-sys-color-tertiary))] hover:opacity-90 text-white' 
+                          : ''
+                      }`}
+                      variant={plan.promoted ? "default" : "outlined"}
+                    >
+                      Choisir ce pack
+                    </Button>
+                  </Link>
+                </CardContent>
+              </Card>
+            );
+          })}
         </div>
 
         {/* Additional Info */}
