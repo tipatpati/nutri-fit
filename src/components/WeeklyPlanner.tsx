@@ -1,19 +1,39 @@
 
 import { useState, useMemo } from "react";
 import { Button } from "./ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
+import { Card, CardContent } from "./ui/card";
 import { Badge } from "./ui/badge";
-import { Calendar, Star, TrendingUp } from "lucide-react";
+import { Calendar, Star, TrendingUp, X } from "lucide-react";
 import { Icon } from "./ui/icon";
 import { useMeals } from "@/presentation/hooks/useMeals";
+import { useKitchenCapacity } from "@/hooks/useKitchenCapacity";
+import { format, addDays, startOfDay } from "date-fns";
+import { fr } from "date-fns/locale";
 
 const WeeklyPlanner = () => {
   const [selectedSize, setSelectedSize] = useState("regular");
-  const { data: meals = [], isLoading } = useMeals({ active: true });
+  const { data: meals = [], isLoading: mealsLoading } = useMeals({ active: true });
   
-  const days = ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'];
+  // Generate next 7 days with actual dates
+  const weekDays = useMemo(() => {
+    const today = startOfDay(new Date());
+    return Array.from({ length: 7 }, (_, i) => {
+      const date = addDays(today, i + 1); // Start from tomorrow
+      return {
+        date,
+        dayName: format(date, 'EEE', { locale: fr }),
+        dayNumber: format(date, 'd'),
+        monthName: format(date, 'MMM', { locale: fr }),
+        fullDate: format(date, 'yyyy-MM-dd')
+      };
+    });
+  }, []);
 
-  // Create week meals from database
+  const startDate = weekDays[0]?.date || new Date();
+  const endDate = weekDays[weekDays.length - 1]?.date || new Date();
+  const { data: capacityData = [], isLoading: capacityLoading } = useKitchenCapacity(startDate, endDate);
+
+  // Create week meals with availability check
   const weekMeals = useMemo(() => {
     if (!meals.length) return [];
     
@@ -25,7 +45,11 @@ const WeeklyPlanner = () => {
       return 'apple' as const;
     };
 
-    return days.map((day, index) => {
+    return weekDays.map((day, index) => {
+      // Check if this date has available capacity
+      const dayCapacity = capacityData.find(c => c.date === day.fullDate);
+      const isAvailable = dayCapacity ? dayCapacity.availableSlots > 0 : false;
+
       const dayMeals = categories.slice(0, 2).map((category, catIndex) => {
         const categoryMeals = meals.filter(m => m.category === category && m.active);
         const meal = categoryMeals[(index + catIndex) % categoryMeals.length] || categoryMeals[0];
@@ -42,11 +66,12 @@ const WeeklyPlanner = () => {
       }).filter(Boolean);
 
       return {
-        day,
-        meals: dayMeals
+        ...day,
+        meals: dayMeals,
+        isAvailable
       };
     });
-  }, [meals]);
+  }, [meals, weekDays, capacityData]);
 
   const getTypeColor = (type: string) => {
     switch (type) {
@@ -57,7 +82,7 @@ const WeeklyPlanner = () => {
     }
   };
 
-  if (isLoading) {
+  if (mealsLoading || capacityLoading) {
     return (
       <section className="py-20 lg:py-28 bg-slate-50">
         <div className="max-w-5xl mx-auto px-6 sm:px-8 lg:px-12">
@@ -127,59 +152,87 @@ const WeeklyPlanner = () => {
         {/* Weekly Meal Grid */}
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-3 lg:gap-4 mb-12">
           {weekMeals.map((day, index) => (
-            <div key={index} className="group">
+            <div key={index} className={`group ${!day.isAvailable ? 'opacity-40' : ''}`}>
               {/* Day Header */}
               <div className="text-center mb-3">
-                <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-br from-orange-500 to-amber-500 shadow-md mb-2 group-hover:scale-110 transition-transform">
-                  <span className="text-white font-bold text-sm">{day.day}</span>
+                <div className={`inline-flex flex-col items-center justify-center w-16 h-16 rounded-full shadow-md mb-2 transition-transform ${
+                  day.isAvailable 
+                    ? 'bg-gradient-to-br from-orange-500 to-amber-500 group-hover:scale-110' 
+                    : 'bg-gradient-to-br from-slate-300 to-slate-400 relative'
+                }`}>
+                  {day.isAvailable ? (
+                    <>
+                      <span className="text-white font-bold text-xs">{day.dayName}</span>
+                      <span className="text-white font-bold text-lg">{day.dayNumber}</span>
+                      <span className="text-white text-[10px] opacity-90">{day.monthName}</span>
+                    </>
+                  ) : (
+                    <>
+                      <X className="w-6 h-6 text-white absolute" />
+                      <span className="text-white text-[10px] mt-6 opacity-75">Complet</span>
+                    </>
+                  )}
                 </div>
               </div>
 
-              {/* Meals */}
-              <div className="space-y-3">
-                {day.meals.map((meal, mealIndex) => {
-                  const colors = getTypeColor(meal.type);
-                  return (
-                    <Card 
-                      key={mealIndex}
-                      className="group/meal hover:shadow-xl transition-all duration-300 border-2 border-md-outline-variant hover:border-md-primary cursor-pointer overflow-hidden bg-white"
-                    >
-                      <CardContent className="p-4">
-                        <div className="flex flex-col items-center text-center space-y-3">
-                          {/* Icon */}
-                          <div className="w-14 h-14 rounded-full bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center group-hover/meal:scale-110 transition-transform">
-                            <Icon name={meal.icon} size={32} />
-                          </div>
-                          
-                          {/* Meal Name */}
-                          <h5 className="font-bold text-xs leading-tight text-md-on-surface line-clamp-2 min-h-[2.5rem]">
-                            {meal.name}
-                          </h5>
-                          
-                          {/* Stats */}
-                          <div className="w-full space-y-2">
-                            <div className="flex items-center justify-center gap-2">
-                              <Star className="w-3 h-3 fill-yellow-400 text-yellow-400" />
-                              <span className="text-xs font-semibold text-md-on-surface-variant">{meal.rating}</span>
+              {/* Meals or Blank */}
+              {day.isAvailable ? (
+                <div className="space-y-3">
+                  {day.meals.map((meal, mealIndex) => {
+                    const colors = getTypeColor(meal.type);
+                    return (
+                      <Card 
+                        key={mealIndex}
+                        className="group/meal hover:shadow-xl transition-all duration-300 border-2 border-md-outline-variant hover:border-md-primary cursor-pointer overflow-hidden bg-white"
+                      >
+                        <CardContent className="p-4">
+                          <div className="flex flex-col items-center text-center space-y-3">
+                            {/* Icon */}
+                            <div className="w-14 h-14 rounded-full bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center group-hover/meal:scale-110 transition-transform">
+                              <Icon name={meal.icon} size={32} />
                             </div>
                             
-                            <div className="text-xs font-bold text-md-primary">
-                              {meal.calories} cal
+                            {/* Meal Name */}
+                            <h5 className="font-bold text-xs leading-tight text-md-on-surface line-clamp-2 min-h-[2.5rem]">
+                              {meal.name}
+                            </h5>
+                            
+                            {/* Stats */}
+                            <div className="w-full space-y-2">
+                              <div className="flex items-center justify-center gap-2">
+                                <Star className="w-3 h-3 fill-yellow-400 text-yellow-400" />
+                                <span className="text-xs font-semibold text-md-on-surface-variant">{meal.rating}</span>
+                              </div>
+                              
+                              <div className="text-xs font-bold text-md-primary">
+                                {meal.calories} cal
+                              </div>
                             </div>
+                            
+                            {/* Category Badge */}
+                            <Badge 
+                              className={`${colors.bg} ${colors.text} text-[10px] px-2 py-0.5 font-semibold w-full justify-center`}
+                            >
+                              {meal.type}
+                            </Badge>
                           </div>
-                          
-                          {/* Category Badge */}
-                          <Badge 
-                            className={`${colors.bg} ${colors.text} text-[10px] px-2 py-0.5 font-semibold w-full justify-center`}
-                          >
-                            {meal.type}
-                          </Badge>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  );
-                })}
-              </div>
+                        </CardContent>
+                      </Card>
+                    );
+                  })}
+                </div>
+              ) : (
+                <div className="space-y-3">
+                  <Card className="border-2 border-dashed border-slate-300 bg-slate-50">
+                    <CardContent className="p-4">
+                      <div className="flex flex-col items-center justify-center h-32 text-center">
+                        <X className="w-8 h-8 text-slate-400 mb-2" />
+                        <p className="text-xs text-slate-500 font-medium">Aucune disponibilité</p>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+              )}
             </div>
           ))}
         </div>
