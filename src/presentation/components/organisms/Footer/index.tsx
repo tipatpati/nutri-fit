@@ -8,7 +8,7 @@ import { footerSections } from "@/shared/data/footerData";
 
 const Footer = () => {
   return (
-    <footer className="relative bg-gradient-to-b from-md-surface-container-low to-md-surface-container text-md-on-surface">
+    <footer className="relative bg-gradient-to-b from-md-primary to-md-primary/95 text-md-on-primary">
       {/* Decorative Wave Header */}
       <FooterDecorator />
 

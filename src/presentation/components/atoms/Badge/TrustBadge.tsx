@@ -20,7 +20,7 @@ export const TrustBadge = ({ icon: Icon, iconComponent, label, iconColor = "text
           <Icon className={`w-5 h-5 ${iconColor}`} size={20} />
         ) : null}
       </div>
-      <p className="text-xs font-medium text-gray-300">{label}</p>
+      <p className="text-xs font-medium text-white/90">{label}</p>
     </div>
   );
 };
