@@ -43,15 +43,25 @@ const ResetPassword = () => {
 
   useEffect(() => {
     const checkRecoveryToken = async () => {
+      console.log('[ResetPassword] Component mounted, checking for recovery token');
+      console.log('[ResetPassword] Current URL:', window.location.href);
+      console.log('[ResetPassword] Hash:', window.location.hash);
+      
       const hashParams = new URLSearchParams(window.location.hash.substring(1));
       const accessToken = hashParams.get('access_token');
       const type = hashParams.get('type');
       
+      console.log('[ResetPassword] Access token present?', !!accessToken);
+      console.log('[ResetPassword] Type:', type);
+      
       if (accessToken && type === 'recovery') {
+        console.log('[ResetPassword] Valid recovery token found, signing out existing session');
         // Sign out any existing session before showing password reset form
         await supabase.auth.signOut();
+        console.log('[ResetPassword] Signed out, showing password reset form');
         setValidToken(true);
       } else {
+        console.log('[ResetPassword] No recovery token, showing email request form');
         // No token means user navigated directly - show email request form
         setValidToken(false);
       }

@@ -22,8 +22,11 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     // Set up auth state listener
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       (event, session) => {
+        console.log('[AuthProvider] Auth state changed:', event, 'Has session:', !!session);
+        
         // Skip automatic session for PASSWORD_RECOVERY - let ResetPassword page handle it
         if (event === 'PASSWORD_RECOVERY') {
+          console.log('[AuthProvider] PASSWORD_RECOVERY event - skipping automatic session');
           setLoading(false);
           return;
         }
@@ -32,11 +35,13 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         setLoading(false);
         
         if (event === 'SIGNED_OUT') {
+          console.log('[AuthProvider] User signed out');
           signOut();
         }
         
         // Clean hash only for normal sign-ins
         if (event === 'SIGNED_IN' || event === 'USER_UPDATED') {
+          console.log('[AuthProvider] Cleaning auth hash for:', event);
           setTimeout(() => cleanAuthHash(), 0);
         }
       }

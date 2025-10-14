@@ -18,8 +18,11 @@ export const useAuth = () => {
     // Set up auth state listener
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       (event, session) => {
+        console.log('[useAuth] Auth state changed:', event, 'Has session:', !!session);
+        
         // Skip automatic session for PASSWORD_RECOVERY - let ResetPassword page handle it
         if (event === 'PASSWORD_RECOVERY') {
+          console.log('[useAuth] PASSWORD_RECOVERY event - skipping automatic session');
           setLoading(false);
           return;
         }
@@ -28,11 +31,13 @@ export const useAuth = () => {
         setLoading(false);
         
         if (event === 'SIGNED_OUT') {
+          console.log('[useAuth] User signed out');
           storeSignOut();
         }
         
         // Clean hash only for normal sign-ins
         if (event === 'SIGNED_IN' || event === 'USER_UPDATED') {
+          console.log('[useAuth] Cleaning auth hash for:', event);
           setTimeout(() => cleanAuthHash(), 0);
         }
       }
