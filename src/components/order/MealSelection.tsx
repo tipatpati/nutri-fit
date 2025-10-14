@@ -26,7 +26,7 @@ interface SelectedMeal {
 }
 
 interface MealSelectionProps {
-  selectedDate: Date;
+  selectedDate?: Date | undefined;
   selectedMeals: SelectedMeal[];
   onMealSelect: (meal: Meal, quantity: number) => void;
   availableSlots: number;
@@ -73,6 +73,11 @@ const MealSelection = ({
 
 
   const getMealQuantity = (mealId: string) => {
+    if (!selectedDate) {
+      // When no date is selected, check meals without date filter
+      const selectedMeal = selectedMeals.find(m => m.id === mealId);
+      return selectedMeal?.quantity || 0;
+    }
     const dateStr = selectedDate.toISOString().split('T')[0];
     const selectedMeal = selectedMeals.find(m => m.id === mealId && m.date === dateStr);
     return selectedMeal?.quantity || 0;
@@ -92,14 +97,20 @@ const MealSelection = ({
         <h2 className="md-headline-medium mb-md-3 text-md-on-surface">
           Sélectionnez vos repas
         </h2>
-        <p className="md-body-large text-md-on-surface-variant mb-md-5 capitalize">
-          {selectedDate.toLocaleDateString('fr-FR', { 
-            weekday: 'long', 
-            day: 'numeric',
-            month: 'long',
-            year: 'numeric'
-          })}
-        </p>
+        {selectedDate ? (
+          <p className="md-body-large text-md-on-surface-variant mb-md-5 capitalize">
+            {selectedDate.toLocaleDateString('fr-FR', { 
+              weekday: 'long', 
+              day: 'numeric',
+              month: 'long',
+              year: 'numeric'
+            })}
+          </p>
+        ) : (
+          <p className="md-body-large text-md-on-surface-variant mb-md-5">
+            Choisissez les repas que vous souhaitez commander
+          </p>
+        )}
         
         {/* Capacity indicator */}
         <div className="bg-md-primary-container p-md-4 sm:p-md-5 rounded-md-lg max-w-md mx-auto md-elevation-1 border border-md-outline-variant">

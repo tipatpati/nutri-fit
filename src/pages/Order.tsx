@@ -7,8 +7,9 @@ import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import GoalSelection from "@/components/order/GoalSelection";
-import OrderCalendar from "@/components/order/OrderCalendar";
+import PackSelection from "@/components/order/PackSelection";
 import MealSelection from "@/components/order/MealSelection";
+import OrderCalendar from "@/components/order/OrderCalendar";
 import OrderSummary from "@/components/order/OrderSummary";
 
 interface SelectedMeal {
@@ -24,16 +25,16 @@ interface SelectedMeal {
 const Order = () => {
   const location = useLocation();
   const [selectedGoal, setSelectedGoal] = useState<string | null>(null);
-  const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined);
-  const [selectedMeals, setSelectedMeals] = useState<SelectedMeal[]>([]);
-  const [currentStep, setCurrentStep] = useState<'goal' | 'date' | 'meals' | 'summary'>('goal');
   const [selectedPackage, setSelectedPackage] = useState<any>(null);
+  const [selectedMeals, setSelectedMeals] = useState<SelectedMeal[]>([]);
+  const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined);
+  const [currentStep, setCurrentStep] = useState<'goal' | 'packs' | 'meals' | 'date' | 'summary'>('goal');
 
   // Handle navigation from forfaits page
   useEffect(() => {
-    if (location.state?.skipToStep === 'date') {
-      setCurrentStep('date');
-      // Set a default goal when skipping to date step from forfaits
+    if (location.state?.skipToStep === 'packs') {
+      setCurrentStep('packs');
+      // Set a default goal when skipping to packs step from forfaits
       setSelectedGoal('balanced');
       // Store package information if coming from forfaits
       if (location.state?.packageInfo) {
@@ -82,28 +83,42 @@ const Order = () => {
     setSelectedGoal(goal);
     // Auto-advance to next step with smooth transition
     setTimeout(() => {
-      setCurrentStep('date');
+      setCurrentStep('packs');
     }, 600);
   };
 
   const handleGoalProceed = () => {
-    setCurrentStep('date');
+    setCurrentStep('packs');
+  };
+
+  const handlePackageSelect = (pack: any) => {
+    setSelectedPackage(pack);
+    // Auto-advance to next step with smooth transition
+    setTimeout(() => {
+      setCurrentStep('meals');
+    }, 600);
   };
 
   const handleDateSelect = (date: Date | undefined) => {
-    setSelectedDate(date);
     if (date && isDateAvailable(date)) {
-      setCurrentStep('meals');
+      // Assign the selected date to all pending meals
+      const dateStr = date.toISOString().split('T')[0];
+      const updatedMeals = selectedMeals.map(meal => 
+        meal.date === 'pending' ? { ...meal, date: dateStr } : meal
+      );
+      setSelectedMeals(updatedMeals);
+      setSelectedDate(date);
+      
+      // Auto-advance to summary
+      setTimeout(() => {
+        setCurrentStep('summary');
+      }, 600);
     }
   };
 
   const handleMealSelect = (meal: any, quantity: number) => {
-    if (!selectedDate) return;
-
-    const dateStr = selectedDate.toISOString().split('T')[0];
-    const currentTotal = getTotalMealsForDate(selectedDate);
-    const packLimit = getPackMealLimit();
-    const maxLimit = packLimit || getAvailableSlots(selectedDate);
+    // When no date is selected yet, store meals without date
+    const dateStr = selectedDate ? selectedDate.toISOString().split('T')[0] : 'pending';
     
     const existingMealIndex = selectedMeals.findIndex(
       m => m.id === meal.id && m.date === dateStr
@@ -114,11 +129,6 @@ const Order = () => {
       const currentQuantity = selectedMeals[existingMealIndex].quantity;
       const quantityDifference = quantity - currentQuantity;
       
-      // Check if the new total would exceed the limit
-      if (currentTotal + quantityDifference > maxLimit && quantity > currentQuantity) {
-        return; // Don't allow if it would exceed the limit
-      }
-      
       const updated = [...selectedMeals];
       if (quantity === 0) {
         updated.splice(existingMealIndex, 1);
@@ -127,11 +137,6 @@ const Order = () => {
       }
       setSelectedMeals(updated);
     } else if (quantity > 0) {
-      // Check if adding this meal would exceed the limit
-      if (currentTotal + quantity > maxLimit) {
-        return; // Don't allow if it would exceed the limit
-      }
-      
       setSelectedMeals([...selectedMeals, {
         ...meal,
         date: dateStr,
@@ -140,29 +145,40 @@ const Order = () => {
     }
   };
 
-  const getTotalMealsForDate = (date: Date) => {
+  const getTotalMealsForDate = (date: Date | undefined) => {
+    if (!date) {
+      // When no date selected, count all pending meals
+      return selectedMeals
+        .filter(meal => meal.date === 'pending')
+        .reduce((total, meal) => total + meal.quantity, 0);
+    }
     const dateStr = date.toISOString().split('T')[0];
     return selectedMeals
       .filter(meal => meal.date === dateStr)
       .reduce((total, meal) => total + meal.quantity, 0);
   };
 
-  const handleProceedToSummary = () => {
-    setCurrentStep('summary');
+  const handleProceedToDate = () => {
+    setCurrentStep('date');
+  };
+
+  const handleBackToDate = () => {
+    setCurrentStep('date');
   };
 
   const handleBackToMeals = () => {
     setCurrentStep('meals');
+    setSelectedDate(undefined);
   };
 
-  const handleBackToCalendar = () => {
-    setCurrentStep('date');
-    setSelectedDate(undefined);
+  const handleBackToPacks = () => {
+    setCurrentStep('packs');
+    setSelectedMeals([]);
   };
 
   const handleBackToGoal = () => {
     setCurrentStep('goal');
-    setSelectedGoal(null);
+    setSelectedPackage(null);
   };
 
   return (
@@ -182,12 +198,13 @@ const Order = () => {
 
         {/* Step Indicator */}
         <div className="flex justify-center mb-10 lg:mb-12">
-          <div className="flex items-center gap-2 sm:gap-3 lg:gap-5">
+          <div className="flex items-center gap-2 sm:gap-3 lg:gap-4">
             {[
               { step: 'goal', label: 'Objectif', number: 1 },
-              { step: 'date', label: 'Date', number: 2 },
+              { step: 'packs', label: 'Pack', number: 2 },
               { step: 'meals', label: 'Repas', number: 3 },
-              { step: 'summary', label: 'Résumé', number: 4 }
+              { step: 'date', label: 'Date', number: 4 },
+              { step: 'summary', label: 'Résumé', number: 5 }
             ].map((item, index) => (
               <div key={item.step} className="flex items-center">
                 <div className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-semibold transition-all duration-md-medium2 ${
@@ -204,8 +221,8 @@ const Order = () => {
                 }`}>
                   {item.label}
                 </span>
-                {index < 3 && (
-                  <div className="hidden lg:block w-10 h-0.5 bg-md-outline-variant ml-2.5"></div>
+                {index < 4 && (
+                  <div className="hidden lg:block w-8 h-0.5 bg-md-outline-variant ml-2.5"></div>
                 )}
               </div>
             ))}
@@ -223,34 +240,41 @@ const Order = () => {
               />
             )}
 
+            {currentStep === 'packs' && (
+              <PackSelection
+                selectedPackage={selectedPackage}
+                onPackageSelect={handlePackageSelect}
+              />
+            )}
+
+            {currentStep === 'meals' && (
+              <MealSelection
+                selectedDate={selectedDate}
+                selectedMeals={selectedMeals}
+                onMealSelect={handleMealSelect}
+                availableSlots={getPackMealLimit() || 50}
+                totalMealsForDate={getTotalMealsForDate(undefined)}
+                packLimit={getPackMealLimit()}
+                selectedPackage={selectedPackage}
+                onProceed={handleProceedToDate}
+                onBack={handleBackToPacks}
+              />
+            )}
+
             {currentStep === 'date' && (
               <OrderCalendar
                 selectedDate={selectedDate}
                 onDateSelect={handleDateSelect}
                 isDateAvailable={isDateAvailable}
                 getAvailableSlots={getAvailableSlots}
-                onBack={handleBackToGoal}
-              />
-            )}
-
-            {currentStep === 'meals' && selectedDate && (
-              <MealSelection
-                selectedDate={selectedDate}
-                selectedMeals={selectedMeals}
-                onMealSelect={handleMealSelect}
-                availableSlots={getPackMealLimit() || getAvailableSlots(selectedDate)}
-                totalMealsForDate={getTotalMealsForDate(selectedDate)}
-                packLimit={getPackMealLimit()}
-                selectedPackage={selectedPackage}
-                onProceed={handleProceedToSummary}
-                onBack={handleBackToCalendar}
+                onBack={handleBackToMeals}
               />
             )}
 
             {currentStep === 'summary' && (
               <OrderSummary
                 selectedMeals={selectedMeals}
-                onBack={handleBackToMeals}
+                onBack={handleBackToDate}
                 onConfirm={() => console.log('Order confirmed')}
               />
             )}
@@ -265,7 +289,7 @@ const Order = () => {
 
 // Helper function to determine step status
 const getStepStatus = (currentStep: string, targetStep: string) => {
-  const steps = ['goal', 'date', 'meals', 'summary'];
+  const steps = ['goal', 'packs', 'meals', 'date', 'summary'];
   const currentIndex = steps.indexOf(currentStep);
   const targetIndex = steps.indexOf(targetStep);
   return targetIndex < currentIndex;
