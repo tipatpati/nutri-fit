@@ -5,26 +5,21 @@ import { Dumbbell } from "lucide-react";
 
 export const FooterBrand = () => {
   return (
-    <div className="space-y-md-6">
-      <div className="flex items-center gap-md-3">
-        <div className="w-12 h-12 bg-gradient-to-br from-md-tertiary to-md-secondary rounded-md-lg flex items-center justify-center md-elevation-2">
-          <Dumbbell className="w-6 h-6 text-white" />
+    <div className="space-y-md-4">
+      <div className="flex items-center gap-md-2">
+        <div className="w-8 h-8 bg-gradient-to-br from-md-tertiary to-md-secondary rounded-md flex items-center justify-center">
+          <Dumbbell className="w-4 h-4 text-white" />
         </div>
-        <h3 className="md-headline-medium text-white font-bold">
+        <h3 className="md-title-large text-white font-bold">
           {brandInfo.name}
         </h3>
       </div>
       
-      <p className="md-body-medium text-white/90 leading-relaxed">
+      <p className="md-body-small text-white/80 leading-relaxed max-w-xs">
         {brandInfo.tagline}
       </p>
 
-      <FooterTrustBadges />
-
-      <div>
-        <h4 className="md-label-small text-md-on-surface-variant mb-md-3">Suivez-nous</h4>
-        <FooterSocial />
-      </div>
+      <FooterSocial />
     </div>
   );
 };

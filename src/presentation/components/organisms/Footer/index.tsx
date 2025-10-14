@@ -8,15 +8,12 @@ import { footerSections } from "@/shared/data/footerData";
 
 const Footer = () => {
   return (
-    <footer className="relative bg-gradient-to-b from-md-primary to-md-primary/95 text-md-on-primary">
-      {/* Decorative Wave Header */}
-      <FooterDecorator />
-
+    <footer className="relative bg-md-primary text-md-on-primary">
       {/* Main Footer Content */}
-      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-md-12 lg:py-md-16">
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-md-10 lg:gap-md-12">
-          {/* Brand Section - Takes more space */}
-          <div className="lg:col-span-1">
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-md-8 lg:py-md-10">
+        <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-md-6 lg:gap-md-8">
+          {/* Brand Section */}
+          <div className="lg:col-span-2">
             <FooterBrand />
           </div>
 
@@ -30,7 +27,7 @@ const Footer = () => {
         </div>
       </div>
 
-      {/* Newsletter Section - Prominent */}
+      {/* Newsletter - Compact inline */}
       <FooterNewsletter />
 
       {/* Bottom Footer */}

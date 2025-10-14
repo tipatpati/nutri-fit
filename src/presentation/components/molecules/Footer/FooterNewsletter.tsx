@@ -35,75 +35,33 @@ export const FooterNewsletter = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-md-12">
-      <div className="bg-white/10 backdrop-blur-sm rounded-md-xl p-md-8 md:p-md-12 md-elevation-3 border border-white/20">
-        <div className="grid md:grid-cols-2 gap-md-8 items-center">
-          {/* Left: Content */}
-          <div className="space-y-md-4">
-            <div className="flex items-center gap-md-3">
-              <div className="w-12 h-12 bg-md-tertiary rounded-md-lg flex items-center justify-center">
-                <Mail className="w-6 h-6 text-md-on-tertiary" />
-              </div>
-              <div>
-                <h3 className="md-headline-small text-white">
-                  Newsletter NutriFit
-                </h3>
-                <p className="md-body-small text-white/80">
-                  Rejoignez 2000+ abonnés
-                </p>
-              </div>
-            </div>
-
-            <p className="md-body-medium text-white/90 leading-relaxed">
-              Recevez nos conseils nutrition, recettes exclusives et offres spéciales chaque semaine.
-            </p>
-
-            {/* Benefits */}
-            <div className="space-y-md-2">
-              <div className="flex items-center gap-md-2 text-white/90">
-                <Gift className="w-4 h-4 text-md-tertiary" />
-                <span className="md-body-small">-10% sur votre première commande</span>
-              </div>
-              <div className="flex items-center gap-md-2 text-white/90">
-                <Users className="w-4 h-4 text-md-secondary" />
-                <span className="md-body-small">Accès prioritaire aux nouveautés</span>
-              </div>
+    <div className="border-t border-white/10">
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-md-6">
+        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col md:flex-row items-center justify-between gap-md-4">
+          <div className="flex items-center gap-md-3">
+            <Mail className="w-5 h-5 text-md-tertiary flex-shrink-0" />
+            <div>
+              <p className="md-body-medium text-white font-medium">Newsletter</p>
+              <p className="md-body-small text-white/70">Recevez nos meilleures offres</p>
             </div>
           </div>
 
-          {/* Right: Form */}
-          <div>
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-md-4">
-              <div>
-                <Input
-                  type="email"
-                  placeholder="Votre adresse email"
-                  {...register("email")}
-                  className={`w-full bg-white/20 border-white/30 text-white placeholder:text-white/60 ${
-                    errors.email ? 'border-md-error' : ''
-                  }`}
-                />
-                {errors.email && (
-                  <p className="md-body-small text-md-error mt-md-2">
-                    {errors.email.message as string}
-                  </p>
-                )}
-              </div>
-
-              <Button
-                type="submit"
-                disabled={isSubmitting}
-                className="w-full bg-md-tertiary text-md-on-tertiary hover:bg-md-tertiary/90 py-md-6 rounded-md-lg font-semibold transition-all duration-md-medium2 hover:scale-105 md-elevation-2"
-              >
-                {isSubmitting ? "Inscription..." : "S'abonner gratuitement"}
-              </Button>
-
-              <p className="md-body-small text-white/70 text-center">
-                🔒 Vos données sont protégées. Désinscription facile à tout moment.
-              </p>
-            </form>
+          <div className="flex gap-md-2 w-full md:w-auto md:min-w-96">
+            <Input
+              type="email"
+              placeholder="Votre email"
+              {...register("email")}
+              className="bg-white/10 border-white/20 text-white placeholder:text-white/50 focus:bg-white/15 h-10"
+            />
+            <Button
+              type="submit"
+              disabled={isSubmitting}
+              className="bg-md-tertiary text-md-on-tertiary hover:bg-md-tertiary/90 h-10 px-md-6 whitespace-nowrap"
+            >
+              {isSubmitting ? "..." : "S'abonner"}
+            </Button>
           </div>
-        </div>
+        </form>
       </div>
     </div>
   );
