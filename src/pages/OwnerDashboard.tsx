@@ -25,6 +25,7 @@ import RecipeManager from "@/components/admin/RecipeManager";
 import NutritionalRecipeManager from "@/components/admin/recipe/NutritionalRecipeManager";
 import NutritionalCalculator from "@/components/admin/recipe/NutritionalCalculator";
 import UserRolesManager from "@/components/admin/UserRolesManager";
+import { PackManager } from "@/components/admin/PackManager";
 import { useOrdersAnalytics } from "@/hooks/useOrdersAnalytics";
 import { useInventoryData } from "@/hooks/useInventoryData";
 import { useDeliveryData } from "@/hooks/useDeliveryData";
@@ -42,6 +43,7 @@ const OwnerDashboard = () => {
   const menuItems = [
     { title: "Analytics", icon: BarChart3, id: "analytics" },
     { title: "Recipes", icon: Package, id: "recipes" },
+    { title: "Meal Packs", icon: Package, id: "packs" },
     { title: "Inventory", icon: Package, id: "inventory" },
     { title: "Orders", icon: Users, id: "orders" },
     { title: "Deliveries", icon: Truck, id: "deliveries" },
@@ -173,6 +175,8 @@ const OwnerDashboard = () => {
             <RecipeManager />
           </div>
         );
+      case "packs":
+        return <PackManager />;
       case "inventory":
         if (inventoryLoading) {
           return (

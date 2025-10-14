@@ -2,11 +2,11 @@ import { Check, Package } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Icon } from "@/components/ui/icon";
-import { useSubscriptionPlans } from "@/hooks/useSubscriptionPlans";
+import { useSubscriptionPlans, MealPack } from "@/hooks/useSubscriptionPlans";
 
 interface PackSelectionProps {
-  selectedPackage: any;
-  onPackageSelect: (pack: any) => void;
+  selectedPackage: MealPack | null;
+  onPackageSelect: (pack: MealPack) => void;
 }
 
 const PackSelection = ({ selectedPackage, onPackageSelect }: PackSelectionProps) => {
@@ -82,18 +82,17 @@ const PackSelection = ({ selectedPackage, onPackageSelect }: PackSelectionProps)
                   </CardTitle>
                   <div className="flex items-baseline gap-2">
                     <span className="text-3xl font-bold text-md-on-surface">
-                      {plan.price_per_week}€
+                      {plan.total_price.toFixed(2)}€
                     </span>
-                    <span className="md-body-small text-md-on-surface-variant">/semaine</span>
                   </div>
                   <p className="md-body-small text-md-on-surface-variant mt-1">
-                    {plan.price_per_meal}€ par repas
+                    {plan.price_per_meal.toFixed(2)}€ par repas
                   </p>
                 </div>
 
                 <div className={`inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r ${color} rounded-full text-white`}>
                   <Icon name="shaker-bottle" size={16} className="brightness-0 invert" />
-                  <span className="md-label-medium">{plan.meals_per_week} repas/semaine</span>
+                  <span className="md-label-medium">{plan.meals_quantity} repas</span>
                 </div>
               </CardHeader>
 

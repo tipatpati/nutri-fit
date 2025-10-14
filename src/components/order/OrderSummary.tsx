@@ -10,6 +10,7 @@ import { useOrderSubmission } from "@/hooks/useOrderSubmission";
 import { useAuthStore } from "@/shared/stores/useAuthStore";
 import { useCartStore } from "@/shared/stores/useCartStore";
 import { toast } from "@/hooks/use-toast";
+import { MealPack } from "@/hooks/useSubscriptionPlans";
 
 interface SelectedMeal {
   id: string;
@@ -23,11 +24,12 @@ interface SelectedMeal {
 
 interface OrderSummaryProps {
   selectedMeals: SelectedMeal[];
+  selectedPackage: MealPack | null;
   onBack: () => void;
   onConfirm: () => void;
 }
 
-const OrderSummary = ({ selectedMeals, onBack, onConfirm }: OrderSummaryProps) => {
+const OrderSummary = ({ selectedMeals, selectedPackage, onBack, onConfirm }: OrderSummaryProps) => {
   const navigate = useNavigate();
   const [showAddressForm, setShowAddressForm] = useState(false);
   const [deliveryAddress, setDeliveryAddress] = useState<AddressFormData | null>(null);
@@ -44,10 +46,10 @@ const OrderSummary = ({ selectedMeals, onBack, onConfirm }: OrderSummaryProps) =
     return acc;
   }, {} as Record<string, SelectedMeal[]>);
 
+  const pricePerMeal = selectedPackage?.price_per_meal || 12.99;
   const totalMeals = selectedMeals.reduce((total, meal) => total + meal.quantity, 0);
   const totalPrice = selectedMeals.reduce((total, meal) => {
-    const basePrice = meal.premium ? 15.99 : 12.99;
-    return total + (basePrice * meal.quantity);
+    return total + (pricePerMeal * meal.quantity);
   }, 0);
 
   const formatDate = (dateStr: string) => {
@@ -90,7 +92,7 @@ const OrderSummary = ({ selectedMeals, onBack, onConfirm }: OrderSummaryProps) =
       mealName: meal.name,
       quantity: meal.quantity,
       date: meal.date,
-      price: meal.premium ? 15.99 : 12.99,
+      price: pricePerMeal,
     }));
 
     submitOrder(
@@ -189,7 +191,7 @@ const OrderSummary = ({ selectedMeals, onBack, onConfirm }: OrderSummaryProps) =
                       </div>
                       <div className="text-right">
                         <p className="md-title-medium font-bold text-md-on-surface">
-                          {((meal.premium ? 15.99 : 12.99) * meal.quantity).toFixed(2)}€
+                          {(pricePerMeal * meal.quantity).toFixed(2)}€
                         </p>
                       </div>
                     </div>

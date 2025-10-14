@@ -72,18 +72,17 @@ const Packs = () => {
                     </CardTitle>
                     <div className="flex items-baseline gap-2">
                       <span className="text-4xl font-bold text-[hsl(var(--md-sys-color-on-surface))]">
-                        {plan.price_per_week}€
+                        {plan.total_price.toFixed(2)}€
                       </span>
-                      <span className="md-body-small text-neutral-500">/semaine</span>
                     </div>
                     <p className="md-body-small text-neutral-500 mt-1">
-                      {plan.price_per_meal}€ par repas
+                      {plan.price_per_meal.toFixed(2)}€ par repas
                     </p>
                   </div>
 
                   <div className={`inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r ${color} rounded-[var(--md-sys-shape-corner-full)] text-white`}>
                     <Icon name="shaker-bottle" size={16} className="brightness-0 invert" />
-                    <span className="md-label-medium">{plan.meals_per_week} repas/semaine</span>
+                    <span className="md-label-medium">{plan.meals_quantity} repas</span>
                   </div>
                 </CardHeader>
 

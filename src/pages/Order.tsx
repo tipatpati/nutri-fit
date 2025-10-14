@@ -11,6 +11,7 @@ import PackSelection from "@/components/order/PackSelection";
 import MealSelection from "@/components/order/MealSelection";
 import OrderCalendar from "@/components/order/OrderCalendar";
 import OrderSummary from "@/components/order/OrderSummary";
+import { MealPack } from "@/hooks/useSubscriptionPlans";
 
 interface SelectedMeal {
   id: string;
@@ -25,7 +26,7 @@ interface SelectedMeal {
 const Order = () => {
   const location = useLocation();
   const [selectedGoal, setSelectedGoal] = useState<string | null>(null);
-  const [selectedPackage, setSelectedPackage] = useState<any>(null);
+  const [selectedPackage, setSelectedPackage] = useState<MealPack | null>(null);
   const [selectedMeals, setSelectedMeals] = useState<SelectedMeal[]>([]);
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined);
   const [currentStep, setCurrentStep] = useState<'goal' | 'packs' | 'meals' | 'date' | 'summary'>('goal');
@@ -46,7 +47,7 @@ const Order = () => {
   // Get pack meal limits
   const getPackMealLimit = () => {
     if (!selectedPackage) return null;
-    return selectedPackage.meals_per_week || null;
+    return selectedPackage.meals_quantity || null;
   };
 
   // Mock kitchen capacity data - this would come from backend
@@ -83,7 +84,7 @@ const Order = () => {
     setCurrentStep('packs');
   };
 
-  const handlePackageSelect = (pack: any) => {
+  const handlePackageSelect = (pack: MealPack) => {
     setSelectedPackage(pack);
     // Auto-advance to next step with smooth transition
     setTimeout(() => {
@@ -266,6 +267,7 @@ const Order = () => {
             {currentStep === 'summary' && (
               <OrderSummary
                 selectedMeals={selectedMeals}
+                selectedPackage={selectedPackage}
                 onBack={handleBackToDate}
                 onConfirm={() => console.log('Order confirmed')}
               />
