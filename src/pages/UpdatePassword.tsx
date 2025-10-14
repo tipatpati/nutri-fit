@@ -46,10 +46,7 @@ const UpdatePassword = () => {
       console.log('[UpdatePassword] Type:', type);
       
       if (accessToken && type === 'recovery') {
-        console.log('[UpdatePassword] Valid recovery token found, signing out existing session');
-        // Sign out any existing session before showing password reset form
-        await supabase.auth.signOut();
-        console.log('[UpdatePassword] Signed out, showing password reset form');
+        console.log('[UpdatePassword] Valid recovery token found, recovery session active');
         setValidToken(true);
       } else {
         console.log('[UpdatePassword] No recovery token found, redirecting to /reset-password');
