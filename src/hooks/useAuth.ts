@@ -18,6 +18,12 @@ export const useAuth = () => {
     // Set up auth state listener
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       (event, session) => {
+        // Skip automatic session for PASSWORD_RECOVERY - let ResetPassword page handle it
+        if (event === 'PASSWORD_RECOVERY') {
+          setLoading(false);
+          return;
+        }
+        
         setSession(session);
         setLoading(false);
         
@@ -25,8 +31,8 @@ export const useAuth = () => {
           storeSignOut();
         }
         
-        // After Supabase processes the URL hash, clean it up
-        if (event === 'SIGNED_IN' || event === 'PASSWORD_RECOVERY' || event === 'USER_UPDATED') {
+        // Clean hash only for normal sign-ins
+        if (event === 'SIGNED_IN' || event === 'USER_UPDATED') {
           setTimeout(() => cleanAuthHash(), 0);
         }
       }
