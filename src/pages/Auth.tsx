@@ -23,16 +23,7 @@ const Auth = () => {
   const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  // Password reset states
-  const [isResetMode, setIsResetMode] = useState(false);
-  const [newPassword, setNewPassword] = useState("");
-  const [confirmNewPassword, setConfirmNewPassword] = useState("");
   useEffect(() => {
-    // If arriving from email reset link, enter reset mode immediately
-    if (typeof window !== "undefined" && window.location.hash.includes("type=recovery")) {
-      setIsResetMode(true);
-    }
-
     // Set up auth state listener
     const {
       data: { subscription }
@@ -40,11 +31,6 @@ const Auth = () => {
       setSession(session);
       setUser(session?.user ?? null);
 
-      // Enter reset mode when user comes back from the reset link
-      if (event === "PASSWORD_RECOVERY") {
-        setIsResetMode(true);
-        return; // don't navigate away
-      }
       if (session?.user) {
         navigate("/");
       }
@@ -56,9 +42,7 @@ const Auth = () => {
       setUser(session?.user ?? null);
       setLoading(false);
 
-      // Avoid redirect if we're handling a password recovery flow
-      const urlHasRecovery = window.location.hash.includes("type=recovery");
-      if (session?.user && !urlHasRecovery) {
+      if (session?.user) {
         navigate("/");
       }
     });
@@ -122,81 +106,6 @@ const Auth = () => {
       setFormLoading(false);
     }
   };
-  const handleSendResetLink = async () => {
-    if (!email) {
-      toast({
-        title: "Email requis",
-        description: "Veuillez entrer votre email pour réinitialiser le mot de passe.",
-        variant: "destructive"
-      });
-      return;
-    }
-    setFormLoading(true);
-    try {
-      const redirectUrl = `${window.location.origin}/reset-password`;
-      const {
-        error
-      } = await supabase.auth.resetPasswordForEmail(email, {
-        redirectTo: redirectUrl
-      });
-      if (error) throw error;
-      toast({
-        title: "Email envoyé",
-        description: "Vérifiez votre boîte mail pour le lien de réinitialisation."
-      });
-    } catch (error: any) {
-      toast({
-        title: "Erreur",
-        description: error.message,
-        variant: "destructive"
-      });
-    } finally {
-      setFormLoading(false);
-    }
-  };
-  const handlePasswordUpdate = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (newPassword.length < 6) {
-      toast({
-        title: "Mot de passe trop court",
-        description: "Minimum 6 caractères",
-        variant: "destructive"
-      });
-      return;
-    }
-    if (newPassword !== confirmNewPassword) {
-      toast({
-        title: "Les mots de passe ne correspondent pas",
-        variant: "destructive"
-      });
-      return;
-    }
-    setFormLoading(true);
-    try {
-      const {
-        error
-      } = await supabase.auth.updateUser({
-        password: newPassword
-      });
-      if (error) throw error;
-      toast({
-        title: "Mot de passe mis à jour",
-        description: "Vous pouvez vous connecter."
-      });
-      setIsResetMode(false);
-      setNewPassword("");
-      setConfirmNewPassword("");
-      navigate("/");
-    } catch (error: any) {
-      toast({
-        title: "Erreur",
-        description: error.message,
-        variant: "destructive"
-      });
-    } finally {
-      setFormLoading(false);
-    }
-  };
   if (loading) {
     return <div className="min-h-screen bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
         <div className="text-white">Chargement...</div>
@@ -209,32 +118,7 @@ const Auth = () => {
           <p className="text-white/80">Votre partenaire nutrition</p>
         </div>
 
-        {isResetMode ? <Card>
-            <CardHeader>
-              <CardTitle>Réinitialiser le mot de passe</CardTitle>
-              <CardDescription>Entrez un nouveau mot de passe sécurisé</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <form onSubmit={handlePasswordUpdate} className="space-y-4">
-                <div>
-                  <Label htmlFor="new-password">Nouveau mot de passe</Label>
-                  <Input id="new-password" type="password" value={newPassword} onChange={e => setNewPassword(e.target.value)} required minLength={6} disabled={formLoading} />
-                </div>
-                <div>
-                  <Label htmlFor="confirm-password">Confirmer le mot de passe</Label>
-                  <Input id="confirm-password" type="password" value={confirmNewPassword} onChange={e => setConfirmNewPassword(e.target.value)} required minLength={6} disabled={formLoading} />
-                </div>
-                <div className="flex gap-2">
-                  <Button type="submit" className="w-full" disabled={formLoading}>
-                    {formLoading ? "Mise à jour..." : "Mettre à jour"}
-                  </Button>
-                  <Button type="button" variant="outlined" onClick={() => setIsResetMode(false)} disabled={formLoading}>
-                    Annuler
-                  </Button>
-                </div>
-              </form>
-            </CardContent>
-          </Card> : <Card>
+        <Card>
             <CardHeader>
               <CardTitle>Authentification</CardTitle>
               <CardDescription>Connectez-vous ou créez un compte</CardDescription>
@@ -294,7 +178,7 @@ const Auth = () => {
                 </TabsContent>
               </Tabs>
             </CardContent>
-          </Card>}
+          </Card>
       </div>
     </div>;
 };
