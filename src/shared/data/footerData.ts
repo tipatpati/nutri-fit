@@ -63,6 +63,7 @@ export const legalLinks: FooterLink[] = [
 
 export const brandInfo = {
   name: 'NutriFit',
-  description: 'Des repas sains et équilibrés pour atteindre vos objectifs de fitness. Nutrition de qualité, préparée avec passion.',
+  tagline: 'Des repas sains et équilibrés pour atteindre vos objectifs de fitness. Nutrition de qualité, préparée avec passion.',
+  description: 'Votre partenaire nutrition en Algérie.',
   copyright: '2024 NutriFit. Tous droits réservés.'
 };
