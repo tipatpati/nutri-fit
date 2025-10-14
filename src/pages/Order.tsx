@@ -46,15 +46,7 @@ const Order = () => {
   // Get pack meal limits
   const getPackMealLimit = () => {
     if (!selectedPackage) return null;
-    
-    const packLimits = {
-      'express': 4,
-      'performance': 6,
-      'semaine': 8,
-      'objectif': 10
-    };
-    
-    return packLimits[selectedPackage.id] || null;
+    return selectedPackage.meals_per_week || null;
   };
 
   // Mock kitchen capacity data - this would come from backend

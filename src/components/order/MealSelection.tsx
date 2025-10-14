@@ -196,7 +196,7 @@ const MealSelection = ({
                         variant="outlined"
                         size="sm"
                         onClick={() => onMealSelect(meal, quantity + 1)}
-                        disabled={!canAddMeal() && quantity === 0}
+                        disabled={!canAddMeal()}
                         className="w-9 h-9 p-0 rounded-full"
                       >
                         <Plus className="w-4 h-4" />
