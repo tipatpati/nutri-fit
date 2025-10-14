@@ -13,6 +13,7 @@ import Order from "./pages/Order";
 import Orders from "./pages/Orders";
 import Auth from "./pages/Auth";
 import ResetPassword from "./pages/ResetPassword";
+import UpdatePassword from "./pages/UpdatePassword";
 import Profile from "./pages/Profile";
 import AdminLogin from "./pages/AdminLogin";
 import OwnerDashboard from "./pages/OwnerDashboard";
@@ -36,6 +37,7 @@ const App = () => (
               <Route path="/orders" element={<ProtectedRoute><Orders /></ProtectedRoute>} />
               <Route path="/auth" element={<Auth />} />
               <Route path="/reset-password" element={<ResetPassword />} />
+              <Route path="/update-password" element={<UpdatePassword />} />
               <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
               <Route path="/admin-login" element={<AdminLogin />} />
               <Route path="/owner-dashboard" element={<ProtectedRoute requiredRole="owner"><OwnerDashboard /></ProtectedRoute>} />
