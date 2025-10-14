@@ -103,48 +103,59 @@ const NutritionalCalculator = () => {
   };
 
   return (
-    <div className="space-y-6">
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2 text-emerald-800">
-            <Calculator className="h-5 w-5" />
+    <div className="space-y-8">
+      <Card className="shadow-sm">
+        <CardHeader className="space-y-3">
+          <CardTitle className="flex items-center gap-3 text-2xl text-emerald-800">
+            <Calculator className="h-6 w-6" />
             Calculateur Nutritionnel
           </CardTitle>
-          <CardDescription>
+          <CardDescription className="text-base">
             Sélectionnez une recette existante pour calculer automatiquement les variantes nutritionnelles
           </CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="pt-6">
           {isLoading ? (
-            <div className="flex items-center justify-center py-8">
-              <Loader2 className="h-8 w-8 animate-spin text-emerald-600" />
+            <div className="flex items-center justify-center py-12">
+              <Loader2 className="h-10 w-10 animate-spin text-emerald-600" />
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
               {meals?.slice(0, 12).map((meal) => (
-                <Card key={meal.id} className="cursor-pointer hover:shadow-md transition-shadow">
-                  <CardContent className="p-4">
+                <Card key={meal.id} className="cursor-pointer hover:shadow-lg transition-all duration-200 hover:-translate-y-1">
+                  <CardContent className="p-5">
                     {meal.image_url && (
                       <img 
                         src={meal.image_url} 
                         alt={meal.name}
-                        className="w-full h-32 object-cover rounded-md mb-3"
+                        className="w-full h-40 object-cover rounded-lg mb-4 shadow-sm"
                       />
                     )}
-                    <h3 className="font-semibold text-emerald-800 mb-2">{meal.name}</h3>
-                    <div className="space-y-1 text-sm text-gray-600 mb-3">
-                      <div>🥩 {meal.meat}</div>
-                      <div>🥗 {meal.vegetables}</div>
-                      <div>🌾 {meal.carbs}</div>
+                    <h3 className="font-semibold text-emerald-800 mb-3 text-lg line-clamp-2">{meal.name}</h3>
+                    <div className="space-y-2 text-sm text-gray-600 mb-4">
+                      <div className="flex items-start gap-2">
+                        <span className="text-base">🥩</span>
+                        <span className="line-clamp-1">{meal.meat}</span>
+                      </div>
+                      <div className="flex items-start gap-2">
+                        <span className="text-base">🥗</span>
+                        <span className="line-clamp-1">{meal.vegetables}</span>
+                      </div>
+                      <div className="flex items-start gap-2">
+                        <span className="text-base">🌾</span>
+                        <span className="line-clamp-1">{meal.carbs}</span>
+                      </div>
                     </div>
                     {meal.calories_per_serving && (
-                      <div className="text-xs text-gray-500 mb-2">
-                        {meal.calories_per_serving} cal | {meal.protein_grams}g protéines
+                      <div className="text-xs text-gray-500 mb-4 py-2 px-3 bg-gray-50 rounded-md">
+                        <span className="font-medium">{meal.calories_per_serving} cal</span>
+                        <span className="mx-2">•</span>
+                        <span className="font-medium">{meal.protein_grams}g protéines</span>
                       </div>
                     )}
                     <Button 
                       onClick={() => calculateRecipe(meal)}
-                      className="w-full bg-emerald-600 hover:bg-emerald-700"
+                      className="w-full bg-emerald-600 hover:bg-emerald-700 transition-colors"
                       size="sm"
                     >
                       <ChefHat className="h-4 w-4 mr-2" />
@@ -159,88 +170,88 @@ const NutritionalCalculator = () => {
       </Card>
 
       {calculatedRecipes.length > 0 && (
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-emerald-800">
+        <Card className="shadow-sm">
+          <CardHeader className="space-y-3">
+            <CardTitle className="text-2xl text-emerald-800">
               Résultats pour: {selectedMeal}
             </CardTitle>
-            <CardDescription>
+            <CardDescription className="text-base">
               Quantités automatiquement calculées pour chaque catégorie nutritionnelle
             </CardDescription>
           </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <CardContent className="pt-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
               {calculatedRecipes.map((recipe, index) => {
                 const category = NUTRITIONAL_CATEGORIES.find(cat => cat.name === recipe.category);
                 const validation = RecipeCalculator.validateRecipe(recipe);
                 const targets = category?.nutritional_profile;
 
                 return (
-                  <Card key={index} className="border-2" style={{ borderColor: category?.color }}>
-                    <CardHeader className="pb-3">
+                  <Card key={index} className="border-2 hover:shadow-lg transition-shadow" style={{ borderColor: category?.color }}>
+                    <CardHeader className="pb-4 space-y-3">
                       <div className="flex items-center justify-between">
-                        <CardTitle className="text-lg" style={{ color: category?.color }}>
+                        <CardTitle className="text-xl" style={{ color: category?.color }}>
                           {recipe.category}
                         </CardTitle>
-                        <Badge variant={validation.valid ? "default" : "destructive"}>
+                        <Badge variant={validation.valid ? "default" : "destructive"} className="text-xs px-3 py-1">
                           {validation.valid ? "✓ Valide" : "⚠ À ajuster"}
                         </Badge>
                       </div>
-                      <div className="text-sm text-gray-600">
+                      <div className="text-sm text-gray-600 leading-relaxed">
                         {category?.description}
                       </div>
                     </CardHeader>
-                    <CardContent className="space-y-4">
+                    <CardContent className="space-y-5">
                       {/* Nutritional Overview */}
-                      <div className="bg-gray-50 p-3 rounded-lg">
-                        <h4 className="font-semibold text-sm mb-2 flex items-center gap-1">
+                      <div className="bg-gray-50 p-4 rounded-lg space-y-3">
+                        <h4 className="font-semibold text-sm mb-3 flex items-center gap-2">
                           <Target className="h-4 w-4" />
                           Valeurs Nutritionnelles
                         </h4>
-                        <div className="grid grid-cols-2 gap-2 text-xs">
-                          <div className={getNutritionColor(recipe.nutrition, targets, 'calories_per_serving')}>
-                            Calories: {recipe.nutrition.calories} 
-                            <span className="text-gray-500">/{targets?.calories_per_serving}</span>
+                        <div className="grid grid-cols-2 gap-3 text-sm">
+                          <div className={`${getNutritionColor(recipe.nutrition, targets, 'calories_per_serving')} font-medium`}>
+                            <div className="text-xs text-gray-500 mb-1">Calories</div>
+                            <div>{recipe.nutrition.calories} <span className="text-gray-400 text-xs">/ {targets?.calories_per_serving}</span></div>
                           </div>
-                          <div className={getNutritionColor(recipe.nutrition, targets, 'protein_grams')}>
-                            Protéines: {recipe.nutrition.protein}g
-                            <span className="text-gray-500">/{targets?.protein_grams}g</span>
+                          <div className={`${getNutritionColor(recipe.nutrition, targets, 'protein_grams')} font-medium`}>
+                            <div className="text-xs text-gray-500 mb-1">Protéines</div>
+                            <div>{recipe.nutrition.protein}g <span className="text-gray-400 text-xs">/ {targets?.protein_grams}g</span></div>
                           </div>
-                          <div className={getNutritionColor(recipe.nutrition, targets, 'carbs_grams')}>
-                            Glucides: {recipe.nutrition.carbs}g
-                            <span className="text-gray-500">/{targets?.carbs_grams}g</span>
+                          <div className={`${getNutritionColor(recipe.nutrition, targets, 'carbs_grams')} font-medium`}>
+                            <div className="text-xs text-gray-500 mb-1">Glucides</div>
+                            <div>{recipe.nutrition.carbs}g <span className="text-gray-400 text-xs">/ {targets?.carbs_grams}g</span></div>
                           </div>
-                          <div className={getNutritionColor(recipe.nutrition, targets, 'fat_grams')}>
-                            Lipides: {recipe.nutrition.fat}g
-                            <span className="text-gray-500">/{targets?.fat_grams}g</span>
+                          <div className={`${getNutritionColor(recipe.nutrition, targets, 'fat_grams')} font-medium`}>
+                            <div className="text-xs text-gray-500 mb-1">Lipides</div>
+                            <div>{recipe.nutrition.fat}g <span className="text-gray-400 text-xs">/ {targets?.fat_grams}g</span></div>
                           </div>
                         </div>
                       </div>
 
                       {/* Ingredients */}
-                      <div>
-                        <h4 className="font-semibold text-sm mb-2">Ingrédients</h4>
-                        <div className="space-y-1">
+                      <div className="space-y-3">
+                        <h4 className="font-semibold text-sm">Ingrédients</h4>
+                        <div className="space-y-2">
                           {recipe.ingredients.map((ing, ingIndex) => (
-                            <div key={ingIndex} className="flex justify-between text-xs">
-                              <span>{ing.name}</span>
-                              <span className="font-medium">{ing.quantity}g</span>
+                            <div key={ingIndex} className="flex justify-between text-sm py-2 px-3 bg-gray-50 rounded">
+                              <span className="text-gray-700">{ing.name}</span>
+                              <span className="font-semibold text-emerald-700">{ing.quantity}g</span>
                             </div>
                           ))}
                         </div>
                       </div>
 
                       {/* Cooking Instructions Preview */}
-                      <div>
-                        <h4 className="font-semibold text-sm mb-2">Instructions</h4>
-                        <div className="text-xs space-y-1 max-h-24 overflow-y-auto">
+                      <div className="space-y-3">
+                        <h4 className="font-semibold text-sm">Instructions</h4>
+                        <div className="text-sm space-y-2 max-h-32 overflow-y-auto pr-2">
                           {recipe.cookingInstructions.slice(0, 3).map((instruction, instIndex) => (
-                            <div key={instIndex} className="text-gray-600">
+                            <div key={instIndex} className="text-gray-600 leading-relaxed">
                               {instruction}
                             </div>
                           ))}
                           {recipe.cookingInstructions.length > 3 && (
-                            <div className="text-gray-400 italic">
+                            <div className="text-gray-400 italic text-xs">
                               +{recipe.cookingInstructions.length - 3} étapes supplémentaires...
                             </div>
                           )}
@@ -248,18 +259,18 @@ const NutritionalCalculator = () => {
                       </div>
 
                       {/* Recipe Info */}
-                      <div className="flex justify-between text-xs text-gray-500 pt-2 border-t">
-                        <span>⏱ {recipe.preparationTime}min</span>
-                        <span>👨‍🍳 {recipe.difficulty}</span>
-                        <span>🍽️ {recipe.portionSize}g</span>
+                      <div className="flex justify-between text-sm text-gray-500 pt-3 border-t">
+                        <span className="flex items-center gap-1">⏱ {recipe.preparationTime}min</span>
+                        <span className="flex items-center gap-1">👨‍🍳 {recipe.difficulty}</span>
+                        <span className="flex items-center gap-1">🍽️ {recipe.portionSize}g</span>
                       </div>
 
                       {/* Validation Issues */}
                       {!validation.valid && validation.issues.length > 0 && (
-                        <div className="bg-red-50 p-2 rounded text-xs">
-                          <div className="font-semibold text-red-800 mb-1">Ajustements nécessaires:</div>
+                        <div className="bg-red-50 p-3 rounded-lg text-sm space-y-2">
+                          <div className="font-semibold text-red-800">Ajustements nécessaires:</div>
                           {validation.issues.slice(0, 2).map((issue, issueIndex) => (
-                            <div key={issueIndex} className="text-red-600">• {issue}</div>
+                            <div key={issueIndex} className="text-red-600 text-xs leading-relaxed">• {issue}</div>
                           ))}
                         </div>
                       )}
@@ -273,22 +284,22 @@ const NutritionalCalculator = () => {
       )}
 
       {/* Ingredient Database Preview */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-emerald-800">Base de Données Nutritionnelle</CardTitle>
-          <CardDescription>
+      <Card className="shadow-sm">
+        <CardHeader className="space-y-3">
+          <CardTitle className="text-2xl text-emerald-800">Base de Données Nutritionnelle</CardTitle>
+          <CardDescription className="text-base">
             {Object.keys(INGREDIENT_NUTRITIONAL_VALUES).length} ingrédients avec valeurs nutritionnelles complètes
           </CardDescription>
         </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2">
+        <CardContent className="pt-6">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-3">
             {Object.keys(INGREDIENT_NUTRITIONAL_VALUES).slice(0, 24).map((key) => (
-              <Badge key={key} variant="outline" className="text-xs">
+              <Badge key={key} variant="outline" className="text-xs py-2 px-3 justify-center">
                 {key.replace(/_/g, ' ')}
               </Badge>
             ))}
             {Object.keys(INGREDIENT_NUTRITIONAL_VALUES).length > 24 && (
-              <Badge variant="secondary" className="text-xs">
+              <Badge variant="secondary" className="text-xs py-2 px-3 justify-center">
                 +{Object.keys(INGREDIENT_NUTRITIONAL_VALUES).length - 24} autres...
               </Badge>
             )}
