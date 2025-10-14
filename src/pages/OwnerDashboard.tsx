@@ -29,6 +29,7 @@ import { PackManager } from "@/components/admin/PackManager";
 import { useOrdersAnalytics } from "@/hooks/useOrdersAnalytics";
 import { useInventoryData } from "@/hooks/useInventoryData";
 import { useDeliveryData } from "@/hooks/useDeliveryData";
+import DataMigrationPanel from "@/components/admin/DataMigrationPanel";
 import InventoryDashboard from "@/components/admin/inventory/InventoryDashboard";
 
 const OwnerDashboard = () => {
@@ -171,6 +172,7 @@ const OwnerDashboard = () => {
       case "recipes":
         return (
           <div className="space-y-4 md:space-y-6">
+            <DataMigrationPanel />
             <NutritionalCalculator />
             <NutritionalRecipeManager />
             <RecipeManager />
