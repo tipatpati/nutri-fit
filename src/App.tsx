@@ -39,10 +39,10 @@ const App = () => (
               <Route path="/reset-password" element={<ResetPassword />} />
               <Route path="/update-password" element={<UpdatePassword />} />
               <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
-              <Route path="/admin-login" element={<AdminLogin />} />
-              <Route path="/owner-dashboard" element={<ProtectedRoute requiredRole="owner"><OwnerDashboard /></ProtectedRoute>} />
-              <Route path="/cook-dashboard" element={<ProtectedRoute requiredRole="cook"><CookDashboard /></ProtectedRoute>} />
-              <Route path="/delivery-dashboard" element={<ProtectedRoute requiredRole="delivery_driver"><DeliveryDashboard /></ProtectedRoute>} />
+              <Route path="/admin" element={<AdminLogin />} />
+              <Route path="/admin/owner" element={<ProtectedRoute requiredRole="owner"><OwnerDashboard /></ProtectedRoute>} />
+              <Route path="/admin/cook" element={<ProtectedRoute requiredRole="cook"><CookDashboard /></ProtectedRoute>} />
+              <Route path="/admin/delivery" element={<ProtectedRoute requiredRole="delivery_driver"><DeliveryDashboard /></ProtectedRoute>} />
               <Route path="/not-found" element={<NotFound />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
