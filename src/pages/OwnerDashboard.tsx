@@ -29,6 +29,7 @@ import { PackManager } from "@/components/admin/PackManager";
 import { useOrdersAnalytics } from "@/hooks/useOrdersAnalytics";
 import { useInventoryData } from "@/hooks/useInventoryData";
 import { useDeliveryData } from "@/hooks/useDeliveryData";
+import InventoryDashboard from "@/components/admin/inventory/InventoryDashboard";
 
 const OwnerDashboard = () => {
   const [activeSection, setActiveSection] = useState("analytics");
@@ -178,57 +179,14 @@ const OwnerDashboard = () => {
       case "packs":
         return <PackManager />;
       case "inventory":
-        if (inventoryLoading) {
-          return (
-            <div className="flex items-center justify-center py-12">
-              <Loader2 className="h-8 w-8 animate-spin text-md-primary" />
-            </div>
-          );
-        }
-
         return (
-          <div className="space-y-4 md:space-y-6">
-            <Card>
-              <CardHeader className="px-3 py-3 md:px-6 md:py-6">
-                <CardTitle className="text-md-primary text-sm md:text-base">Gestion des Ingrédients</CardTitle>
-                <CardDescription className="text-xs md:text-sm">Stock actuel et niveaux d'alerte</CardDescription>
-              </CardHeader>
-              <CardContent className="px-3 pb-3 md:px-6 md:pb-6">
-                {inventoryData?.inventory && inventoryData.inventory.length > 0 ? (
-                  <div className="overflow-x-auto -mx-3 md:mx-0">
-                    <div className="min-w-full inline-block align-middle">
-                      <Table>
-                        <TableHeader>
-                          <TableRow>
-                            <TableHead className="text-xs px-2 md:px-4 min-w-[120px]">Ingrédient</TableHead>
-                            <TableHead className="text-xs px-2 md:px-4">Quantité</TableHead>
-                            <TableHead className="text-xs px-2 md:px-4">Unité</TableHead>
-                            <TableHead className="text-xs px-2 md:px-4">Niveau min.</TableHead>
-                            <TableHead className="text-xs px-2 md:px-4 min-w-[100px]">Statut</TableHead>
-                          </TableRow>
-                        </TableHeader>
-                        <TableBody>
-                          {inventoryData.inventory.map((item, index) => (
-                            <TableRow key={index}>
-                              <TableCell className="font-medium text-xs px-2 md:px-4">{item.name}</TableCell>
-                              <TableCell className="text-xs px-2 md:px-4">{item.quantity}</TableCell>
-                              <TableCell className="text-xs px-2 md:px-4">{item.unit}</TableCell>
-                              <TableCell className="text-xs px-2 md:px-4">{item.minLevel}</TableCell>
-                              <TableCell className={`flex items-center gap-1 md:gap-2 ${getStatusColor(item.status)} text-xs px-2 md:px-4`}>
-                                {item.status === "Stock critique" && <AlertTriangle className="h-3 w-3 md:h-4 md:w-4 flex-shrink-0" />}
-                                <span className="truncate">{item.status}</span>
-                              </TableCell>
-                            </TableRow>
-                          ))}
-                        </TableBody>
-                      </Table>
-                    </div>
-                  </div>
-                ) : (
-                  <p className="text-center text-gray-500 py-4">Aucun ingrédient en stock</p>
-                )}
-              </CardContent>
-            </Card>
+          <div className="space-y-6">
+            <div>
+              <h2 className="text-2xl font-bold text-[#113B39] mb-2">Inventaire</h2>
+              <p className="text-md-surface-on-surface">Gestion du stock d'ingrédients et disponibilité des recettes</p>
+            </div>
+
+            <InventoryDashboard />
           </div>
         );
       case "orders":

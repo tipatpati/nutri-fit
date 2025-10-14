@@ -17,6 +17,8 @@ export interface Ingredient {
     sodium?: number;
   } | null;
   current_stock: number;
+  reorder_point: number;
+  minimum_stock: number;
   active: boolean;
 }
 
