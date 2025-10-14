@@ -33,9 +33,8 @@ const ResetPassword = () => {
   const handleSendResetLink = async (data: EmailRequestData) => {
     setLoading(true);
     try {
-      const redirectUrl = `${window.location.origin}/update-password`;
       const { error } = await supabase.auth.resetPasswordForEmail(data.email, {
-        redirectTo: redirectUrl,
+        redirectTo: 'https://nutri-fit.net/update-password',
       });
 
       if (error) throw error;

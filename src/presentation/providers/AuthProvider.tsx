@@ -24,10 +24,11 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       (event, session) => {
         console.log('[AuthProvider] Auth state changed:', event, 'Has session:', !!session);
         
-        // Skip automatic session for PASSWORD_RECOVERY - let ResetPassword page handle it
+        // Skip automatic session for PASSWORD_RECOVERY - let UpdatePassword page handle it
         if (event === 'PASSWORD_RECOVERY') {
-          console.log('[AuthProvider] PASSWORD_RECOVERY event - skipping automatic session');
+          console.log('[AuthProvider] PASSWORD_RECOVERY event - preserving hash, skipping session');
           setLoading(false);
+          // DO NOT clean hash - UpdatePassword component needs to read it first
           return;
         }
         
@@ -39,7 +40,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
           signOut();
         }
         
-        // Clean hash only for normal sign-ins
+        // Clean hash only for normal sign-ins, NOT for recovery
         if (event === 'SIGNED_IN' || event === 'USER_UPDATED') {
           console.log('[AuthProvider] Cleaning auth hash for:', event);
           setTimeout(() => cleanAuthHash(), 0);
@@ -49,12 +50,20 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
     // Check for existing session
     supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session);
-      setLoading(false);
-
-      // If we already have a session on load, ensure we clean any auth hash
-      if (session?.user) {
-        cleanAuthHash();
+      // Only clean hash if not a recovery flow
+      const isRecoveryFlow = window.location.hash.includes('type=recovery');
+      
+      if (!isRecoveryFlow) {
+        setSession(session);
+        setLoading(false);
+        
+        // Clean hash only if we have a session and it's not a recovery flow
+        if (session?.user) {
+          cleanAuthHash();
+        }
+      } else {
+        console.log('[AuthProvider] Recovery flow detected, preserving hash');
+        setLoading(false);
       }
     });
 
