@@ -4,6 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { useRecipeManager } from "./recipe/hooks/useRecipeManager";
 import RecipeForm from "./recipe/RecipeForm";
 import RecipeTable from "./recipe/RecipeTable";
+import EnhancedRecipeFormFields from "./recipe/EnhancedRecipeFormFields";
 const RecipeManager = () => {
   const {
     meals,
@@ -41,7 +42,15 @@ const RecipeManager = () => {
         <RecipeTable meals={meals} onEdit={handleOpenDialog} onDelete={handleDelete} />
       </CardContent>
       
-      <RecipeForm isOpen={isDialogOpen} onClose={handleCloseDialog} editingMeal={editingMeal} formData={formData} setFormData={setFormData} onSave={handleSave} />
+      <RecipeForm 
+        isOpen={isDialogOpen} 
+        onClose={handleCloseDialog} 
+        editingMeal={editingMeal} 
+        formData={formData} 
+        setFormData={setFormData} 
+        onSave={handleSave}
+        useEnhancedFields={true}
+      />
     </Card>;
 };
 export default RecipeManager;

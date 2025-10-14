@@ -325,6 +325,7 @@ export type Database = {
           name: string
           nutrition_profile_id: string | null
           nutritional_info: Json | null
+          primary_nutrient: string | null
           reorder_point: number | null
           supplier_info: Json | null
           type: string
@@ -342,6 +343,7 @@ export type Database = {
           name: string
           nutrition_profile_id?: string | null
           nutritional_info?: Json | null
+          primary_nutrient?: string | null
           reorder_point?: number | null
           supplier_info?: Json | null
           type: string
@@ -359,6 +361,7 @@ export type Database = {
           name?: string
           nutrition_profile_id?: string | null
           nutritional_info?: Json | null
+          primary_nutrient?: string | null
           reorder_point?: number | null
           supplier_info?: Json | null
           type?: string
@@ -478,8 +481,12 @@ export type Database = {
           ingredient_id: string
           is_primary: boolean
           meal_id: string
+          nutrient_type: string | null
           preparation_method: string | null
           quantity: string | null
+          quantity_equilibre: number | null
+          quantity_perte_poids: number | null
+          quantity_prise_masse: number | null
           weight_grams: number | null
         }
         Insert: {
@@ -491,8 +498,12 @@ export type Database = {
           ingredient_id: string
           is_primary?: boolean
           meal_id: string
+          nutrient_type?: string | null
           preparation_method?: string | null
           quantity?: string | null
+          quantity_equilibre?: number | null
+          quantity_perte_poids?: number | null
+          quantity_prise_masse?: number | null
           weight_grams?: number | null
         }
         Update: {
@@ -504,8 +515,12 @@ export type Database = {
           ingredient_id?: string
           is_primary?: boolean
           meal_id?: string
+          nutrient_type?: string | null
           preparation_method?: string | null
           quantity?: string | null
+          quantity_equilibre?: number | null
+          quantity_perte_poids?: number | null
+          quantity_prise_masse?: number | null
           weight_grams?: number | null
         }
         Relationships: [
@@ -522,6 +537,13 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "meals"
             referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "fk_meal_ingredients_meal"
+            columns: ["meal_id"]
+            isOneToOne: false
+            referencedRelation: "meals_nutritional_breakdown"
+            referencedColumns: ["meal_id"]
           },
           {
             foreignKeyName: "fk_meal_ingredients_meal"
@@ -558,6 +580,13 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "meals"
             referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "fk_meal_tag_assignments_meal"
+            columns: ["meal_id"]
+            isOneToOne: false
+            referencedRelation: "meals_nutritional_breakdown"
+            referencedColumns: ["meal_id"]
           },
           {
             foreignKeyName: "fk_meal_tag_assignments_meal"
@@ -640,6 +669,13 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "meals"
             referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "meal_variants_meal_id_fkey"
+            columns: ["meal_id"]
+            isOneToOne: false
+            referencedRelation: "meals_nutritional_breakdown"
+            referencedColumns: ["meal_id"]
           },
           {
             foreignKeyName: "meal_variants_meal_id_fkey"
@@ -828,6 +864,13 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "meals"
             referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "order_items_meal_id_fkey"
+            columns: ["meal_id"]
+            isOneToOne: false
+            referencedRelation: "meals_nutritional_breakdown"
+            referencedColumns: ["meal_id"]
           },
           {
             foreignKeyName: "order_items_meal_id_fkey"
@@ -1133,6 +1176,13 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "meals"
             referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "production_batches_meal_id_fkey"
+            columns: ["meal_id"]
+            isOneToOne: false
+            referencedRelation: "meals_nutritional_breakdown"
+            referencedColumns: ["meal_id"]
           },
           {
             foreignKeyName: "production_batches_meal_id_fkey"
@@ -1596,6 +1646,27 @@ export type Database = {
       }
     }
     Views: {
+      meals_nutritional_breakdown: {
+        Row: {
+          base_recipe: boolean | null
+          category: string | null
+          equilibre_calories: number | null
+          equilibre_carbs: number | null
+          equilibre_fat: number | null
+          equilibre_protein: number | null
+          meal_id: string | null
+          name: string | null
+          perte_poids_calories: number | null
+          perte_poids_carbs: number | null
+          perte_poids_fat: number | null
+          perte_poids_protein: number | null
+          prise_masse_calories: number | null
+          prise_masse_carbs: number | null
+          prise_masse_fat: number | null
+          prise_masse_protein: number | null
+        }
+        Relationships: []
+      }
       meals_with_details: {
         Row: {
           active: boolean | null
@@ -1640,6 +1711,10 @@ export type Database = {
       }
     }
     Functions: {
+      calculate_nutrition_for_quantity: {
+        Args: { ingredient_nutritional_info: Json; quantity_grams: number }
+        Returns: Json
+      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["user_role"]

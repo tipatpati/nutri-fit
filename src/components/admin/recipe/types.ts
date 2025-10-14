@@ -30,4 +30,9 @@ export interface RecipeFormData {
   premium: boolean;
   badge: string;
   image_url: string;
+  ingredients: {
+    protein: string | null;
+    carbs: string | null;
+    vegetables: string | null;
+  };
 }

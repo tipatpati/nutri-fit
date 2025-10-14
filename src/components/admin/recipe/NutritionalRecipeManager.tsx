@@ -25,7 +25,12 @@ const NutritionalRecipeManager = () => {
     category: "Équilibré",
     premium: false,
     badge: "",
-    image_url: ""
+    image_url: "",
+    ingredients: {
+      protein: null,
+      carbs: null,
+      vegetables: null,
+    }
   });
 
   useEffect(() => {
@@ -66,7 +71,12 @@ const NutritionalRecipeManager = () => {
       category: "Équilibré",
       premium: false,
       badge: "",
-      image_url: ""
+      image_url: "",
+      ingredients: {
+        protein: null,
+        carbs: null,
+        vegetables: null,
+      }
     });
     setEditingMeal(null);
   };
@@ -83,7 +93,12 @@ const NutritionalRecipeManager = () => {
         category: meal.category,
         premium: meal.premium,
         badge: meal.badge || "",
-        image_url: meal.image_url || ""
+        image_url: meal.image_url || "",
+        ingredients: {
+          protein: null,
+          carbs: null,
+          vegetables: null,
+        }
       });
     } else {
       resetForm();

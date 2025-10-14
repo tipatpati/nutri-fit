@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Meal, RecipeFormData } from "./types";
 import RecipeFormFields from "./RecipeFormFields";
+import EnhancedRecipeFormFields from "./EnhancedRecipeFormFields";
 
 interface RecipeFormProps {
   isOpen: boolean;
@@ -10,6 +11,7 @@ interface RecipeFormProps {
   formData: RecipeFormData;
   setFormData: (data: RecipeFormData) => void;
   onSave: () => void;
+  useEnhancedFields?: boolean;
 }
 
 const RecipeForm = ({
@@ -18,7 +20,8 @@ const RecipeForm = ({
   editingMeal,
   formData,
   setFormData,
-  onSave
+  onSave,
+  useEnhancedFields = false
 }: RecipeFormProps) => {
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
@@ -28,11 +31,17 @@ const RecipeForm = ({
             {editingMeal ? "Modifier la recette" : "Nouvelle recette"}
           </DialogTitle>
           <DialogDescription>
-            Remplissez les informations de la recette avec ses composants nutritionnels
+            {useEnhancedFields 
+              ? "Sélectionnez les ingrédients - les quantités seront calculées automatiquement pour chaque objectif"
+              : "Remplissez les informations de la recette avec ses composants nutritionnels"}
           </DialogDescription>
         </DialogHeader>
         
-        <RecipeFormFields formData={formData} setFormData={setFormData} />
+        {useEnhancedFields ? (
+          <EnhancedRecipeFormFields formData={formData} setFormData={setFormData} />
+        ) : (
+          <RecipeFormFields formData={formData} setFormData={setFormData} />
+        )}
 
         <div className="flex justify-end space-x-2">
           <Button variant="outline" onClick={onClose}>
