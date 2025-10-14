@@ -80,6 +80,10 @@ const Order = () => {
 
   const handleGoalSelect = (goal: string) => {
     setSelectedGoal(goal);
+    // Auto-advance to next step with smooth transition
+    setTimeout(() => {
+      setCurrentStep('date');
+    }, 600);
   };
 
   const handleGoalProceed = () => {
@@ -210,45 +214,47 @@ const Order = () => {
 
         {/* Content based on current step */}
         <div className="max-w-6xl mx-auto">
-          {currentStep === 'goal' && (
-            <GoalSelection
-              selectedGoal={selectedGoal}
-              onGoalSelect={handleGoalSelect}
-              onProceed={handleGoalProceed}
-            />
-          )}
+          <div className="animate-fade-in">
+            {currentStep === 'goal' && (
+              <GoalSelection
+                selectedGoal={selectedGoal}
+                onGoalSelect={handleGoalSelect}
+                onProceed={handleGoalProceed}
+              />
+            )}
 
-          {currentStep === 'date' && (
-            <OrderCalendar
-              selectedDate={selectedDate}
-              onDateSelect={handleDateSelect}
-              isDateAvailable={isDateAvailable}
-              getAvailableSlots={getAvailableSlots}
-              onBack={handleBackToGoal}
-            />
-          )}
+            {currentStep === 'date' && (
+              <OrderCalendar
+                selectedDate={selectedDate}
+                onDateSelect={handleDateSelect}
+                isDateAvailable={isDateAvailable}
+                getAvailableSlots={getAvailableSlots}
+                onBack={handleBackToGoal}
+              />
+            )}
 
-          {currentStep === 'meals' && selectedDate && (
-            <MealSelection
-              selectedDate={selectedDate}
-              selectedMeals={selectedMeals}
-              onMealSelect={handleMealSelect}
-              availableSlots={getPackMealLimit() || getAvailableSlots(selectedDate)}
-              totalMealsForDate={getTotalMealsForDate(selectedDate)}
-              packLimit={getPackMealLimit()}
-              selectedPackage={selectedPackage}
-              onProceed={handleProceedToSummary}
-              onBack={handleBackToCalendar}
-            />
-          )}
+            {currentStep === 'meals' && selectedDate && (
+              <MealSelection
+                selectedDate={selectedDate}
+                selectedMeals={selectedMeals}
+                onMealSelect={handleMealSelect}
+                availableSlots={getPackMealLimit() || getAvailableSlots(selectedDate)}
+                totalMealsForDate={getTotalMealsForDate(selectedDate)}
+                packLimit={getPackMealLimit()}
+                selectedPackage={selectedPackage}
+                onProceed={handleProceedToSummary}
+                onBack={handleBackToCalendar}
+              />
+            )}
 
-          {currentStep === 'summary' && (
-            <OrderSummary
-              selectedMeals={selectedMeals}
-              onBack={handleBackToMeals}
-              onConfirm={() => console.log('Order confirmed')}
-            />
-          )}
+            {currentStep === 'summary' && (
+              <OrderSummary
+                selectedMeals={selectedMeals}
+                onBack={handleBackToMeals}
+                onConfirm={() => console.log('Order confirmed')}
+              />
+            )}
+          </div>
         </div>
       </main>
 

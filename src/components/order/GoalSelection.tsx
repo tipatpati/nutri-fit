@@ -94,20 +94,6 @@ const GoalSelection = ({ selectedGoal, onGoalSelect, onProceed }: GoalSelectionP
         ))}
       </div>
 
-      {/* Proceed Button */}
-      {selectedGoal && (
-        <div className="flex justify-center pt-md-4">
-          <Button
-            variant="filled"
-            size="lg"
-            onClick={onProceed}
-            className="px-md-8 py-md-3 md-elevation-2"
-          >
-            Continuer
-            <ArrowRight className="w-5 h-5 ml-md-2" />
-          </Button>
-        </div>
-      )}
     </div>
   );
 };
