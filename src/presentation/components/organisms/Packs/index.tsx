@@ -72,11 +72,11 @@ const Packs = () => {
                     </CardTitle>
                     <div className="flex items-baseline gap-2">
                       <span className="text-4xl font-bold text-[hsl(var(--md-sys-color-on-surface))]">
-                        {plan.total_price.toFixed(2)}€
+                        {plan.total_price.toFixed(2)} DA
                       </span>
                     </div>
                     <p className="md-body-small text-neutral-500 mt-1">
-                      {plan.price_per_meal.toFixed(2)}€ par repas
+                      {plan.price_per_meal.toFixed(2)} DA par repas
                     </p>
                   </div>
 

@@ -114,7 +114,7 @@ const MealCard = ({ meal, getCategoryColor }: MealCardProps) => {
             {meal.name}
           </h3>
           <p className="md-body-medium text-md-primary font-semibold mt-md-2">
-            {meal.premium ? '15.99' : '12.99'}€
+            {meal.premium ? '15.99' : '12.99'} DA
           </p>
         </div>
       </CardContent>

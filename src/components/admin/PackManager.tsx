@@ -291,7 +291,7 @@ export const PackManager = () => {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="price_per_meal">Prix par Repas (€) *</Label>
+                  <Label htmlFor="price_per_meal">Prix par Repas (DA) *</Label>
                   <Input
                     id="price_per_meal"
                     type="number"
@@ -313,7 +313,7 @@ export const PackManager = () => {
                 <p className="text-sm text-muted-foreground">
                   Prix Total du Pack
                 </p>
-                <p className="text-2xl font-bold">{totalPrice.toFixed(2)} €</p>
+                <p className="text-2xl font-bold">{totalPrice.toFixed(2)} DA</p>
               </div>
 
               <div className="space-y-2">
@@ -409,9 +409,9 @@ export const PackManager = () => {
                 <TableRow key={pack.id}>
                   <TableCell className="font-medium">{pack.name}</TableCell>
                   <TableCell>{pack.meals_quantity}</TableCell>
-                  <TableCell>{pack.price_per_meal.toFixed(2)} €</TableCell>
+                  <TableCell>{pack.price_per_meal.toFixed(2)} DA</TableCell>
                   <TableCell className="font-bold">
-                    {pack.total_price.toFixed(2)} €
+                    {pack.total_price.toFixed(2)} DA
                   </TableCell>
                   <TableCell>
                     {pack.active ? (

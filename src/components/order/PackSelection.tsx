@@ -82,11 +82,11 @@ const PackSelection = ({ selectedPackage, onPackageSelect }: PackSelectionProps)
                   </CardTitle>
                   <div className="flex items-baseline gap-2">
                     <span className="text-3xl font-bold text-md-on-surface">
-                      {plan.total_price.toFixed(2)}€
+                      {plan.total_price.toFixed(2)} DA
                     </span>
                   </div>
                   <p className="md-body-small text-md-on-surface-variant mt-1">
-                    {plan.price_per_meal.toFixed(2)}€ par repas
+                    {plan.price_per_meal.toFixed(2)} DA par repas
                   </p>
                 </div>
 

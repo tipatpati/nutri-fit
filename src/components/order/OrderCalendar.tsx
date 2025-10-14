@@ -137,7 +137,7 @@ const OrderCalendar = ({
             <div className="md-body-medium text-[hsl(var(--md-sys-color-on-tertiary-container))]">
               <p className="md-title-medium mb-1">Informations importantes :</p>
               <ul className="space-y-1">
-                <li>• Livraison gratuite à partir de 30€</li>
+                <li>• Livraison gratuite à partir de 3000 DA</li>
                 <li>• Commande possible jusqu'à 30 jours à l'avance</li>
                 <li>• Créneaux limités par jour selon notre capacité de production</li>
               </ul>

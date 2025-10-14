@@ -191,7 +191,7 @@ const OrderSummary = ({ selectedMeals, selectedPackage, onBack, onConfirm }: Ord
                       </div>
                       <div className="text-right">
                         <p className="md-title-medium font-bold text-md-on-surface">
-                          {(pricePerMeal * meal.quantity).toFixed(2)}€
+                          {(pricePerMeal * meal.quantity).toFixed(2)} DA
                         </p>
                       </div>
                     </div>
@@ -251,7 +251,7 @@ const OrderSummary = ({ selectedMeals, selectedPackage, onBack, onConfirm }: Ord
                 
                 <div className="flex justify-between items-center py-md-2 border-b border-md-outline-variant">
                   <span className="md-body-medium text-md-on-surface-variant">Sous-total</span>
-                  <span className="md-body-medium font-semibold text-md-on-surface">{totalPrice.toFixed(2)}€</span>
+                  <span className="md-body-medium font-semibold text-md-on-surface">{totalPrice.toFixed(2)} DA</span>
                 </div>
                 
                 <div className="flex justify-between items-center py-md-2 border-b border-md-outline-variant">
@@ -261,7 +261,7 @@ const OrderSummary = ({ selectedMeals, selectedPackage, onBack, onConfirm }: Ord
                 
                 <div className="flex justify-between items-center py-md-4 bg-md-primary-container rounded-md-md px-md-4">
                   <span className="md-title-medium font-bold text-md-on-primary-container">Total</span>
-                  <span className="md-title-large font-bold text-md-on-primary-container">{totalPrice.toFixed(2)}€</span>
+                  <span className="md-title-large font-bold text-md-on-primary-container">{totalPrice.toFixed(2)} DA</span>
                 </div>
               </div>
 
