@@ -260,7 +260,7 @@ const Auth = () => {
                       {formLoading ? "Connexion..." : "Se connecter"}
                     </Button>
                     <div className="text-sm text-center">
-                      <button type="button" onClick={handleSendResetLink} className="underline text-[hsl(var(--md-sys-color-primary))] hover:opacity-80" disabled={formLoading}>
+                      <button type="button" onClick={() => navigate('/reset-password')} className="underline text-[hsl(var(--md-sys-color-primary))] hover:opacity-80" disabled={formLoading}>
                         Mot de passe oublié ?
                       </button>
                     </div>

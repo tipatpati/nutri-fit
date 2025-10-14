@@ -1,19 +1,45 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { useToast } from "@/hooks/use-toast";
+import { emailSchema, resetPasswordSchema, type ResetPasswordData } from "@/shared/validation/authSchema";
+import { z } from "zod";
+
+const emailRequestSchema = z.object({
+  email: emailSchema,
+});
+
+type EmailRequestData = z.infer<typeof emailRequestSchema>;
 
 const ResetPassword = () => {
-  const [newPassword, setNewPassword] = useState("");
-  const [confirmNewPassword, setConfirmNewPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  const [validToken, setValidToken] = useState(false);
+  const [validToken, setValidToken] = useState<boolean | null>(null);
+  const [emailSent, setEmailSent] = useState(false);
   const navigate = useNavigate();
   const { toast } = useToast();
+
+  // Form for requesting reset link
+  const emailForm = useForm<EmailRequestData>({
+    resolver: zodResolver(emailRequestSchema),
+    defaultValues: {
+      email: "",
+    },
+  });
+
+  // Form for setting new password
+  const passwordForm = useForm<ResetPasswordData>({
+    resolver: zodResolver(resetPasswordSchema),
+    defaultValues: {
+      newPassword: "",
+      confirmPassword: "",
+    },
+  });
 
   useEffect(() => {
     // Check if we have a valid recovery token in the URL
@@ -24,48 +50,51 @@ const ResetPassword = () => {
     if (accessToken && type === 'recovery') {
       setValidToken(true);
     } else {
-      toast({
-        title: "Lien invalide",
-        description: "Ce lien de réinitialisation est invalide ou a expiré.",
-        variant: "destructive"
-      });
-      setTimeout(() => navigate("/auth"), 2000);
+      // No token means user navigated directly - show email request form
+      setValidToken(false);
     }
-  }, [navigate, toast]);
+  }, []);
 
-  const handlePasswordUpdate = async (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    if (newPassword.length < 6) {
-      toast({
-        title: "Mot de passe trop court",
-        description: "Minimum 6 caractères",
-        variant: "destructive"
+  const handleSendResetLink = async (data: EmailRequestData) => {
+    setLoading(true);
+    try {
+      const redirectUrl = `${window.location.origin}/reset-password`;
+      const { error } = await supabase.auth.resetPasswordForEmail(data.email, {
+        redirectTo: redirectUrl,
       });
-      return;
-    }
-    
-    if (newPassword !== confirmNewPassword) {
-      toast({
-        title: "Les mots de passe ne correspondent pas",
-        variant: "destructive"
-      });
-      return;
-    }
 
+      if (error) throw error;
+
+      setEmailSent(true);
+      toast({
+        title: "Email envoyé",
+        description: "Vérifiez votre boîte mail pour le lien de réinitialisation.",
+      });
+    } catch (error: any) {
+      toast({
+        title: "Erreur",
+        description: error.message,
+        variant: "destructive",
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handlePasswordUpdate = async (data: ResetPasswordData) => {
     setLoading(true);
     try {
       const { error } = await supabase.auth.updateUser({
-        password: newPassword
+        password: data.newPassword,
       });
-      
+
       if (error) throw error;
-      
+
       toast({
         title: "Mot de passe mis à jour",
-        description: "Votre mot de passe a été mis à jour avec succès."
+        description: "Votre mot de passe a été mis à jour avec succès.",
       });
-      
+
       // Clean up the URL hash and redirect
       window.history.replaceState({}, document.title, window.location.pathname);
       navigate("/");
@@ -73,20 +102,20 @@ const ResetPassword = () => {
       toast({
         title: "Erreur",
         description: error.message,
-        variant: "destructive"
+        variant: "destructive",
       });
     } finally {
       setLoading(false);
     }
   };
 
-  if (!validToken) {
+  if (validToken === null) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-primary to-secondary flex items-center justify-center p-4">
         <Card className="w-full max-w-md">
           <CardHeader>
-            <CardTitle>Lien invalide</CardTitle>
-            <CardDescription>Redirection en cours...</CardDescription>
+            <CardTitle>Chargement...</CardTitle>
+            <CardDescription>Vérification en cours</CardDescription>
           </CardHeader>
         </Card>
       </div>
@@ -98,62 +127,149 @@ const ResetPassword = () => {
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <h1 className="text-4xl font-bold text-white mb-2">NutiFit</h1>
-          <p className="text-white/80">Réinitialisation du mot de passe</p>
+          <p className="text-white/80">
+            {validToken ? "Réinitialisation du mot de passe" : "Mot de passe oublié"}
+          </p>
         </div>
 
         <Card>
-          <CardHeader>
-            <CardTitle>Nouveau mot de passe</CardTitle>
-            <CardDescription>Entrez un nouveau mot de passe sécurisé</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <form onSubmit={handlePasswordUpdate} className="space-y-4">
-              <div>
-                <Label htmlFor="new-password">Nouveau mot de passe</Label>
-                <Input
-                  id="new-password"
-                  type="password"
-                  value={newPassword}
-                  onChange={(e) => setNewPassword(e.target.value)}
-                  required
-                  minLength={6}
-                  disabled={loading}
-                  placeholder="Minimum 6 caractères"
-                />
-              </div>
-              <div>
-                <Label htmlFor="confirm-password">Confirmer le mot de passe</Label>
-                <Input
-                  id="confirm-password"
-                  type="password"
-                  value={confirmNewPassword}
-                  onChange={(e) => setConfirmNewPassword(e.target.value)}
-                  required
-                  minLength={6}
-                  disabled={loading}
-                  placeholder="Confirmez votre mot de passe"
-                />
-              </div>
-              <div className="flex gap-2">
-                <Button 
-                  type="submit" 
-                  variant="filled" 
-                  disabled={loading}
-                  className="flex-1"
-                >
-                  {loading ? "Mise à jour..." : "Mettre à jour"}
-                </Button>
-                <Button 
-                  type="button" 
-                  variant="outlined" 
-                  onClick={() => navigate("/auth")} 
-                  disabled={loading}
-                >
-                  Annuler
-                </Button>
-              </div>
-            </form>
-          </CardContent>
+          {validToken ? (
+            <>
+              <CardHeader>
+                <CardTitle>Nouveau mot de passe</CardTitle>
+                <CardDescription>
+                  Entrez un nouveau mot de passe sécurisé (min. 6 caractères, 1 majuscule, 1 minuscule, 1 chiffre)
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <Form {...passwordForm}>
+                  <form onSubmit={passwordForm.handleSubmit(handlePasswordUpdate)} className="space-y-4">
+                    <FormField
+                      control={passwordForm.control}
+                      name="newPassword"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Nouveau mot de passe</FormLabel>
+                          <FormControl>
+                            <Input
+                              type="password"
+                              placeholder="Minimum 6 caractères"
+                              disabled={loading}
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={passwordForm.control}
+                      name="confirmPassword"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Confirmer le mot de passe</FormLabel>
+                          <FormControl>
+                            <Input
+                              type="password"
+                              placeholder="Confirmez votre mot de passe"
+                              disabled={loading}
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <div className="flex gap-2">
+                      <Button type="submit" variant="filled" disabled={loading} className="flex-1">
+                        {loading ? "Mise à jour..." : "Mettre à jour"}
+                      </Button>
+                      <Button
+                        type="button"
+                        variant="outlined"
+                        onClick={() => navigate("/auth")}
+                        disabled={loading}
+                      >
+                        Annuler
+                      </Button>
+                    </div>
+                  </form>
+                </Form>
+              </CardContent>
+            </>
+          ) : (
+            <>
+              <CardHeader>
+                <CardTitle>Réinitialiser le mot de passe</CardTitle>
+                <CardDescription>
+                  {emailSent
+                    ? "Email envoyé ! Vérifiez votre boîte mail."
+                    : "Entrez votre email pour recevoir un lien de réinitialisation"}
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                {emailSent ? (
+                  <div className="space-y-4">
+                    <p className="text-sm text-muted-foreground">
+                      Un email avec un lien de réinitialisation a été envoyé à votre adresse. Le lien est
+                      valide pendant 1 heure.
+                    </p>
+                    <div className="flex gap-2">
+                      <Button
+                        variant="outlined"
+                        onClick={() => {
+                          setEmailSent(false);
+                          emailForm.reset();
+                        }}
+                        className="flex-1"
+                      >
+                        Renvoyer
+                      </Button>
+                      <Button variant="outlined" onClick={() => navigate("/auth")}>
+                        Retour
+                      </Button>
+                    </div>
+                  </div>
+                ) : (
+                  <Form {...emailForm}>
+                    <form onSubmit={emailForm.handleSubmit(handleSendResetLink)} className="space-y-4">
+                      <FormField
+                        control={emailForm.control}
+                        name="email"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Email</FormLabel>
+                            <FormControl>
+                              <Input
+                                type="email"
+                                placeholder="votre.email@exemple.com"
+                                disabled={loading}
+                                {...field}
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      <div className="flex gap-2">
+                        <Button type="submit" variant="filled" disabled={loading} className="flex-1">
+                          {loading ? "Envoi..." : "Envoyer le lien"}
+                        </Button>
+                        <Button
+                          type="button"
+                          variant="outlined"
+                          onClick={() => navigate("/auth")}
+                          disabled={loading}
+                        >
+                          Annuler
+                        </Button>
+                      </div>
+                    </form>
+                  </Form>
+                )}
+              </CardContent>
+            </>
+          )}
         </Card>
       </div>
     </div>
