@@ -1,66 +1,98 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Calculator, ChefHat, Target } from "lucide-react";
+import { Calculator, ChefHat, Target, Loader2 } from "lucide-react";
 import { RecipeCalculator, RecipeIngredient, CalculatedRecipe } from "@/utils/recipeCalculator";
 import { INGREDIENT_NUTRITIONAL_VALUES, nutritionalCalculations } from "@/constants/nutritionalValues";
 import { NUTRITIONAL_CATEGORIES } from "@/constants/nutritionalCategories";
+import { useMeals } from "@/presentation/hooks/useMeals";
+import { Meal } from "@/core/entities/Meal";
 
 const NutritionalCalculator = () => {
   const [calculatedRecipes, setCalculatedRecipes] = useState<CalculatedRecipe[]>([]);
-  const [selectedExample, setSelectedExample] = useState<string>("");
+  const [selectedMeal, setSelectedMeal] = useState<string>("");
+  
+  // Fetch real meals from database
+  const { data: meals, isLoading } = useMeals({ active: true });
 
-  // Example recipe templates
-  const exampleRecipes = {
-    "chicken_rice": {
-      name: "Chicken Boost - Riz Énergie",
-      baseIngredients: [
-        { key: "chicken_breast", name: "Blanc de poulet", type: "protein" as const, priority: 1 },
-        { key: "rice_basmati", name: "Riz basmati", type: "carbs" as const, priority: 1 },
-        { key: "broccoli", name: "Brocolis vapeur", type: "vegetables" as const, priority: 2 },
-        { key: "bell_pepper", name: "Poivrons colorés", type: "vegetables" as const, priority: 3 },
-        { key: "olive_oil", name: "Huile d'olive", type: "fat" as const, priority: 1 },
-      ],
-      cookingInstructions: [
-        "Faire cuire le riz selon les instructions du paquet",
-        "Assaisonner et faire griller le poulet 6-8 minutes de chaque côté",
-        "Cuire les légumes à la vapeur pendant 5-7 minutes",
-        "Dresser dans l'assiette et arroser d'huile d'olive"
-      ]
-    },
-    "salmon_quinoa": {
-      name: "Saumon Oméga - Quinoa Complet",
-      baseIngredients: [
-        { key: "salmon", name: "Filet de saumon", type: "protein" as const, priority: 1 },
-        { key: "quinoa", name: "Quinoa", type: "carbs" as const, priority: 1 },
-        { key: "spinach", name: "Épinards frais", type: "vegetables" as const, priority: 2 },
-        { key: "avocado", name: "Avocat", type: "fat" as const, priority: 1 },
-        { key: "carrots", name: "Carottes", type: "vegetables" as const, priority: 3 },
-      ],
-      cookingInstructions: [
-        "Rincer et cuire le quinoa dans un bouillon de légumes",
-        "Cuire le saumon à la poêle ou au four",
-        "Faire revenir brièvement les épinards",
-        "Couper l'avocat en lamelles",
-        "Assembler tous les éléments dans l'assiette"
-      ]
+  // Map meal text to ingredient keys (basic mapping for demonstration)
+  const mapMealToIngredients = (meal: Meal): Omit<RecipeIngredient, 'quantity'>[] => {
+    const ingredients: Omit<RecipeIngredient, 'quantity'>[] = [];
+    
+    // Map protein (meat)
+    const meatLower = meal.meat?.toLowerCase() || '';
+    if (meatLower.includes('poulet') || meatLower.includes('chicken')) {
+      ingredients.push({ key: 'chicken_breast', name: meal.meat, type: 'protein', priority: 1 });
+    } else if (meatLower.includes('saumon') || meatLower.includes('salmon')) {
+      ingredients.push({ key: 'salmon', name: meal.meat, type: 'protein', priority: 1 });
+    } else if (meatLower.includes('boeuf') || meatLower.includes('beef')) {
+      ingredients.push({ key: 'beef_lean', name: meal.meat, type: 'protein', priority: 1 });
+    } else if (meal.meat) {
+      // Default to chicken if protein not recognized
+      ingredients.push({ key: 'chicken_breast', name: meal.meat, type: 'protein', priority: 1 });
     }
+    
+    // Map carbs
+    const carbsLower = meal.carbs?.toLowerCase() || '';
+    if (carbsLower.includes('riz') || carbsLower.includes('rice')) {
+      ingredients.push({ key: 'rice_basmati', name: meal.carbs, type: 'carbs', priority: 1 });
+    } else if (carbsLower.includes('quinoa')) {
+      ingredients.push({ key: 'quinoa', name: meal.carbs, type: 'carbs', priority: 1 });
+    } else if (carbsLower.includes('patate') || carbsLower.includes('potato')) {
+      ingredients.push({ key: 'sweet_potato', name: meal.carbs, type: 'carbs', priority: 1 });
+    } else if (meal.carbs) {
+      // Default to rice
+      ingredients.push({ key: 'rice_basmati', name: meal.carbs, type: 'carbs', priority: 1 });
+    }
+    
+    // Map vegetables
+    const vegLower = meal.vegetables?.toLowerCase() || '';
+    if (vegLower.includes('broccoli') || vegLower.includes('brocoli')) {
+      ingredients.push({ key: 'broccoli', name: 'Brocoli', type: 'vegetables', priority: 2 });
+    }
+    if (vegLower.includes('épinard') || vegLower.includes('spinach')) {
+      ingredients.push({ key: 'spinach', name: 'Épinards', type: 'vegetables', priority: 2 });
+    }
+    if (vegLower.includes('carrot') || vegLower.includes('carotte')) {
+      ingredients.push({ key: 'carrots', name: 'Carottes', type: 'vegetables', priority: 3 });
+    }
+    if (vegLower.includes('poivron') || vegLower.includes('pepper')) {
+      ingredients.push({ key: 'bell_pepper', name: 'Poivrons', type: 'vegetables', priority: 3 });
+    }
+    
+    // Add default vegetables if none matched
+    if (!ingredients.some(i => i.type === 'vegetables')) {
+      ingredients.push({ key: 'mixed_vegetables', name: meal.vegetables || 'Légumes variés', type: 'vegetables', priority: 2 });
+    }
+    
+    // Add healthy fats
+    ingredients.push({ key: 'olive_oil', name: "Huile d'olive", type: 'fat', priority: 1 });
+    
+    return ingredients;
   };
 
-  const calculateRecipe = (recipeKey: string) => {
-    const recipe = exampleRecipes[recipeKey as keyof typeof exampleRecipes];
-    if (!recipe) return;
+  const calculateRecipe = (meal: Meal) => {
+    const baseIngredients = mapMealToIngredients(meal);
+    
+    // Generate basic cooking instructions based on meal description
+    const cookingInstructions = [
+      `Préparer les ingrédients: ${meal.meat}, ${meal.vegetables}, ${meal.carbs}`,
+      "Cuire les protéines selon la méthode appropriée (grill, poêle, four)",
+      "Préparer les féculents selon les instructions",
+      "Cuire ou préparer les légumes",
+      "Assembler dans l'assiette et assaisonner"
+    ];
 
     const variants = RecipeCalculator.generateRecipeVariants(
-      recipe.baseIngredients,
-      recipe.cookingInstructions,
-      25, // 25 minutes preparation time
-      'medium'
+      baseIngredients,
+      cookingInstructions,
+      30, // Default preparation time
+      'medium' // Default difficulty
     );
 
     setCalculatedRecipes(variants);
-    setSelectedExample(recipe.name);
+    setSelectedMeal(meal.name);
   };
 
   const getNutritionColor = (nutrition: any, target: any, key: string) => {
@@ -79,32 +111,50 @@ const NutritionalCalculator = () => {
             Calculateur Nutritionnel
           </CardTitle>
           <CardDescription>
-            Testez le système de calcul automatique des quantités d'ingrédients
+            Sélectionnez une recette existante pour calculer automatiquement les variantes nutritionnelles
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-            {Object.entries(exampleRecipes).map(([key, recipe]) => (
-              <Card key={key} className="cursor-pointer hover:shadow-md transition-shadow">
-                <CardContent className="p-4">
-                  <h3 className="font-semibold text-emerald-800 mb-2">{recipe.name}</h3>
-                  <div className="space-y-1 text-sm text-gray-600 mb-3">
-                    {recipe.baseIngredients.map((ing, idx) => (
-                      <div key={idx}>• {ing.name}</div>
-                    ))}
-                  </div>
-                  <Button 
-                    onClick={() => calculateRecipe(key)}
-                    className="w-full bg-emerald-600 hover:bg-emerald-700"
-                    size="sm"
-                  >
-                    <ChefHat className="h-4 w-4 mr-2" />
-                    Calculer les variantes
-                  </Button>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+          {isLoading ? (
+            <div className="flex items-center justify-center py-8">
+              <Loader2 className="h-8 w-8 animate-spin text-emerald-600" />
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
+              {meals?.slice(0, 12).map((meal) => (
+                <Card key={meal.id} className="cursor-pointer hover:shadow-md transition-shadow">
+                  <CardContent className="p-4">
+                    {meal.image_url && (
+                      <img 
+                        src={meal.image_url} 
+                        alt={meal.name}
+                        className="w-full h-32 object-cover rounded-md mb-3"
+                      />
+                    )}
+                    <h3 className="font-semibold text-emerald-800 mb-2">{meal.name}</h3>
+                    <div className="space-y-1 text-sm text-gray-600 mb-3">
+                      <div>🥩 {meal.meat}</div>
+                      <div>🥗 {meal.vegetables}</div>
+                      <div>🌾 {meal.carbs}</div>
+                    </div>
+                    {meal.calories_per_serving && (
+                      <div className="text-xs text-gray-500 mb-2">
+                        {meal.calories_per_serving} cal | {meal.protein_grams}g protéines
+                      </div>
+                    )}
+                    <Button 
+                      onClick={() => calculateRecipe(meal)}
+                      className="w-full bg-emerald-600 hover:bg-emerald-700"
+                      size="sm"
+                    >
+                      <ChefHat className="h-4 w-4 mr-2" />
+                      Calculer les variantes
+                    </Button>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          )}
         </CardContent>
       </Card>
 
@@ -112,7 +162,7 @@ const NutritionalCalculator = () => {
         <Card>
           <CardHeader>
             <CardTitle className="text-emerald-800">
-              Résultats pour: {selectedExample}
+              Résultats pour: {selectedMeal}
             </CardTitle>
             <CardDescription>
               Quantités automatiquement calculées pour chaque catégorie nutritionnelle
