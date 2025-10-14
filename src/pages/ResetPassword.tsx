@@ -42,17 +42,22 @@ const ResetPassword = () => {
   });
 
   useEffect(() => {
-    // Check if we have a valid recovery token in the URL
-    const hashParams = new URLSearchParams(window.location.hash.substring(1));
-    const accessToken = hashParams.get('access_token');
-    const type = hashParams.get('type');
+    const checkRecoveryToken = async () => {
+      const hashParams = new URLSearchParams(window.location.hash.substring(1));
+      const accessToken = hashParams.get('access_token');
+      const type = hashParams.get('type');
+      
+      if (accessToken && type === 'recovery') {
+        // Sign out any existing session before showing password reset form
+        await supabase.auth.signOut();
+        setValidToken(true);
+      } else {
+        // No token means user navigated directly - show email request form
+        setValidToken(false);
+      }
+    };
     
-    if (accessToken && type === 'recovery') {
-      setValidToken(true);
-    } else {
-      // No token means user navigated directly - show email request form
-      setValidToken(false);
-    }
+    checkRecoveryToken();
   }, []);
 
   const handleSendResetLink = async (data: EmailRequestData) => {
@@ -95,9 +100,13 @@ const ResetPassword = () => {
         description: "Votre mot de passe a été mis à jour avec succès.",
       });
 
-      // Clean up the URL hash and redirect
-      window.history.replaceState({}, document.title, window.location.pathname);
-      navigate("/");
+      // Clean up the URL hash after successful password update
+      if (typeof window !== 'undefined' && window.location.hash) {
+        window.history.replaceState({}, document.title, window.location.pathname + window.location.search);
+      }
+
+      // Redirect to home page - user will be automatically signed in
+      setTimeout(() => navigate('/'), 1500);
     } catch (error: any) {
       toast({
         title: "Erreur",
