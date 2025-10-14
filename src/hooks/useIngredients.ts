@@ -19,6 +19,7 @@ export interface Ingredient {
   current_stock: number;
   reorder_point: number;
   minimum_stock: number;
+  cost_per_unit?: number;
   active: boolean;
 }
 
