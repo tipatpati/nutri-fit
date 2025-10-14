@@ -1270,13 +1270,13 @@ export type Database = {
           display_order: number | null
           features: Json | null
           id: string
-          meals_per_week: number
+          meals_quantity: number
           minimum_commitment_weeks: number | null
           name: string
           price_per_meal: number
-          price_per_week: number
           promoted: boolean
           target_category: string[] | null
+          total_price: number
           updated_at: string
         }
         Insert: {
@@ -1288,13 +1288,13 @@ export type Database = {
           display_order?: number | null
           features?: Json | null
           id?: string
-          meals_per_week: number
+          meals_quantity: number
           minimum_commitment_weeks?: number | null
           name: string
           price_per_meal: number
-          price_per_week: number
           promoted?: boolean
           target_category?: string[] | null
+          total_price: number
           updated_at?: string
         }
         Update: {
@@ -1306,13 +1306,13 @@ export type Database = {
           display_order?: number | null
           features?: Json | null
           id?: string
-          meals_per_week?: number
+          meals_quantity?: number
           minimum_commitment_weeks?: number | null
           name?: string
           price_per_meal?: number
-          price_per_week?: number
           promoted?: boolean
           target_category?: string[] | null
+          total_price?: number
           updated_at?: string
         }
         Relationships: []
