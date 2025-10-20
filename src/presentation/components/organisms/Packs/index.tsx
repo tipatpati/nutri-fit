@@ -51,20 +51,23 @@ const Packs = () => {
             return (
               <GlassCard 
                 key={plan.id}
-                elevated={plan.promoted}
-                className={`relative overflow-hidden transition-all duration-md-medium2 hover:md-elevation-4 hover:scale-[1.02] ${
-                  plan.promoted ? 'border-2 border-[hsl(var(--md-sys-color-primary))]' : ''
+                variant={plan.promoted ? "floating" : "default"}
+                withGlow={plan.promoted}
+                className={`relative overflow-hidden transition-all duration-md-medium2 ${
+                  plan.promoted ? 'border-2 border-[rgba(222,110,39,0.5)] z-10 scale-105' : ''
                 }`}
               >
                 {plan.promoted && (
-                  <div className="absolute top-0 right-0 left-0 h-1 bg-gradient-to-r from-[hsl(var(--md-sys-color-primary))] to-[hsl(var(--md-sys-color-tertiary))]" />
+                  <div className="absolute top-0 right-0 left-0 h-1 bg-gradient-to-r from-[hsl(var(--md-sys-color-secondary))] via-[hsl(var(--md-sys-color-primary))] to-[hsl(var(--md-sys-color-secondary))] animate-shimmer" 
+                    style={{ backgroundSize: '200% 100%' }}
+                  />
                 )}
                 
                 <div className="space-y-md-4 p-md-6 pb-md-6">
                   {plan.promoted && (
-                    <Badge className="w-fit bg-gradient-to-r from-[hsl(var(--md-sys-color-primary))] to-[hsl(var(--md-sys-color-tertiary))] text-white border-0">
-                      Plus populaire
-                    </Badge>
+                    <div className="glass-badge px-3 py-1.5 w-fit rounded-[var(--md-sys-shape-corner-full)]">
+                      <span className="md-label-small text-white font-bold">Plus populaire</span>
+                    </div>
                   )}
                   
                   <div>
@@ -81,9 +84,9 @@ const Packs = () => {
                     </p>
                   </div>
 
-                  <div className={`inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r ${color} rounded-[var(--md-sys-shape-corner-full)] text-white`}>
+                  <div className={`inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r ${color} rounded-[var(--md-sys-shape-corner-full)] text-white glass-badge`}>
                     <Icon name="shaker-bottle" size={16} className="brightness-0 invert" />
-                    <span className="md-label-medium">{plan.meals_quantity} repas</span>
+                    <span className="md-label-medium font-semibold">{plan.meals_quantity} repas</span>
                   </div>
                 </div>
 
@@ -121,13 +124,13 @@ const Packs = () => {
           })}
         </div>
 
-        {/* Additional Info */}
+        {/* Additional Info - Glass Cards */}
         <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-          <GlassCard className="text-center p-md-6">
-            <div className="w-12 h-12 mx-auto mb-4 bg-gradient-to-br from-[hsl(var(--md-sys-color-primary-container))] to-[hsl(var(--md-sys-color-secondary-container))] rounded-[var(--md-sys-shape-corner-large)] flex items-center justify-center">
-              <Icon name="calendar" size={24} className="brightness-0 opacity-70" />
+          <GlassCard className="text-center p-md-6 group">
+            <div className="w-14 h-14 mx-auto mb-4 rounded-[var(--md-sys-shape-corner-large)] glass-icon-circle flex items-center justify-center">
+              <Icon name="calendar" size={24} className="text-[hsl(var(--md-sys-color-primary))]" />
             </div>
-            <h4 className="md-title-medium text-[hsl(var(--md-sys-color-on-surface))] mb-2">
+            <h4 className="md-title-medium text-[hsl(var(--md-sys-color-on-surface))] mb-2 group-hover:text-[hsl(var(--md-sys-color-secondary))] transition-colors">
               Sans engagement
             </h4>
             <p className="md-body-small text-neutral-500">
@@ -135,11 +138,11 @@ const Packs = () => {
             </p>
           </GlassCard>
 
-          <GlassCard className="text-center p-md-6">
-            <div className="w-12 h-12 mx-auto mb-4 bg-gradient-to-br from-[hsl(var(--md-sys-color-primary-container))] to-[hsl(var(--md-sys-color-secondary-container))] rounded-[var(--md-sys-shape-corner-large)] flex items-center justify-center">
-              <Icon name="delivery-truck" size={24} className="brightness-0 opacity-70" />
+          <GlassCard className="text-center p-md-6 group">
+            <div className="w-14 h-14 mx-auto mb-4 rounded-[var(--md-sys-shape-corner-large)] glass-icon-circle flex items-center justify-center">
+              <Icon name="delivery-truck" size={24} className="text-[hsl(var(--md-sys-color-primary))]" />
             </div>
-            <h4 className="md-title-medium text-[hsl(var(--md-sys-color-on-surface))] mb-2">
+            <h4 className="md-title-medium text-[hsl(var(--md-sys-color-on-surface))] mb-2 group-hover:text-[hsl(var(--md-sys-color-secondary))] transition-colors">
               Livraison gratuite
             </h4>
             <p className="md-body-small text-neutral-500">
@@ -147,11 +150,11 @@ const Packs = () => {
             </p>
           </GlassCard>
 
-          <GlassCard className="text-center p-md-6">
-            <div className="w-12 h-12 mx-auto mb-4 bg-gradient-to-br from-[hsl(var(--md-sys-color-primary-container))] to-[hsl(var(--md-sys-color-secondary-container))] rounded-[var(--md-sys-shape-corner-large)] flex items-center justify-center">
-              <Icon name="scale-balance" size={24} className="brightness-0 opacity-70" />
+          <GlassCard className="text-center p-md-6 group">
+            <div className="w-14 h-14 mx-auto mb-4 rounded-[var(--md-sys-shape-corner-large)] glass-icon-circle flex items-center justify-center">
+              <Icon name="scale-balance" size={24} className="text-[hsl(var(--md-sys-color-primary))]" />
             </div>
-            <h4 className="md-title-medium text-[hsl(var(--md-sys-color-on-surface))] mb-2">
+            <h4 className="md-title-medium text-[hsl(var(--md-sys-color-on-surface))] mb-2 group-hover:text-[hsl(var(--md-sys-color-secondary))] transition-colors">
               Personnalisable
             </h4>
             <p className="md-body-small text-neutral-500">

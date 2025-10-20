@@ -3,24 +3,30 @@ import { cn } from "@/lib/utils";
 
 export interface GlassCardProps extends React.HTMLAttributes<HTMLDivElement> {
   elevated?: boolean;
-  variant?: "default" | "elevated" | "primary";
+  variant?: "default" | "elevated" | "primary" | "floating";
+  withGlow?: boolean;
+  withRipple?: boolean;
 }
 
 const GlassCard = React.forwardRef<HTMLDivElement, GlassCardProps>(
-  ({ className, elevated = false, variant = "default", ...props }, ref) => {
+  ({ className, elevated = false, variant = "default", withGlow = false, withRipple = false, ...props }, ref) => {
     const variantClasses = {
       default: "glass-card",
       elevated: "glass-surface-elevated",
       primary: "glass-primary",
+      floating: "glass-surface-elevated hover:md-elevation-5",
     };
 
     return (
       <div
         ref={ref}
         className={cn(
-          "rounded-[var(--md-sys-shape-corner-medium)] md-elevation-1 transition-standard",
-          "hover:md-elevation-3 hover:scale-[1.02]",
+          "rounded-[var(--organic-radius)] transition-standard",
           variantClasses[variant],
+          withGlow && "animate-pulse-glow",
+          withRipple && "ripple-effect",
+          variant === "floating" && "hover:scale-[1.03] hover:-translate-y-2",
+          variant !== "floating" && "hover:scale-[1.01]",
           className
         )}
         {...props}

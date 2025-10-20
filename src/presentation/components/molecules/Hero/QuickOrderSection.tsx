@@ -23,15 +23,19 @@ export const QuickOrderSection = ({ onOrderClick }: QuickOrderSectionProps) => {
         ))}
       </div>
       
-      {/* CTA Button - Burnt Orange Brand Color */}
+      {/* CTA Button - Burnt Orange Brand Color with Glass */}
       <Button 
         onClick={onOrderClick}
         size="lg"
         variant="filled"
-        className="w-full bg-md-secondary hover:bg-md-secondary/90 text-on-secondary font-semibold py-6 rounded-[var(--organic-radius)] transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5"
+        className="w-full bg-md-secondary hover:bg-md-secondary/90 text-on-secondary font-semibold py-6 rounded-[var(--organic-radius)] transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5 ripple-effect relative overflow-hidden group"
       >
-        Commander maintenant
-        <AnimatedArrowRight className="ml-2" size={20} />
+        <span className="relative z-10 flex items-center justify-center">
+          Commander maintenant
+          <AnimatedArrowRight className="ml-2" size={20} />
+        </span>
+        {/* Glass overlay on hover */}
+        <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
       </Button>
       
       {/* Benefits with organic icons */}

@@ -2,6 +2,7 @@ import { AnimatedClock, AnimatedHeart } from "@/components/ui/animated-icon";
 import { QuickOrderSection } from "../../molecules/Hero/QuickOrderSection";
 import { TrustBadge } from "../../atoms/Badge/TrustBadge";
 import { Icon } from "@/components/ui/icon";
+import { GlassCard } from "@/components/ui/glass-card";
 
 interface HeroContentProps {
   onOrderClick: () => void;
@@ -16,11 +17,15 @@ export const HeroContent = ({ onOrderClick }: HeroContentProps) => {
   ];
 
   return (
-    <div className="space-y-10 lg:space-y-12 text-center max-w-3xl mx-auto">
-      {/* Badge with organic styling */}
-      <div className="inline-flex items-center gap-2 px-4 py-2 glass-card">
-        <Icon name="stopwatch" size={14} className="text-md-secondary" />
-        <span className="text-on-surface md-label-medium font-semibold">Livraison express en 30 min</span>
+    <div className="space-y-10 lg:space-y-12 text-center max-w-3xl mx-auto relative">
+      {/* Floating glass blob decorations */}
+      <div className="glass-blob w-64 h-64 absolute -top-20 -right-20 opacity-30" style={{ animationDelay: '0s' }} />
+      <div className="glass-blob w-48 h-48 absolute -bottom-10 -left-10 opacity-20" style={{ animationDelay: '7s' }} />
+      
+      {/* Badge with glass styling */}
+      <div className="inline-flex items-center gap-2 px-4 py-2 glass-badge rounded-[var(--md-sys-shape-corner-full)] animate-scale-in">
+        <Icon name="stopwatch" size={14} className="brightness-0 invert" />
+        <span className="text-white md-label-medium font-semibold">Livraison express en 30 min</span>
       </div>
       
       {/* Heading with serif font */}
@@ -40,13 +45,21 @@ export const HeroContent = ({ onOrderClick }: HeroContentProps) => {
         </p>
       </div>
 
-      {/* CTA Section */}
-      <QuickOrderSection onOrderClick={onOrderClick} />
+      {/* CTA Section - Floating Glass Card */}
+      <GlassCard variant="floating" className="p-8 space-y-6 animate-fade-in">
+        <QuickOrderSection onOrderClick={onOrderClick} />
+      </GlassCard>
 
-      {/* Trust Indicators */}
+      {/* Trust Indicators with glass styling */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 pt-4 max-w-2xl mx-auto">
         {trustIndicators.map((indicator, index) => (
-          <TrustBadge key={index} {...indicator} />
+          <div 
+            key={index} 
+            className="animate-fade-in"
+            style={{ animationDelay: `${index * 0.1}s` }}
+          >
+            <TrustBadge {...indicator} />
+          </div>
         ))}
       </div>
     </div>

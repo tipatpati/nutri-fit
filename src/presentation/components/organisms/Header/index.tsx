@@ -20,7 +20,7 @@ export const Header = () => {
       </a>
       
       <header 
-        className="sticky top-0 z-40 w-full glass-surface md-elevation-2"
+        className="sticky top-0 z-40 w-full glass-surface-elevated md-elevation-2 border-b border-[rgba(229,226,217,0.2)]"
         role="banner"
       >
         <div className="max-w-7xl mx-auto px-[24px] sm:px-[32px] lg:px-[48px]">
