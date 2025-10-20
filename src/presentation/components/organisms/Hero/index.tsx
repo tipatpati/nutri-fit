@@ -27,8 +27,12 @@ export const Hero = () => {
         }}
       />
       
-      {/* Dark overlay */}
-      <div className="absolute inset-0 bg-black/25" />
+      {/* Warm gradient overlay with brand colors */}
+      <div className="absolute inset-0" 
+        style={{
+          background: 'linear-gradient(135deg, rgba(251, 248, 239, 0.3) 0%, rgba(43, 50, 16, 0.4) 100%)'
+        }}
+      />
       
       {/* Organic blob shapes */}
       <div 
