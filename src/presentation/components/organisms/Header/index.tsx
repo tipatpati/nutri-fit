@@ -1,13 +1,23 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { HeaderLogo } from "./HeaderLogo";
 import { DesktopNav } from "./DesktopNav";
 import { MobileNav } from "./MobileNav";
 import { HeaderActions } from "./HeaderActions";
+import { cn } from "@/lib/utils";
 
 export const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
     <>
@@ -20,7 +30,12 @@ export const Header = () => {
       </a>
       
       <header 
-        className="sticky top-0 z-40 w-full glass-surface border-b border-[#DE6E27]/20 backdrop-blur-xl"
+        className={cn(
+          "sticky top-0 z-40 w-full transition-all duration-300",
+          isScrolled 
+            ? "glass-strong shadow-xl backdrop-blur-xl" 
+            : "bg-transparent"
+        )}
         role="banner"
       >
         <div className="max-w-7xl mx-auto px-[24px] sm:px-[32px] lg:px-[48px]">
@@ -34,7 +49,7 @@ export const Header = () => {
             <Button
               variant="text"
               size="icon"
-              className="lg:hidden text-on-surface"
+              className="lg:hidden text-olive-dark"
               onClick={() => setMobileMenuOpen(true)}
               aria-label="Ouvrir le menu de navigation"
               aria-expanded={mobileMenuOpen}

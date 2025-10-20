@@ -23,6 +23,8 @@ export default {
 				'serif': ['Playfair Display', 'Georgia', 'serif'],
 				'script': ['Dancing Script', 'cursive'],
 				'roboto': ['Roboto', 'sans-serif'],
+				'heading': ['Inter', 'Helvetica', 'Arial', 'sans-serif'],
+				'body': ['Inter', 'Helvetica', 'Arial', 'sans-serif'],
 			},
 			spacing: {
 				/* Material Design 3 8dp Grid System */
@@ -39,6 +41,21 @@ export default {
 				'md-16': '128px', // 16 units = 128dp
 			},
 			colors: {
+				/* Brand Color System */
+				'olive-dark': '#2B3210',
+				'olive-muted': '#505631',
+				'cream': '#FBF8EF',
+				'beige': '#E5E2D9',
+				'orange-primary': '#DE6E27',
+				'orange-light': '#FF8142',
+				
+				/* Functional colors */
+				'success': '#4CAF50',
+				'warning': '#FFA726',
+				'error': '#EF5350',
+				'info': '#29B6F6',
+				'neutral': '#9E9E9E',
+
 				/* Material Design 3 Color System */
 				'md-primary': {
 					DEFAULT: 'hsl(var(--md-sys-color-primary))',

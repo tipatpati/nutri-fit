@@ -7,29 +7,29 @@ interface TestimonialCardProps {
 
 export const TestimonialCard = ({ testimonial }: TestimonialCardProps) => {
   return (
-    <div className="bg-[hsl(var(--md-sys-color-surface-container-high))]/10 backdrop-blur-xl border border-[hsl(var(--md-sys-color-outline))]/20 rounded-[var(--md-sys-shape-corner-extra-large)] p-8 hover:bg-[hsl(var(--md-sys-color-surface-container-high))]/15 transition-all duration-300">
+    <div className="glass-dark rounded-2xl p-8 hover:scale-105 transition-all duration-500">
       <div className="flex items-center mb-4">
-        <div className="flex text-[hsl(var(--md-sys-color-tertiary))] text-lg mr-3">
+        <div className="flex text-orange-primary text-lg mr-3">
           {[...Array(5)].map((_, i) => (
             <Star key={i} className="w-5 h-5 fill-current" />
           ))}
         </div>
-        <span className="font-semibold md-title-medium text-[hsl(var(--md-sys-color-on-surface))]">
+        <span className="font-semibold text-lg text-cream">
           {testimonial.rating}/5
         </span>
       </div>
       
-      <p className="md-body-large text-[hsl(var(--md-sys-color-on-surface))] mb-6 leading-relaxed">
+      <p className="text-base text-cream/90 mb-6 leading-relaxed italic">
         "{testimonial.content}"
       </p>
       
       <div className="flex items-center space-x-4">
-        <div className="w-14 h-14 bg-gradient-to-br from-[hsl(var(--md-sys-color-primary))] to-[hsl(var(--md-sys-color-tertiary))] rounded-full flex items-center justify-center font-bold text-xl md-elevation-2 text-white">
+        <div className="w-14 h-14 bg-gradient-to-br from-orange-primary to-orange-light rounded-full flex items-center justify-center font-bold text-xl text-white shadow-lg">
           {testimonial.initial}
         </div>
         <div>
-          <p className="font-bold md-title-medium text-[hsl(var(--md-sys-color-on-surface))]">{testimonial.author}</p>
-          <p className="md-body-medium text-neutral-500">
+          <p className="font-bold text-lg text-cream">{testimonial.author}</p>
+          <p className="text-sm text-cream/60">
             {testimonial.role} • {testimonial.tenure}
           </p>
         </div>

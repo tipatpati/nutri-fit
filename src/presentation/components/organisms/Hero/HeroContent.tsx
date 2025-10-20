@@ -26,16 +26,16 @@ export const HeroContent = ({ onOrderClick }: HeroContentProps) => {
       
       {/* Hero heading with modern typography */}
       <div className="space-y-6 px-4">
-        <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold leading-[1.1] tracking-tight text-[#2B3210]">
+        <h1 className="text-6xl sm:text-7xl md:text-8xl font-bold leading-[1.05] tracking-[-0.02em] text-olive-dark">
           <span className="font-heading block">
             Repas Santé
           </span>
-          <span className="font-script bg-gradient-to-r from-[#DE6E27] via-[#DE6E27] to-[#505631] bg-clip-text text-transparent block mt-2">
+          <span className="font-script text-5xl sm:text-6xl md:text-7xl bg-gradient-to-r from-orange-primary via-orange-light to-orange-primary bg-clip-text text-transparent block mt-2">
             Premium
           </span>
         </h1>
         
-        <p className="text-lg sm:text-xl md:text-2xl text-[#505631] leading-relaxed max-w-3xl mx-auto">
+        <p className="text-lg sm:text-xl md:text-2xl text-olive-muted leading-[1.6] max-w-3xl mx-auto">
           Des repas équilibrés, préparés par des chefs passionnés et livrés directement chez vous.
         </p>
       </div>

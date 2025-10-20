@@ -1,61 +1,92 @@
 import { Star } from "lucide-react";
 import { testimonial, stats } from "@/shared/data/features";
 import { TestimonialCard } from "@/presentation/components/molecules/Features/TestimonialCard";
+import { motion } from "framer-motion";
 
 export const TestimonialSection = () => {
   return (
-    <div className="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 rounded-[var(--md-sys-shape-corner-extra-large)] p-8 md:p-12 lg:p-16 text-white md-elevation-4 overflow-hidden relative mt-12 md:mt-16">
+    <div className="relative py-24 bg-olive-dark rounded-2xl p-8 md:p-12 lg:p-16 text-white overflow-hidden mt-12 md:mt-16">
+      {/* Subtle Texture Overlay */}
+      <div 
+        className="absolute inset-0 opacity-5 pointer-events-none"
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' /%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23noise)' /%3E%3C/svg%3E")`,
+        }}
+      />
+      
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-10">
-        <div className="absolute top-0 left-0 w-64 h-64 bg-gradient-to-br from-[hsl(var(--md-sys-color-primary))] to-[hsl(var(--md-sys-color-tertiary))] rounded-full blur-3xl"></div>
-        <div className="absolute bottom-0 right-0 w-64 h-64 bg-gradient-to-br from-[hsl(var(--md-sys-color-tertiary))] to-[hsl(var(--md-sys-color-secondary))] rounded-full blur-3xl"></div>
+        <div className="absolute top-0 left-0 w-64 h-64 bg-gradient-to-br from-orange-primary to-orange-light rounded-full blur-3xl"></div>
+        <div className="absolute bottom-0 right-0 w-64 h-64 bg-gradient-to-br from-orange-light to-orange-primary rounded-full blur-3xl"></div>
       </div>
       
-      <div className="relative z-10 grid lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center">
-        <div className="space-y-6 md:space-y-8">
-          <div>
-            <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-3 md:mb-4 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent leading-tight">
-              Ce que nos clients disent de nous
-            </h3>
-            <p className="text-white/70 text-base md:text-lg leading-relaxed">
-              Découvrez pourquoi plus de 10 000 personnes nous font confiance chaque jour
-            </p>
-          </div>
+      <div className="relative z-10">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          <h2 className="font-heading text-4xl md:text-5xl font-bold text-cream text-center mb-16">
+            Ce que nos clients disent de nous
+          </h2>
+        </motion.div>
+
+        <div className="grid lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center">
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2, duration: 0.6 }}
+          >
+            <TestimonialCard testimonial={testimonial} />
+          </motion.div>
           
-          <TestimonialCard testimonial={testimonial} />
-        </div>
-        
-        <div className="text-center space-y-6 md:space-y-8">
-          <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-[var(--md-sys-shape-corner-extra-large)] p-6 md:p-8 lg:p-10">
-            <div className="text-6xl font-bold bg-gradient-to-r from-[hsl(var(--md-sys-color-primary))] to-[hsl(var(--md-sys-color-tertiary))] bg-clip-text text-transparent mb-4">
-              {stats.overall.rating}/5
+          <motion.div 
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.4, duration: 0.6 }}
+            className="text-center space-y-6 md:space-y-8"
+          >
+            <div className="glass-dark rounded-2xl p-6 md:p-8 lg:p-10 hover:scale-105 transition-all duration-500">
+              <div className="text-6xl font-bold bg-gradient-to-r from-orange-primary to-orange-light bg-clip-text text-transparent mb-4">
+                {stats.overall.rating}/5
+              </div>
+              <div className="flex justify-center text-orange-primary text-2xl mb-4">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="w-7 h-7 fill-current" />
+                ))}
+              </div>
+              <p className="text-2xl font-bold mb-2 text-cream">Excellent</p>
+              <p className="text-cream/70 text-base">
+                Basé sur {stats.overall.reviews} avis clients vérifiés
+              </p>
             </div>
-            <div className="flex justify-center text-[hsl(var(--md-sys-color-tertiary))] text-2xl mb-4">
-              {[...Array(5)].map((_, i) => (
-                <Star key={i} className="w-7 h-7 fill-current" />
-              ))}
+            
+            <div className="grid grid-cols-3 gap-3 md:gap-4 text-center">
+              {stats.metrics.map((metric, index) => {
+                const colors = ['text-orange-primary', 'text-orange-light', 'text-cream'];
+                return (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.6 + index * 0.1, duration: 0.6 }}
+                    className="glass-dark rounded-xl p-4 md:p-5 hover:scale-105 transition-all duration-300"
+                  >
+                    <div className={`text-3xl font-bold ${colors[index]} mb-2`}>
+                      {metric.value}
+                    </div>
+                    <div className="text-cream/70 text-sm">
+                      {metric.label}
+                    </div>
+                  </motion.div>
+                );
+              })}
             </div>
-            <p className="md-title-large mb-2">Excellent</p>
-            <p className="text-white/70 md-body-medium">
-              Basé sur {stats.overall.reviews} avis clients vérifiés
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-3 gap-3 md:gap-4 text-center">
-            {stats.metrics.map((metric, index) => {
-              const colors = ['text-[hsl(var(--md-sys-color-primary))]', 'text-[hsl(var(--md-sys-color-tertiary))]', 'text-[hsl(var(--md-sys-color-secondary))]'];
-              return (
-                <div key={index} className="bg-white/5 backdrop-blur rounded-[var(--md-sys-shape-corner-large)] p-4 md:p-5">
-                  <div className={`md-headline-small ${colors[index]} mb-2`}>
-                    {metric.value}
-                  </div>
-                  <div className="text-white/70 md-label-small">
-                    {metric.label}
-                  </div>
-                </div>
-              );
-            })}
-          </div>
+          </motion.div>
         </div>
       </div>
     </div>
