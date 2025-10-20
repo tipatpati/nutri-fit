@@ -11,16 +11,16 @@ interface TrustBadgeProps {
 export const TrustBadge = ({ icon: Icon, iconComponent, label, iconColor = "text-on-surface" }: TrustBadgeProps) => {
   return (
     <div className="text-center space-y-3 group">
-      <div className="w-14 h-14 mx-auto rounded-full glass-icon-circle flex items-center justify-center transition-all duration-300">
+      <div className="w-16 h-16 mx-auto rounded-full bg-white/80 backdrop-blur-sm border border-[#DE6E27]/20 flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg">
         {iconComponent ? (
-          <span className="text-md-tertiary">{iconComponent}</span>
+          <span className="text-[#505631]">{iconComponent}</span>
         ) : typeof Icon === 'string' ? (
-          <span className="text-lg text-md-secondary">{Icon}</span>
+          <span className="text-xl text-[#DE6E27]">{Icon}</span>
         ) : Icon ? (
-          <Icon className={`w-5 h-5 text-md-secondary`} size={20} />
+          <Icon className="w-6 h-6 text-[#DE6E27]" size={24} />
         ) : null}
       </div>
-      <p className="text-xs font-semibold text-on-surface-variant group-hover:text-md-secondary transition-colors">{label}</p>
+      <p className="text-sm font-semibold text-[#505631] group-hover:text-[#DE6E27] transition-colors">{label}</p>
     </div>
   );
 };

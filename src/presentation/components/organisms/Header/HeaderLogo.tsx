@@ -3,9 +3,9 @@ import { Utensils } from "lucide-react";
 
 export const HeaderLogo = () => {
   return (
-    <Link to="/" className="flex items-center gap-2 hover:opacity-80 transition-md-fast">
-      <Utensils className="h-7 w-7" style={{ color: 'hsl(var(--md-sys-color-secondary))' }} />
-      <span className="md-title-large text-on-surface">NutriFit</span>
+    <Link to="/" className="flex items-center gap-3 hover:opacity-80 transition-all duration-200 group">
+      <Utensils className="h-8 w-8 text-[#DE6E27] group-hover:scale-110 transition-transform duration-200" />
+      <span className="text-2xl font-bold text-[#2B3210] font-heading">NutriFit</span>
     </Link>
   );
 };

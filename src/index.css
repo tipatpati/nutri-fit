@@ -211,28 +211,29 @@
 
   body {
     @apply bg-background text-foreground font-sans;
-    font-family: 'Inter', 'Helvetica', 'Arial', sans-serif;
+    font-family: 'DM Sans', 'Helvetica', 'Arial', sans-serif;
   }
 
-  /* Orange Vegan Cafe Typography System */
+  /* NutriFit Typography System */
   h1, h2, h3, h4, h5, h6,
   .font-serif,
+  .font-heading,
   .md-display-large,
   .md-display-medium,
   .md-display-small,
   .md-headline-large,
   .md-headline-medium,
   .md-headline-small {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Space Grotesk', sans-serif;
   }
 
   .font-script,
   .accent-text {
-    font-family: 'Dancing Script', cursive;
+    font-family: 'Pacifico', cursive;
   }
 
   .font-sans {
-    font-family: 'Inter', sans-serif;
+    font-family: 'DM Sans', sans-serif;
   }
 
   /* Material Design 3 Ripple Effect */
@@ -427,50 +428,40 @@
     @apply scale-x-100 origin-bottom-left;
   }
 
-  /* Orange Vegan Cafe Glassmorphism - Tech-Organic Fusion */
+  /* NutriFit Glassmorphism - Premium Wellness Design */
   .glass-surface {
-    background: rgba(251, 248, 239, 0.85);
-    backdrop-filter: blur(12px) saturate(120%);
-    -webkit-backdrop-filter: blur(12px) saturate(120%);
-    border: 1px solid rgba(229, 226, 217, 0.2);
-    box-shadow: 0 2px 12px rgba(43, 50, 16, 0.08), 0 1px 3px rgba(43, 50, 16, 0.06);
-    border-radius: var(--organic-radius);
-    transition: all var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-standard);
+    background: rgba(251, 248, 239, 0.7);
+    backdrop-filter: blur(20px) saturate(120%);
+    -webkit-backdrop-filter: blur(20px) saturate(120%);
+    border: 1px solid rgba(222, 110, 39, 0.2);
+    box-shadow: 0 8px 32px rgba(43, 50, 16, 0.1);
+    border-radius: 12px;
+    transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
   }
 
   .glass-surface-elevated {
-    background: rgba(251, 248, 239, 0.95);
-    backdrop-filter: blur(15px) saturate(120%);
-    -webkit-backdrop-filter: blur(15px) saturate(120%);
-    border: 1px solid rgba(229, 226, 217, 0.3);
-    box-shadow: 0 8px 32px rgba(43, 50, 16, 0.1), 0 4px 12px rgba(43, 50, 16, 0.08);
-    border-radius: var(--organic-radius);
-    transition: all var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-emphasized);
-    position: relative;
-    overflow: hidden;
-  }
-
-  /* Gradient edge shine for elevated glass */
-  .glass-surface-elevated::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(222, 110, 39, 0.3) 50%, transparent);
-    pointer-events: none;
+    background: rgba(251, 248, 239, 0.8);
+    backdrop-filter: blur(25px) saturate(130%);
+    -webkit-backdrop-filter: blur(25px) saturate(130%);
+    border: 1px solid rgba(222, 110, 39, 0.2);
+    box-shadow: 0 8px 32px rgba(43, 50, 16, 0.1);
+    border-radius: 12px;
+    transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
   }
 
   .glass-card {
     background: rgba(251, 248, 239, 0.7);
-    backdrop-filter: blur(10px) saturate(120%);
-    -webkit-backdrop-filter: blur(10px) saturate(120%);
-    border: 1px solid rgba(229, 226, 217, 0.3);
+    backdrop-filter: blur(20px) saturate(120%);
+    -webkit-backdrop-filter: blur(20px) saturate(120%);
+    border: 1px solid rgba(222, 110, 39, 0.2);
     box-shadow: 0 8px 32px rgba(43, 50, 16, 0.1);
-    border-radius: var(--organic-radius);
-    transition: all var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-standard);
-    position: relative;
+    border-radius: 12px;
+    transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+  }
+
+  .glass-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 12px 48px rgba(43, 50, 16, 0.15);
   }
 
   .glass-primary {
@@ -478,8 +469,8 @@
     backdrop-filter: blur(20px) saturate(130%);
     -webkit-backdrop-filter: blur(20px) saturate(130%);
     border: 1px solid rgba(222, 110, 39, 0.25);
-    box-shadow: 0 4px 16px rgba(222, 110, 39, 0.12), 0 0 40px rgba(222, 110, 39, 0.05);
-    border-radius: var(--organic-radius);
+    box-shadow: 0 8px 32px rgba(222, 110, 39, 0.15);
+    border-radius: 12px;
     transition: all var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-standard);
     position: relative;
     overflow: hidden;

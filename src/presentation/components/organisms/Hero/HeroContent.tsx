@@ -17,41 +17,36 @@ export const HeroContent = ({ onOrderClick }: HeroContentProps) => {
   ];
 
   return (
-    <div className="space-y-8 md:space-y-10 lg:space-y-12 text-center max-w-4xl mx-auto relative">
-      {/* Floating glass blob decorations */}
-      <div className="glass-blob w-48 h-48 md:w-64 md:h-64 absolute -top-20 -right-20 opacity-30" style={{ animationDelay: '0s' }} />
-      <div className="glass-blob w-40 h-40 md:w-48 md:h-48 absolute -bottom-10 -left-10 opacity-20" style={{ animationDelay: '7s' }} />
-      
-      {/* Badge with glass styling */}
-      <div className="inline-flex items-center gap-2 px-4 py-2 glass-badge rounded-[var(--md-sys-shape-corner-full)] animate-scale-in">
-        <Icon name="stopwatch" size={14} className="brightness-0 invert" />
-        <span className="text-white md-label-medium font-semibold">Livraison express en 30 min</span>
+    <div className="space-y-12 md:space-y-16 text-center max-w-5xl mx-auto relative">
+      {/* Premium badge */}
+      <div className="inline-flex items-center gap-2 px-6 py-3 bg-[#DE6E27] rounded-full animate-scale-in shadow-lg">
+        <Icon name="stopwatch" size={16} className="text-white" />
+        <span className="text-white font-semibold text-sm">Livraison express en 30 min</span>
       </div>
       
-      {/* Heading with serif font */}
-      <div className="space-y-4 md:space-y-6 px-4">
-        <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight tracking-tight text-on-surface">
-          <span className="text-on-surface font-serif">
-            Repas
+      {/* Hero heading with modern typography */}
+      <div className="space-y-6 px-4">
+        <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold leading-[1.1] tracking-tight text-[#2B3210]">
+          <span className="font-heading block">
+            Repas Santé
           </span>
-          <br />
-          <span className="font-script bg-gradient-to-r from-[hsl(var(--md-sys-color-secondary))] to-[hsl(var(--md-sys-color-tertiary))] bg-clip-text text-transparent">
-            santé & saveur
+          <span className="font-script bg-gradient-to-r from-[#DE6E27] via-[#DE6E27] to-[#505631] bg-clip-text text-transparent block mt-2">
+            Premium
           </span>
         </h1>
         
-        <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-on-surface-variant leading-relaxed max-w-2xl mx-auto font-normal">
-          Des repas équilibrés, préparés par des chefs et livrés directement chez vous.
+        <p className="text-lg sm:text-xl md:text-2xl text-[#505631] leading-relaxed max-w-3xl mx-auto">
+          Des repas équilibrés, préparés par des chefs passionnés et livrés directement chez vous.
         </p>
       </div>
 
-      {/* CTA Section - Floating Glass Card */}
-      <GlassCard variant="floating" className="p-8 space-y-6 animate-fade-in">
+      {/* CTA Section - Premium Glass Card */}
+      <GlassCard variant="floating" className="p-8 md:p-10 space-y-6 animate-fade-in max-w-2xl mx-auto">
         <QuickOrderSection onOrderClick={onOrderClick} />
       </GlassCard>
 
-      {/* Trust Indicators with glass styling */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 md:gap-6 pt-4 max-w-3xl mx-auto px-4">
+      {/* Trust Indicators */}
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 pt-8 max-w-4xl mx-auto px-4">
         {trustIndicators.map((indicator, index) => (
           <div 
             key={index} 
