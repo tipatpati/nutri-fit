@@ -5,7 +5,6 @@ import { HeaderLogo } from "./HeaderLogo";
 import { DesktopNav } from "./DesktopNav";
 import { MobileNav } from "./MobileNav";
 import { HeaderActions } from "./HeaderActions";
-import { cn } from "@/lib/utils";
 
 export const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -30,12 +29,11 @@ export const Header = () => {
       </a>
       
       <header 
-        className={cn(
-          "sticky top-0 z-40 w-full transition-all duration-300",
+        className={`sticky top-0 z-40 w-full transition-all duration-300 ${
           isScrolled 
             ? "glass-strong shadow-xl backdrop-blur-xl" 
             : "bg-transparent"
-        )}
+        }`}
         role="banner"
       >
         <div className="max-w-7xl mx-auto px-[24px] sm:px-[32px] lg:px-[48px]">

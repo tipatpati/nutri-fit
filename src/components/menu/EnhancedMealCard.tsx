@@ -63,29 +63,31 @@ const EnhancedMealCard = ({ meal, selectedCategory = 'equilibre', onAddToCart }:
   const primaryIngredients = mealIngredients.filter(mi => mi.is_primary);
 
   return (
-    <GlassCard elevated className="overflow-hidden group transition-all duration-500 hover:scale-[1.02]">
+    <div className="group glass rounded-2xl overflow-hidden hover:scale-[1.02] hover:shadow-2xl transition-all duration-500">
       {meal.image_url && (
-        <div className="relative h-64 overflow-hidden">
+        <div className="relative h-56 overflow-hidden">
           <img
             src={meal.image_url}
             alt={meal.name}
             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-olive-dark/90 via-olive-dark/30 to-transparent" />
           
           {/* Meal name overlay */}
-          <h3 className="absolute bottom-4 left-4 text-white font-bold text-xl font-['Space_Grotesk'] pr-4">
-            {meal.name}
-          </h3>
+          <div className="absolute bottom-0 left-0 right-0 p-4">
+            <h3 className="font-heading text-2xl font-bold text-cream leading-tight">
+              {meal.name}
+            </h3>
+          </div>
 
           {/* Badges */}
           {meal.badge && (
-            <Badge className="absolute top-4 left-4 glass-surface-light text-[#2B3210] border border-white/20">
+            <Badge className="absolute top-4 left-4 glass-strong text-olive-dark border-none">
               {meal.badge}
             </Badge>
           )}
           {meal.premium && (
-            <Badge className="absolute top-4 right-4 bg-gradient-to-r from-[#DE6E27] to-[#ff8040] text-white">
+            <Badge className="absolute top-4 right-4 bg-gradient-to-r from-orange-primary to-orange-light text-white border-none">
               Premium
             </Badge>
           )}
@@ -93,11 +95,11 @@ const EnhancedMealCard = ({ meal, selectedCategory = 'equilibre', onAddToCart }:
       )}
       
       <div className="p-8 space-y-6">
-        <p className="text-base text-[#505631] line-clamp-2 font-['DM_Sans']">{meal.description}</p>
+        <p className="text-base text-olive-muted line-clamp-2 leading-relaxed">{meal.description}</p>
 
         {primaryIngredients.length > 0 && (
           <div className="space-y-3">
-            <p className="text-sm font-semibold text-[#505631] uppercase tracking-wide">Composition:</p>
+            <p className="text-sm font-semibold text-olive-muted uppercase tracking-wide">Composition:</p>
             <div className="flex flex-wrap gap-2">
               {primaryIngredients.map(mi => {
                 const quantity = selectedCategory === 'equilibre' 
@@ -107,7 +109,7 @@ const EnhancedMealCard = ({ meal, selectedCategory = 'equilibre', onAddToCart }:
                   : mi.quantity_prise_masse;
 
                 return (
-                  <Badge key={mi.id} className="glass-surface-light text-[#2B3210] text-sm py-1.5 px-3">
+                  <Badge key={mi.id} className="glass text-olive-dark text-sm py-1.5 px-3 border-none">
                     <span className="mr-1">{NUTRIENT_ICONS[mi.nutrient_type as keyof typeof NUTRIENT_ICONS]}</span>
                     {mi.ingredient.name} ({quantity}g)
                   </Badge>
@@ -117,22 +119,19 @@ const EnhancedMealCard = ({ meal, selectedCategory = 'equilibre', onAddToCart }:
           </div>
         )}
 
-        <div className="glass-surface-light rounded-xl p-6">
-          <div className="grid grid-cols-3 gap-6">
-            <div className="flex flex-col items-center">
-              <Flame className="w-6 h-6 text-[#DE6E27] mb-2" />
-              <span className="text-xs text-[#505631] mb-1">Calories</span>
-              <span className="text-lg font-bold text-[#2B3210]">{nutrition.calories}</span>
+        <div className="glass rounded-xl p-6">
+          <div className="flex justify-between items-center text-sm">
+            <div className="flex items-center gap-1.5">
+              <span className="w-2 h-2 rounded-full bg-olive-dark"></span>
+              <span className="text-olive-muted font-medium">{nutrition.calories} cal</span>
             </div>
-            <div className="flex flex-col items-center">
-              <Activity className="w-6 h-6 text-[#DE6E27] mb-2" />
-              <span className="text-xs text-[#505631] mb-1">Protéines</span>
-              <span className="text-lg font-bold text-[#2B3210]">{nutrition.protein}g</span>
+            <div className="flex items-center gap-1.5">
+              <span className="w-2 h-2 rounded-full bg-orange-primary"></span>
+              <span className="text-olive-muted font-medium">{nutrition.protein}g protein</span>
             </div>
-            <div className="flex flex-col items-center">
-              <Wheat className="w-6 h-6 text-[#DE6E27] mb-2" />
-              <span className="text-xs text-[#505631] mb-1">Glucides</span>
-              <span className="text-lg font-bold text-[#2B3210]">{nutrition.carbs}g</span>
+            <div className="flex items-center gap-1.5">
+              <span className="w-2 h-2 rounded-full bg-info"></span>
+              <span className="text-olive-muted font-medium">{nutrition.carbs}g carbs</span>
             </div>
           </div>
         </div>
@@ -140,13 +139,13 @@ const EnhancedMealCard = ({ meal, selectedCategory = 'equilibre', onAddToCart }:
         <div className="flex gap-3 pt-2">
           <Dialog open={showDetails} onOpenChange={setShowDetails}>
             <DialogTrigger asChild>
-              <Button variant="outlined" className="flex-1" size="default">
+              <Button variant="outlined" className="flex-1 border-2 border-orange-primary text-orange-primary hover:bg-orange-primary hover:text-white" size="default">
                 Détails
               </Button>
             </DialogTrigger>
             <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
               <DialogHeader>
-                <DialogTitle className="text-2xl font-['Space_Grotesk']">{meal.name}</DialogTitle>
+                <DialogTitle className="text-2xl font-heading">{meal.name}</DialogTitle>
                 <DialogDescription className="text-base">{meal.description}</DialogDescription>
               </DialogHeader>
               <MealNutritionalInfo mealId={meal.id} mealName={meal.name} />
@@ -157,7 +156,7 @@ const EnhancedMealCard = ({ meal, selectedCategory = 'equilibre', onAddToCart }:
             <Button 
               onClick={onAddToCart} 
               variant="filled" 
-              className="flex-1 bg-gradient-to-r from-[#DE6E27] to-[#ff8040] hover:shadow-xl shadow-[#DE6E27]/30" 
+              className="flex-1 bg-gradient-to-r from-orange-primary to-orange-light hover:shadow-xl shadow-orange-primary/30 hover:-translate-y-1" 
               size="default"
             >
               Ajouter
@@ -165,7 +164,7 @@ const EnhancedMealCard = ({ meal, selectedCategory = 'equilibre', onAddToCart }:
           )}
         </div>
       </div>
-    </GlassCard>
+    </div>
   );
 };
 

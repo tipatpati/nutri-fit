@@ -39,68 +39,72 @@ const MealCard = ({ meal, getCategoryColor }: MealCardProps) => {
 
   return (
     <div 
-      className="group relative overflow-hidden rounded-2xl glass-card hover:scale-[1.02] transition-all duration-500"
+      className="group relative overflow-hidden rounded-2xl glass hover:scale-[1.02] hover:shadow-2xl transition-all duration-500"
       onMouseEnter={() => setShowActions(true)}
       onMouseLeave={() => setShowActions(false)}
       role="article"
       aria-label={`Plat: ${meal.name}`}
     >
       {/* Image with gradient overlay */}
-      <div className="relative h-64 overflow-hidden">
+      <div className="relative h-56 overflow-hidden">
         <img 
           src={meal.image_url || 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop&crop=center'} 
           alt={`Photo de ${meal.name}`}
           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
           loading="lazy"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
         
-        {/* Meal name overlay */}
-        <h3 className="absolute bottom-4 left-4 text-white font-bold text-xl font-['Space_Grotesk'] pr-4">
-          {meal.name}
-        </h3>
+        {/* Bottom Gradient for Text Readability */}
+        <div className="absolute inset-0 bg-gradient-to-t from-olive-dark/90 via-olive-dark/30 to-transparent" />
+        
+        {/* Meal name overlay (Bottom) */}
+        <div className="absolute bottom-0 left-0 right-0 p-4">
+          <h3 className="font-heading text-2xl font-bold text-cream leading-tight">
+            {meal.name}
+          </h3>
+        </div>
 
-        {/* Price badge - floating top right */}
-        <div className="absolute top-4 right-4 glass-surface-light backdrop-blur-xl px-4 py-2 rounded-full border border-[#DE6E27]/20">
-          <span className="text-[#2B3210] font-bold text-lg font-['Space_Grotesk']">
+        {/* Floating Price Badge (Top Right) */}
+        <div className="absolute top-4 right-4 glass-strong px-4 py-2 rounded-full backdrop-blur-xl">
+          <span className="font-heading text-lg font-bold text-olive-dark">
             {meal.premium ? '15.99' : '12.99'} DA
           </span>
         </div>
 
         {meal.badge && (
-          <div className="absolute top-4 left-4 glass-surface-light backdrop-blur-xl px-3 py-1.5 rounded-full text-sm font-medium text-[#2B3210] border border-white/20">
+          <div className="absolute top-4 left-4 glass-strong px-3 py-1.5 rounded-full text-sm font-medium text-olive-dark">
             {meal.badge}
           </div>
         )}
 
         {meal.premium && (
-          <div className="absolute top-16 left-4 bg-gradient-to-r from-[#DE6E27] to-[#ff8040] text-white px-3 py-1.5 rounded-full text-xs font-semibold shadow-lg">
+          <div className="absolute top-16 left-4 bg-gradient-to-r from-orange-primary to-orange-light text-white px-3 py-1.5 rounded-full text-xs font-semibold shadow-lg">
             Premium
           </div>
         )}
       </div>
 
       {/* Content area */}
-      <div className="p-6">
+      <div className="p-6 space-y-4">
         {/* Horizontal nutritional info */}
-        <div className="flex justify-between mb-6">
-          <div className="flex items-center gap-2 text-[#505631]">
-            <Flame className="w-4 h-4 text-[#DE6E27]" />
-            <span className="text-sm font-medium">450 cal</span>
+        <div className="flex justify-between items-center text-sm">
+          <div className="flex items-center gap-1.5">
+            <span className="w-2 h-2 rounded-full bg-olive-dark"></span>
+            <span className="text-olive-muted font-medium">450 cal</span>
           </div>
-          <div className="flex items-center gap-2 text-[#505631]">
-            <Activity className="w-4 h-4 text-[#DE6E27]" />
-            <span className="text-sm font-medium">35g</span>
+          <div className="flex items-center gap-1.5">
+            <span className="w-2 h-2 rounded-full bg-orange-primary"></span>
+            <span className="text-olive-muted font-medium">35g protein</span>
           </div>
-          <div className="flex items-center gap-2 text-[#505631]">
-            <Wheat className="w-4 h-4 text-[#DE6E27]" />
-            <span className="text-sm font-medium">45g</span>
+          <div className="flex items-center gap-1.5">
+            <span className="w-2 h-2 rounded-full bg-info"></span>
+            <span className="text-olive-muted font-medium">45g carbs</span>
           </div>
         </div>
 
         {/* Quick Add Actions */}
         {showActions ? (
-          <div className="flex items-center gap-2 animate-slide-in-up">
+          <div className="flex items-center gap-2 animate-fade-in">
             <Button
               size="sm"
               variant="outlined"
@@ -108,12 +112,12 @@ const MealCard = ({ meal, getCategoryColor }: MealCardProps) => {
                 e.stopPropagation();
                 setQuantity(Math.max(1, quantity - 1));
               }}
-              className="h-10 w-10 p-0 rounded-full"
+              className="h-10 w-10 p-0 rounded-full border-2 border-orange-primary text-orange-primary hover:bg-orange-primary hover:text-white"
               aria-label="Diminuer la quantité"
             >
               <Minus className="w-4 h-4" />
             </Button>
-            <span className="text-lg font-bold text-[#2B3210] flex-1 text-center min-w-[40px]">
+            <span className="text-lg font-bold text-olive-dark flex-1 text-center min-w-[40px]">
               {quantity}
             </span>
             <Button
@@ -123,7 +127,7 @@ const MealCard = ({ meal, getCategoryColor }: MealCardProps) => {
                 e.stopPropagation();
                 setQuantity(quantity + 1);
               }}
-              className="h-10 w-10 p-0 rounded-full"
+              className="h-10 w-10 p-0 rounded-full border-2 border-orange-primary text-orange-primary hover:bg-orange-primary hover:text-white"
               aria-label="Augmenter la quantité"
             >
               <Plus className="w-4 h-4" />
@@ -135,7 +139,7 @@ const MealCard = ({ meal, getCategoryColor }: MealCardProps) => {
                 e.stopPropagation();
                 handleAddToCart();
               }}
-              className="flex-1 bg-gradient-to-r from-[#DE6E27] to-[#ff8040] hover:shadow-xl shadow-[#DE6E27]/30"
+              className="flex-1 bg-gradient-to-r from-orange-primary to-orange-light hover:shadow-xl shadow-orange-primary/30"
               aria-label={`Ajouter ${quantity} ${meal.name} au panier`}
             >
               <ShoppingCart className="w-4 h-4 mr-2" />
@@ -143,13 +147,9 @@ const MealCard = ({ meal, getCategoryColor }: MealCardProps) => {
             </Button>
           </div>
         ) : (
-          <Button
-            variant="outlined"
-            className="w-full glass-surface-light border-2 border-[#DE6E27] text-[#DE6E27] hover:bg-[#DE6E27] hover:text-white transition-all duration-300"
-            onClick={() => setShowActions(true)}
-          >
+          <button className="w-full glass border-2 border-orange-primary text-orange-primary font-semibold py-3 rounded-xl hover:bg-orange-primary hover:text-white hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300">
             Commander
-          </Button>
+          </button>
         )}
       </div>
     </div>

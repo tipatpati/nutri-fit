@@ -3,8 +3,6 @@ import { Button } from "@/components/ui/button";
 import { Icon } from "@/components/ui/icon";
 import { Link } from "react-router-dom";
 import { useSubscriptionPlans } from "@/hooks/useSubscriptionPlans";
-import { motion } from "framer-motion";
-import { cn } from "@/lib/utils";
 
 const Packs = () => {
   const { data: plans = [], isLoading } = useSubscriptionPlans();
@@ -23,13 +21,7 @@ const Packs = () => {
     <section className="py-20 md:py-28 lg:py-32 bg-cream">
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         {/* Header */}
-        <motion.div 
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16 md:mb-20"
-        >
+        <div className="text-center mb-16 md:mb-20 animate-fade-in">
           <div className="inline-flex items-center gap-2 px-5 py-2.5 bg-orange-primary/10 rounded-full text-sm font-semibold text-orange-primary border border-orange-primary/20 mb-6">
             <Package className="w-5 h-5" />
             Nos formules
@@ -40,7 +32,7 @@ const Packs = () => {
           <p className="text-lg md:text-xl text-olive-muted max-w-3xl mx-auto leading-relaxed">
             Des formules flexibles adaptées à vos besoins et votre rythme de vie
           </p>
-        </motion.div>
+        </div>
 
         {/* Packs Grid */}
         <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-10 mb-12">
@@ -55,16 +47,11 @@ const Packs = () => {
             const color = colorClasses[index % colorClasses.length];
 
             return (
-              <motion.div
+              <div
                 key={plan.id}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.15, duration: 0.6 }}
-                className={cn(
-                  "relative overflow-hidden glass rounded-2xl hover:-translate-y-2 hover:shadow-2xl transition-all duration-500",
-                  plan.promoted && "scale-105"
-                )}
+                className={`relative overflow-hidden glass rounded-2xl hover:-translate-y-2 hover:shadow-2xl transition-all duration-500 ${
+                  plan.promoted ? 'scale-105' : ''
+                }`}
               >
                 {/* Floating Popular Badge */}
                 {plan.promoted && (
@@ -89,10 +76,7 @@ const Packs = () => {
                     </p>
                   </div>
 
-                  <div className={cn(
-                    "inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r rounded-full text-white",
-                    color
-                  )}>
+                  <div className={`inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r ${color} rounded-full text-white`}>
                     <Icon name="shaker-bottle" size={16} className="text-white" />
                     <span className="text-sm font-semibold">{plan.meals_quantity} repas</span>
                   </div>
@@ -118,30 +102,23 @@ const Packs = () => {
 
                   <Link to="/forfaits" className="block">
                     <Button 
-                      className={cn(
-                        "w-full font-bold py-4 rounded-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-xl",
+                      className={`w-full font-bold py-4 rounded-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-xl ${
                         plan.promoted 
                           ? 'bg-gradient-to-br from-orange-primary to-orange-light text-white shadow-lg shadow-orange-primary/30' 
                           : 'glass border-2 border-orange-primary text-orange-primary hover:bg-orange-primary hover:text-white'
-                      )}
+                      }`}
                     >
                       Choisir ce pack
                     </Button>
                   </Link>
                 </div>
-              </motion.div>
+              </div>
             );
           })}
         </div>
 
         {/* Additional Info */}
-        <motion.div 
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.3, duration: 0.6 }}
-          className="grid sm:grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto"
-        >
+        <div className="grid sm:grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
           <div className="text-center p-8 glass rounded-2xl hover:shadow-lg transition-all duration-300 group">
             <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-orange-primary/10 flex items-center justify-center group-hover:scale-110 group-hover:rotate-12 transition-all duration-300">
               <Icon name="calendar" size={32} className="text-orange-primary" />
@@ -177,7 +154,7 @@ const Packs = () => {
               Adaptez votre menu selon vos préférences
             </p>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

@@ -1,7 +1,6 @@
 import { Star } from "lucide-react";
 import { testimonial, stats } from "@/shared/data/features";
 import { TestimonialCard } from "@/presentation/components/molecules/Features/TestimonialCard";
-import { motion } from "framer-motion";
 
 export const TestimonialSection = () => {
   return (
@@ -21,34 +20,18 @@ export const TestimonialSection = () => {
       </div>
       
       <div className="relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
+        <div className="animate-fade-in">
           <h2 className="font-heading text-4xl md:text-5xl font-bold text-cream text-center mb-16">
             Ce que nos clients disent de nous
           </h2>
-        </motion.div>
+        </div>
 
         <div className="grid lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center">
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2, duration: 0.6 }}
-          >
+          <div className="animate-fade-in" style={{ animationDelay: '0.2s' }}>
             <TestimonialCard testimonial={testimonial} />
-          </motion.div>
+          </div>
           
-          <motion.div 
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.4, duration: 0.6 }}
-            className="text-center space-y-6 md:space-y-8"
-          >
+          <div className="text-center space-y-6 md:space-y-8 animate-fade-in" style={{ animationDelay: '0.4s' }}>
             <div className="glass-dark rounded-2xl p-6 md:p-8 lg:p-10 hover:scale-105 transition-all duration-500">
               <div className="text-6xl font-bold bg-gradient-to-r from-orange-primary to-orange-light bg-clip-text text-transparent mb-4">
                 {stats.overall.rating}/5
@@ -68,13 +51,10 @@ export const TestimonialSection = () => {
               {stats.metrics.map((metric, index) => {
                 const colors = ['text-orange-primary', 'text-orange-light', 'text-cream'];
                 return (
-                  <motion.div
+                  <div
                     key={index}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.6 + index * 0.1, duration: 0.6 }}
-                    className="glass-dark rounded-xl p-4 md:p-5 hover:scale-105 transition-all duration-300"
+                    className="glass-dark rounded-xl p-4 md:p-5 hover:scale-105 transition-all duration-300 animate-fade-in"
+                    style={{ animationDelay: `${0.6 + index * 0.1}s` }}
                   >
                     <div className={`text-3xl font-bold ${colors[index]} mb-2`}>
                       {metric.value}
@@ -82,11 +62,11 @@ export const TestimonialSection = () => {
                     <div className="text-cream/70 text-sm">
                       {metric.label}
                     </div>
-                  </motion.div>
+                  </div>
                 );
               })}
             </div>
-          </motion.div>
+          </div>
         </div>
       </div>
     </div>
