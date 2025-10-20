@@ -1,5 +1,5 @@
 import { Check, Package } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { GlassCard } from "@/components/ui/glass-card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Icon } from "@/components/ui/icon";
@@ -49,17 +49,18 @@ const Packs = () => {
             const color = colorClasses[index % colorClasses.length];
 
             return (
-              <Card 
+              <GlassCard 
                 key={plan.id}
-                className={`relative overflow-hidden transition-all duration-300 hover:md-elevation-4 ${
-                  plan.promoted ? 'border-2 border-[hsl(var(--md-sys-color-primary))] md-elevation-2' : 'border border-[hsl(var(--md-sys-color-outline-variant))]'
+                elevated={plan.promoted}
+                className={`relative overflow-hidden transition-all duration-md-medium2 hover:md-elevation-4 hover:scale-[1.02] ${
+                  plan.promoted ? 'border-2 border-[hsl(var(--md-sys-color-primary))]' : ''
                 }`}
               >
                 {plan.promoted && (
                   <div className="absolute top-0 right-0 left-0 h-1 bg-gradient-to-r from-[hsl(var(--md-sys-color-primary))] to-[hsl(var(--md-sys-color-tertiary))]" />
                 )}
                 
-                <CardHeader className="space-y-4 pb-6">
+                <div className="space-y-md-4 p-md-6 pb-md-6">
                   {plan.promoted && (
                     <Badge className="w-fit bg-gradient-to-r from-[hsl(var(--md-sys-color-primary))] to-[hsl(var(--md-sys-color-tertiary))] text-white border-0">
                       Plus populaire
@@ -67,9 +68,9 @@ const Packs = () => {
                   )}
                   
                   <div>
-                    <CardTitle className="md-headline-medium text-[hsl(var(--md-sys-color-on-surface))] mb-2">
+                    <h3 className="md-headline-medium text-[hsl(var(--md-sys-color-on-surface))] mb-2">
                       {plan.name}
-                    </CardTitle>
+                    </h3>
                     <div className="flex items-baseline gap-2">
                       <span className="text-4xl font-bold text-[hsl(var(--md-sys-color-on-surface))]">
                         {plan.total_price.toFixed(2)} DA
@@ -84,9 +85,9 @@ const Packs = () => {
                     <Icon name="shaker-bottle" size={16} className="brightness-0 invert" />
                     <span className="md-label-medium">{plan.meals_quantity} repas</span>
                   </div>
-                </CardHeader>
+                </div>
 
-                <CardContent className="space-y-6">
+                <div className="space-y-md-6 p-md-6 pt-0">
                   {plan.description && (
                     <p className="md-body-small text-neutral-500 mb-4">
                       {plan.description}
@@ -108,25 +109,21 @@ const Packs = () => {
 
                   <Link to="/forfaits" className="block">
                     <Button 
-                      className={`w-full ${
-                        plan.promoted 
-                          ? 'bg-gradient-to-r from-[hsl(var(--md-sys-color-primary))] to-[hsl(var(--md-sys-color-tertiary))] hover:opacity-90 text-white' 
-                          : ''
-                      }`}
-                      variant={plan.promoted ? "default" : "outlined"}
+                      variant={plan.promoted ? "filled" : "outlined"}
+                      className="w-full"
                     >
                       Choisir ce pack
                     </Button>
                   </Link>
-                </CardContent>
-              </Card>
+                </div>
+              </GlassCard>
             );
           })}
         </div>
 
         {/* Additional Info */}
         <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-          <div className="text-center p-6 bg-[hsl(var(--md-sys-color-surface-container))] rounded-[var(--md-sys-shape-corner-large)]">
+          <GlassCard className="text-center p-md-6">
             <div className="w-12 h-12 mx-auto mb-4 bg-gradient-to-br from-[hsl(var(--md-sys-color-primary-container))] to-[hsl(var(--md-sys-color-secondary-container))] rounded-[var(--md-sys-shape-corner-large)] flex items-center justify-center">
               <Icon name="calendar" size={24} className="brightness-0 opacity-70" />
             </div>
@@ -136,9 +133,9 @@ const Packs = () => {
             <p className="md-body-small text-neutral-500">
               Pause ou annulation à tout moment
             </p>
-          </div>
+          </GlassCard>
 
-          <div className="text-center p-6 bg-[hsl(var(--md-sys-color-surface-container))] rounded-[var(--md-sys-shape-corner-large)]">
+          <GlassCard className="text-center p-md-6">
             <div className="w-12 h-12 mx-auto mb-4 bg-gradient-to-br from-[hsl(var(--md-sys-color-primary-container))] to-[hsl(var(--md-sys-color-secondary-container))] rounded-[var(--md-sys-shape-corner-large)] flex items-center justify-center">
               <Icon name="delivery-truck" size={24} className="brightness-0 opacity-70" />
             </div>
@@ -148,9 +145,9 @@ const Packs = () => {
             <p className="md-body-small text-neutral-500">
               Sur tous nos packs, directement chez vous
             </p>
-          </div>
+          </GlassCard>
 
-          <div className="text-center p-6 bg-[hsl(var(--md-sys-color-surface-container))] rounded-[var(--md-sys-shape-corner-large)]">
+          <GlassCard className="text-center p-md-6">
             <div className="w-12 h-12 mx-auto mb-4 bg-gradient-to-br from-[hsl(var(--md-sys-color-primary-container))] to-[hsl(var(--md-sys-color-secondary-container))] rounded-[var(--md-sys-shape-corner-large)] flex items-center justify-center">
               <Icon name="scale-balance" size={24} className="brightness-0 opacity-70" />
             </div>
@@ -160,7 +157,7 @@ const Packs = () => {
             <p className="md-body-small text-neutral-500">
               Adaptez votre menu selon vos préférences
             </p>
-          </div>
+          </GlassCard>
         </div>
       </div>
     </section>

@@ -107,7 +107,7 @@ const Forfaits = () => {
             </div>
 
             {/* Enhanced Fitness Goals Selector */}
-            <div className="bg-[hsl(var(--md-sys-color-surface-container))] rounded-[var(--md-sys-shape-corner-extra-large)] p-6 lg:p-10 md-elevation-2 border border-[hsl(var(--md-sys-color-outline-variant))]">
+            <div className="glass-card rounded-[var(--md-sys-shape-corner-extra-large)] p-6 lg:p-10 md-elevation-2">
               <h3 className="md-title-large text-[hsl(var(--md-sys-color-on-surface))] text-center mb-6 lg:mb-8">
                 Choisissez votre objectif fitness
               </h3>
@@ -161,7 +161,7 @@ const Forfaits = () => {
             
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-6">
               {features.map((feature, index) => (
-                <div key={index} className="group text-center space-y-4 p-5 lg:p-6 bg-[hsl(var(--md-sys-color-surface-container))] rounded-[var(--md-sys-shape-corner-extra-large)] md-elevation-1 border border-[hsl(var(--md-sys-color-outline-variant))] hover:md-elevation-3 hover:scale-105 transition-all duration-500">
+                <div key={index} className="group text-center space-y-4 p-5 lg:p-6 glass-card rounded-[var(--md-sys-shape-corner-extra-large)] md-elevation-1 hover:md-elevation-3 hover:scale-105 transition-all duration-md-long1">
                   <div className={`w-14 h-14 lg:w-16 lg:h-16 mx-auto bg-gradient-to-br ${feature.gradient} rounded-[var(--md-sys-shape-corner-large)] flex items-center justify-center md-elevation-1 group-hover:scale-110 transition-transform duration-300`}>
                     <feature.icon className="w-6 h-6 lg:w-7 lg:h-7 text-white" />
                   </div>

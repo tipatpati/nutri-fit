@@ -24,7 +24,7 @@ const Menu = () => {
   return (
     <>
       <Header />
-      <main className="min-h-screen bg-gradient-to-b from-white to-gray-50">
+      <main className="min-h-screen bg-md-surface">
         <MenuHeader selectedWeek={selectedWeek} setSelectedWeek={setSelectedWeek} />
         
         <div className="container mx-auto px-4 py-12 space-y-12">
@@ -34,11 +34,11 @@ const Menu = () => {
           />
 
           <div>
-            <div className="flex items-center justify-between mb-6">
-              <h2 className="text-2xl font-bold">Nos Recettes</h2>
-              <div className="flex gap-2">
+            <div className="flex items-center justify-between mb-md-6">
+              <h2 className="md-headline-large text-md-on-surface">Nos Recettes</h2>
+              <div className="flex gap-md-2">
                 <Button
-                  variant={selectedCategory === null ? 'default' : 'outline'}
+                  variant={selectedCategory === null ? 'filled' : 'outlined'}
                   size="sm"
                   onClick={() => setSelectedCategory(null)}
                 >
@@ -47,7 +47,7 @@ const Menu = () => {
                 {['Équilibré', 'Perte de poids', 'Prise de masse'].map((cat) => (
                   <Button
                     key={cat}
-                    variant={selectedCategory === cat ? 'default' : 'outline'}
+                    variant={selectedCategory === cat ? 'filled' : 'outlined'}
                     size="sm"
                     onClick={() => setSelectedCategory(cat)}
                   >
@@ -58,11 +58,11 @@ const Menu = () => {
             </div>
 
             {isLoading ? (
-              <div className="flex items-center justify-center py-12">
-                <Loader2 className="h-8 w-8 animate-spin text-primary" />
+              <div className="flex items-center justify-center py-md-12">
+                <Loader2 className="h-8 w-8 animate-spin text-md-primary" />
               </div>
             ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-md-6">
                 {filteredMeals.map((meal) => (
                   <EnhancedMealCard 
                     key={meal.id} 

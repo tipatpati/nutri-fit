@@ -1,4 +1,4 @@
-import { Card, CardContent } from "@/components/ui/card";
+import { GlassCard } from "@/components/ui/glass-card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Flame, Activity, Wheat } from "lucide-react";
@@ -63,37 +63,38 @@ const EnhancedMealCard = ({ meal, selectedCategory = 'equilibre', onAddToCart }:
   const primaryIngredients = mealIngredients.filter(mi => mi.is_primary);
 
   return (
-    <Card className="overflow-hidden hover:shadow-lg transition-shadow">
+    <GlassCard elevated className="overflow-hidden group transition-all duration-md-medium2 hover:md-elevation-3 hover:scale-[1.02]">
       {meal.image_url && (
         <div className="relative h-48 overflow-hidden">
           <img
             src={meal.image_url}
             alt={meal.name}
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover transition-transform duration-md-long1 group-hover:scale-110"
           />
+          <div className="absolute inset-0 bg-gradient-to-t from-md-surface/80 via-transparent to-transparent" />
           {meal.badge && (
-            <Badge className="absolute top-2 right-2 bg-primary/90">
+            <Badge className="absolute top-md-2 right-md-2 glass-surface text-md-on-surface">
               {meal.badge}
             </Badge>
           )}
           {meal.premium && (
-            <Badge className="absolute top-2 left-2 bg-amber-500">
+            <Badge className="absolute top-md-2 left-md-2 glass-surface text-md-on-surface">
               Premium
             </Badge>
           )}
         </div>
       )}
       
-      <CardContent className="p-4 space-y-4">
+      <div className="p-md-6 space-y-md-4">
         <div>
-          <h3 className="font-semibold text-lg mb-1">{meal.name}</h3>
-          <p className="text-sm text-muted-foreground line-clamp-2">{meal.description}</p>
+          <h3 className="md-title-large text-md-on-surface mb-md-2">{meal.name}</h3>
+          <p className="md-body-medium text-md-on-surface-variant line-clamp-2">{meal.description}</p>
         </div>
 
         {primaryIngredients.length > 0 && (
-          <div className="space-y-2">
-            <p className="text-xs font-medium text-muted-foreground">Composition:</p>
-            <div className="flex flex-wrap gap-2">
+          <div className="space-y-md-2">
+            <p className="md-label-medium text-md-on-surface-variant">Composition:</p>
+            <div className="flex flex-wrap gap-md-2">
               {primaryIngredients.map(mi => {
                 const quantity = selectedCategory === 'equilibre' 
                   ? mi.quantity_equilibre 
@@ -102,7 +103,7 @@ const EnhancedMealCard = ({ meal, selectedCategory = 'equilibre', onAddToCart }:
                   : mi.quantity_prise_masse;
 
                 return (
-                  <Badge key={mi.id} variant="outline" className="text-xs">
+                  <Badge key={mi.id} className="glass-surface text-md-on-surface md-label-small">
                     <span className="mr-1">{NUTRIENT_ICONS[mi.nutrient_type as keyof typeof NUTRIENT_ICONS]}</span>
                     {mi.ingredient.name} ({quantity}g)
                   </Badge>
@@ -112,34 +113,30 @@ const EnhancedMealCard = ({ meal, selectedCategory = 'equilibre', onAddToCart }:
           </div>
         )}
 
-        <div className="grid grid-cols-3 gap-2 pt-2 border-t">
-          <div className="text-center">
-            <div className="flex items-center justify-center gap-1 text-orange-600">
-              <Flame className="h-3 w-3" />
-              <span className="text-xs font-semibold">{nutrition.calories}</span>
+        <div className="glass-surface rounded-md-lg p-md-4">
+          <div className="grid grid-cols-3 gap-md-4">
+            <div className="flex flex-col items-center">
+              <Flame className="w-5 h-5 text-md-tertiary mb-md-1" />
+              <span className="md-label-small text-md-on-surface-variant">Calories</span>
+              <span className="md-label-large text-md-on-surface">{nutrition.calories}</span>
             </div>
-            <p className="text-xs text-muted-foreground">kcal</p>
-          </div>
-          <div className="text-center">
-            <div className="flex items-center justify-center gap-1 text-red-600">
-              <Activity className="h-3 w-3" />
-              <span className="text-xs font-semibold">{nutrition.protein}g</span>
+            <div className="flex flex-col items-center">
+              <Activity className="w-5 h-5 text-md-primary mb-md-1" />
+              <span className="md-label-small text-md-on-surface-variant">Protéines</span>
+              <span className="md-label-large text-md-on-surface">{nutrition.protein}g</span>
             </div>
-            <p className="text-xs text-muted-foreground">protéines</p>
-          </div>
-          <div className="text-center">
-            <div className="flex items-center justify-center gap-1 text-amber-600">
-              <Wheat className="h-3 w-3" />
-              <span className="text-xs font-semibold">{nutrition.carbs}g</span>
+            <div className="flex flex-col items-center">
+              <Wheat className="w-5 h-5 text-md-secondary mb-md-1" />
+              <span className="md-label-small text-md-on-surface-variant">Glucides</span>
+              <span className="md-label-large text-md-on-surface">{nutrition.carbs}g</span>
             </div>
-            <p className="text-xs text-muted-foreground">glucides</p>
           </div>
         </div>
 
-        <div className="flex gap-2">
+        <div className="flex gap-md-2 pt-md-2">
           <Dialog open={showDetails} onOpenChange={setShowDetails}>
             <DialogTrigger asChild>
-              <Button variant="outline" className="flex-1" size="sm">
+              <Button variant="outlined" className="flex-1" size="sm">
                 Détails
               </Button>
             </DialogTrigger>
@@ -153,13 +150,13 @@ const EnhancedMealCard = ({ meal, selectedCategory = 'equilibre', onAddToCart }:
           </Dialog>
 
           {onAddToCart && (
-            <Button onClick={onAddToCart} className="flex-1" size="sm">
+            <Button onClick={onAddToCart} variant="filled" className="flex-1" size="sm">
               Ajouter
             </Button>
           )}
         </div>
-      </CardContent>
-    </Card>
+      </div>
+    </GlassCard>
   );
 };
 

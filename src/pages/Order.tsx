@@ -5,7 +5,6 @@ import { Calendar } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import GoalSelection from "@/components/order/GoalSelection";
 import PackSelection from "@/components/order/PackSelection";
 import MealSelection from "@/components/order/MealSelection";
@@ -191,7 +190,7 @@ const Order = () => {
 
         {/* Step Indicator */}
         <div className="flex justify-center mb-10 lg:mb-12">
-          <div className="flex items-center gap-2 sm:gap-3 lg:gap-4">
+          <div className="glass-surface rounded-md-full p-md-4 flex items-center gap-2 sm:gap-3 lg:gap-4">
             {[
               { step: 'goal', label: 'Objectif', number: 1 },
               { step: 'packs', label: 'Pack', number: 2 },
@@ -200,7 +199,7 @@ const Order = () => {
               { step: 'summary', label: 'Résumé', number: 5 }
             ].map((item, index) => (
               <div key={item.step} className="flex items-center">
-                <div className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-semibold transition-all duration-md-medium2 ${
+                <div className={`w-10 h-10 rounded-full flex items-center justify-center md-label-large transition-all duration-md-medium2 ${
                   currentStep === item.step
                     ? 'bg-md-primary text-md-on-primary md-elevation-2'
                     : getStepStatus(currentStep, item.step)
@@ -209,13 +208,13 @@ const Order = () => {
                 }`}>
                   {item.number}
                 </div>
-                <span className={`ml-2 text-sm font-medium hidden sm:block ${
+                <span className={`ml-2 md-label-medium hidden sm:block ${
                   currentStep === item.step ? 'text-md-primary' : 'text-md-on-surface-variant'
                 }`}>
                   {item.label}
                 </span>
                 {index < 4 && (
-                  <div className="hidden lg:block w-8 h-0.5 bg-md-outline-variant ml-2.5"></div>
+                  <div className="hidden lg:block w-8 h-0.5 bg-md-outline-variant ml-md-2"></div>
                 )}
               </div>
             ))}
