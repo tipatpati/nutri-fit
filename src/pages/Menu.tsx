@@ -25,18 +25,20 @@ const Menu = () => {
     <>
       <Header />
       <main className="min-h-screen bg-md-surface">
-        <MenuHeader selectedWeek={selectedWeek} setSelectedWeek={setSelectedWeek} />
+        <div className="py-12 md:py-16 lg:py-20">
+          <MenuHeader selectedWeek={selectedWeek} setSelectedWeek={setSelectedWeek} />
+        </div>
         
-        <div className="container mx-auto px-4 py-12 space-y-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12 py-8 md:py-12 space-y-10 md:space-y-12">
           <CategoryNutritionSelector 
             selectedCategory={nutritionalGoal}
             onSelectCategory={setNutritionalGoal}
           />
 
           <div>
-            <div className="flex items-center justify-between mb-md-6">
-              <h2 className="md-headline-large text-md-on-surface">Nos Recettes</h2>
-              <div className="flex gap-md-2">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6 md:mb-8">
+              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-md-on-surface">Nos Recettes</h2>
+              <div className="flex flex-wrap gap-2">
                 <Button
                   variant={selectedCategory === null ? 'filled' : 'outlined'}
                   size="sm"
@@ -58,11 +60,11 @@ const Menu = () => {
             </div>
 
             {isLoading ? (
-              <div className="flex items-center justify-center py-md-12">
+              <div className="flex items-center justify-center py-16 md:py-20">
                 <Loader2 className="h-8 w-8 animate-spin text-md-primary" />
               </div>
             ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-md-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
                 {filteredMeals.map((meal) => (
                   <EnhancedMealCard 
                     key={meal.id} 

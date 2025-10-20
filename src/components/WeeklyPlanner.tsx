@@ -49,28 +49,28 @@ const WeeklyPlanner = () => {
   }
 
   return (
-    <section className="py-20 lg:py-28 bg-[hsl(var(--md-sys-color-surface-container-low))]">
-      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+    <section className="py-16 md:py-20 lg:py-32 bg-[hsl(var(--md-sys-color-surface-container-low))]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12">
         {/* Header */}
-        <div className="text-center mb-12 lg:mb-14 animate-fade-in">
+        <div className="text-center mb-10 md:mb-12 lg:mb-16 animate-fade-in">
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-[hsl(var(--md-sys-color-surface-container-highest))] rounded-[var(--md-sys-shape-corner-full)] md-label-medium text-[hsl(var(--md-sys-color-on-surface))] border border-[hsl(var(--md-sys-color-outline-variant))] mb-4">
             <Beef className="w-4 h-4 text-[hsl(var(--md-sys-color-secondary))]" />
             Menu complet
           </div>
-          <h2 className="md-display-large text-[hsl(var(--md-sys-color-on-surface))] mb-4">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-[hsl(var(--md-sys-color-on-surface))] mb-4 md:mb-6 leading-tight">
             Tous nos repas disponibles
           </h2>
-          <p className="md-body-large text-neutral-500 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-base md:text-lg lg:text-xl text-neutral-500 max-w-3xl mx-auto leading-relaxed">
             Chaque repas est disponible pour tous les objectifs - seules les quantités changent
           </p>
         </div>
 
         {/* Goal Selector */}
-        <div className="max-w-4xl mx-auto mb-12">
-          <h3 className="md-title-large text-[hsl(var(--md-sys-color-on-surface))] text-center mb-6">
+        <div className="max-w-4xl mx-auto mb-10 md:mb-12">
+          <h3 className="text-xl md:text-2xl font-semibold text-[hsl(var(--md-sys-color-on-surface))] text-center mb-6 md:mb-8">
             Choisissez votre objectif
           </h3>
-          <div className="grid md:grid-cols-3 gap-4">
+          <div className="grid sm:grid-cols-1 md:grid-cols-3 gap-3 md:gap-4">
             {goals.map((goal) => {
               const colors = getGoalColor(goal.name);
               return (
@@ -97,7 +97,7 @@ const WeeklyPlanner = () => {
         </div>
 
         {/* Meals Grid */}
-        <div className="grid md:grid-cols-2 gap-6 mb-12 max-w-5xl mx-auto">
+        <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mb-10 md:mb-12 max-w-6xl mx-auto">
           {meals.map((meal) => {
             const colors = getGoalColor(selectedGoal);
             return (

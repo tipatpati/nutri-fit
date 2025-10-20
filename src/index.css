@@ -337,57 +337,57 @@
   
   /* Display - Primary headings (specify color based on background) */
   .md-display-large { 
-    @apply text-[57px] leading-[64px] font-normal tracking-[-0.25px];
+    @apply text-[40px] sm:text-[48px] md:text-[57px] leading-[48px] sm:leading-[56px] md:leading-[64px] font-normal tracking-[-0.25px];
   }
   .md-display-medium { 
-    @apply text-[45px] leading-[52px] font-normal;
+    @apply text-[36px] sm:text-[40px] md:text-[45px] leading-[44px] sm:text-[48px] md:leading-[52px] font-normal;
   }
   .md-display-small { 
-    @apply text-[36px] leading-[44px] font-normal;
+    @apply text-[30px] sm:text-[33px] md:text-[36px] leading-[38px] sm:leading-[41px] md:leading-[44px] font-normal;
   }
   
   /* Headline - Section headings */
   .md-headline-large { 
-    @apply text-[32px] leading-[40px] font-normal;
+    @apply text-[28px] sm:text-[30px] md:text-[32px] leading-[36px] sm:leading-[38px] md:leading-[40px] font-normal;
   }
   .md-headline-medium { 
-    @apply text-[28px] leading-[36px] font-normal;
+    @apply text-[24px] sm:text-[26px] md:text-[28px] leading-[32px] sm:leading-[34px] md:leading-[36px] font-normal;
   }
   .md-headline-small { 
-    @apply text-[24px] leading-[32px] font-normal;
+    @apply text-[20px] sm:text-[22px] md:text-[24px] leading-[28px] sm:leading-[30px] md:leading-[32px] font-normal;
   }
   
   /* Title - Card titles, subheadings */
   .md-title-large { 
-    @apply text-[22px] leading-[28px] font-medium;
+    @apply text-[18px] sm:text-[20px] md:text-[22px] leading-[24px] sm:leading-[26px] md:leading-[28px] font-medium;
   }
   .md-title-medium { 
-    @apply text-[16px] leading-[24px] font-medium tracking-[0.1px];
+    @apply text-[14px] sm:text-[15px] md:text-[16px] leading-[20px] sm:leading-[22px] md:leading-[24px] font-medium tracking-[0.1px];
   }
   .md-title-small { 
-    @apply text-[14px] leading-[20px] font-medium tracking-[0.1px];
+    @apply text-[13px] sm:text-[13.5px] md:text-[14px] leading-[18px] sm:leading-[19px] md:leading-[20px] font-medium tracking-[0.1px];
   }
   
   /* Label - Buttons, badges */
   .md-label-large { 
-    @apply text-[14px] leading-[20px] font-medium tracking-[0.1px];
+    @apply text-[13px] sm:text-[13.5px] md:text-[14px] leading-[18px] sm:leading-[19px] md:leading-[20px] font-medium tracking-[0.1px];
   }
   .md-label-medium { 
-    @apply text-[12px] leading-[16px] font-medium tracking-[0.5px];
+    @apply text-[11px] sm:text-[11.5px] md:text-[12px] leading-[15px] sm:leading-[15.5px] md:leading-[16px] font-medium tracking-[0.5px];
   }
   .md-label-small { 
-    @apply text-[11px] leading-[16px] font-medium tracking-[0.5px];
+    @apply text-[10px] sm:text-[10.5px] md:text-[11px] leading-[14px] sm:leading-[15px] md:leading-[16px] font-medium tracking-[0.5px];
   }
   
   /* Body - Regular text */
   .md-body-large { 
-    @apply text-[16px] leading-[24px] font-normal tracking-[0.5px];
+    @apply text-[14px] sm:text-[15px] md:text-[16px] leading-[20px] sm:leading-[22px] md:leading-[24px] font-normal tracking-[0.5px];
   }
   .md-body-medium { 
-    @apply text-[14px] leading-[20px] font-normal tracking-[0.25px];
+    @apply text-[13px] sm:text-[13.5px] md:text-[14px] leading-[18px] sm:leading-[19px] md:leading-[20px] font-normal tracking-[0.25px];
   }
   .md-body-small { 
-    @apply text-[12px] leading-[16px] font-normal tracking-[0.4px];
+    @apply text-[11px] sm:text-[11.5px] md:text-[12px] leading-[15px] sm:leading-[15.5px] md:leading-[16px] font-normal tracking-[0.4px];
   }
 
   /* Typography Color Utilities - Apply explicitly based on background */

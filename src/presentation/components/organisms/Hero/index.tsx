@@ -11,7 +11,7 @@ export const Hero = () => {
 
   return (
     <section 
-      className="relative min-h-screen flex items-center overflow-hidden"
+      className="relative min-h-[100vh] md:min-h-screen flex items-center overflow-hidden py-16 md:py-20"
       style={{
         background: `linear-gradient(135deg, 
           hsl(var(--md-sys-color-surface)) 0%, 
@@ -54,7 +54,7 @@ export const Hero = () => {
         }}
       />
       
-      <div className="relative z-10 w-full max-w-5xl mx-auto px-[24px] sm:px-[32px] lg:px-[48px] py-[80px] lg:py-[128px]">
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12">
         <div className="flex items-center justify-center">
           <HeroContent onOrderClick={handleOrderClick} />
         </div>

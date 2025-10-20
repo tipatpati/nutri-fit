@@ -26,20 +26,20 @@ const MealCategories = () => {
     bgColor: 'bg-[hsl(var(--md-sys-color-tertiary-container))]',
     numberColor: 'text-[hsl(var(--md-sys-color-tertiary))]'
   }];
-  return <section className="py-20 lg:py-32 bg-[hsl(var(--md-sys-color-surface))]">
-      <div className="max-w-6xl mx-auto px-6 sm:px-8 lg:px-12">
+  return <section className="py-16 md:py-20 lg:py-32 bg-[hsl(var(--md-sys-color-surface))]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12">
         {/* Header */}
-        <div className="text-center mb-16 lg:mb-20 animate-fade-in">
-          <h2 className="md-display-large text-[hsl(var(--md-sys-color-on-surface))] mb-6">
+        <div className="text-center mb-12 md:mb-16 lg:mb-20 animate-fade-in">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-[hsl(var(--md-sys-color-on-surface))] mb-4 md:mb-6 leading-tight">
             Comment ça fonctionne ?
           </h2>
-          <p className="md-body-large text-neutral-500 max-w-2xl mx-auto">
+          <p className="text-base md:text-lg lg:text-xl text-neutral-500 max-w-2xl mx-auto leading-relaxed">
             Économisez du temps et profitez de repas prêts-à-manger nutritifs en 3 étapes faciles
           </p>
         </div>
 
         {/* Steps Grid */}
-        <div className="grid md:grid-cols-3 gap-8 lg:gap-12 mb-16">
+        <div className="grid sm:grid-cols-1 md:grid-cols-3 gap-8 md:gap-10 lg:gap-12 mb-12 md:mb-16">
           {steps.map((step, index) => <div key={step.number} className="relative group animate-fade-in" style={{
           animationDelay: `${index * 150}ms`
         }}>

@@ -3,7 +3,7 @@ import { FeatureCard } from "@/presentation/components/molecules/Features/Featur
 
 export const FeaturesGrid = () => {
   return (
-    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-20">
+    <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mb-12 md:mb-16">
       {features.map((feature, index) => (
         <FeatureCard key={index} feature={feature} />
       ))}

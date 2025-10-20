@@ -17,10 +17,10 @@ export const HeroContent = ({ onOrderClick }: HeroContentProps) => {
   ];
 
   return (
-    <div className="space-y-10 lg:space-y-12 text-center max-w-3xl mx-auto relative">
+    <div className="space-y-8 md:space-y-10 lg:space-y-12 text-center max-w-4xl mx-auto relative">
       {/* Floating glass blob decorations */}
-      <div className="glass-blob w-64 h-64 absolute -top-20 -right-20 opacity-30" style={{ animationDelay: '0s' }} />
-      <div className="glass-blob w-48 h-48 absolute -bottom-10 -left-10 opacity-20" style={{ animationDelay: '7s' }} />
+      <div className="glass-blob w-48 h-48 md:w-64 md:h-64 absolute -top-20 -right-20 opacity-30" style={{ animationDelay: '0s' }} />
+      <div className="glass-blob w-40 h-40 md:w-48 md:h-48 absolute -bottom-10 -left-10 opacity-20" style={{ animationDelay: '7s' }} />
       
       {/* Badge with glass styling */}
       <div className="inline-flex items-center gap-2 px-4 py-2 glass-badge rounded-[var(--md-sys-shape-corner-full)] animate-scale-in">
@@ -29,8 +29,8 @@ export const HeroContent = ({ onOrderClick }: HeroContentProps) => {
       </div>
       
       {/* Heading with serif font */}
-      <div className="space-y-6">
-        <h1 className="md-display-large sm:text-6xl lg:text-7xl font-bold leading-tight tracking-tight text-on-surface">
+      <div className="space-y-4 md:space-y-6 px-4">
+        <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight tracking-tight text-on-surface">
           <span className="text-on-surface font-serif">
             Repas
           </span>
@@ -40,7 +40,7 @@ export const HeroContent = ({ onOrderClick }: HeroContentProps) => {
           </span>
         </h1>
         
-        <p className="md-title-large lg:text-xl text-on-surface-variant leading-relaxed max-w-2xl mx-auto font-normal">
+        <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-on-surface-variant leading-relaxed max-w-2xl mx-auto font-normal">
           Des repas équilibrés, préparés par des chefs et livrés directement chez vous.
         </p>
       </div>
@@ -51,7 +51,7 @@ export const HeroContent = ({ onOrderClick }: HeroContentProps) => {
       </GlassCard>
 
       {/* Trust Indicators with glass styling */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 pt-4 max-w-2xl mx-auto">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 md:gap-6 pt-4 max-w-3xl mx-auto px-4">
         {trustIndicators.map((indicator, index) => (
           <div 
             key={index} 
