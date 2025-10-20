@@ -13,20 +13,22 @@ const Index = () => {
     user,
     signOut
   } = useAuth();
-  return <div className="min-h-screen bg-[hsl(var(--md-sys-color-surface))] text-[hsl(var(--md-sys-color-on-surface))] overflow-x-hidden">
+  return (
+    <div className="min-h-screen bg-[hsl(var(--md-sys-color-surface))] text-[hsl(var(--md-sys-color-on-surface))] overflow-x-hidden">
       <Header />
-      {user && <div className="bg-[hsl(var(--md-sys-color-primary-container))] text-[hsl(var(--md-sys-color-on-primary-container))] p-4 text-center">
-          <span className="md-body-medium">Connecté en tant que {user.email}</span>
-          <Button variant="outlined" size="sm" onClick={signOut} className="ml-4">
+      {user && (
+        <div className="glass-primary p-[16px] text-center md-elevation-1">
+          <span className="md-body-medium text-on-surface">Connecté en tant que {user.email}</span>
+          <Button variant="outlined" size="sm" onClick={signOut} className="ml-[16px]">
             Déconnexion
           </Button>
-          <Link to="/admin" className="ml-4">
+          <Link to="/admin" className="ml-[16px]">
             <Button variant="outlined" size="sm">
               Accès Admin
             </Button>
           </Link>
-        </div>}
-      {!user}
+        </div>
+      )}
       <main className="w-full">
         <Hero />
         <MealCategories />
@@ -35,6 +37,7 @@ const Index = () => {
         <Features />
       </main>
       <Footer />
-    </div>;
+    </div>
+  );
 };
 export default Index;

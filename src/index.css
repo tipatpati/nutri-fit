@@ -81,6 +81,13 @@
     --md-sys-shape-corner-extra-large: 28px;
     --md-sys-shape-corner-full: 9999px;
 
+    /* Glassmorphism Tokens */
+    --glass-blur: 20px;
+    --glass-blur-intense: 30px;
+    --glass-opacity: 0.7;
+    --glass-opacity-light: 0.5;
+    --glass-border-opacity: 0.2;
+
     /* Backward compatibility mapping */
     --background: var(--md-sys-color-surface);
     --foreground: var(--md-sys-color-on-surface);
@@ -155,6 +162,10 @@
     /* Outline Colors - Olive #525944 Dark Mode */
     --md-sys-color-outline: 75 13% 50%;
     --md-sys-color-outline-variant: 75 13% 25%;
+
+    /* Glassmorphism adjustments for dark mode */
+    --glass-opacity: 0.5;
+    --glass-opacity-light: 0.3;
 
     /* Backward compatibility mapping */
     --background: var(--md-sys-color-surface);
@@ -388,5 +399,68 @@
 
   .story-link:hover::after {
     @apply scale-x-100 origin-bottom-left;
+  }
+
+  /* Glassmorphism Utilities */
+  .glass-surface {
+    background: hsla(var(--md-sys-color-surface), var(--glass-opacity));
+    backdrop-filter: blur(var(--glass-blur)) saturate(180%);
+    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(180%);
+    border: 1px solid hsla(var(--md-sys-color-outline-variant), var(--glass-border-opacity));
+  }
+
+  .glass-surface-elevated {
+    background: hsla(var(--md-sys-color-surface-container), 0.6);
+    backdrop-filter: blur(var(--glass-blur-intense)) saturate(180%);
+    -webkit-backdrop-filter: blur(var(--glass-blur-intense)) saturate(180%);
+    border: 1px solid hsla(var(--md-sys-color-outline), var(--glass-border-opacity));
+  }
+
+  .glass-card {
+    background: hsla(var(--md-sys-color-surface-container-low), 0.85);
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    border: 1px solid hsla(var(--md-sys-color-outline-variant), 0.3);
+  }
+
+  .glass-primary {
+    background: hsla(var(--md-sys-color-primary), 0.1);
+    backdrop-filter: blur(var(--glass-blur)) saturate(150%);
+    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(150%);
+    border: 1px solid hsla(var(--md-sys-color-primary), 0.2);
+  }
+
+  /* Performance optimizations */
+  .glass-surface,
+  .glass-surface-elevated,
+  .glass-card,
+  .glass-primary {
+    will-change: backdrop-filter;
+    transform: translateZ(0);
+  }
+
+  /* Reduce motion support */
+  @media (prefers-reduced-motion: reduce) {
+    .glass-surface,
+    .glass-surface-elevated,
+    .glass-card,
+    .glass-primary {
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      background: hsl(var(--md-sys-color-surface-container));
+    }
+  }
+
+  /* MD3 Transition utilities */
+  .transition-md-fast {
+    transition: all var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-emphasized);
+  }
+
+  .transition-md-standard {
+    transition: all var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-standard);
+  }
+
+  .transition-md-slow {
+    transition: all var(--md-sys-motion-duration-long1) var(--md-sys-motion-easing-standard);
   }
 }

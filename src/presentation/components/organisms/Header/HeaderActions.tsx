@@ -14,27 +14,39 @@ export const HeaderActions = () => {
   };
 
   return (
-    <div className="hidden lg:flex items-center gap-2">
-      <Button variant="ghost" size="icon" className="relative text-gray-300 hover:text-white hover:bg-white/10">
+    <div className="hidden lg:flex items-center gap-[8px]">
+      <Button variant="text" size="icon" className="relative text-on-surface-variant">
         <Globe className="h-5 w-5" />
       </Button>
       
-      <Button variant="ghost" size="icon" className="relative text-gray-300 hover:text-white hover:bg-white/10">
+      <Button variant="text" size="icon" className="relative text-on-surface-variant">
         <Bell className="h-5 w-5" />
-        <span className="absolute -top-1 -right-1 h-5 w-5 rounded-full bg-orange-500 text-white text-xs flex items-center justify-center font-medium">
+        <span 
+          className="absolute -top-1 -right-1 h-5 w-5 rounded-full text-xs flex items-center justify-center md-label-small"
+          style={{
+            background: 'hsl(var(--md-sys-color-secondary))',
+            color: 'hsl(var(--md-sys-color-on-secondary))'
+          }}
+        >
           2
         </span>
       </Button>
       
       <Button 
-        variant="ghost" 
+        variant="text" 
         size="icon" 
-        className="relative text-gray-300 hover:text-white hover:bg-white/10"
+        className="relative text-on-surface-variant"
         onClick={handleCartClick}
       >
         <ShoppingCart className="h-5 w-5" />
         {totalItems > 0 && (
-          <span className="absolute -top-1 -right-1 h-5 w-5 rounded-full bg-orange-500 text-white text-xs flex items-center justify-center font-medium">
+          <span 
+            className="absolute -top-1 -right-1 h-5 w-5 rounded-full text-xs flex items-center justify-center md-label-small"
+            style={{
+              background: 'hsl(var(--md-sys-color-secondary))',
+              color: 'hsl(var(--md-sys-color-on-secondary))'
+            }}
+          >
             {totalItems}
           </span>
         )}
@@ -43,21 +55,29 @@ export const HeaderActions = () => {
       {!user ? (
         <>
           <Link to="/auth">
-            <Button variant="ghost" className="text-gray-300 hover:text-white hover:bg-white/10">Connexion</Button>
+            <Button variant="text" className="text-on-surface-variant">Connexion</Button>
           </Link>
           <Link to="/auth">
-            <Button className="bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white font-semibold">S'inscrire</Button>
+            <Button 
+              variant="filled" 
+              style={{
+                background: `linear-gradient(135deg, hsl(var(--md-sys-color-secondary)), hsl(var(--md-sys-color-tertiary)))`,
+                color: 'hsl(var(--md-sys-color-on-secondary))'
+              }}
+            >
+              S'inscrire
+            </Button>
           </Link>
         </>
       ) : (
         <>
           <Link to="/orders">
-            <Button variant="ghost" className="text-gray-300 hover:text-white hover:bg-white/10">Mes Commandes</Button>
+            <Button variant="text" className="text-on-surface-variant">Mes Commandes</Button>
           </Link>
           <Link to="/profile">
-            <Button variant="ghost" className="text-gray-300 hover:text-white hover:bg-white/10">Mon Profil</Button>
+            <Button variant="text" className="text-on-surface-variant">Mon Profil</Button>
           </Link>
-          <Button variant="ghost" className="text-gray-300 hover:text-white hover:bg-white/10" onClick={() => useAuthStore.getState().signOut()}>
+          <Button variant="text" className="text-on-surface-variant" onClick={() => useAuthStore.getState().signOut()}>
             Déconnexion
           </Button>
         </>

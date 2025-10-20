@@ -10,8 +10,8 @@ export const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-40 w-full bg-slate-900/80 backdrop-blur-md border-b border-white/10">
-      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+    <header className="sticky top-0 z-40 w-full glass-surface md-elevation-2">
+      <div className="max-w-7xl mx-auto px-[24px] sm:px-[32px] lg:px-[48px]">
         <div className="flex h-16 items-center justify-between">
           <HeaderLogo />
           
@@ -20,9 +20,9 @@ export const Header = () => {
           <HeaderActions />
 
           <Button
-            variant="ghost"
+            variant="text"
             size="icon"
-            className="lg:hidden text-white hover:bg-white/10"
+            className="lg:hidden text-on-surface"
             onClick={() => setMobileMenuOpen(true)}
           >
             <Menu className="h-5 w-5" />

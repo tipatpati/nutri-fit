@@ -11,17 +11,17 @@ export const DesktopNav = () => {
   const location = useLocation();
 
   return (
-    <nav className="hidden lg:flex items-center gap-1">
+    <nav className="hidden lg:flex items-center gap-[4px]">
       {navItems.map((item) => {
         const isActive = location.pathname === item.path;
         return (
           <Link
             key={item.path}
             to={item.path}
-            className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+            className={`px-[16px] py-[8px] rounded-[var(--md-sys-shape-corner-medium)] md-label-large transition-md-fast ${
               isActive
-                ? "bg-white/10 text-white"
-                : "text-gray-300 hover:text-white hover:bg-white/5"
+                ? "text-on-surface glass-primary"
+                : "text-on-surface-variant hover:text-on-surface hover:bg-[hsl(var(--md-sys-color-surface-container-high))]"
             }`}
           >
             {item.label}
