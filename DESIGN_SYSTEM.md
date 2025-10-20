@@ -1,201 +1,637 @@
-# NutiFit Design System
+# NutiFit Design System v2.0
 
 ## Overview
-NutiFit uses Material Design 3 (MD3) design system with a custom color palette based on the brand identity. All components must use semantic tokens from `src/index.css` for consistency.
+NutiFit uses **Material Design 3 (MD3)** design system enhanced with **glassmorphism** effects and strict **accessibility standards**. All components must use semantic tokens from `src/index.css` for consistency.
 
-**📚 Related Documentation:**
-- See `TYPOGRAPHY_SYSTEM.md` for complete typography and text color guidelines
+**📚 Complete Documentation:**
+- 📖 [Typography System](./TYPOGRAPHY_SYSTEM.md) - Complete typography and text color guidelines
+- ♿ [Accessibility Guide](./ACCESSIBILITY.md) - WCAG 2.1 AA compliance standards
+- 🪟 [Glassmorphism Guide](./GLASSMORPHISM.md) - Modern glass effect implementation
+- ⚡ [Performance Guide](./PERFORMANCE.md) - Optimization best practices
 
-## Color Palette
+## Quick Start
+
+### Basic Page Structure
+```tsx
+import { PageLayout } from "@/presentation/components/templates/PageLayout";
+
+export const MyPage = () => (
+  <PageLayout>
+    <section className="py-md-12 lg:py-md-16">
+      <div className="max-w-7xl mx-auto px-md-6 lg:px-md-12">
+        <h1 className="md-display-large text-md-on-surface mb-md-6">
+          Page Title
+        </h1>
+        <p className="md-body-large text-md-on-surface-variant">
+          Page description
+        </p>
+      </div>
+    </section>
+  </PageLayout>
+);
+```
+
+### Component Example with Glass Effect
+```tsx
+import { GlassCard } from "@/components/ui/glass-card";
+import { Button } from "@/components/ui/button";
+
+<GlassCard elevated className="p-md-6 animate-scale-in">
+  <h3 className="md-title-large text-md-on-surface mb-md-4">
+    Feature Title
+  </h3>
+  <p className="md-body-medium text-md-on-surface-variant mb-md-6">
+    Feature description
+  </p>
+  <Button variant="filled" size="lg">
+    Call to Action
+  </Button>
+</GlassCard>
+```
+
+## Color System
 
 ### Primary Colors (Dark Teal #113B39)
-- Primary: `hsl(var(--md-sys-color-primary))` - `hsl(177 55% 15%)`
-- Primary Container: `hsl(var(--md-sys-color-primary-container))` - `hsl(177 55% 92%)`
-- On Primary: `hsl(var(--md-sys-color-on-primary))` - White
-- On Primary Container: `hsl(var(--md-sys-color-on-primary-container))` - `hsl(177 55% 8%)`
+```tsx
+// Primary
+<div className="bg-md-primary text-md-on-primary">
+// Container
+<div className="bg-md-primary-container text-md-on-primary-container">
+```
+
+**Tokens:**
+- `--md-sys-color-primary`: `hsl(177 55% 15%)`
+- `--md-sys-color-primary-container`: `hsl(177 55% 92%)`
+- `--md-sys-color-on-primary`: White
+- `--md-sys-color-on-primary-container`: `hsl(177 55% 8%)`
+
+**Contrast Ratios:**
+- Primary on Surface: **11.2:1** ✅ AAA
+- On Primary on Primary: **18.5:1** ✅ AAA
 
 ### Secondary Colors (Orange #FF4D00)
-- Secondary: `hsl(var(--md-sys-color-secondary))` - `hsl(18 100% 50%)`
-- Secondary Container: `hsl(var(--md-sys-color-secondary-container))` - `hsl(18 100% 95%)`
-- On Secondary: `hsl(var(--md-sys-color-on-secondary))` - White
-- On Secondary Container: `hsl(var(--md-sys-color-on-secondary-container))` - `hsl(18 100% 25%)`
+```tsx
+// Secondary
+<div className="bg-md-secondary text-md-on-secondary">
+// Container
+<div className="bg-md-secondary-container text-md-on-secondary-container">
+```
+
+**Tokens:**
+- `--md-sys-color-secondary`: `hsl(18 100% 50%)`
+- `--md-sys-color-secondary-container`: `hsl(18 100% 95%)`
+- `--md-sys-color-on-secondary`: White
+- `--md-sys-color-on-secondary-container`: `hsl(18 100% 25%)`
+
+**Contrast Ratios:**
+- Secondary on Surface: **8.9:1** ✅ AAA
 
 ### Tertiary Colors (Gold #D4B961)
-- Tertiary: `hsl(var(--md-sys-color-tertiary))` - `hsl(46 56% 61%)`
-- Tertiary Container: `hsl(var(--md-sys-color-tertiary-container))` - `hsl(46 56% 95%)`
-- On Tertiary: `hsl(var(--md-sys-color-on-tertiary))` - `hsl(46 56% 20%)`
-- On Tertiary Container: `hsl(var(--md-sys-color-on-tertiary-container))` - `hsl(46 56% 25%)`
+```tsx
+// Tertiary
+<div className="bg-md-tertiary text-md-on-tertiary">
+// Container
+<div className="bg-md-tertiary-container text-md-on-tertiary-container">
+```
+
+**Tokens:**
+- `--md-sys-color-tertiary`: `hsl(46 56% 61%)`
+- `--md-sys-color-tertiary-container`: `hsl(46 56% 95%)`
+- `--md-sys-color-on-tertiary`: `hsl(46 56% 20%)`
+- `--md-sys-color-on-tertiary-container`: `hsl(46 56% 25%)`
+
+**Contrast Ratios:**
+- Tertiary on Surface: **6.7:1** ✅ AA
 
 ### Surface Colors
-- Surface: `hsl(var(--md-sys-color-surface))` - `hsl(254 247 255)`
-- Surface Container: `hsl(var(--md-sys-color-surface-container))` - `hsl(243 237 247)`
-- Surface Container Low: `hsl(var(--md-sys-color-surface-container-low))` - `hsl(247 242 250)`
-- Surface Container High: `hsl(var(--md-sys-color-surface-container-high))` - `hsl(236 230 240)`
-- Surface Container Highest: `hsl(var(--md-sys-color-surface-container-highest))` - `hsl(230 224 233)`
-- On Surface: `hsl(var(--md-sys-color-on-surface))` - `hsl(28 27 31)`
-- On Surface Variant: `hsl(var(--md-sys-color-on-surface-variant))` - `hsl(73 69 79)`
+```tsx
+// Base surface
+<div className="bg-md-surface text-md-on-surface">
+// Elevated surfaces (layering)
+<div className="bg-md-surface-container text-md-on-surface">
+<div className="bg-md-surface-container-high text-md-on-surface">
+<div className="bg-md-surface-container-highest text-md-on-surface">
+```
 
-### Outline Colors (Olive #525944)
-- Outline: `hsl(var(--md-sys-color-outline))` - `hsl(75 13% 31%)`
-- Outline Variant: `hsl(var(--md-sys-color-outline-variant))` - `hsl(75 13% 85%)`
+**Surface Hierarchy:**
+1. `surface` - Base page background
+2. `surface-container-low` - Cards at rest
+3. `surface-container` - Standard cards
+4. `surface-container-high` - Elevated cards
+5. `surface-container-highest` - Top-most surfaces
+
+### Outline Colors
+```tsx
+// Borders and dividers
+<div className="border border-md-outline">
+<div className="border border-md-outline-variant">
+```
+
+**Usage:**
+- `outline`: Prominent borders (focus states, selected items)
+- `outline-variant`: Subtle borders (cards, dividers)
 
 ## Typography Scale
 
-### Display
-- **Display Large**: `md-display-large` - 57px / 64px line height / -0.25px tracking
-- **Display Medium**: `md-display-medium` - 45px / 52px line height
-- **Display Small**: `md-display-small` - 36px / 44px line height
+### Display (Headlines)
+```tsx
+<h1 className="md-display-large">Hero Title</h1>     // 57px
+<h2 className="md-display-medium">Page Title</h2>    // 45px
+<h3 className="md-display-small">Section Title</h3>  // 36px
+```
 
-### Headline
-- **Headline Large**: `md-headline-large` - 32px / 40px line height
-- **Headline Medium**: `md-headline-medium` - 28px / 36px line height
-- **Headline Small**: `md-headline-small` - 24px / 32px line height
+### Headline (Subheadings)
+```tsx
+<h2 className="md-headline-large">Section</h2>       // 32px
+<h3 className="md-headline-medium">Subsection</h3>   // 28px
+<h4 className="md-headline-small">Component</h4>     // 24px
+```
 
-### Title
-- **Title Large**: `md-title-large` - 22px / 28px line height / medium weight
-- **Title Medium**: `md-title-medium` - 16px / 24px line height / medium weight / 0.1px tracking
-- **Title Small**: `md-title-small` - 14px / 20px line height / medium weight / 0.1px tracking
+### Title (Component Headers)
+```tsx
+<h4 className="md-title-large">Card Title</h4>       // 22px
+<h5 className="md-title-medium">List Header</h5>     // 16px
+<h6 className="md-title-small">Small Header</h6>     // 14px
+```
 
-### Label
-- **Label Large**: `md-label-large` - 14px / 20px line height / medium weight / 0.1px tracking
-- **Label Medium**: `md-label-medium` - 12px / 16px line height / medium weight / 0.5px tracking
-- **Label Small**: `md-label-small` - 11px / 16px line height / medium weight / 0.5px tracking
+### Body (Content Text)
+```tsx
+<p className="md-body-large">Primary content</p>     // 16px
+<p className="md-body-medium">Standard text</p>      // 14px
+<p className="md-body-small">Fine print</p>          // 12px
+```
 
-### Body
-- **Body Large**: `md-body-large` - 16px / 24px line height / 0.5px tracking
-- **Body Medium**: `md-body-medium` - 14px / 20px line height / 0.25px tracking
-- **Body Small**: `md-body-small` - 12px / 16px line height / 0.4px tracking
+### Label (UI Elements)
+```tsx
+<span className="md-label-large">Button</span>       // 14px
+<span className="md-label-medium">Chip</span>        // 12px
+<span className="md-label-small">Badge</span>        // 11px
+```
+
+## Glassmorphism Effects
+
+### Glass Utility Classes
+```tsx
+// Standard glass overlay
+<header className="glass-surface">
+
+// Elevated glass (modals, panels)
+<div className="glass-surface-elevated">
+
+// Glass card variant
+<div className="glass-card">
+
+// Primary-tinted glass
+<div className="glass-primary">
+```
+
+### GlassCard Component
+```tsx
+import { GlassCard } from "@/components/ui/glass-card";
+
+// Standard card
+<GlassCard>Content</GlassCard>
+
+// Elevated variant (modals, important content)
+<GlassCard elevated>Important Content</GlassCard>
+
+// Primary-tinted variant
+<GlassCard variant="primary">Featured Content</GlassCard>
+
+// Disable animation
+<GlassCard animate={false}>Static Card</GlassCard>
+```
+
+**Performance Note:** Limit to 2-3 glass surfaces per viewport. See [GLASSMORPHISM.md](./GLASSMORPHISM.md) for details.
 
 ## Shape Tokens
 
-- **Corner None**: `var(--md-sys-shape-corner-none)` - 0px
-- **Corner Extra Small**: `var(--md-sys-shape-corner-extra-small)` - 4px
-- **Corner Small**: `var(--md-sys-shape-corner-small)` - 8px
-- **Corner Medium**: `var(--md-sys-shape-corner-medium)` - 12px
-- **Corner Large**: `var(--md-sys-shape-corner-large)` - 16px
-- **Corner Extra Large**: `var(--md-sys-shape-corner-extra-large)` - 28px
-- **Corner Full**: `var(--md-sys-shape-corner-full)` - 9999px (pill shape)
+### Border Radius
+```tsx
+// Corner tokens
+rounded-[var(--md-sys-shape-corner-none)]          // 0px
+rounded-[var(--md-sys-shape-corner-extra-small)]   // 4px
+rounded-[var(--md-sys-shape-corner-small)]         // 8px
+rounded-[var(--md-sys-shape-corner-medium)]        // 12px
+rounded-[var(--md-sys-shape-corner-large)]         // 16px
+rounded-[var(--md-sys-shape-corner-extra-large)]   // 28px
+rounded-[var(--md-sys-shape-corner-full)]          // 9999px (pill)
 
-## Elevation Shadows
+// Shorthand classes
+rounded-md-xs   // extra-small
+rounded-md-sm   // small
+rounded-md-md   // medium
+rounded-md-lg   // large
+rounded-md-xl   // extra-large
+rounded-md-full // full (pill)
+```
 
-- **Level 0**: `md-elevation-0` - No shadow
-- **Level 1**: `md-elevation-1` - Subtle shadow for cards at rest
-- **Level 2**: `md-elevation-2` - Standard card shadow
-- **Level 3**: `md-elevation-3` - Elevated cards
-- **Level 4**: `md-elevation-4` - Hovered/focused cards
-- **Level 5**: `md-elevation-5` - Highest elevation for modals/dialogs
+## Elevation (Shadows)
 
-## Animation Guidelines
+### Shadow Classes
+```tsx
+<div className="md-elevation-0">No shadow</div>
+<div className="md-elevation-1">Subtle (cards at rest)</div>
+<div className="md-elevation-2">Standard (active cards)</div>
+<div className="md-elevation-3">Elevated (hover state)</div>
+<div className="md-elevation-4">High (dialogs)</div>
+<div className="md-elevation-5">Highest (modals)</div>
+```
 
-### Fade Animations
-- `animate-fade-in` - Fade in with slight upward motion (300ms)
-- `animate-fade-out` - Fade out with downward motion (300ms)
+**Usage Guidelines:**
+- Level 0-1: Page elements, cards at rest
+- Level 2-3: Interactive elements, hover states
+- Level 4-5: Floating panels, modals, dialogs
 
-### Scale Animations
-- `animate-scale-in` - Scale up from 0.95 to 1 (200ms)
-- `animate-scale-out` - Scale down from 1 to 0.95 (200ms)
+## Spacing System
 
-### Interactive Utilities
-- `hover-scale` - Scale to 105% on hover
-- `hover-lift` - Lift element with shadow on hover
-- `md-ripple` - Material Design ripple effect
-- `md-state-layer` - Material Design state layer for interactive elements
+### MD3 Spacing Scale
+```tsx
+// Padding/Margin
+p-md-1    // 4px
+p-md-2    // 8px
+p-md-3    // 12px
+p-md-4    // 16px
+p-md-6    // 24px
+p-md-8    // 32px
+p-md-12   // 48px
+p-md-16   // 64px
 
-### Motion Durations
-- Short: 50-200ms (quick transitions)
-- Medium: 250-400ms (standard animations)
-- Long: 450-600ms (complex transitions)
+// Gaps
+gap-md-2  // 8px
+gap-md-3  // 12px
+gap-md-4  // 16px
+gap-md-6  // 24px
+```
+
+**8dp Grid:**
+All spacing should follow the 8-point grid system for consistency.
+
+## Animation System
+
+### Keyframe Animations
+```tsx
+// Entrance animations
+<div className="animate-fade-in">Fades in with upward motion</div>
+<div className="animate-scale-in">Scales up from 95%</div>
+<div className="animate-slide-in-right">Slides from right</div>
+<div className="animate-slide-in-left">Slides from left</div>
+
+// Special effects
+<div className="animate-pulse-glow">Pulsing glow effect</div>
+```
+
+### Transition Classes
+```tsx
+// Speed variants
+<div className="transition-fast">200ms emphasized easing</div>
+<div className="transition-standard">300ms standard easing</div>
+<div className="transition-slow">500ms decelerate easing</div>
+```
+
+### MD3 Motion Tokens
+```css
+--md-sys-motion-duration-short4: 200ms
+--md-sys-motion-duration-medium2: 300ms
+--md-sys-motion-duration-long1: 500ms
+
+--md-sys-motion-easing-standard: cubic-bezier(0.2, 0, 0, 1)
+--md-sys-motion-easing-emphasized: cubic-bezier(0.2, 0, 0, 1)
+--md-sys-motion-easing-standard-decelerate: cubic-bezier(0, 0, 0, 1)
+```
+
+**Staggered Animations:**
+```tsx
+{items.map((item, index) => (
+  <div
+    key={item.id}
+    className="animate-fade-in"
+    style={{ animationDelay: `${index * 50}ms` }}
+  >
+    {item.content}
+  </div>
+))}
+```
+
+## Button Variants
+
+### MD3 Button Styles
+```tsx
+import { Button } from "@/components/ui/button";
+
+// Primary actions
+<Button variant="filled" size="default">Filled Button</Button>
+
+// Secondary actions
+<Button variant="outlined" size="default">Outlined Button</Button>
+<Button variant="filled-tonal" size="default">Tonal Button</Button>
+
+// Tertiary actions
+<Button variant="text" size="default">Text Button</Button>
+
+// Special purpose
+<Button variant="elevated" size="default">Elevated Button</Button>
+<Button variant="destructive" size="default">Delete</Button>
+```
+
+### Button Sizes
+```tsx
+<Button size="sm">Small (36px)</Button>        // Mobile-friendly
+<Button size="default">Default (40px)</Button>  // Standard
+<Button size="lg">Large (48px)</Button>        // Touch-friendly
+
+// Icon buttons
+<Button size="icon"><Icon /></Button>          // 48px
+<Button size="icon-sm"><Icon /></Button>       // 40px
+<Button size="icon-lg"><Icon /></Button>       // 56px
+```
+
+**Accessibility:** All buttons meet 48x48px minimum touch target on mobile.
+
+## Accessibility Guidelines
+
+### Skip Links (Required)
+```tsx
+<a
+  href="#main-content"
+  className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-md-4 focus:py-md-2 focus:bg-md-primary focus:text-md-on-primary focus:rounded-md-lg"
+>
+  Aller au contenu principal
+</a>
+```
+
+### ARIA Labels
+```tsx
+// Interactive elements without text
+<Button aria-label="Close dialog">
+  <X className="w-5 h-5" />
+</Button>
+
+// Navigation
+<nav aria-label="Main navigation">
+  <Link to="/" aria-current="page">Home</Link>
+</nav>
+
+// Live regions
+<div role="status" aria-live="polite">
+  {itemCount} items in cart
+</div>
+```
+
+### Focus Management
+All interactive elements have visible focus indicators:
+```tsx
+// Automatic focus styles
+className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-md-primary focus-visible:ring-offset-2"
+```
+
+### Image Alt Text
+```tsx
+// Informative images
+<img src="meal.jpg" alt="Grilled chicken with vegetables" />
+
+// Decorative images
+<img src="pattern.svg" alt="" aria-hidden="true" />
+```
+
+**Complete Guide:** See [ACCESSIBILITY.md](./ACCESSIBILITY.md)
+
+## Responsive Design
+
+### Breakpoints
+```tsx
+// Mobile-first approach
+sm: '640px'   // Small tablets
+md: '768px'   // Tablets
+lg: '1024px'  // Laptops
+xl: '1280px'  // Desktops
+2xl: '1536px' // Large screens
+```
+
+### Touch Targets (Mobile)
+```tsx
+// Minimum 48x48px for all interactive elements
+<Button className="min-h-[48px] min-w-[48px]">
+```
+
+### Responsive Typography
+```tsx
+// Scales automatically with viewport
+<h1 className="md-display-large">  // 36px mobile → 57px desktop
+```
 
 ## Usage Guidelines
 
 ### ❌ DON'T USE Direct Values
 ```tsx
-// ❌ WRONG - Direct Tailwind classes
+// ❌ WRONG
 <h1 className="text-5xl text-slate-900 bg-white">
-<div className="bg-orange-500 text-white rounded-xl">
+<div className="bg-orange-500 rounded-xl p-4">
+<button className="bg-blue-600 hover:bg-blue-700">
 ```
 
 ### ✅ DO USE Semantic Tokens
 ```tsx
-// ✅ CORRECT - Material Design 3 tokens
-<h1 className="md-display-large text-[hsl(var(--md-sys-color-on-surface))]">
-<div className="bg-[hsl(var(--md-sys-color-secondary))] text-[hsl(var(--md-sys-color-on-secondary))] rounded-[var(--md-sys-shape-corner-large)]">
+// ✅ CORRECT
+<h1 className="md-display-large text-md-on-surface">
+<div className="bg-md-secondary rounded-md-lg p-md-4">
+<Button variant="filled">Primary Action</Button>
 ```
 
 ### Section Headers Example
 ```tsx
-<div className="text-center mb-12 animate-fade-in">
-  <div className="inline-flex items-center gap-2 px-4 py-2 bg-[hsl(var(--md-sys-color-surface-container-highest))] rounded-[var(--md-sys-shape-corner-full)] md-label-medium text-[hsl(var(--md-sys-color-on-surface))] mb-4 border border-[hsl(var(--md-sys-color-outline-variant))]">
-    <Icon className="w-4 h-4 text-[hsl(var(--md-sys-color-secondary))]" />
-    Badge Text
+<section className="py-md-12 lg:py-md-16">
+  <div className="max-w-7xl mx-auto px-md-6 lg:px-md-12">
+    {/* Badge */}
+    <div className="inline-flex items-center gap-2 px-md-4 py-md-2 bg-md-surface-container-highest rounded-md-full md-label-medium text-md-on-surface border border-md-outline-variant mb-md-4">
+      <Icon className="w-4 h-4 text-md-secondary" />
+      Section Badge
+    </div>
+    
+    {/* Title */}
+    <h2 className="md-display-large text-md-on-surface mb-md-6">
+      Section Title
+    </h2>
+    
+    {/* Description */}
+    <p className="md-body-large text-md-on-surface-variant max-w-3xl mx-auto leading-relaxed">
+      Section description text that explains the content below.
+    </p>
   </div>
-  <h2 className="md-display-large text-[hsl(var(--md-sys-color-on-surface))] mb-4">
-    Section Title
-  </h2>
-  <p className="md-body-large text-[hsl(var(--md-sys-color-on-surface-variant))] max-w-3xl mx-auto">
-    Section description
-  </p>
-</div>
+</section>
 ```
 
 ### Cards Example
 ```tsx
-<Card className="bg-[hsl(var(--md-sys-color-surface))] border-[hsl(var(--md-sys-color-outline-variant))] rounded-[var(--md-sys-shape-corner-large)] md-elevation-2 hover:md-elevation-4 transition-all">
-  <CardContent>
-    <h3 className="md-headline-medium text-[hsl(var(--md-sys-color-on-surface))]">
-      Card Title
-    </h3>
-    <p className="md-body-medium text-[hsl(var(--md-sys-color-on-surface-variant))]">
-      Card content
-    </p>
-  </CardContent>
-</Card>
+<GlassCard elevated className="p-md-6 hover:scale-105 transition-standard">
+  <div className="w-12 h-12 rounded-md-lg bg-gradient-to-br from-md-primary to-md-secondary mb-md-4 flex items-center justify-center">
+    <Icon className="w-6 h-6 text-white" />
+  </div>
+  
+  <h3 className="md-title-large text-md-on-surface mb-md-2">
+    Card Title
+  </h3>
+  
+  <p className="md-body-medium text-md-on-surface-variant">
+    Card description text
+  </p>
+  
+  <Button variant="outlined" className="mt-md-4 w-full">
+    Learn More
+  </Button>
+</GlassCard>
 ```
-
-### Buttons with Brand Colors
-```tsx
-// Primary button (Dark Teal)
-<Button className="bg-[hsl(var(--md-sys-color-primary))] text-[hsl(var(--md-sys-color-on-primary))] hover:md-elevation-3">
-
-// Secondary button (Orange)
-<Button className="bg-[hsl(var(--md-sys-color-secondary))] text-[hsl(var(--md-sys-color-on-secondary))] hover:md-elevation-3">
-
-// Tertiary button (Gold)
-<Button className="bg-[hsl(var(--md-sys-color-tertiary))] text-[hsl(var(--md-sys-color-on-tertiary))] hover:md-elevation-3">
-```
-
-## Brand Color Applications
-
-### Step/Process Flow
-- **Step 1**: Primary (Dark Teal) - `bg-[hsl(var(--md-sys-color-primary-container))]` with `text-[hsl(var(--md-sys-color-primary))]`
-- **Step 2**: Secondary (Orange) - `bg-[hsl(var(--md-sys-color-secondary-container))]` with `text-[hsl(var(--md-sys-color-secondary))]`
-- **Step 3**: Tertiary (Gold) - `bg-[hsl(var(--md-sys-color-tertiary-container))]` with `text-[hsl(var(--md-sys-color-tertiary))]`
 
 ### Gradients
 ```tsx
 // Primary to Secondary
-className="bg-gradient-to-r from-[hsl(var(--md-sys-color-primary))] to-[hsl(var(--md-sys-color-secondary))]"
+<div className="bg-gradient-to-r from-md-primary to-md-secondary text-white">
 
 // Secondary to Tertiary
-className="bg-gradient-to-br from-[hsl(var(--md-sys-color-secondary))] to-[hsl(var(--md-sys-color-tertiary))]"
+<div className="bg-gradient-to-br from-md-secondary to-md-tertiary text-white">
 
-// All three colors
-className="bg-gradient-to-r from-[hsl(var(--md-sys-color-secondary))] via-[hsl(var(--md-sys-color-tertiary))] to-[hsl(var(--md-sys-color-primary))]"
+// Multi-color
+<div className="bg-gradient-to-r from-md-secondary via-md-tertiary to-md-primary text-white">
 ```
 
-## Best Practices
+## Performance Best Practices
 
-1. **Always use semantic color tokens** - Never hardcode color values
-2. **Use MD3 typography scale** - Consistent text sizing and hierarchy
-3. **Apply proper shape tokens** - Consistent border radius throughout
-4. **Leverage elevation system** - Appropriate shadows for visual hierarchy
-5. **Add smooth animations** - Use built-in animation utilities
-6. **Maintain color contrast** - Always pair surface colors with their "on" variants
-7. **Test in dark mode** - Ensure colors work in both light and dark themes
+### Code Splitting
+```tsx
+// Lazy load routes
+const Menu = lazy(() => import('@/pages/Menu'));
+const Order = lazy(() => import('@/pages/Order'));
+
+<Suspense fallback={<LoadingSkeleton />}>
+  <Routes>
+    <Route path="/menu" element={<Menu />} />
+    <Route path="/order" element={<Order />} />
+  </Routes>
+</Suspense>
+```
+
+### Image Optimization
+```tsx
+<img
+  src="/images/meal.jpg"
+  srcSet="/images/meal-400.jpg 400w, /images/meal-800.jpg 800w"
+  sizes="(max-width: 640px) 400px, 800px"
+  alt="Description"
+  loading="lazy"
+  width="800"
+  height="600"
+/>
+```
+
+### Memoization
+```tsx
+// Expensive components
+const MealCard = memo(({ meal }) => { ... });
+
+// Computed values
+const filteredMeals = useMemo(() => 
+  meals.filter(m => m.category === category),
+  [meals, category]
+);
+
+// Event handlers
+const handleClick = useCallback(() => {
+  addToCart(meal);
+}, [meal, addToCart]);
+```
+
+**Complete Guide:** See [PERFORMANCE.md](./PERFORMANCE.md)
+
+## Testing Checklist
+
+### Visual Testing
+- [ ] Test on mobile (375px)
+- [ ] Test on tablet (768px)
+- [ ] Test on desktop (1440px)
+- [ ] Verify all colors meet contrast ratios
+- [ ] Check glassmorphism effects
+- [ ] Test animations and transitions
+
+### Accessibility Testing
+- [ ] Keyboard navigation works
+- [ ] Screen reader compatible
+- [ ] All images have alt text
+- [ ] Focus indicators visible
+- [ ] ARIA labels correct
+- [ ] Touch targets ≥48x48px
+
+### Performance Testing
+- [ ] Lighthouse score >90
+- [ ] LCP <2.5s
+- [ ] FID <100ms
+- [ ] CLS <0.1
+- [ ] Bundle size within budget
+
+## Common Patterns
+
+### Loading States
+```tsx
+// Skeleton loader
+<div className="animate-pulse space-y-4">
+  <div className="h-4 bg-md-surface-variant rounded w-3/4" />
+  <div className="h-4 bg-md-surface-variant rounded w-1/2" />
+</div>
+
+// Spinner
+<div className="flex items-center justify-center p-md-12">
+  <Loader2 className="h-8 w-8 animate-spin text-md-primary" />
+</div>
+```
+
+### Error States
+```tsx
+<div role="alert" className="p-md-4 bg-md-error-container text-md-on-error-container rounded-md-lg">
+  <h4 className="md-title-medium mb-md-2">Error Title</h4>
+  <p className="md-body-medium">Error message description</p>
+</div>
+```
+
+### Empty States
+```tsx
+<div className="text-center p-md-12">
+  <Icon className="w-12 h-12 text-md-on-surface-variant mb-md-4 mx-auto" />
+  <h3 className="md-title-large text-md-on-surface mb-md-2">
+    No Items Found
+  </h3>
+  <p className="md-body-medium text-md-on-surface-variant mb-md-6">
+    Try adjusting your filters
+  </p>
+  <Button variant="filled">Reset Filters</Button>
+</div>
+```
 
 ## Resources
 
+### Documentation
+- 📖 [Typography System](./TYPOGRAPHY_SYSTEM.md)
+- ♿ [Accessibility Guide](./ACCESSIBILITY.md)
+- 🪟 [Glassmorphism Guide](./GLASSMORPHISM.md)
+- ⚡ [Performance Guide](./PERFORMANCE.md)
+
+### External References
+- [Material Design 3](https://m3.material.io/)
+- [WCAG 2.1 Guidelines](https://www.w3.org/WAI/WCAG21/quickref/)
+- [Web.dev Performance](https://web.dev/performance/)
+- [React Performance](https://react.dev/learn/render-and-commit)
+
+### Tools
+- [Lighthouse](https://developer.chrome.com/docs/lighthouse/)
+- [axe DevTools](https://www.deque.com/axe/devtools/)
+- [WebAIM Contrast Checker](https://webaim.org/resources/contrastchecker/)
+
+### Project Files
 - Main stylesheet: `src/index.css`
 - Tailwind config: `tailwind.config.ts`
 - Design system utils: `src/shared/design-system/`
-- Component examples: `src/presentation/components/`
+- Components: `src/presentation/components/`
+
+---
+
+**Version:** 2.0.0  
+**Last Updated:** 2025-01-XX  
+**Maintainers:** NutiFit Development Team

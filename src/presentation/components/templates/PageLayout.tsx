@@ -11,7 +11,7 @@ export const PageLayout = ({ children, className = "" }: PageLayoutProps) => {
   return (
     <div className={`min-h-screen bg-[hsl(var(--md-sys-color-surface))] text-[hsl(var(--md-sys-color-on-surface))] overflow-x-hidden ${className}`}>
       <Header />
-      <main className="flex-1">{children}</main>
+      <main id="main-content" className="flex-1" role="main">{children}</main>
       <Footer />
     </div>
   );
