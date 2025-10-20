@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { HeroContent } from "./HeroContent";
 import { HeroSocialProof } from "./HeroSocialProof";
+import heroBackground from "@/assets/hero-background.jpg";
 
 export const Hero = () => {
   const navigate = useNavigate();
@@ -22,7 +23,7 @@ export const Hero = () => {
       <div 
         className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-20 mix-blend-multiply"
         style={{
-          backgroundImage: 'url(/lovable-uploads/ff5ffe15-1c41-47b5-92cd-30cb2ecf8549.png)'
+          backgroundImage: `url(${heroBackground})`
         }}
       />
       
