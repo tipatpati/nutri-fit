@@ -3,18 +3,22 @@ import { QuickOrderSection } from "../../molecules/Hero/QuickOrderSection";
 import { TrustBadge } from "../../atoms/Badge/TrustBadge";
 import { Icon } from "@/components/ui/icon";
 import { GlassCard } from "@/components/ui/glass-card";
+import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
+import { ArrowRight, Target, TrendingDown, TrendingUp, CheckCircle, Star } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 interface HeroContentProps {
   onOrderClick: () => void;
 }
 
 export const HeroContent = ({ onOrderClick }: HeroContentProps) => {
-  const trustIndicators = [
-    { icon: AnimatedHeart, label: "100% Frais", color: "text-md-secondary" },
-    { iconComponent: <Icon name="leaves" size={20} className="text-md-tertiary" />, label: "Bio & Local", color: "" },
-    { icon: AnimatedClock, label: "Prêt en 2min", color: "text-md-secondary" },
-    { iconComponent: <Icon name="delivery-truck" size={20} className="text-md-tertiary" />, label: "Livraison rapide", color: "" }
+  const navigate = useNavigate();
+  
+  const goals = [
+    { icon: Target, label: "Équilibré", color: "#29B6F6" },
+    { icon: TrendingDown, label: "Perte de Poids", color: "#4CAF50" },
+    { icon: TrendingUp, label: "Prise de Masse", color: "#DE6E27" }
   ];
 
   return (
@@ -37,44 +41,87 @@ export const HeroContent = ({ onOrderClick }: HeroContentProps) => {
         transition={{ duration: 0.7, delay: 0.2, ease: [0.4, 0.0, 0.2, 1] }}
         className="space-y-6 px-4"
       >
-        <h1 className="text-6xl sm:text-7xl md:text-8xl font-bold leading-[1.05] tracking-[-0.02em] text-olive-dark">
+        <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold leading-[1.05] tracking-[-0.02em] text-olive-dark">
           <span className="font-heading block">
             Repas Santé
           </span>
-          <span className="font-script text-5xl sm:text-6xl md:text-7xl bg-gradient-to-r from-orange-primary via-orange-light to-orange-primary bg-clip-text text-transparent block mt-2">
+          <span className="font-script text-4xl sm:text-5xl md:text-6xl lg:text-7xl bg-gradient-to-r from-orange-primary via-orange-light to-orange-primary bg-clip-text text-transparent block mt-2">
             Premium
           </span>
         </h1>
         
         <p className="text-lg sm:text-xl md:text-2xl text-olive-muted leading-[1.6] max-w-3xl mx-auto">
-          Des repas équilibrés, préparés par des chefs passionnés et livrés directement chez vous.
+          Des repas équilibrés livrés chez vous, calculés selon vos objectifs fitness
         </p>
       </motion.div>
 
-      {/* CTA Section - Premium Glass Card */}
+      {/* Goal Tags */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.6, duration: 0.6 }}
+        className="flex flex-wrap justify-center gap-3 px-4"
+      >
+        {goals.map((goal, index) => (
+          <motion.div
+            key={goal.label}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.7 + index * 0.1 }}
+            className="glass px-4 py-2 rounded-full flex items-center gap-2 border hover:scale-105 transition-transform duration-300"
+            style={{ borderColor: goal.color, borderWidth: '1px' }}
+          >
+            <goal.icon className="w-4 h-4" style={{ color: goal.color }} />
+            <span className="text-sm font-semibold text-olive-dark">{goal.label}</span>
+          </motion.div>
+        ))}
+      </motion.div>
+
+      {/* CTA Buttons */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.4, ease: [0.4, 0.0, 0.2, 1] }}
+        transition={{ delay: 0.9, duration: 0.6 }}
+        className="flex flex-col sm:flex-row gap-4 justify-center items-center px-4"
       >
-        <GlassCard variant="floating" className="p-8 md:p-10 space-y-6 max-w-2xl mx-auto">
-          <QuickOrderSection onOrderClick={onOrderClick} />
-        </GlassCard>
+        <Button
+          size="lg"
+          onClick={onOrderClick}
+          className="group px-10 py-6 text-lg bg-gradient-to-br from-orange-primary to-orange-light text-white rounded-xl font-semibold shadow-2xl shadow-orange-primary/30 hover:shadow-orange-primary/50 hover:-translate-y-1 hover:scale-[1.02] transition-all duration-300"
+        >
+          Commencer ma commande
+          <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+        </Button>
+        
+        <Button
+          size="lg"
+          onClick={() => navigate('/menu')}
+          className="glass border-2 border-orange-primary text-orange-primary px-10 py-6 text-lg rounded-xl font-semibold hover:bg-orange-primary hover:text-white hover:-translate-y-1 transition-all duration-300"
+        >
+          Découvrir le menu
+        </Button>
       </motion.div>
 
       {/* Trust Indicators */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 pt-8 max-w-4xl mx-auto px-4">
-        {trustIndicators.map((indicator, index) => (
-          <motion.div
-            key={index}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.6 + index * 0.1, ease: "easeOut" }}
-          >
-            <TrustBadge {...indicator} />
-          </motion.div>
-        ))}
-      </div>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.1, duration: 0.8 }}
+        className="flex flex-wrap justify-center items-center gap-6 md:gap-8 text-sm text-olive-muted px-4"
+      >
+        <div className="flex items-center gap-2">
+          <CheckCircle className="w-5 h-5 text-success" />
+          <span>100% nutrition contrôlée</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <CheckCircle className="w-5 h-5 text-success" />
+          <span>Livraison rapide</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <Star className="w-5 h-5 text-warning fill-current" />
+          <span>4.9/5 (2,847 avis)</span>
+        </div>
+      </motion.div>
     </div>
   );
 };
