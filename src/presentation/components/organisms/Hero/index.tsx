@@ -14,31 +14,43 @@ export const Hero = () => {
       className="relative min-h-screen flex items-center overflow-hidden"
       style={{
         background: `linear-gradient(135deg, 
-          hsl(var(--md-sys-color-primary)) 0%, 
-          hsl(var(--md-sys-color-primary-container)) 50%,
-          hsl(var(--md-sys-color-secondary-container)) 100%)`
+          hsl(var(--md-sys-color-surface)) 0%, 
+          hsl(var(--md-sys-color-surface-dim)) 100%)`
       }}
     >
-      {/* Background image with proper treatment */}
+      {/* Background image with organic treatment */}
       <div 
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-15 mix-blend-overlay"
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-20 mix-blend-multiply"
         style={{
           backgroundImage: 'url(/lovable-uploads/ff5ffe15-1c41-47b5-92cd-30cb2ecf8549.png)'
         }}
       />
       
-      {/* Glassmorphism overlay */}
-      <div className="absolute inset-0 backdrop-blur-[2px]" 
+      {/* Warm overlay gradient */}
+      <div className="absolute inset-0" 
         style={{
-          background: 'linear-gradient(135deg, transparent 0%, hsla(var(--md-sys-color-surface), 0.1) 50%, hsla(var(--md-sys-color-surface), 0.2) 100%)'
+          background: 'linear-gradient(135deg, hsla(40, 50%, 96%, 0.9) 0%, hsla(40, 18%, 87%, 0.95) 100%)'
         }}
       />
       
-      {/* Ambient glow effect */}
+      {/* Organic blob shapes */}
       <div 
-        className="absolute top-1/4 right-1/4 w-[500px] h-[500px] rounded-full blur-3xl opacity-30"
+        className="absolute top-1/4 right-1/4 w-[600px] h-[600px] rounded-full blur-3xl opacity-20"
         style={{
           background: `radial-gradient(circle, hsl(var(--md-sys-color-secondary)) 0%, transparent 70%)`
+        }}
+      />
+      <div 
+        className="absolute bottom-1/4 left-1/4 w-[500px] h-[500px] rounded-full blur-3xl opacity-15"
+        style={{
+          background: `radial-gradient(circle, hsl(var(--md-sys-color-tertiary)) 0%, transparent 70%)`
+        }}
+      />
+      
+      {/* Paper texture overlay */}
+      <div className="absolute inset-0 opacity-[0.03] pointer-events-none mix-blend-overlay"
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`
         }}
       />
       

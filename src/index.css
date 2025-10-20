@@ -4,37 +4,37 @@
 
 @layer base {
   :root {
-    /* Material Design 3 Color Tokens */
-    /* Surface Colors */
-    --md-sys-color-surface: 285 100% 98%;
-    --md-sys-color-surface-dim: 270 17% 82%;
-    --md-sys-color-surface-bright: 285 100% 98%;
+    /* Orange Vegan Cafe Brand Colors */
+    /* Surface Colors - Warm Cream & Stone */
+    --md-sys-color-surface: 40 50% 96%; /* #FBF8EF - Warm cream */
+    --md-sys-color-surface-dim: 40 18% 87%; /* #E5E2D9 - Stone gray */
+    --md-sys-color-surface-bright: 40 50% 98%;
     --md-sys-color-surface-container-lowest: 0 0% 100%;
-    --md-sys-color-surface-container-low: 288 33% 93%;
-    --md-sys-color-surface-container: 286 25% 91%;
-    --md-sys-color-surface-container-high: 270 16% 87%;
-    --md-sys-color-surface-container-highest: 270 15% 85%;
-    --md-sys-color-surface-variant: 270 14% 85%;
-    --md-sys-color-on-surface: 255 7% 8%;
-    --md-sys-color-on-surface-variant: 270 8% 22%;
+    --md-sys-color-surface-container-low: 40 18% 87%; /* #E5E2D9 - Stone gray */
+    --md-sys-color-surface-container: 40 25% 92%;
+    --md-sys-color-surface-container-high: 40 18% 87%;
+    --md-sys-color-surface-container-highest: 40 18% 85%;
+    --md-sys-color-surface-variant: 40 18% 87%;
+    --md-sys-color-on-surface: 75 53% 13%; /* #2B3210 - Deep olive */
+    --md-sys-color-on-surface-variant: 75 27% 27%; /* #505631 - Sage green */
 
-    /* Primary Colors - Dark Teal #113B39 */
-    --md-sys-color-primary: 177 55% 15%;
-    --md-sys-color-primary-container: 177 55% 92%;
-    --md-sys-color-on-primary: 0 0% 100%;
-    --md-sys-color-on-primary-container: 177 55% 8%;
+    /* Primary Colors - Deep Olive #2B3210 */
+    --md-sys-color-primary: 75 53% 13%; /* #2B3210 */
+    --md-sys-color-primary-container: 75 53% 95%;
+    --md-sys-color-on-primary: 40 50% 96%; /* Warm cream on primary */
+    --md-sys-color-on-primary-container: 75 53% 13%;
 
-    /* Secondary Colors - Orange #FF4D00 */
-    --md-sys-color-secondary: 18 100% 50%;
-    --md-sys-color-secondary-container: 18 100% 95%;
+    /* Secondary Colors - Burnt Orange #DE6E27 */
+    --md-sys-color-secondary: 21 71% 51%; /* #DE6E27 */
+    --md-sys-color-secondary-container: 21 71% 95%;
     --md-sys-color-on-secondary: 0 0% 100%;
-    --md-sys-color-on-secondary-container: 18 100% 25%;
+    --md-sys-color-on-secondary-container: 21 71% 25%;
 
-    /* Tertiary Colors - Gold #D4B961 */
-    --md-sys-color-tertiary: 46 56% 61%;
-    --md-sys-color-tertiary-container: 46 56% 95%;
-    --md-sys-color-on-tertiary: 46 56% 20%;
-    --md-sys-color-on-tertiary-container: 46 56% 25%;
+    /* Tertiary Colors - Sage Green #505631 */
+    --md-sys-color-tertiary: 75 27% 27%; /* #505631 */
+    --md-sys-color-tertiary-container: 75 27% 95%;
+    --md-sys-color-on-tertiary: 40 50% 96%;
+    --md-sys-color-on-tertiary-container: 75 27% 15%;
 
     /* Error Colors */
     --md-sys-color-error: 3 71% 41%;
@@ -42,9 +42,9 @@
     --md-sys-color-on-error: 0 0% 100%;
     --md-sys-color-on-error-container: 4 71% 15%;
 
-    /* Outline Colors - Olive #525944 */
-    --md-sys-color-outline: 75 13% 28%;
-    --md-sys-color-outline-variant: 75 13% 75%;
+    /* Outline Colors - Sage & Stone */
+    --md-sys-color-outline: 75 27% 27%; /* #505631 - Sage green */
+    --md-sys-color-outline-variant: 40 18% 87%; /* #E5E2D9 - Stone gray */
 
     /* Material Design 3 Elevation Shadows */
     --md-sys-elevation-level0: none;
@@ -81,12 +81,17 @@
     --md-sys-shape-corner-extra-large: 28px;
     --md-sys-shape-corner-full: 9999px;
 
-    /* Glassmorphism Tokens */
+    /* Glassmorphism Tokens - Organic Vegan Cafe Style */
     --glass-blur: 20px;
     --glass-blur-intense: 30px;
-    --glass-opacity: 0.88;
-    --glass-opacity-light: 0.75;
-    --glass-border-opacity: 0.35;
+    --glass-opacity: 0.95; /* More opaque for cream backgrounds */
+    --glass-opacity-light: 0.85;
+    --glass-border-opacity: 0.25; /* Subtle borders */
+    
+    /* Organic Design Tokens */
+    --organic-radius: 16px;
+    --organic-radius-large: 24px;
+    --warmth-overlay: hsla(21, 71%, 51%, 0.05); /* Subtle orange warmth */
 
     /* Backward compatibility mapping */
     --background: var(--md-sys-color-surface);
@@ -121,37 +126,37 @@
   }
 
   .dark {
-    /* Material Design 3 Dark Theme Color Tokens */
-    /* Surface Colors */
-    --md-sys-color-surface: 285 13% 6%;
-    --md-sys-color-surface-dim: 285 13% 6%;
-    --md-sys-color-surface-bright: 280 8% 20%;
-    --md-sys-color-surface-container-lowest: 270 15% 5%;
-    --md-sys-color-surface-container-low: 300 9% 9%;
-    --md-sys-color-surface-container: 320 6% 11%;
-    --md-sys-color-surface-container-high: 300 6% 13%;
-    --md-sys-color-surface-container-highest: 300 5% 17%;
-    --md-sys-color-surface-variant: 270 6% 29%;
-    --md-sys-color-on-surface: 300 9% 89%;
-    --md-sys-color-on-surface-variant: 270 3% 79%;
+    /* Orange Vegan Cafe Dark Theme */
+    /* Surface Colors - Dark olive tones */
+    --md-sys-color-surface: 75 20% 10%; /* Dark olive */
+    --md-sys-color-surface-dim: 75 20% 8%;
+    --md-sys-color-surface-bright: 75 20% 15%;
+    --md-sys-color-surface-container-lowest: 75 25% 5%;
+    --md-sys-color-surface-container-low: 75 20% 12%;
+    --md-sys-color-surface-container: 75 18% 14%;
+    --md-sys-color-surface-container-high: 75 15% 16%;
+    --md-sys-color-surface-container-highest: 75 12% 20%;
+    --md-sys-color-surface-variant: 75 15% 25%;
+    --md-sys-color-on-surface: 40 50% 96%; /* Warm cream */
+    --md-sys-color-on-surface-variant: 40 18% 87%; /* Stone gray */
 
-    /* Primary Colors - Dark Teal #113B39 Dark Mode */
-    --md-sys-color-primary: 177 55% 35%;
-    --md-sys-color-primary-container: 177 55% 12%;
-    --md-sys-color-on-primary: 0 0% 100%;
-    --md-sys-color-on-primary-container: 177 55% 85%;
+    /* Primary Colors - Deep Olive Dark Mode */
+    --md-sys-color-primary: 75 53% 20%; /* Lighter olive for dark mode */
+    --md-sys-color-primary-container: 75 53% 12%;
+    --md-sys-color-on-primary: 40 50% 96%;
+    --md-sys-color-on-primary-container: 75 53% 90%;
 
-    /* Secondary Colors - Orange #FF4D00 Dark Mode */
-    --md-sys-color-secondary: 18 100% 65%;
-    --md-sys-color-secondary-container: 18 100% 30%;
+    /* Secondary Colors - Burnt Orange Dark Mode */
+    --md-sys-color-secondary: 21 71% 60%; /* Lighter orange for dark mode */
+    --md-sys-color-secondary-container: 21 71% 25%;
     --md-sys-color-on-secondary: 0 0% 100%;
-    --md-sys-color-on-secondary-container: 18 100% 90%;
+    --md-sys-color-on-secondary-container: 21 71% 90%;
 
-    /* Tertiary Colors - Gold #D4B961 Dark Mode */
-    --md-sys-color-tertiary: 46 56% 70%;
-    --md-sys-color-tertiary-container: 46 56% 30%;
-    --md-sys-color-on-tertiary: 46 56% 15%;
-    --md-sys-color-on-tertiary-container: 46 56% 90%;
+    /* Tertiary Colors - Sage Green Dark Mode */
+    --md-sys-color-tertiary: 75 27% 40%; /* Lighter sage for dark mode */
+    --md-sys-color-tertiary-container: 75 27% 20%;
+    --md-sys-color-on-tertiary: 40 50% 96%;
+    --md-sys-color-on-tertiary-container: 75 27% 90%;
 
     /* Error Colors */
     --md-sys-color-error: 3 56% 83%;
@@ -159,9 +164,9 @@
     --md-sys-color-on-error: 348 100% 21%;
     --md-sys-color-on-error-container: 6 63% 92%;
 
-    /* Outline Colors - Olive #525944 Dark Mode */
-    --md-sys-color-outline: 75 13% 50%;
-    --md-sys-color-outline-variant: 75 13% 25%;
+    /* Outline Colors - Sage & Stone Dark Mode */
+    --md-sys-color-outline: 75 27% 40%;
+    --md-sys-color-outline-variant: 75 27% 25%;
 
     /* Glassmorphism adjustments for dark mode */
     --glass-opacity: 0.5;
@@ -206,7 +211,28 @@
 
   body {
     @apply bg-background text-foreground font-sans;
-    font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+    font-family: 'Inter', 'Helvetica', 'Arial', sans-serif;
+  }
+
+  /* Orange Vegan Cafe Typography System */
+  h1, h2, h3, h4, h5, h6,
+  .font-serif,
+  .md-display-large,
+  .md-display-medium,
+  .md-display-small,
+  .md-headline-large,
+  .md-headline-medium,
+  .md-headline-small {
+    font-family: 'Playfair Display', serif;
+  }
+
+  .font-script,
+  .accent-text {
+    font-family: 'Dancing Script', cursive;
+  }
+
+  .font-sans {
+    font-family: 'Inter', sans-serif;
   }
 
   /* Material Design 3 Ripple Effect */
@@ -401,50 +427,72 @@
     @apply scale-x-100 origin-bottom-left;
   }
 
-  /* Glassmorphism Utilities */
+  /* Orange Vegan Cafe Glassmorphism - Organic & Warm */
   .glass-surface {
     background: hsla(var(--md-sys-color-surface), var(--glass-opacity));
-    backdrop-filter: blur(var(--glass-blur)) saturate(180%);
-    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(180%);
-    border: 1px solid hsla(var(--md-sys-color-outline), var(--glass-border-opacity));
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    backdrop-filter: blur(var(--glass-blur)) saturate(120%);
+    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(120%);
+    border: 1px solid hsla(var(--md-sys-color-outline-variant), var(--glass-border-opacity));
+    box-shadow: 0 2px 12px rgba(43, 50, 16, 0.08), 0 1px 3px rgba(43, 50, 16, 0.06);
+    border-radius: var(--organic-radius);
     transition: all var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-standard);
   }
 
   .glass-surface-elevated {
-    background: hsla(var(--md-sys-color-surface-container), 0.82);
-    backdrop-filter: blur(var(--glass-blur-intense)) saturate(180%);
-    -webkit-backdrop-filter: blur(var(--glass-blur-intense)) saturate(180%);
-    border: 1px solid hsla(var(--md-sys-color-outline), 0.4);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    background: hsla(var(--md-sys-color-surface-container), 0.92);
+    backdrop-filter: blur(var(--glass-blur-intense)) saturate(120%);
+    -webkit-backdrop-filter: blur(var(--glass-blur-intense)) saturate(120%);
+    border: 1px solid hsla(var(--md-sys-color-outline-variant), 0.3);
+    box-shadow: 0 4px 20px rgba(43, 50, 16, 0.12), 0 2px 6px rgba(43, 50, 16, 0.08);
+    border-radius: var(--organic-radius);
     transition: all var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-emphasized);
   }
 
   .glass-card {
-    background: hsla(var(--md-sys-color-surface-container-low), 0.92);
-    backdrop-filter: blur(16px) saturate(180%);
-    -webkit-backdrop-filter: blur(16px) saturate(180%);
-    border: 1px solid hsla(var(--md-sys-color-outline-variant), 0.45);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    background: hsla(var(--md-sys-color-surface), 0.98);
+    backdrop-filter: blur(12px) saturate(120%);
+    -webkit-backdrop-filter: blur(12px) saturate(120%);
+    border: 1px solid hsla(var(--md-sys-color-outline-variant), 0.35);
+    box-shadow: 0 2px 8px rgba(43, 50, 16, 0.08), 0 1px 3px rgba(43, 50, 16, 0.04);
+    border-radius: var(--organic-radius);
     transition: all var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-standard);
   }
 
   .glass-primary {
-    background: hsla(var(--md-sys-color-primary), 0.15);
-    backdrop-filter: blur(var(--glass-blur)) saturate(150%);
-    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(150%);
-    border: 1px solid hsla(var(--md-sys-color-primary), 0.35);
-    box-shadow: 0 4px 16px hsla(var(--md-sys-color-primary), 0.15);
+    background: linear-gradient(135deg, 
+      hsla(var(--md-sys-color-secondary), 0.1) 0%, 
+      hsla(var(--md-sys-color-secondary), 0.05) 100%);
+    backdrop-filter: blur(var(--glass-blur)) saturate(130%);
+    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(130%);
+    border: 1px solid hsla(var(--md-sys-color-secondary), 0.25);
+    box-shadow: 0 4px 16px hsla(var(--md-sys-color-secondary), 0.12);
+    border-radius: var(--organic-radius);
     transition: all var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-standard);
   }
 
-  /* Glassmorphism hover states */
+  /* Organic hover states with warmth */
   .glass-surface:hover,
   .glass-surface-elevated:hover,
   .glass-card:hover {
-    backdrop-filter: blur(24px) saturate(180%);
-    border-color: hsla(var(--md-sys-color-outline), 0.5);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(20px) saturate(130%);
+    border-color: hsla(var(--md-sys-color-outline), 0.4);
+    box-shadow: 0 6px 20px rgba(43, 50, 16, 0.12), 0 2px 8px rgba(222, 110, 39, 0.08);
+    transform: translateY(-2px);
+  }
+
+  /* Paper texture effect */
+  .paper-texture {
+    position: relative;
+    background: hsl(var(--md-sys-color-surface));
+  }
+
+  .paper-texture::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    border-radius: inherit;
   }
 
   /* Performance optimizations */

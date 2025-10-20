@@ -23,24 +23,25 @@ export const QuickOrderSection = ({ onOrderClick }: QuickOrderSectionProps) => {
         ))}
       </div>
       
-      {/* CTA Button */}
+      {/* CTA Button - Burnt Orange Brand Color */}
       <Button 
         onClick={onOrderClick}
         size="lg"
-        className="w-full bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white font-semibold py-6 rounded-xl transition-all duration-200"
+        variant="filled"
+        className="w-full bg-md-secondary hover:bg-md-secondary/90 text-on-secondary font-semibold py-6 rounded-[var(--organic-radius)] transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5"
       >
         Commander maintenant
         <AnimatedArrowRight className="ml-2" size={20} />
       </Button>
       
-      {/* Benefits */}
-      <div className="flex items-center justify-center gap-6 text-sm text-gray-400">
+      {/* Benefits with organic icons */}
+      <div className="flex items-center justify-center gap-6 text-sm text-on-surface-variant">
         <div className="flex items-center gap-2">
-          <Icon name="delivery-truck" size={16} className="brightness-0 invert opacity-60" />
+          <Icon name="delivery-truck" size={16} className="text-md-tertiary" />
           <span>Livraison gratuite</span>
         </div>
         <div className="flex items-center gap-2">
-          <Icon name="heart-health" size={16} className="brightness-0 invert opacity-60" />
+          <Icon name="heart-health" size={16} className="text-md-tertiary" />
           <span>Sans inscription</span>
         </div>
       </div>

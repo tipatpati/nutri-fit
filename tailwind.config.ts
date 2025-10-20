@@ -19,7 +19,9 @@ export default {
 		},
 		extend: {
 			fontFamily: {
-				'sans': ['Roboto', 'Helvetica', 'Arial', 'sans-serif'],
+				'sans': ['Inter', 'Helvetica', 'Arial', 'sans-serif'],
+				'serif': ['Playfair Display', 'Georgia', 'serif'],
+				'script': ['Dancing Script', 'cursive'],
 				'roboto': ['Roboto', 'sans-serif'],
 			},
 			spacing: {
