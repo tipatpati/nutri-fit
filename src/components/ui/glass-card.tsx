@@ -18,7 +18,7 @@ const GlassCard = React.forwardRef<HTMLDivElement, GlassCardProps>(
       <div
         ref={ref}
         className={cn(
-          "rounded-[var(--md-sys-shape-corner-medium)] md-elevation-1 transition-md-standard",
+          "rounded-[var(--md-sys-shape-corner-medium)] md-elevation-1 transition-standard",
           "hover:md-elevation-3 hover:scale-[1.02]",
           variantClasses[variant],
           className

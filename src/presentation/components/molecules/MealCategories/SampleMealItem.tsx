@@ -7,7 +7,7 @@ interface SampleMealItemProps {
 
 export const SampleMealItem = ({ meal }: SampleMealItemProps) => {
   return (
-    <div className="group/meal border-2 border-md-outline-variant rounded-md-lg p-md-3 sm:p-md-4 hover:border-md-outline hover:shadow-md transition-all duration-md-medium2 bg-md-surface/80 backdrop-blur">
+    <div className="group/meal border-2 border-md-outline-variant rounded-md-lg p-md-3 sm:p-md-4 hover:border-md-outline hover:shadow-md transition-standard bg-md-surface/80 backdrop-blur hover:scale-[1.02]">
       <div className="flex items-start justify-between mb-md-2">
         <h5 className="md-title-small text-md-on-surface group-hover/meal:text-md-on-surface-variant transition-colors">
           {meal.name}

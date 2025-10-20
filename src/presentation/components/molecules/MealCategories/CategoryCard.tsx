@@ -15,7 +15,7 @@ export const CategoryCard = ({ category }: CategoryCardProps) => {
   const categoryColor = getCategoryColor(category.name);
   
   return (
-    <Card className="group overflow-hidden border border-slate-200 hover:border-slate-300 transition-all duration-200 hover:shadow-lg bg-white">
+    <Card className="group overflow-hidden border border-md-outline-variant hover:border-md-outline transition-standard hover:shadow-lg md-elevation-1 hover:md-elevation-3 hover:scale-[1.02] bg-md-surface animate-scale-in">
       <CardContent className="p-0">
         {/* Header with gradient */}
         <div 
@@ -31,7 +31,7 @@ export const CategoryCard = ({ category }: CategoryCardProps) => {
         
         {/* Content */}
         <div className="p-6 space-y-5">
-          <p className="text-slate-600 leading-relaxed text-sm">
+          <p className="md-body-medium text-md-on-surface-variant leading-relaxed">
             {category.description}
           </p>
           
@@ -43,10 +43,12 @@ export const CategoryCard = ({ category }: CategoryCardProps) => {
           
           <Link to="/menu">
             <Button 
-              className="w-full mt-2 bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white font-semibold py-5 rounded-xl transition-all duration-200"
+              variant="filled"
+              size="lg"
+              className="w-full mt-2"
             >
               Découvrir le programme
-              <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-fast" />
             </Button>
           </Link>
         </div>

@@ -1,7 +1,5 @@
 
-import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { ArrowRight } from "lucide-react";
 import { Icon } from "@/components/ui/icon";
 
 interface GoalSelectionProps {
@@ -55,15 +53,16 @@ const GoalSelection = ({ selectedGoal, onGoalSelect, onProceed }: GoalSelectionP
 
       {/* Goals Grid */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-md-4 sm:gap-md-5 max-w-5xl mx-auto">
-        {goals.map((goal) => (
+        {goals.map((goal, index) => (
           <Card 
             key={goal.id} 
-            className={`cursor-pointer transition-all duration-md-medium2 hover:md-elevation-3 hover:scale-[1.02] border-2 ${
+            className={`cursor-pointer transition-standard hover:md-elevation-3 hover:scale-[1.05] border-2 animate-scale-in ${
               selectedGoal === goal.id 
-                ? `md-elevation-2 scale-[1.02] bg-md-primary-container border-md-primary` 
+                ? `md-elevation-2 scale-[1.02] bg-md-primary-container border-md-primary animate-pulse-glow` 
                 : 'md-elevation-1 bg-md-surface-container border-md-outline-variant hover:bg-md-surface-container-high'
             }`}
             onClick={() => onGoalSelect(goal.id)}
+            style={{ animationDelay: `${index * 100}ms` }}
           >
             <CardContent className="p-0">
               <div className={`h-28 sm:h-36 bg-gradient-to-br ${goal.gradient} flex items-center justify-center text-white text-center relative overflow-hidden`}>
