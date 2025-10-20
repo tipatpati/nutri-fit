@@ -63,38 +63,42 @@ const EnhancedMealCard = ({ meal, selectedCategory = 'equilibre', onAddToCart }:
   const primaryIngredients = mealIngredients.filter(mi => mi.is_primary);
 
   return (
-    <GlassCard elevated className="overflow-hidden group transition-all duration-md-medium2 hover:md-elevation-3 hover:scale-[1.02]">
+    <GlassCard elevated className="overflow-hidden group transition-all duration-500 hover:scale-[1.02]">
       {meal.image_url && (
-        <div className="relative h-48 overflow-hidden">
+        <div className="relative h-64 overflow-hidden">
           <img
             src={meal.image_url}
             alt={meal.name}
-            className="w-full h-full object-cover transition-transform duration-md-long1 group-hover:scale-110"
+            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-md-surface/80 via-transparent to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+          
+          {/* Meal name overlay */}
+          <h3 className="absolute bottom-4 left-4 text-white font-bold text-xl font-['Space_Grotesk'] pr-4">
+            {meal.name}
+          </h3>
+
+          {/* Badges */}
           {meal.badge && (
-            <Badge className="absolute top-md-2 right-md-2 glass-surface text-md-on-surface">
+            <Badge className="absolute top-4 left-4 glass-surface-light text-[#2B3210] border border-white/20">
               {meal.badge}
             </Badge>
           )}
           {meal.premium && (
-            <Badge className="absolute top-md-2 left-md-2 glass-surface text-md-on-surface">
+            <Badge className="absolute top-4 right-4 bg-gradient-to-r from-[#DE6E27] to-[#ff8040] text-white">
               Premium
             </Badge>
           )}
         </div>
       )}
       
-      <div className="p-md-6 space-y-md-4">
-        <div>
-          <h3 className="md-title-large text-md-on-surface mb-md-2">{meal.name}</h3>
-          <p className="md-body-medium text-md-on-surface-variant line-clamp-2">{meal.description}</p>
-        </div>
+      <div className="p-8 space-y-6">
+        <p className="text-base text-[#505631] line-clamp-2 font-['DM_Sans']">{meal.description}</p>
 
         {primaryIngredients.length > 0 && (
-          <div className="space-y-md-2">
-            <p className="md-label-medium text-md-on-surface-variant">Composition:</p>
-            <div className="flex flex-wrap gap-md-2">
+          <div className="space-y-3">
+            <p className="text-sm font-semibold text-[#505631] uppercase tracking-wide">Composition:</p>
+            <div className="flex flex-wrap gap-2">
               {primaryIngredients.map(mi => {
                 const quantity = selectedCategory === 'equilibre' 
                   ? mi.quantity_equilibre 
@@ -103,7 +107,7 @@ const EnhancedMealCard = ({ meal, selectedCategory = 'equilibre', onAddToCart }:
                   : mi.quantity_prise_masse;
 
                 return (
-                  <Badge key={mi.id} className="glass-surface text-md-on-surface md-label-small">
+                  <Badge key={mi.id} className="glass-surface-light text-[#2B3210] text-sm py-1.5 px-3">
                     <span className="mr-1">{NUTRIENT_ICONS[mi.nutrient_type as keyof typeof NUTRIENT_ICONS]}</span>
                     {mi.ingredient.name} ({quantity}g)
                   </Badge>
@@ -113,44 +117,49 @@ const EnhancedMealCard = ({ meal, selectedCategory = 'equilibre', onAddToCart }:
           </div>
         )}
 
-        <div className="glass-surface rounded-md-lg p-md-4">
-          <div className="grid grid-cols-3 gap-md-4">
+        <div className="glass-surface-light rounded-xl p-6">
+          <div className="grid grid-cols-3 gap-6">
             <div className="flex flex-col items-center">
-              <Flame className="w-5 h-5 text-md-tertiary mb-md-1" />
-              <span className="md-label-small text-md-on-surface-variant">Calories</span>
-              <span className="md-label-large text-md-on-surface">{nutrition.calories}</span>
+              <Flame className="w-6 h-6 text-[#DE6E27] mb-2" />
+              <span className="text-xs text-[#505631] mb-1">Calories</span>
+              <span className="text-lg font-bold text-[#2B3210]">{nutrition.calories}</span>
             </div>
             <div className="flex flex-col items-center">
-              <Activity className="w-5 h-5 text-md-primary mb-md-1" />
-              <span className="md-label-small text-md-on-surface-variant">Protéines</span>
-              <span className="md-label-large text-md-on-surface">{nutrition.protein}g</span>
+              <Activity className="w-6 h-6 text-[#DE6E27] mb-2" />
+              <span className="text-xs text-[#505631] mb-1">Protéines</span>
+              <span className="text-lg font-bold text-[#2B3210]">{nutrition.protein}g</span>
             </div>
             <div className="flex flex-col items-center">
-              <Wheat className="w-5 h-5 text-md-secondary mb-md-1" />
-              <span className="md-label-small text-md-on-surface-variant">Glucides</span>
-              <span className="md-label-large text-md-on-surface">{nutrition.carbs}g</span>
+              <Wheat className="w-6 h-6 text-[#DE6E27] mb-2" />
+              <span className="text-xs text-[#505631] mb-1">Glucides</span>
+              <span className="text-lg font-bold text-[#2B3210]">{nutrition.carbs}g</span>
             </div>
           </div>
         </div>
 
-        <div className="flex gap-md-2 pt-md-2">
+        <div className="flex gap-3 pt-2">
           <Dialog open={showDetails} onOpenChange={setShowDetails}>
             <DialogTrigger asChild>
-              <Button variant="outlined" className="flex-1" size="sm">
+              <Button variant="outlined" className="flex-1" size="default">
                 Détails
               </Button>
             </DialogTrigger>
             <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
               <DialogHeader>
-                <DialogTitle>{meal.name}</DialogTitle>
-                <DialogDescription>{meal.description}</DialogDescription>
+                <DialogTitle className="text-2xl font-['Space_Grotesk']">{meal.name}</DialogTitle>
+                <DialogDescription className="text-base">{meal.description}</DialogDescription>
               </DialogHeader>
               <MealNutritionalInfo mealId={meal.id} mealName={meal.name} />
             </DialogContent>
           </Dialog>
 
           {onAddToCart && (
-            <Button onClick={onAddToCart} variant="filled" className="flex-1" size="sm">
+            <Button 
+              onClick={onAddToCart} 
+              variant="filled" 
+              className="flex-1 bg-gradient-to-r from-[#DE6E27] to-[#ff8040] hover:shadow-xl shadow-[#DE6E27]/30" 
+              size="default"
+            >
               Ajouter
             </Button>
           )}

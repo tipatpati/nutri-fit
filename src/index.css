@@ -81,12 +81,12 @@
     --md-sys-shape-corner-extra-large: 28px;
     --md-sys-shape-corner-full: 9999px;
 
-    /* Glassmorphism Tokens - Organic Vegan Cafe Style */
-    --glass-blur: 20px;
+    /* Glassmorphism Tokens - Premium Effect */
+    --glass-blur: 24px;
     --glass-blur-intense: 30px;
-    --glass-opacity: 0.95; /* More opaque for cream backgrounds */
-    --glass-opacity-light: 0.85;
-    --glass-border-opacity: 0.25; /* Subtle borders */
+    --glass-opacity: 0.6; /* True glassmorphism - semi-transparent */
+    --glass-opacity-light: 0.5;
+    --glass-border-opacity: 0.15; /* Very subtle borders */
     
     /* Organic Design Tokens */
     --organic-radius: 16px;
@@ -439,29 +439,29 @@
     transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
   }
 
-  .glass-surface-elevated {
-    background: rgba(251, 248, 239, 0.8);
-    backdrop-filter: blur(25px) saturate(130%);
-    -webkit-backdrop-filter: blur(25px) saturate(130%);
-    border: 1px solid rgba(222, 110, 39, 0.2);
-    box-shadow: 0 8px 32px rgba(43, 50, 16, 0.1);
+  .glass-surface {
+    background: rgba(251, 248, 239, 0.6);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    border: 1px solid rgba(222, 110, 39, 0.15);
+    box-shadow: 0 8px 32px rgba(43, 50, 16, 0.08);
     border-radius: 12px;
     transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
   }
 
   .glass-card {
-    background: rgba(251, 248, 239, 0.7);
-    backdrop-filter: blur(20px) saturate(120%);
-    -webkit-backdrop-filter: blur(20px) saturate(120%);
-    border: 1px solid rgba(222, 110, 39, 0.2);
-    box-shadow: 0 8px 32px rgba(43, 50, 16, 0.1);
-    border-radius: 12px;
-    transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+    background: rgba(251, 248, 239, 0.6) !important;
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    border: 1px solid rgba(222, 110, 39, 0.15);
+    box-shadow: 0 8px 32px 0 rgba(43, 50, 16, 0.08);
+    border-radius: 16px;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   }
 
   .glass-card:hover {
-    transform: scale(1.02);
-    box-shadow: 0 12px 48px rgba(43, 50, 16, 0.15);
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 16px 48px rgba(43, 50, 16, 0.12);
   }
 
   .glass-primary {
@@ -684,7 +684,63 @@
     }
   }
 
-  /* MD3 Transition utilities */
+  /* Hero section typography - Large, bold, premium */
+  .hero-title {
+    font-size: clamp(42px, 8vw, 72px);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    font-weight: 700;
+  }
+
+  .hero-subtitle {
+    font-size: clamp(32px, 6vw, 48px);
+    line-height: 1.2;
+  }
+
+  .hero-description {
+    font-size: clamp(16px, 2vw, 24px);
+    line-height: 1.5;
+  }
+
+  /* Section headings - Large and bold */
+  .section-heading {
+    font-size: clamp(32px, 5vw, 42px);
+    line-height: 1.4;
+    letter-spacing: -0.01em;
+    font-weight: 700;
+  }
+
+  /* Body text minimum 16px */
+  .body-text {
+    font-size: clamp(16px, 1.5vw, 18px);
+    line-height: 1.6;
+  }
+
+  /* Generous spacing between sections */
+  .section-spacing {
+    padding-top: clamp(80px, 12vw, 120px);
+    padding-bottom: clamp(80px, 12vw, 120px);
+  }
+
+  .section-spacing-hero {
+    padding-top: clamp(100px, 15vw, 160px);
+    padding-bottom: clamp(100px, 15vw, 160px);
+  }
+
+  /* Card spacing */
+  .card-spacing {
+    padding: clamp(24px, 4vw, 32px);
+  }
+
+  /* Grid gaps */
+  .grid-gap-lg {
+    gap: clamp(32px, 5vw, 48px);
+  }
+
+  .grid-gap-md {
+    gap: clamp(24px, 3vw, 32px);
+  }
+
   .transition-md-fast {
     transition: all var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-emphasized);
   }
@@ -692,8 +748,6 @@
   .transition-md-standard {
     transition: all var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-standard);
   }
-
-  .transition-md-slow {
     transition: all var(--md-sys-motion-duration-long1) var(--md-sys-motion-easing-standard);
   }
 
@@ -820,4 +874,4 @@
       transition-duration: 0.01ms !important;
     }
   }
-}
+

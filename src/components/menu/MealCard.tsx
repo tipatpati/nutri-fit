@@ -1,7 +1,6 @@
 
-import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ShoppingCart, Plus, Minus } from "lucide-react";
+import { ShoppingCart, Plus, Minus, Flame, Activity, Wheat } from "lucide-react";
 import { useCartStore } from "@/shared/stores/useCartStore";
 import { useState } from "react";
 
@@ -40,46 +39,68 @@ const MealCard = ({ meal, getCategoryColor }: MealCardProps) => {
 
   return (
     <div 
-      className="overflow-hidden group w-full glass-card rounded-[var(--organic-radius)] hover:scale-[1.02] transition-all duration-[400ms] ease-[cubic-bezier(0.4,0,0.2,1)]"
+      className="group relative overflow-hidden rounded-2xl glass-card hover:scale-[1.02] transition-all duration-500"
       onMouseEnter={() => setShowActions(true)}
       onMouseLeave={() => setShowActions(false)}
       role="article"
       aria-label={`Plat: ${meal.name}`}
     >
-      <div className="relative overflow-hidden">
+      {/* Image with gradient overlay */}
+      <div className="relative h-64 overflow-hidden">
         <img 
           src={meal.image_url || 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop&crop=center'} 
           alt={`Photo de ${meal.name}`}
-          className="w-full h-40 sm:h-48 lg:h-56 object-cover transition-transform duration-[400ms] ease-[cubic-bezier(0.4,0,0.2,1)] group-hover:scale-110"
+          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
           loading="lazy"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#2B3210]/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" aria-hidden="true" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+        
+        {/* Meal name overlay */}
+        <h3 className="absolute bottom-4 left-4 text-white font-bold text-xl font-['Space_Grotesk'] pr-4">
+          {meal.name}
+        </h3>
+
+        {/* Price badge - floating top right */}
+        <div className="absolute top-4 right-4 glass-surface-light backdrop-blur-xl px-4 py-2 rounded-full border border-[#DE6E27]/20">
+          <span className="text-[#2B3210] font-bold text-lg font-['Space_Grotesk']">
+            {meal.premium ? '15.99' : '12.99'} DA
+          </span>
+        </div>
+
         {meal.badge && (
-          <div 
-            className="absolute top-3 left-3 px-3 py-1.5 rounded-full text-xs font-medium text-white glass-surface-light border border-white/20"
-            role="status"
-            aria-label={`Badge: ${meal.badge}`}
-          >
+          <div className="absolute top-4 left-4 glass-surface-light backdrop-blur-xl px-3 py-1.5 rounded-full text-sm font-medium text-[#2B3210] border border-white/20">
             {meal.badge}
           </div>
         )}
+
         {meal.premium && (
-          <div 
-            className="absolute top-3 right-3 bg-gradient-to-r from-[#DE6E27] to-[#ff8040] text-white px-3 py-1.5 rounded-full text-xs font-semibold shadow-lg"
-            role="status"
-            aria-label="Plat premium"
-          >
+          <div className="absolute top-16 left-4 bg-gradient-to-r from-[#DE6E27] to-[#ff8040] text-white px-3 py-1.5 rounded-full text-xs font-semibold shadow-lg">
             Premium
           </div>
         )}
-        
+      </div>
+
+      {/* Content area */}
+      <div className="p-6">
+        {/* Horizontal nutritional info */}
+        <div className="flex justify-between mb-6">
+          <div className="flex items-center gap-2 text-[#505631]">
+            <Flame className="w-4 h-4 text-[#DE6E27]" />
+            <span className="text-sm font-medium">450 cal</span>
+          </div>
+          <div className="flex items-center gap-2 text-[#505631]">
+            <Activity className="w-4 h-4 text-[#DE6E27]" />
+            <span className="text-sm font-medium">35g</span>
+          </div>
+          <div className="flex items-center gap-2 text-[#505631]">
+            <Wheat className="w-4 h-4 text-[#DE6E27]" />
+            <span className="text-sm font-medium">45g</span>
+          </div>
+        </div>
+
         {/* Quick Add Actions */}
-        {showActions && (
-          <div 
-            className="absolute bottom-3 left-3 right-3 flex items-center gap-2 glass-surface-light rounded-xl p-2 shadow-xl border border-white/20 animate-slide-in-up"
-            role="group"
-            aria-label="Actions d'ajout au panier"
-          >
+        {showActions ? (
+          <div className="flex items-center gap-2 animate-slide-in-up">
             <Button
               size="sm"
               variant="outlined"
@@ -87,17 +108,12 @@ const MealCard = ({ meal, getCategoryColor }: MealCardProps) => {
                 e.stopPropagation();
                 setQuantity(Math.max(1, quantity - 1));
               }}
-              className="h-8 w-8 p-0 rounded-full"
+              className="h-10 w-10 p-0 rounded-full"
               aria-label="Diminuer la quantité"
             >
               <Minus className="w-4 h-4" />
             </Button>
-            <span 
-              className="text-sm font-bold text-[#2B3210] flex-1 text-center"
-              role="status"
-              aria-live="polite"
-              aria-label={`Quantité: ${quantity}`}
-            >
+            <span className="text-lg font-bold text-[#2B3210] flex-1 text-center min-w-[40px]">
               {quantity}
             </span>
             <Button
@@ -107,7 +123,7 @@ const MealCard = ({ meal, getCategoryColor }: MealCardProps) => {
                 e.stopPropagation();
                 setQuantity(quantity + 1);
               }}
-              className="h-8 w-8 p-0 rounded-full"
+              className="h-10 w-10 p-0 rounded-full"
               aria-label="Augmenter la quantité"
             >
               <Plus className="w-4 h-4" />
@@ -119,22 +135,22 @@ const MealCard = ({ meal, getCategoryColor }: MealCardProps) => {
                 e.stopPropagation();
                 handleAddToCart();
               }}
-              className="flex-1 bg-gradient-to-r from-[#DE6E27] to-[#ff8040] hover:shadow-lg"
+              className="flex-1 bg-gradient-to-r from-[#DE6E27] to-[#ff8040] hover:shadow-xl shadow-[#DE6E27]/30"
               aria-label={`Ajouter ${quantity} ${meal.name} au panier`}
             >
-              <ShoppingCart className="w-4 h-4 mr-1" aria-hidden="true" />
+              <ShoppingCart className="w-4 h-4 mr-2" />
               Ajouter
             </Button>
           </div>
+        ) : (
+          <Button
+            variant="outlined"
+            className="w-full glass-surface-light border-2 border-[#DE6E27] text-[#DE6E27] hover:bg-[#DE6E27] hover:text-white transition-all duration-300"
+            onClick={() => setShowActions(true)}
+          >
+            Commander
+          </Button>
         )}
-      </div>
-      <div className="p-4">
-        <h3 className="text-lg font-bold text-[#2B3210] group-hover:text-[#DE6E27] transition-colors duration-300 line-clamp-2">
-          {meal.name}
-        </h3>
-        <p className="text-base font-bold text-[#DE6E27] mt-2" aria-label={`Prix: ${meal.premium ? '15.99' : '12.99'} Dinars Algériens`}>
-          {meal.premium ? '15.99' : '12.99'} DA
-        </p>
       </div>
     </div>
   );
