@@ -29,6 +29,7 @@ const NUTRIENT_ICONS = {
 const EnhancedMealCard = ({ meal, selectedCategory = 'equilibre', onAddToCart }: EnhancedMealCardProps) => {
   const { data: mealIngredients = [] } = useMealIngredients(meal.id);
   const [showDetails, setShowDetails] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
 
   const calculateQuickNutrition = () => {
     let totalCalories = 0;
@@ -67,8 +68,10 @@ const EnhancedMealCard = ({ meal, selectedCategory = 'equilibre', onAddToCart }:
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-100px" }}
       transition={{ duration: 0.6, ease: [0.4, 0.0, 0.2, 1] }}
-      whileHover={{ scale: 1.02, y: -4 }}
-      className="group glass rounded-2xl overflow-hidden shadow-lg"
+      whileHover={{ scale: 1.02, y: -8 }}
+      onHoverStart={() => setIsHovered(true)}
+      onHoverEnd={() => setIsHovered(false)}
+      className="group glass rounded-2xl overflow-hidden hover:shadow-2xl transition-shadow duration-500"
     >
       {meal.image_url && (
         <div className="relative h-56 overflow-hidden">
@@ -76,7 +79,7 @@ const EnhancedMealCard = ({ meal, selectedCategory = 'equilibre', onAddToCart }:
             src={meal.image_url}
             alt={meal.name}
             className="w-full h-full object-cover"
-            whileHover={{ scale: 1.1 }}
+            animate={{ scale: isHovered ? 1.15 : 1 }}
             transition={{ duration: 0.7, ease: "easeOut" }}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-olive-dark/90 via-olive-dark/30 to-transparent" />

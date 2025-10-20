@@ -1,7 +1,8 @@
 
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import { Calendar } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { CheckCircle, ChevronLeft } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -173,24 +174,45 @@ const Order = () => {
     setSelectedPackage(null);
   };
 
+  // Animation variants for step transitions
+  const pageVariants = {
+    initial: { opacity: 0, x: 100 },
+    in: { opacity: 1, x: 0 },
+    out: { opacity: 0, x: -100 }
+  };
+
+  const pageTransition = {
+    type: "tween",
+    ease: "anticipate",
+    duration: 0.5
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#FBF8EF] via-[#FBF8EF] to-[#E5E2D9] overflow-x-hidden">
       <Header />
       
       <main className="container mx-auto px-4 sm:px-6 py-8 lg:py-12 max-w-6xl">
         {/* Page Header */}
-        <div className="text-center mb-10 lg:mb-12">
+        <motion.div 
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="text-center mb-10 lg:mb-12"
+        >
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#2B3210] mb-3 font-['Space_Grotesk']">
             Planifier votre commande
           </h1>
           <p className="text-lg text-[#505631] max-w-3xl mx-auto font-['DM_Sans']">
             Choisissez votre objectif, vos dates et sélectionnez vos repas préférés
           </p>
-        </div>
+        </motion.div>
 
-        {/* Step Indicator */}
-        <div className="flex justify-center mb-10 lg:mb-12">
-          <div className="glass-card rounded-full p-4 flex items-center gap-2 sm:gap-3 lg:gap-4 shadow-lg">
+        {/* Enhanced Step Indicator with Animations */}
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          className="flex justify-center mb-10 lg:mb-12"
+        >
+          <div className="glass rounded-full p-4 flex items-center gap-2 sm:gap-3 lg:gap-4 shadow-2xl">
             {[
               { step: 'goal', label: 'Objectif', number: 1 },
               { step: 'packs', label: 'Pack', number: 2 },
@@ -199,79 +221,133 @@ const Order = () => {
               { step: 'summary', label: 'Résumé', number: 5 }
             ].map((item, index) => (
               <div key={item.step} className="flex items-center">
-                <div className={`w-12 h-12 rounded-full flex items-center justify-center font-bold text-sm transition-all duration-300 ${
-                  currentStep === item.step
-                    ? 'bg-gradient-to-r from-[#DE6E27] to-[#ff8040] text-white shadow-lg scale-110'
-                    : getStepStatus(currentStep, item.step)
-                    ? 'bg-[#E5E2D9] text-[#2B3210]'
-                    : 'bg-[#FBF8EF]/50 text-[#505631]'
-                }`}>
-                  {item.number}
-                </div>
-                <span className={`ml-2 text-sm font-semibold hidden sm:block font-['DM_Sans'] ${
+                <motion.div 
+                  whileHover={{ scale: 1.1 }}
+                  className={`relative w-12 h-12 rounded-full flex items-center justify-center font-bold text-sm transition-all duration-300 ${
+                    currentStep === item.step
+                      ? 'bg-gradient-to-r from-[#DE6E27] to-[#ff8040] text-white shadow-xl'
+                      : getStepStatus(currentStep, item.step)
+                      ? 'bg-[#E5E2D9] text-[#2B3210]'
+                      : 'bg-[#FBF8EF]/50 text-[#505631]'
+                  }`}
+                >
+                  {getStepStatus(currentStep, item.step) ? (
+                    <motion.div
+                      initial={{ scale: 0 }}
+                      animate={{ scale: 1 }}
+                      transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                    >
+                      <CheckCircle className="w-6 h-6" />
+                    </motion.div>
+                  ) : (
+                    item.number
+                  )}
+                  
+                  {/* Active Step Pulse */}
+                  {currentStep === item.step && (
+                    <motion.span
+                      className="absolute inset-0 rounded-full bg-[#DE6E27]"
+                      initial={{ scale: 1, opacity: 0.5 }}
+                      animate={{ scale: 1.5, opacity: 0 }}
+                      transition={{ duration: 1.5, repeat: Infinity }}
+                    />
+                  )}
+                </motion.div>
+                
+                <span className={`ml-2 text-sm font-semibold hidden sm:block font-['DM_Sans'] transition-colors duration-300 ${
                   currentStep === item.step ? 'text-[#DE6E27]' : 'text-[#505631]'
                 }`}>
                   {item.label}
                 </span>
+                
                 {index < 4 && (
-                  <div className="hidden lg:block w-8 h-0.5 bg-[#E5E2D9] ml-3"></div>
+                  <motion.div 
+                    className="hidden lg:block w-8 h-0.5 ml-3"
+                    initial={{ scaleX: 0 }}
+                    animate={{ 
+                      scaleX: 1,
+                      backgroundColor: getStepStatus(currentStep, item.step) 
+                        ? '#DE6E27' 
+                        : '#E5E2D9'
+                    }}
+                    transition={{ duration: 0.3 }}
+                  />
                 )}
               </div>
             ))}
           </div>
-        </div>
+        </motion.div>
 
-        {/* Content based on current step */}
+        {/* Content with Page Transitions */}
         <div className="max-w-6xl mx-auto">
-          <div className="animate-fade-in">
-            {currentStep === 'goal' && (
-              <GoalSelection
-                selectedGoal={selectedGoal}
-                onGoalSelect={handleGoalSelect}
-                onProceed={handleGoalProceed}
-              />
-            )}
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentStep}
+              initial="initial"
+              animate="in"
+              exit="out"
+              variants={pageVariants}
+              transition={pageTransition}
+            >
+              {currentStep === 'goal' && (
+                <GoalSelection
+                  selectedGoal={selectedGoal}
+                  onGoalSelect={handleGoalSelect}
+                  onProceed={handleGoalProceed}
+                />
+              )}
 
-            {currentStep === 'packs' && (
-              <PackSelection
-                selectedPackage={selectedPackage}
-                onPackageSelect={handlePackageSelect}
-              />
-            )}
+              {currentStep === 'packs' && (
+                <div>
+                  <Button
+                    variant="ghost"
+                    onClick={handleBackToGoal}
+                    className="mb-4 text-[#505631] hover:text-[#2B3210] transition-colors"
+                  >
+                    <ChevronLeft className="w-4 h-4 mr-1" />
+                    Retour aux objectifs
+                  </Button>
+                  <PackSelection
+                    selectedPackage={selectedPackage}
+                    onPackageSelect={handlePackageSelect}
+                  />
+                </div>
+              )}
 
-            {currentStep === 'meals' && (
-              <MealSelection
-                selectedDate={selectedDate}
-                selectedMeals={selectedMeals}
-                onMealSelect={handleMealSelect}
-                availableSlots={getPackMealLimit() || 50}
-                totalMealsForDate={getTotalMealsForDate(undefined)}
-                packLimit={getPackMealLimit()}
-                selectedPackage={selectedPackage}
-                onProceed={handleProceedToDate}
-                onBack={handleBackToPacks}
-              />
-            )}
+              {currentStep === 'meals' && (
+                <MealSelection
+                  selectedDate={selectedDate}
+                  selectedMeals={selectedMeals}
+                  onMealSelect={handleMealSelect}
+                  availableSlots={getPackMealLimit() || 50}
+                  totalMealsForDate={getTotalMealsForDate(undefined)}
+                  packLimit={getPackMealLimit()}
+                  selectedPackage={selectedPackage}
+                  onProceed={handleProceedToDate}
+                  onBack={handleBackToPacks}
+                />
+              )}
 
-            {currentStep === 'date' && (
-              <OrderCalendar
-                selectedDate={selectedDate}
-                onDateSelect={handleDateSelect}
-                isDateAvailable={isDateAvailable}
-                getAvailableSlots={getAvailableSlots}
-                onBack={handleBackToMeals}
-              />
-            )}
+              {currentStep === 'date' && (
+                <OrderCalendar
+                  selectedDate={selectedDate}
+                  onDateSelect={handleDateSelect}
+                  isDateAvailable={isDateAvailable}
+                  getAvailableSlots={getAvailableSlots}
+                  onBack={handleBackToMeals}
+                />
+              )}
 
-            {currentStep === 'summary' && (
-              <OrderSummary
-                selectedMeals={selectedMeals}
-                selectedPackage={selectedPackage}
-                onBack={handleBackToDate}
-                onConfirm={() => console.log('Order confirmed')}
-              />
-            )}
-          </div>
+              {currentStep === 'summary' && (
+                <OrderSummary
+                  selectedMeals={selectedMeals}
+                  selectedPackage={selectedPackage}
+                  onBack={handleBackToDate}
+                  onConfirm={() => console.log('Order confirmed')}
+                />
+              )}
+            </motion.div>
+          </AnimatePresence>
         </div>
       </main>
 
