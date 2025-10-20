@@ -28,3 +28,8 @@ export {
   emailSchema,
   type ContactFormData
 } from './contactSchema';
+
+export {
+  addressFormSchema,
+  type AddressFormData as CheckoutAddressFormData
+} from './addressSchema';
