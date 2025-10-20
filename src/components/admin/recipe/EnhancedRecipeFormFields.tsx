@@ -3,9 +3,10 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import { Card } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { useIngredients } from "@/hooks/useIngredients";
 import IngredientSelector from "./IngredientSelector";
+import ImageUpload from "./ImageUpload";
+import NutritionPreview from "./NutritionPreview";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Info } from "lucide-react";
 
@@ -67,44 +68,50 @@ const EnhancedRecipeFormFields = ({ formData, setFormData }: EnhancedRecipeFormF
   }
 
   return (
-    <div className="grid gap-6 py-4">
-      <Alert>
-        <Info className="h-4 w-4" />
-        <AlertDescription>
+    <div className="grid gap-8 py-6">
+      <Alert className="glass border border-orange-primary/20">
+        <Info className="h-5 w-5 text-orange-primary" />
+        <AlertDescription className="text-olive-muted">
           Sélectionnez les ingrédients principaux. Les quantités pour chaque catégorie nutritionnelle 
           (Équilibré, Perte de poids, Prise de masse) seront calculées automatiquement.
         </AlertDescription>
       </Alert>
 
       <div className="space-y-2">
-        <Label htmlFor="name">Nom de la recette</Label>
+        <Label htmlFor="name" className="text-sm font-semibold text-olive-dark">
+          Nom de la recette
+        </Label>
         <Input
           id="name"
           value={formData.name}
           onChange={(e) => setFormData({ ...formData, name: e.target.value })}
           placeholder="Ex: Poulet grillé aux légumes"
+          className="glass border border-beige focus:border-orange-primary focus:ring-orange-primary/20"
         />
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="description">Description</Label>
+        <Label htmlFor="description" className="text-sm font-semibold text-olive-dark">
+          Description
+        </Label>
         <Textarea
           id="description"
           value={formData.description}
           onChange={(e) => setFormData({ ...formData, description: e.target.value })}
           placeholder="Description complète du plat"
           rows={3}
+          className="glass border border-beige focus:border-orange-primary focus:ring-orange-primary/20"
         />
       </div>
 
-      <Card className="p-4 space-y-4">
-        <h3 className="font-semibold text-lg flex items-center gap-2">
+      <Card className="glass rounded-2xl p-6 border border-orange-primary/10">
+        <h3 className="font-heading text-xl font-bold text-olive-dark mb-6 flex items-center gap-2">
           🍽️ Composition nutritionnelle
         </h3>
 
         <div className="space-y-4">
           <div className="space-y-2">
-            <Label className="flex items-center gap-2">
+            <Label className="flex items-center gap-2 text-sm font-semibold text-olive-dark">
               🥩 Protéines
             </Label>
             <IngredientSelector
@@ -117,7 +124,7 @@ const EnhancedRecipeFormFields = ({ formData, setFormData }: EnhancedRecipeFormF
           </div>
 
           <div className="space-y-2">
-            <Label className="flex items-center gap-2">
+            <Label className="flex items-center gap-2 text-sm font-semibold text-olive-dark">
               🌾 Glucides
             </Label>
             <IngredientSelector
@@ -130,7 +137,7 @@ const EnhancedRecipeFormFields = ({ formData, setFormData }: EnhancedRecipeFormF
           </div>
 
           <div className="space-y-2">
-            <Label className="flex items-center gap-2">
+            <Label className="flex items-center gap-2 text-sm font-semibold text-olive-dark">
               🥗 Légumes
             </Label>
             <IngredientSelector
@@ -143,55 +150,52 @@ const EnhancedRecipeFormFields = ({ formData, setFormData }: EnhancedRecipeFormF
           </div>
         </div>
 
-        {preview && (
-          <div className="mt-4 p-3 bg-muted rounded-lg">
-            <h4 className="font-medium mb-2 text-sm">Aperçu nutritionnel (pour 100g)</h4>
-            <div className="grid grid-cols-3 gap-2 text-sm">
-              <div>
-                <span className="text-muted-foreground">Protéines:</span>
-                <p className="font-semibold">{preview.protein.nutritional_info?.protein || 0}g</p>
-              </div>
-              <div>
-                <span className="text-muted-foreground">Glucides:</span>
-                <p className="font-semibold">{preview.carbs.nutritional_info?.carbs || 0}g</p>
-              </div>
-              <div>
-                <span className="text-muted-foreground">Légumes:</span>
-                <p className="font-semibold">{preview.vegetables.nutritional_info?.fiber || 0}g fibres</p>
-              </div>
-            </div>
-          </div>
-        )}
       </Card>
 
-      <div className="grid grid-cols-2 gap-4">
-        <div className="space-y-2">
-          <Label htmlFor="badge">Badge (optionnel)</Label>
-          <Input
-            id="badge"
-            value={formData.badge}
-            onChange={(e) => setFormData({ ...formData, badge: e.target.value })}
-            placeholder="Ex: Riche en protéines"
-          />
-        </div>
-        <div className="space-y-2">
-          <Label htmlFor="image_url">URL de l'image</Label>
-          <Input
-            id="image_url"
-            value={formData.image_url}
-            onChange={(e) => setFormData({ ...formData, image_url: e.target.value })}
-            placeholder="https://..."
-          />
-        </div>
+      {/* Real-time Nutrition Preview */}
+      {preview && (
+        <NutritionPreview
+          selectedIngredients={formData.ingredients}
+          allIngredients={allIngredients}
+        />
+      )}
+
+      {/* Image Upload */}
+      <div className="space-y-2">
+        <Label className="text-sm font-semibold text-olive-dark">
+          Image de la recette
+        </Label>
+        <ImageUpload
+          currentImageUrl={formData.image_url}
+          onImageChange={(url) => setFormData({ ...formData, image_url: url })}
+        />
       </div>
 
-      <div className="flex items-center space-x-2">
+      {/* Badge Input */}
+      <div className="space-y-2">
+        <Label htmlFor="badge" className="text-sm font-semibold text-olive-dark">
+          Badge (optionnel)
+        </Label>
+        <Input
+          id="badge"
+          value={formData.badge}
+          onChange={(e) => setFormData({ ...formData, badge: e.target.value })}
+          placeholder="Ex: Riche en protéines, Végétarien, Sans gluten"
+          className="glass border border-beige focus:border-orange-primary focus:ring-orange-primary/20"
+        />
+      </div>
+
+      {/* Premium Toggle */}
+      <div className="flex items-center gap-3 glass rounded-xl p-4">
         <Switch
           id="premium"
           checked={formData.premium}
           onCheckedChange={(checked) => setFormData({ ...formData, premium: checked })}
+          className="data-[state=checked]:bg-orange-primary"
         />
-        <Label htmlFor="premium">Recette premium</Label>
+        <Label htmlFor="premium" className="text-olive-dark font-medium cursor-pointer">
+          Recette premium
+        </Label>
       </div>
     </div>
   );

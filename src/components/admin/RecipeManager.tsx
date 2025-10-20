@@ -9,6 +9,7 @@ const RecipeManager = () => {
   const {
     meals,
     loading,
+    isSaving,
     isDialogOpen,
     editingMeal,
     formData,
@@ -49,6 +50,7 @@ const RecipeManager = () => {
         formData={formData} 
         setFormData={setFormData} 
         onSave={handleSave}
+        isSaving={isSaving}
         useEnhancedFields={true}
       />
     </Card>;

@@ -9,6 +9,7 @@ import { useIngredients } from "@/hooks/useIngredients";
 export const useRecipeManager = () => {
   const [meals, setMeals] = useState<Meal[]>([]);
   const [loading, setLoading] = useState(true);
+  const [isSaving, setIsSaving] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [editingMeal, setEditingMeal] = useState<Meal | null>(null);
   const { toast } = useToast();
@@ -109,17 +110,54 @@ export const useRecipeManager = () => {
     resetForm();
   };
 
+  const validateForm = (): { valid: boolean; errors: string[] } => {
+    const errors: string[] = [];
+    
+    if (!formData.name.trim()) {
+      errors.push("Le nom de la recette est requis");
+    }
+    
+    if (formData.name.length < 3) {
+      errors.push("Le nom doit contenir au moins 3 caractères");
+    }
+    
+    if (!formData.description.trim()) {
+      errors.push("La description est requise");
+    }
+    
+    if (!formData.ingredients.protein) {
+      errors.push("Sélectionnez une source de protéines");
+    }
+    
+    if (!formData.ingredients.carbs) {
+      errors.push("Sélectionnez une source de glucides");
+    }
+    
+    if (!formData.ingredients.vegetables) {
+      errors.push("Sélectionnez des légumes");
+    }
+    
+    return {
+      valid: errors.length === 0,
+      errors
+    };
+  };
+
   const handleSave = async () => {
+    // Validate form
+    const validation = validateForm();
+    if (!validation.valid) {
+      toast({
+        title: "Erreur de validation",
+        description: validation.errors.join(", "),
+        variant: "destructive"
+      });
+      return;
+    }
+
+    setIsSaving(true);
+
     try {
-      // Validate ingredient selection
-      if (!formData.ingredients.protein || !formData.ingredients.carbs || !formData.ingredients.vegetables) {
-        toast({
-          title: "Erreur",
-          description: "Veuillez sélectionner tous les ingrédients (protéine, glucides, légumes)",
-          variant: "destructive"
-        });
-        return;
-      }
 
       // Get ingredient details
       const proteinIng = allIngredients.find(i => i.id === formData.ingredients.protein);
@@ -257,6 +295,8 @@ export const useRecipeManager = () => {
         description: "Erreur lors de la sauvegarde de la recette",
         variant: "destructive"
       });
+    } finally {
+      setIsSaving(false);
     }
   };
 
@@ -290,6 +330,7 @@ export const useRecipeManager = () => {
   return {
     meals,
     loading,
+    isSaving,
     isDialogOpen,
     editingMeal,
     formData,

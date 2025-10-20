@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Loader2 } from "lucide-react";
 import { Meal, RecipeFormData } from "./types";
 import RecipeFormFields from "./RecipeFormFields";
 import EnhancedRecipeFormFields from "./EnhancedRecipeFormFields";
@@ -11,6 +12,7 @@ interface RecipeFormProps {
   formData: RecipeFormData;
   setFormData: (data: RecipeFormData) => void;
   onSave: () => void;
+  isSaving?: boolean;
   useEnhancedFields?: boolean;
 }
 
@@ -21,6 +23,7 @@ const RecipeForm = ({
   formData,
   setFormData,
   onSave,
+  isSaving = false,
   useEnhancedFields = false
 }: RecipeFormProps) => {
   return (
@@ -43,15 +46,28 @@ const RecipeForm = ({
           <RecipeFormFields formData={formData} setFormData={setFormData} />
         )}
 
-        <div className="flex justify-end space-x-2">
-          <Button variant="outline" onClick={onClose}>
+        <div className="flex justify-end space-x-2 pt-4">
+          <Button 
+            variant="outline" 
+            onClick={onClose}
+            disabled={isSaving}
+            className="glass border-2 border-olive-dark text-olive-dark hover:bg-olive-dark hover:text-cream"
+          >
             Annuler
           </Button>
           <Button 
             onClick={onSave}
-            className="bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 text-white"
+            disabled={isSaving}
+            className="bg-gradient-to-br from-orange-primary to-orange-light text-white font-semibold px-8 py-3 rounded-xl hover:shadow-xl hover:-translate-y-1 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0"
           >
-            {editingMeal ? "Mettre à jour" : "Créer"}
+            {isSaving ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                Enregistrement...
+              </>
+            ) : (
+              editingMeal ? "Mettre à jour" : "Créer"
+            )}
           </Button>
         </div>
       </DialogContent>
