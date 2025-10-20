@@ -1,11 +1,10 @@
-import { GlassCard } from "@/components/ui/glass-card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Flame, Activity, Wheat } from "lucide-react";
 import { useMealIngredients } from "@/hooks/useMealIngredients";
 import { useState } from "react";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import MealNutritionalInfo from "./MealNutritionalInfo";
+import { motion } from "framer-motion";
 
 interface EnhancedMealCardProps {
   meal: {
@@ -63,13 +62,22 @@ const EnhancedMealCard = ({ meal, selectedCategory = 'equilibre', onAddToCart }:
   const primaryIngredients = mealIngredients.filter(mi => mi.is_primary);
 
   return (
-    <div className="group glass rounded-2xl overflow-hidden hover:scale-[1.02] hover:shadow-2xl transition-all duration-500">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-100px" }}
+      transition={{ duration: 0.6, ease: [0.4, 0.0, 0.2, 1] }}
+      whileHover={{ scale: 1.02, y: -4 }}
+      className="group glass rounded-2xl overflow-hidden shadow-lg"
+    >
       {meal.image_url && (
         <div className="relative h-56 overflow-hidden">
-          <img
+          <motion.img
             src={meal.image_url}
             alt={meal.name}
-            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+            className="w-full h-full object-cover"
+            whileHover={{ scale: 1.1 }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-olive-dark/90 via-olive-dark/30 to-transparent" />
           
@@ -164,7 +172,7 @@ const EnhancedMealCard = ({ meal, selectedCategory = 'equilibre', onAddToCart }:
           )}
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

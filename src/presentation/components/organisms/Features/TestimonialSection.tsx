@@ -1,6 +1,7 @@
 import { Star } from "lucide-react";
 import { testimonial, stats } from "@/shared/data/features";
 import { TestimonialCard } from "@/presentation/components/molecules/Features/TestimonialCard";
+import { motion } from "framer-motion";
 
 export const TestimonialSection = () => {
   return (
@@ -20,19 +21,36 @@ export const TestimonialSection = () => {
       </div>
       
       <div className="relative z-10">
-        <div className="animate-fade-in">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6 }}
+        >
           <h2 className="font-heading text-4xl md:text-5xl font-bold text-cream text-center mb-16">
             Ce que nos clients disent de nous
           </h2>
-        </div>
+        </motion.div>
 
         <div className="grid lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center">
-          <div className="animate-fade-in" style={{ animationDelay: '0.2s' }}>
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ delay: 0.2, duration: 0.6 }}
+          >
             <TestimonialCard testimonial={testimonial} />
-          </div>
+          </motion.div>
           
-          <div className="text-center space-y-6 md:space-y-8 animate-fade-in" style={{ animationDelay: '0.4s' }}>
-            <div className="glass-dark rounded-2xl p-6 md:p-8 lg:p-10 hover:scale-105 transition-all duration-500">
+          <div className="text-center space-y-6 md:space-y-8">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ delay: 0.4, duration: 0.6 }}
+              whileHover={{ scale: 1.05 }}
+              className="glass-dark rounded-2xl p-6 md:p-8 lg:p-10 cursor-pointer"
+            >
               <div className="text-6xl font-bold bg-gradient-to-r from-orange-primary to-orange-light bg-clip-text text-transparent mb-4">
                 {stats.overall.rating}/5
               </div>
@@ -45,16 +63,20 @@ export const TestimonialSection = () => {
               <p className="text-cream/70 text-base">
                 Basé sur {stats.overall.reviews} avis clients vérifiés
               </p>
-            </div>
+            </motion.div>
             
             <div className="grid grid-cols-3 gap-3 md:gap-4 text-center">
               {stats.metrics.map((metric, index) => {
                 const colors = ['text-orange-primary', 'text-orange-light', 'text-cream'];
                 return (
-                  <div
+                  <motion.div
                     key={index}
-                    className="glass-dark rounded-xl p-4 md:p-5 hover:scale-105 transition-all duration-300 animate-fade-in"
-                    style={{ animationDelay: `${0.6 + index * 0.1}s` }}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-100px" }}
+                    transition={{ delay: 0.6 + index * 0.1, duration: 0.6 }}
+                    whileHover={{ scale: 1.1, rotate: 5 }}
+                    className="glass-dark rounded-xl p-4 md:p-5 cursor-pointer"
                   >
                     <div className={`text-3xl font-bold ${colors[index]} mb-2`}>
                       {metric.value}
@@ -62,7 +84,7 @@ export const TestimonialSection = () => {
                     <div className="text-cream/70 text-sm">
                       {metric.label}
                     </div>
-                  </div>
+                  </motion.div>
                 );
               })}
             </div>

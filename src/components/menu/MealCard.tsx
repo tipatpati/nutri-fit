@@ -1,8 +1,8 @@
-
 import { Button } from "@/components/ui/button";
-import { ShoppingCart, Plus, Minus, Flame, Activity, Wheat } from "lucide-react";
+import { ShoppingCart, Plus, Minus } from "lucide-react";
 import { useCartStore } from "@/shared/stores/useCartStore";
 import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface MealCardProps {
   meal: {
@@ -38,8 +38,13 @@ const MealCard = ({ meal, getCategoryColor }: MealCardProps) => {
   };
 
   return (
-    <div 
-      className="group relative overflow-hidden rounded-2xl glass hover:scale-[1.02] hover:shadow-2xl transition-all duration-500"
+    <motion.div 
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-100px" }}
+      transition={{ duration: 0.6, ease: [0.4, 0.0, 0.2, 1] }}
+      whileHover={{ scale: 1.02, y: -4 }}
+      className="group relative overflow-hidden rounded-2xl glass shadow-lg"
       onMouseEnter={() => setShowActions(true)}
       onMouseLeave={() => setShowActions(false)}
       role="article"
@@ -47,10 +52,12 @@ const MealCard = ({ meal, getCategoryColor }: MealCardProps) => {
     >
       {/* Image with gradient overlay */}
       <div className="relative h-56 overflow-hidden">
-        <img 
+        <motion.img 
           src={meal.image_url || 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop&crop=center'} 
           alt={`Photo de ${meal.name}`}
-          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+          className="w-full h-full object-cover"
+          whileHover={{ scale: 1.1 }}
+          transition={{ duration: 0.7, ease: "easeOut" }}
           loading="lazy"
         />
         
@@ -65,22 +72,37 @@ const MealCard = ({ meal, getCategoryColor }: MealCardProps) => {
         </div>
 
         {/* Floating Price Badge (Top Right) */}
-        <div className="absolute top-4 right-4 glass-strong px-4 py-2 rounded-full backdrop-blur-xl">
+        <motion.div
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ delay: 0.2 }}
+          className="absolute top-4 right-4 glass-strong px-4 py-2 rounded-full backdrop-blur-xl"
+        >
           <span className="font-heading text-lg font-bold text-olive-dark">
             {meal.premium ? '15.99' : '12.99'} DA
           </span>
-        </div>
+        </motion.div>
 
         {meal.badge && (
-          <div className="absolute top-4 left-4 glass-strong px-3 py-1.5 rounded-full text-sm font-medium text-olive-dark">
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.2 }}
+            className="absolute top-4 left-4 glass-strong px-3 py-1.5 rounded-full text-sm font-medium text-olive-dark"
+          >
             {meal.badge}
-          </div>
+          </motion.div>
         )}
 
         {meal.premium && (
-          <div className="absolute top-16 left-4 bg-gradient-to-r from-orange-primary to-orange-light text-white px-3 py-1.5 rounded-full text-xs font-semibold shadow-lg">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.3 }}
+            className="absolute top-16 left-4 bg-gradient-to-r from-orange-primary to-orange-light text-white px-3 py-1.5 rounded-full text-xs font-semibold shadow-lg"
+          >
             Premium
-          </div>
+          </motion.div>
         )}
       </div>
 
@@ -102,57 +124,74 @@ const MealCard = ({ meal, getCategoryColor }: MealCardProps) => {
           </div>
         </div>
 
-        {/* Quick Add Actions */}
-        {showActions ? (
-          <div className="flex items-center gap-2 animate-fade-in">
-            <Button
-              size="sm"
-              variant="outlined"
-              onClick={(e) => {
-                e.stopPropagation();
-                setQuantity(Math.max(1, quantity - 1));
-              }}
-              className="h-10 w-10 p-0 rounded-full border-2 border-orange-primary text-orange-primary hover:bg-orange-primary hover:text-white"
-              aria-label="Diminuer la quantité"
+        {/* Quick Add Actions with AnimatePresence */}
+        <AnimatePresence mode="wait">
+          {showActions ? (
+            <motion.div
+              key="actions"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 10 }}
+              transition={{ duration: 0.2 }}
+              className="flex items-center gap-2"
             >
-              <Minus className="w-4 h-4" />
-            </Button>
-            <span className="text-lg font-bold text-olive-dark flex-1 text-center min-w-[40px]">
-              {quantity}
-            </span>
-            <Button
-              size="sm"
-              variant="outlined"
-              onClick={(e) => {
-                e.stopPropagation();
-                setQuantity(quantity + 1);
-              }}
-              className="h-10 w-10 p-0 rounded-full border-2 border-orange-primary text-orange-primary hover:bg-orange-primary hover:text-white"
-              aria-label="Augmenter la quantité"
+              <Button
+                size="sm"
+                variant="outlined"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setQuantity(Math.max(1, quantity - 1));
+                }}
+                className="h-10 w-10 p-0 rounded-full border-2 border-orange-primary text-orange-primary hover:bg-orange-primary hover:text-white"
+                aria-label="Diminuer la quantité"
+              >
+                <Minus className="w-4 h-4" />
+              </Button>
+              <span className="text-lg font-bold text-olive-dark flex-1 text-center min-w-[40px]">
+                {quantity}
+              </span>
+              <Button
+                size="sm"
+                variant="outlined"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setQuantity(quantity + 1);
+                }}
+                className="h-10 w-10 p-0 rounded-full border-2 border-orange-primary text-orange-primary hover:bg-orange-primary hover:text-white"
+                aria-label="Augmenter la quantité"
+              >
+                <Plus className="w-4 h-4" />
+              </Button>
+              <Button
+                size="sm"
+                variant="filled"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleAddToCart();
+                }}
+                className="flex-1 bg-gradient-to-r from-orange-primary to-orange-light hover:shadow-xl shadow-orange-primary/30"
+                aria-label={`Ajouter ${quantity} ${meal.name} au panier`}
+              >
+                <ShoppingCart className="w-4 h-4 mr-2" />
+                Ajouter
+              </Button>
+            </motion.div>
+          ) : (
+            <motion.button
+              key="command"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="w-full glass border-2 border-orange-primary text-orange-primary font-semibold py-3 rounded-xl hover:bg-orange-primary hover:text-white hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300"
+              onClick={() => setShowActions(true)}
             >
-              <Plus className="w-4 h-4" />
-            </Button>
-            <Button
-              size="sm"
-              variant="filled"
-              onClick={(e) => {
-                e.stopPropagation();
-                handleAddToCart();
-              }}
-              className="flex-1 bg-gradient-to-r from-orange-primary to-orange-light hover:shadow-xl shadow-orange-primary/30"
-              aria-label={`Ajouter ${quantity} ${meal.name} au panier`}
-            >
-              <ShoppingCart className="w-4 h-4 mr-2" />
-              Ajouter
-            </Button>
-          </div>
-        ) : (
-          <button className="w-full glass border-2 border-orange-primary text-orange-primary font-semibold py-3 rounded-xl hover:bg-orange-primary hover:text-white hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300">
-            Commander
-          </button>
-        )}
+              Commander
+            </motion.button>
+          )}
+        </AnimatePresence>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
