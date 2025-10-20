@@ -1,16 +1,16 @@
 import { Bell, ShoppingCart, Globe } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useCartStore } from "@/shared/stores/useCartStore";
+import { useCart } from "@/hooks/useCart";
 import { useAuthStore } from "@/shared/stores/useAuthStore";
 import { Link, useNavigate } from "react-router-dom";
 
 export const HeaderActions = () => {
   const navigate = useNavigate();
-  const totalItems = useCartStore((state) => state.getTotalItems());
+  const itemCount = useCart((state) => state.itemCount);
   const user = useAuthStore((state) => state.user);
 
   const handleCartClick = () => {
-    navigate('/order');
+    navigate('/cart');
   };
 
   return (
@@ -39,7 +39,7 @@ export const HeaderActions = () => {
         onClick={handleCartClick}
       >
         <ShoppingCart className="h-5 w-5" />
-        {totalItems > 0 && (
+        {itemCount > 0 && (
           <span 
             className="absolute -top-1 -right-1 h-5 w-5 rounded-full text-xs flex items-center justify-center md-label-small"
             style={{
@@ -47,7 +47,7 @@ export const HeaderActions = () => {
               color: 'hsl(var(--md-sys-color-on-secondary))'
             }}
           >
-            {totalItems}
+            {itemCount}
           </span>
         )}
       </Button>

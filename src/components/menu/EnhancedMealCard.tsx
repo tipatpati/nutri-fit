@@ -5,6 +5,8 @@ import { useState } from "react";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import MealNutritionalInfo from "./MealNutritionalInfo";
 import { motion } from "framer-motion";
+import { useCart } from "@/hooks/useCart";
+import { ShoppingCart } from "lucide-react";
 
 interface EnhancedMealCardProps {
   meal: {
@@ -17,7 +19,7 @@ interface EnhancedMealCardProps {
     premium: boolean;
   };
   selectedCategory?: 'equilibre' | 'perte_poids' | 'prise_masse';
-  onAddToCart?: () => void;
+  viewMode?: 'grid' | 'list';
 }
 
 const NUTRIENT_ICONS = {
@@ -26,10 +28,11 @@ const NUTRIENT_ICONS = {
   vegetables: '🥗',
 };
 
-const EnhancedMealCard = ({ meal, selectedCategory = 'equilibre', onAddToCart }: EnhancedMealCardProps) => {
+const EnhancedMealCard = ({ meal, selectedCategory = 'equilibre', viewMode = 'grid' }: EnhancedMealCardProps) => {
   const { data: mealIngredients = [] } = useMealIngredients(meal.id);
   const [showDetails, setShowDetails] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
+  const { addItem } = useCart();
 
   const calculateQuickNutrition = () => {
     let totalCalories = 0;
@@ -61,6 +64,25 @@ const EnhancedMealCard = ({ meal, selectedCategory = 'equilibre', onAddToCart }:
 
   const nutrition = calculateQuickNutrition();
   const primaryIngredients = mealIngredients.filter(mi => mi.is_primary);
+
+  const handleAddToCart = () => {
+    addItem({
+      mealId: meal.id,
+      mealName: meal.name,
+      mealImage: meal.image_url || '/placeholder.jpg',
+      category: meal.category,
+      premium: meal.premium || false,
+      quantity: 1,
+      unitPrice: 450, // Replace with actual price from meal data
+      nutritionalGoal: selectedCategory,
+      nutrition: {
+        calories: nutrition.calories,
+        protein: nutrition.protein,
+        carbs: nutrition.carbs,
+        fat: 0, // Add fat calculation if available
+      },
+    });
+  };
 
   return (
     <motion.div
@@ -163,16 +185,15 @@ const EnhancedMealCard = ({ meal, selectedCategory = 'equilibre', onAddToCart }:
             </DialogContent>
           </Dialog>
 
-          {onAddToCart && (
-            <Button 
-              onClick={onAddToCart} 
-              variant="filled" 
-              className="flex-1 bg-gradient-to-r from-orange-primary to-orange-light hover:shadow-xl shadow-orange-primary/30 hover:-translate-y-1" 
-              size="default"
-            >
-              Ajouter
-            </Button>
-          )}
+          <Button 
+            onClick={handleAddToCart} 
+            variant="filled" 
+            className="flex-1 bg-gradient-to-r from-orange-primary to-orange-light hover:shadow-xl shadow-orange-primary/30 hover:-translate-y-1" 
+            size="default"
+          >
+            <ShoppingCart className="w-4 h-4 mr-2" />
+            Ajouter
+          </Button>
         </div>
       </div>
     </motion.div>
