@@ -21,7 +21,7 @@ export const Hero = () => {
     >
       {/* Background image with organic treatment */}
       <div 
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-20 mix-blend-multiply"
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{
           backgroundImage: `url(${heroBackground})`
         }}
@@ -30,7 +30,7 @@ export const Hero = () => {
       {/* Warm overlay gradient */}
       <div className="absolute inset-0" 
         style={{
-          background: 'linear-gradient(135deg, hsla(40, 50%, 96%, 0.9) 0%, hsla(40, 18%, 87%, 0.95) 100%)'
+          background: 'linear-gradient(135deg, hsla(40, 50%, 96%, 0.75) 0%, hsla(40, 18%, 87%, 0.8) 100%)'
         }}
       />
       
