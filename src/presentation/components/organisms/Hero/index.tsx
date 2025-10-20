@@ -1,7 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { HeroContent } from "./HeroContent";
 import { HeroSocialProof } from "./HeroSocialProof";
-import heroBackground from "@/assets/hero-background.jpg";
 
 export const Hero = () => {
   const navigate = useNavigate();
@@ -19,34 +18,50 @@ export const Hero = () => {
           hsl(var(--md-sys-color-surface-dim)) 100%)`
       }}
     >
-      {/* Background image with organic treatment */}
+      {/* Animated orbs */}
       <div 
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        className="absolute top-[10%] right-[15%] w-[400px] h-[400px] rounded-full blur-3xl opacity-30 animate-float"
         style={{
-          backgroundImage: `url(${heroBackground})`
+          background: `radial-gradient(circle, hsl(var(--md-sys-color-secondary)) 0%, transparent 70%)`,
+          animationDelay: '0s',
+          animationDuration: '20s'
+        }}
+      />
+      <div 
+        className="absolute top-[60%] left-[10%] w-[500px] h-[500px] rounded-full blur-3xl opacity-25 animate-float"
+        style={{
+          background: `radial-gradient(circle, hsl(var(--md-sys-color-tertiary)) 0%, transparent 70%)`,
+          animationDelay: '7s',
+          animationDuration: '25s'
+        }}
+      />
+      <div 
+        className="absolute top-[40%] right-[30%] w-[300px] h-[300px] rounded-full blur-2xl opacity-20 animate-float"
+        style={{
+          background: `radial-gradient(circle, hsl(var(--md-sys-color-primary)) 0%, transparent 70%)`,
+          animationDelay: '14s',
+          animationDuration: '18s'
         }}
       />
       
-      {/* Warm gradient overlay with brand colors */}
-      <div className="absolute inset-0" 
-        style={{
-          background: 'linear-gradient(135deg, rgba(251, 248, 239, 0.3) 0%, rgba(43, 50, 16, 0.4) 100%)'
-        }}
-      />
-      
-      {/* Organic blob shapes */}
-      <div 
-        className="absolute top-1/4 right-1/4 w-[600px] h-[600px] rounded-full blur-3xl opacity-20"
-        style={{
-          background: `radial-gradient(circle, hsl(var(--md-sys-color-secondary)) 0%, transparent 70%)`
-        }}
-      />
-      <div 
-        className="absolute bottom-1/4 left-1/4 w-[500px] h-[500px] rounded-full blur-3xl opacity-15"
-        style={{
-          background: `radial-gradient(circle, hsl(var(--md-sys-color-tertiary)) 0%, transparent 70%)`
-        }}
-      />
+      {/* Floating particles */}
+      {[...Array(12)].map((_, i) => (
+        <div
+          key={i}
+          className="absolute w-2 h-2 rounded-full opacity-40 animate-float"
+          style={{
+            background: i % 3 === 0 
+              ? 'hsl(var(--md-sys-color-secondary))' 
+              : i % 3 === 1 
+              ? 'hsl(var(--md-sys-color-tertiary))' 
+              : 'hsl(var(--md-sys-color-primary))',
+            top: `${Math.random() * 100}%`,
+            left: `${Math.random() * 100}%`,
+            animationDelay: `${i * 2}s`,
+            animationDuration: `${15 + Math.random() * 10}s`
+          }}
+        />
+      ))}
       
       {/* Paper texture overlay */}
       <div className="absolute inset-0 opacity-[0.03] pointer-events-none mix-blend-overlay"

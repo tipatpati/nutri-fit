@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import dumbbellIcon from "@/assets/icons/dumbbell.svg";
 import shakerBottleIcon from "@/assets/icons/shaker-bottle.svg";
 import deliveryTruckIcon from "@/assets/icons/delivery-truck.svg";
+import heroBackground from "@/assets/hero-background.jpg";
 const MealCategories = () => {
   const steps = [{
     number: '1',
@@ -26,8 +27,22 @@ const MealCategories = () => {
     bgColor: 'bg-[hsl(var(--md-sys-color-tertiary-container))]',
     numberColor: 'text-[hsl(var(--md-sys-color-tertiary))]'
   }];
-  return <section className="py-16 md:py-20 lg:py-32 bg-[hsl(var(--md-sys-color-surface))]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12">
+  return <section className="relative py-16 md:py-20 lg:py-32 bg-[hsl(var(--md-sys-color-surface))] overflow-hidden">
+      {/* Parallax Background */}
+      <div 
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-15"
+        style={{
+          backgroundImage: `url(${heroBackground})`,
+          transform: 'translateZ(0)',
+          willChange: 'transform',
+          backgroundAttachment: 'fixed'
+        }}
+      />
+      
+      {/* Warm overlay */}
+      <div className="absolute inset-0 bg-gradient-to-b from-[hsl(var(--md-sys-color-surface))]/90 via-[hsl(var(--md-sys-color-surface))]/80 to-[hsl(var(--md-sys-color-surface))]/90" />
+      
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12">
         {/* Header */}
         <div className="text-center mb-12 md:mb-16 lg:mb-20 animate-fade-in">
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-[hsl(var(--md-sys-color-on-surface))] mb-4 md:mb-6 leading-tight">
