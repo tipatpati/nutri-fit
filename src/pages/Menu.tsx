@@ -24,7 +24,7 @@ const Menu = () => {
   return (
     <>
       <Header />
-      <main className="min-h-screen bg-md-surface">
+      <main className="min-h-screen bg-gradient-to-br from-[#FBF8EF] via-[#FBF8EF] to-[#E5E2D9]">
         <div className="py-12 md:py-16 lg:py-20">
           <MenuHeader selectedWeek={selectedWeek} setSelectedWeek={setSelectedWeek} />
         </div>
@@ -37,7 +37,7 @@ const Menu = () => {
 
           <div>
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6 md:mb-8">
-              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-md-on-surface">Nos Recettes</h2>
+              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#2B3210] font-['Space_Grotesk']">Nos Recettes</h2>
               <div className="flex flex-wrap gap-2">
                 <Button
                   variant={selectedCategory === null ? 'filled' : 'outlined'}
@@ -61,7 +61,7 @@ const Menu = () => {
 
             {isLoading ? (
               <div className="flex items-center justify-center py-16 md:py-20">
-                <Loader2 className="h-8 w-8 animate-spin text-md-primary" />
+                <Loader2 className="h-8 w-8 animate-spin text-[#DE6E27]" />
               </div>
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">

@@ -15,7 +15,7 @@ const colorMap = {
 
 export const FooterSocial = () => {
   return (
-    <div className="flex gap-md-2">
+    <div className="flex gap-3">
       {socialLinks.map((link) => {
         const Icon = iconMap[link.platform];
         const gradient = colorMap[link.platform];
@@ -25,9 +25,9 @@ export const FooterSocial = () => {
             key={link.platform}
             href={link.href}
             aria-label={link.ariaLabel}
-            className={`w-8 h-8 bg-gradient-to-br ${gradient} hover:opacity-80 rounded-md flex items-center justify-center transition-opacity duration-md-medium2`}
+            className={`w-10 h-10 bg-gradient-to-br ${gradient} hover:scale-110 hover:shadow-lg rounded-xl flex items-center justify-center transition-all duration-300`}
           >
-            <Icon className="w-4 h-4 text-white" />
+            <Icon className="w-5 h-5 text-white" />
           </a>
         );
       })}

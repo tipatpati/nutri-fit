@@ -5,28 +5,28 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap font-medium relative overflow-hidden transition-standard focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-md-primary focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-38 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 md-state-layer active:scale-95",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap font-medium relative overflow-hidden transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#DE6E27] focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 active:scale-95",
   {
     variants: {
       variant: {
-        // Material Design 3 Filled Button
-        filled: "bg-md-primary text-md-primary-on-primary hover:shadow-md md-elevation-1 hover:md-elevation-2 rounded-[20px] px-md-3 py-md-2 md-label-large hover:brightness-110",
-        // Material Design 3 Filled Tonal Button
-        "filled-tonal": "bg-md-secondary-container text-md-secondary-on-container hover:shadow-md md-elevation-1 hover:md-elevation-2 rounded-[20px] px-md-3 py-md-2 md-label-large hover:brightness-110",
-        // Material Design 3 Outlined Button
-        outlined: "border-2 border-md-outline text-md-primary bg-transparent hover:bg-md-primary/8 focus:bg-md-primary/12 active:bg-md-primary/16 rounded-[20px] px-md-3 py-md-2 md-label-large",
-        // Material Design 3 Text Button
-        text: "text-md-primary bg-transparent hover:bg-md-primary/8 focus:bg-md-primary/12 active:bg-md-primary/16 rounded-[20px] px-md-3 py-md-2 md-label-large",
-        // Material Design 3 Elevated Button
-        elevated: "bg-md-surface-container-low text-md-primary shadow-md hover:shadow-lg md-elevation-1 hover:md-elevation-2 rounded-[20px] px-md-3 py-md-2 md-label-large",
+        // Primary Brand Button
+        filled: "bg-gradient-to-r from-[#DE6E27] to-[#ff8040] text-white hover:shadow-lg hover:shadow-[#DE6E27]/30 hover:scale-[1.02] rounded-xl px-6 py-3 font-semibold",
+        // Glass Tonal Button
+        "filled-tonal": "glass-surface-light text-[#2B3210] hover:shadow-md border border-[#DE6E27]/20 rounded-xl px-6 py-3 font-semibold",
+        // Outlined Button
+        outlined: "border-2 border-[#DE6E27] text-[#DE6E27] bg-transparent hover:bg-[#DE6E27]/10 rounded-xl px-6 py-3 font-semibold",
+        // Text Button
+        text: "text-[#DE6E27] bg-transparent hover:bg-[#DE6E27]/10 rounded-xl px-6 py-3 font-semibold",
+        // Glass Elevated Button
+        elevated: "glass-card text-[#2B3210] shadow-md hover:shadow-lg rounded-xl px-6 py-3 font-semibold",
         // Legacy variants for backward compatibility
-        default: "bg-primary text-primary-foreground hover:bg-primary/90 rounded-md px-4 py-2",
-        destructive: "bg-md-error text-md-error-on-error hover:shadow-md md-elevation-1 hover:md-elevation-2 rounded-[20px] px-md-3 py-md-2 md-label-large hover:brightness-110",
-        secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80 rounded-md px-4 py-2",
-        ghost: "hover:bg-accent hover:text-accent-foreground rounded-md px-4 py-2",
-        link: "text-primary underline-offset-4 hover:underline rounded-md px-4 py-2",
+        default: "bg-[#2B3210] text-[#FBF8EF] hover:bg-[#505631] rounded-xl px-4 py-2",
+        destructive: "bg-gradient-to-r from-red-500 to-red-600 text-white hover:shadow-lg rounded-xl px-6 py-3 font-semibold",
+        secondary: "bg-[#E5E2D9] text-[#2B3210] hover:bg-[#E5E2D9]/80 rounded-xl px-4 py-2",
+        ghost: "hover:bg-[#E5E2D9]/50 hover:text-[#2B3210] rounded-xl px-4 py-2",
+        link: "text-[#DE6E27] underline-offset-4 hover:underline rounded-xl px-4 py-2",
         // Backward compatibility alias
-        outline: "border-2 border-md-outline text-md-primary bg-transparent hover:bg-md-primary/8 focus:bg-md-primary/12 active:bg-md-primary/16 rounded-[20px] px-md-3 py-md-2 md-label-large",
+        outline: "border-2 border-[#DE6E27] text-[#DE6E27] bg-transparent hover:bg-[#DE6E27]/10 rounded-xl px-6 py-3 font-semibold",
       },
       size: {
         // Material Design 3 sizes with proper touch targets

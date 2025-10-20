@@ -174,23 +174,23 @@ const Order = () => {
   };
 
   return (
-    <div className="min-h-screen bg-md-surface overflow-x-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-[#FBF8EF] via-[#FBF8EF] to-[#E5E2D9] overflow-x-hidden">
       <Header />
       
       <main className="container mx-auto px-4 sm:px-6 py-8 lg:py-12 max-w-6xl">
         {/* Page Header */}
         <div className="text-center mb-10 lg:mb-12">
-          <h1 className="md-display-medium text-[hsl(var(--md-sys-color-on-surface))] mb-3">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#2B3210] mb-3 font-['Space_Grotesk']">
             Planifier votre commande
           </h1>
-          <p className="md-body-large text-[hsl(var(--md-sys-color-on-surface-variant))] max-w-3xl mx-auto">
+          <p className="text-lg text-[#505631] max-w-3xl mx-auto font-['DM_Sans']">
             Choisissez votre objectif, vos dates et sélectionnez vos repas préférés
           </p>
         </div>
 
         {/* Step Indicator */}
         <div className="flex justify-center mb-10 lg:mb-12">
-          <div className="glass-surface rounded-md-full p-md-4 flex items-center gap-2 sm:gap-3 lg:gap-4">
+          <div className="glass-card rounded-full p-4 flex items-center gap-2 sm:gap-3 lg:gap-4 shadow-lg">
             {[
               { step: 'goal', label: 'Objectif', number: 1 },
               { step: 'packs', label: 'Pack', number: 2 },
@@ -199,22 +199,22 @@ const Order = () => {
               { step: 'summary', label: 'Résumé', number: 5 }
             ].map((item, index) => (
               <div key={item.step} className="flex items-center">
-                <div className={`w-10 h-10 rounded-full flex items-center justify-center md-label-large transition-all duration-md-medium2 ${
+                <div className={`w-12 h-12 rounded-full flex items-center justify-center font-bold text-sm transition-all duration-300 ${
                   currentStep === item.step
-                    ? 'bg-md-primary text-md-on-primary md-elevation-2'
+                    ? 'bg-gradient-to-r from-[#DE6E27] to-[#ff8040] text-white shadow-lg scale-110'
                     : getStepStatus(currentStep, item.step)
-                    ? 'bg-md-primary-container text-md-on-primary-container'
-                    : 'bg-md-surface-variant text-md-on-surface-variant'
+                    ? 'bg-[#E5E2D9] text-[#2B3210]'
+                    : 'bg-[#FBF8EF]/50 text-[#505631]'
                 }`}>
                   {item.number}
                 </div>
-                <span className={`ml-2 md-label-medium hidden sm:block ${
-                  currentStep === item.step ? 'text-md-primary' : 'text-md-on-surface-variant'
+                <span className={`ml-2 text-sm font-semibold hidden sm:block font-['DM_Sans'] ${
+                  currentStep === item.step ? 'text-[#DE6E27]' : 'text-[#505631]'
                 }`}>
                   {item.label}
                 </span>
                 {index < 4 && (
-                  <div className="hidden lg:block w-8 h-0.5 bg-md-outline-variant ml-md-2"></div>
+                  <div className="hidden lg:block w-8 h-0.5 bg-[#E5E2D9] ml-3"></div>
                 )}
               </div>
             ))}

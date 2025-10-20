@@ -158,30 +158,30 @@ const Profile = () => {
   }
 
   return (
-    <PageLayout>
-      <div className="container mx-auto px-md-4 py-md-6 max-w-4xl">
-        <div className="mb-md-6">
-          <h1 className="text-3xl font-bold text-md-surface-on-surface mb-md-2">Mon Profil</h1>
-          <p className="text-md-surface-on-surface/70">Gérez vos informations personnelles et vos préférences</p>
+    <PageLayout className="bg-gradient-to-br from-[#FBF8EF] via-[#FBF8EF] to-[#E5E2D9]">
+      <div className="container mx-auto px-4 py-8 max-w-4xl">
+        <div className="mb-8">
+          <h1 className="text-4xl font-bold text-[#2B3210] mb-2 font-['Space_Grotesk']">Mon Profil</h1>
+          <p className="text-[#505631] font-['DM_Sans']">Gérez vos informations personnelles et vos préférences</p>
         </div>
 
-        <div className="grid gap-md-4 mb-md-6">
-          <Card>
+        <div className="grid gap-6 mb-6">
+          <Card className="shadow-lg">
             <CardHeader>
               <div className="flex items-center justify-between">
                 <div>
-                  <CardTitle className="flex items-center gap-2">
-                    <User className="h-5 w-5" />
+                  <CardTitle className="flex items-center gap-2 text-[#2B3210]">
+                    <User className="h-5 w-5 text-[#DE6E27]" />
                     Informations du compte
                   </CardTitle>
-                  <CardDescription>Email: {user?.email}</CardDescription>
+                  <CardDescription className="text-[#505631]">Email: {user?.email}</CardDescription>
                 </div>
                 {roles.length > 0 && (
                   <div className="flex items-center gap-2">
-                    <Shield className="h-4 w-4 text-md-primary" />
+                    <Shield className="h-4 w-4 text-[#DE6E27]" />
                     <div className="flex gap-2">
                       {roles.map(role => (
-                        <Badge key={role} variant="secondary">
+                        <Badge key={role} className="bg-gradient-to-r from-[#DE6E27] to-[#ff8040] text-white">
                           {role}
                         </Badge>
                       ))}
@@ -203,10 +203,10 @@ const Profile = () => {
           </TabsList>
 
           <TabsContent value="profile">
-            <Card>
+            <Card className="shadow-lg">
               <CardHeader>
-                <CardTitle>Informations personnelles</CardTitle>
-                <CardDescription>Mettez à jour vos informations de profil</CardDescription>
+                <CardTitle className="text-[#2B3210]">Informations personnelles</CardTitle>
+                <CardDescription className="text-[#505631]">Mettez à jour vos informations de profil</CardDescription>
               </CardHeader>
               <CardContent>
                 <form onSubmit={handleSubmitProfile(onUpdateProfile)} className="space-y-4">
@@ -265,10 +265,10 @@ const Profile = () => {
           </TabsContent>
 
           <TabsContent value="security">
-            <Card>
+            <Card className="shadow-lg">
               <CardHeader>
-                <CardTitle>Modifier le mot de passe</CardTitle>
-                <CardDescription>Changez votre mot de passe pour sécuriser votre compte</CardDescription>
+                <CardTitle className="text-[#2B3210]">Modifier le mot de passe</CardTitle>
+                <CardDescription className="text-[#505631]">Changez votre mot de passe pour sécuriser votre compte</CardDescription>
               </CardHeader>
               <CardContent>
                 <form onSubmit={handleSubmitPassword(onUpdatePassword)} className="space-y-4">

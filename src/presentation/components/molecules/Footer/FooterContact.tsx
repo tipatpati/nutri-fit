@@ -10,15 +10,15 @@ const iconMap = {
 
 export const FooterContact = () => {
   return (
-    <div className="space-y-md-3">
-      <h4 className="md-label-large text-white font-semibold uppercase tracking-wide">Contact</h4>
-      <div className="space-y-md-2">
+    <div className="space-y-4">
+      <h4 className="text-sm font-bold text-[#FBF8EF] uppercase tracking-wide font-['Space_Grotesk']">Contact</h4>
+      <div className="space-y-3">
         {contactInfo.map((contact, index) => {
           const Icon = iconMap[contact.icon];
           return (
-            <div key={index} className="flex items-center gap-md-2 text-white/70">
-              <Icon className="w-4 h-4 text-md-tertiary flex-shrink-0" />
-              <span className="md-body-small">{contact.value}</span>
+            <div key={index} className="flex items-center gap-3 text-[#FBF8EF]/70">
+              <Icon className="w-5 h-5 text-[#DE6E27] flex-shrink-0" />
+              <span className="text-sm font-['DM_Sans']">{contact.value}</span>
             </div>
           );
         })}

@@ -5,17 +5,17 @@ import { Dumbbell } from "lucide-react";
 
 export const FooterBrand = () => {
   return (
-    <div className="space-y-md-4">
-      <div className="flex items-center gap-md-2">
-        <div className="w-8 h-8 bg-gradient-to-br from-md-tertiary to-md-secondary rounded-md flex items-center justify-center">
-          <Dumbbell className="w-4 h-4 text-white" />
+    <div className="space-y-6">
+      <div className="flex items-center gap-3">
+        <div className="w-12 h-12 bg-gradient-to-br from-[#DE6E27] to-[#ff8040] rounded-xl flex items-center justify-center shadow-lg">
+          <Dumbbell className="w-6 h-6 text-white" />
         </div>
-        <h3 className="md-title-large text-white font-bold">
+        <h3 className="text-2xl font-bold text-[#FBF8EF] font-['Space_Grotesk']">
           {brandInfo.name}
         </h3>
       </div>
       
-      <p className="md-body-small text-white/80 leading-relaxed max-w-xs">
+      <p className="text-sm text-[#FBF8EF]/80 leading-relaxed max-w-xs font-['DM_Sans']">
         {brandInfo.tagline}
       </p>
 

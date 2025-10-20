@@ -8,14 +8,14 @@ const Input = React.forwardRef<HTMLInputElement, React.ComponentProps<"input">>(
       <input
         type={type}
         className={cn(
-          // Material Design 3 Text Field (Outlined)
-          "flex h-[56px] w-full rounded-md border border-md-outline bg-md-surface px-md-2 py-md-2 text-base text-md-surface-on-surface",
-          "placeholder:text-emerald-800",
-          "focus:border-md-primary focus:border-2 focus:outline-none",
-          "hover:border-emerald-800",
-          "disabled:border-md-outline/38 disabled:bg-md-surface/4 disabled:text-md-surface-on-surface/38 disabled:cursor-not-allowed",
-          "transition-colors duration-200 ease-in-out",
-          "file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-md-surface-on-surface",
+          // Glass Input Field
+          "flex h-14 w-full rounded-xl glass-surface-light border-2 border-[#DE6E27]/20 bg-transparent px-4 py-3 text-base text-[#2B3210] font-medium",
+          "placeholder:text-[#505631]/60",
+          "focus:border-[#DE6E27] focus:shadow-lg focus:shadow-[#DE6E27]/20 focus:outline-none",
+          "hover:border-[#DE6E27]/40",
+          "disabled:border-[#E5E2D9] disabled:bg-[#FBF8EF]/20 disabled:text-[#2B3210]/40 disabled:cursor-not-allowed",
+          "transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)]",
+          "file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-[#2B3210]",
           className
         )}
         ref={ref}

@@ -8,9 +8,15 @@ import { footerSections } from "@/shared/data/footerData";
 
 const Footer = () => {
   return (
-    <footer className="relative bg-md-primary text-md-on-primary mt-16 md:mt-20 lg:mt-32">
+    <footer className="relative bg-gradient-to-br from-[#2B3210] via-[#2B3210] to-[#505631] text-[#FBF8EF] mt-16 md:mt-20 lg:mt-32 overflow-hidden">
+      {/* Decorative Background Elements */}
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute top-0 right-0 w-96 h-96 bg-[#DE6E27] rounded-full blur-3xl"></div>
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#FBF8EF] rounded-full blur-3xl"></div>
+      </div>
+      
       {/* Main Footer Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12 py-12 md:py-16 lg:py-20">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12 py-12 md:py-16 lg:py-20">
         <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 md:gap-10 lg:gap-12">
           {/* Brand Section */}
           <div className="lg:col-span-2">
