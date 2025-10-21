@@ -48,7 +48,7 @@ export const LayoutTextFlip = ({
       <motion.span
         layout
         className={cn(
-          "relative inline-block w-fit overflow-hidden rounded-xl bg-white/95 px-6 py-3 text-2xl md:text-4xl lg:text-5xl font-bold tracking-tight text-[#2B3210] shadow-xl border-2 transition-colors duration-500",
+          "relative inline-block w-fit overflow-hidden rounded-xl bg-white/95 px-5 py-2.5 text-xl md:text-2xl lg:text-3xl font-bold tracking-tight text-[#2B3210] shadow-xl border-2 transition-colors duration-500",
           className
         )}
         style={{ borderColor }}

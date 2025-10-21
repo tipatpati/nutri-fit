@@ -50,7 +50,7 @@ export const Hero = () => {
             >
               <div className="relative flex flex-col items-center">
                 <h1 className="text-center">
-                  <span className="font-['Outfit'] block text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-semibold tracking-tight leading-tight text-white drop-shadow-2xl">
+                  <span className="font-['Outfit'] block text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-semibold tracking-tight leading-tight text-white drop-shadow-2xl">
                     Repas Santé pour
                   </span>
                   <div className="mt-6 flex justify-center">
