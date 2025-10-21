@@ -1,4 +1,4 @@
-import { Check, Package } from "lucide-react";
+import { Check, Package, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Icon } from "@/components/ui/icon";
 import { Link } from "react-router-dom";
@@ -19,24 +19,39 @@ const Packs = () => {
   }
 
   return (
-    <section className="py-20 md:py-28 lg:py-32 bg-cream">
-      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+    <section className="py-20 md:py-28 lg:py-32 bg-gradient-to-br from-[#FBF8EF] via-[#E5E2D9] to-[#FBF8EF] relative overflow-hidden">
+      {/* Animated Background */}
+      <motion.div
+        animate={{ 
+          rotate: [0, 360],
+          scale: [1, 1.2, 1]
+        }}
+        transition={{ duration: 25, repeat: Infinity }}
+        className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-[#DE6E27]/5 rounded-full blur-3xl"
+      />
+
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 relative z-10">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
           className="text-center mb-16 md:mb-20"
         >
-          <div className="inline-flex items-center gap-2 px-5 py-2.5 bg-orange-primary/10 rounded-full text-sm font-semibold text-orange-primary border border-orange-primary/20 mb-6">
-            <Package className="w-5 h-5" />
-            Nos formules
-          </div>
-          <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-olive-dark mb-6 leading-tight tracking-tight font-heading">
+          <motion.div
+            initial={{ scale: 0.8 }}
+            whileInView={{ scale: 1 }}
+            viewport={{ once: true }}
+            whileHover={{ scale: 1.05 }}
+            className="inline-flex items-center gap-2 px-6 py-3 glass-strong rounded-full border-2 border-[#DE6E27]/20 mb-6"
+          >
+            <Package className="w-5 h-5 text-[#DE6E27]" />
+            <span className="font-semibold text-[#2B3210]">Nos formules</span>
+          </motion.div>
+          <h2 className="font-['Space_Grotesk'] text-5xl md:text-6xl lg:text-7xl font-bold text-[#2B3210] mb-6">
             Choisissez votre pack
           </h2>
-          <p className="text-lg md:text-xl text-olive-muted max-w-3xl mx-auto leading-relaxed">
+          <p className="text-xl text-[#505631] max-w-3xl mx-auto">
             Des formules flexibles adaptées à vos besoins et votre rythme de vie
           </p>
         </motion.div>
@@ -58,36 +73,53 @@ const Packs = () => {
                 key={plan.id}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
+                viewport={{ once: true }}
                 transition={{ delay: index * 0.15, duration: 0.6 }}
-                whileHover={{ y: -8, scale: 1.02 }}
-                className={`relative overflow-hidden glass rounded-2xl shadow-lg ${
-                  plan.promoted ? 'scale-105' : ''
-                }`}
+                whileHover={{ y: -12, scale: 1.03 }}
+                className={`relative overflow-hidden glass-strong rounded-3xl shadow-xl border-2 ${
+                  plan.promoted 
+                    ? 'border-[#DE6E27] scale-105 shadow-2xl shadow-[#DE6E27]/20' 
+                    : 'border-transparent hover:border-[#DE6E27]/30'
+                } transition-all duration-300`}
               >
-                {/* Floating Popular Badge */}
+                {/* Shimmer effect on hover */}
+                <motion.div
+                  initial={{ x: '-100%' }}
+                  whileHover={{ x: '200%' }}
+                  transition={{ duration: 1 }}
+                  className="absolute inset-0 w-1/3 bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12 pointer-events-none"
+                />
+                
+                {/* Popular Badge */}
                 {plan.promoted && (
                   <motion.div
                     initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.5 + index * 0.15 }}
-                    className="absolute -top-4 left-1/2 -translate-x-1/2 px-6 py-2 rounded-full bg-gradient-to-r from-orange-primary to-orange-light shadow-lg shadow-orange-primary/50 z-10"
+                    whileHover={{ scale: 1.1 }}
+                    className="absolute -top-4 left-1/2 -translate-x-1/2 px-6 py-2 rounded-full bg-gradient-to-r from-[#DE6E27] to-[#ff8040] shadow-2xl shadow-[#DE6E27]/50 z-10 border-2 border-white"
                   >
-                    <span className="text-white font-semibold text-sm">Plus Populaire</span>
+                    <span className="text-white font-bold text-sm">Plus Populaire</span>
                   </motion.div>
                 )}
                 
                 <div className="space-y-6 p-8">
                   <div>
-                    <h3 className="text-2xl font-bold text-olive-dark mb-2 font-heading">
+                    <h3 className="font-['Space_Grotesk'] text-2xl font-bold text-[#2B3210] mb-2">
                       {plan.name}
                     </h3>
-                    <div className="flex items-baseline gap-2">
-                      <span className="text-6xl font-bold text-olive-dark">
+                    <motion.div
+                      whileHover={{ scale: 1.05 }}
+                      className="flex items-baseline gap-2"
+                    >
+                      <motion.span
+                        animate={{ scale: [1, 1.05, 1] }}
+                        transition={{ duration: 2, repeat: Infinity }}
+                        className="text-7xl font-bold bg-gradient-to-r from-[#2B3210] to-[#DE6E27] bg-clip-text text-transparent"
+                      >
                         {plan.total_price.toFixed(0)}
-                      </span>
-                      <span className="text-2xl text-olive-muted">.00 DA</span>
-                    </div>
+                      </motion.span>
+                      <span className="text-2xl text-[#505631]">.00 DA</span>
+                    </motion.div>
                     <p className="text-sm text-olive-muted mt-1">
                       {plan.price_per_meal.toFixed(2)} DA par repas
                     </p>
@@ -145,8 +177,8 @@ const Packs = () => {
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ delay: 0.3, duration: 0.6 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.3 }}
           className="grid sm:grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto"
         >
         {[
@@ -160,20 +192,20 @@ const Packs = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.5 + index * 0.1 }}
-              whileHover={{ scale: 1.05, rotate: 2 }}
-              className="text-center p-8 glass rounded-2xl hover:shadow-lg transition-all duration-300 group"
+              whileHover={{ scale: 1.05, y: -5 }}
+              className="text-center p-8 glass-strong rounded-3xl hover:shadow-2xl transition-all duration-300 group border-2 border-transparent hover:border-[#DE6E27]/30"
             >
               <motion.div
-                whileHover={{ scale: 1.1, rotate: 12 }}
-                transition={{ type: "spring", stiffness: 400, damping: 10 }}
-                className="w-20 h-20 mx-auto mb-6 rounded-full bg-orange-primary/10 flex items-center justify-center"
+                whileHover={{ rotate: 360, scale: 1.2 }}
+                transition={{ duration: 0.6 }}
+                className="w-20 h-20 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-[#DE6E27]/20 to-[#ff8040]/20 flex items-center justify-center"
               >
-                <Icon name={item.icon} size={32} className="text-orange-primary" />
+                <Icon name={item.icon} size={32} className="text-[#DE6E27]" />
               </motion.div>
-              <h4 className="text-xl font-bold text-olive-dark mb-3 group-hover:text-orange-primary transition-colors font-heading">
+              <h4 className="font-['Space_Grotesk'] text-xl font-bold text-[#2B3210] mb-3 group-hover:text-[#DE6E27] transition-colors">
                 {item.title}
               </h4>
-              <p className="text-base text-olive-muted leading-relaxed">
+              <p className="text-[#505631] leading-relaxed">
                 {item.description}
               </p>
             </motion.div>

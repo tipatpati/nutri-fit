@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 
 export const TestimonialSection = () => {
   return (
-    <div className="relative py-24 bg-olive-dark rounded-2xl p-8 md:p-12 lg:p-16 text-white overflow-hidden mt-12 md:mt-16">
+    <div className="relative py-24 glass-dark rounded-3xl p-8 md:p-12 lg:p-16 text-white overflow-hidden mt-12 md:mt-16 border-2 border-[#DE6E27]/20 shadow-2xl">
       {/* Subtle Texture Overlay */}
       <div 
         className="absolute inset-0 opacity-5 pointer-events-none"
@@ -47,22 +47,40 @@ export const TestimonialSection = () => {
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true, margin: "-100px" }}
-              transition={{ delay: 0.4, duration: 0.6 }}
-              whileHover={{ scale: 1.05 }}
-              className="glass-dark rounded-2xl p-6 md:p-8 lg:p-10 cursor-pointer"
+              whileHover={{ scale: 1.05, rotate: 2 }}
+              className="glass-dark rounded-3xl p-8 md:p-10 border-2 border-[#DE6E27]/30 shadow-2xl relative overflow-hidden"
             >
-              <div className="text-6xl font-bold bg-gradient-to-r from-orange-primary to-orange-light bg-clip-text text-transparent mb-4">
-                {stats.overall.rating}/5
+              {/* Shine effect */}
+              <motion.div
+                animate={{ 
+                  x: ['-100%', '200%'],
+                }}
+                transition={{ 
+                  duration: 3,
+                  repeat: Infinity,
+                  repeatDelay: 5
+                }}
+                className="absolute inset-0 w-1/2 bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-12"
+              />
+              
+              <div className="relative z-10">
+                <motion.div
+                  animate={{ scale: [1, 1.1, 1] }}
+                  transition={{ duration: 2, repeat: Infinity }}
+                  className="text-7xl font-bold bg-gradient-to-r from-[#DE6E27] to-[#ff8040] bg-clip-text text-transparent mb-4"
+                >
+                  {stats.overall.rating}/5
+                </motion.div>
+                <div className="flex justify-center text-orange-primary text-2xl mb-4">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className="w-7 h-7 fill-current" />
+                  ))}
+                </div>
+                <p className="text-2xl font-bold mb-2 text-cream">Excellent</p>
+                <p className="text-cream/70 text-base">
+                  Basé sur {stats.overall.reviews} avis clients vérifiés
+                </p>
               </div>
-              <div className="flex justify-center text-orange-primary text-2xl mb-4">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="w-7 h-7 fill-current" />
-                ))}
-              </div>
-              <p className="text-2xl font-bold mb-2 text-cream">Excellent</p>
-              <p className="text-cream/70 text-base">
-                Basé sur {stats.overall.reviews} avis clients vérifiés
-              </p>
             </motion.div>
             
             <div className="grid grid-cols-3 gap-3 md:gap-4 text-center">
