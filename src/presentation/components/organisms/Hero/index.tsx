@@ -45,20 +45,23 @@ export const Hero = () => {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="space-y-4"
+              transition={{ duration: 1, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+              className="space-y-2 mb-8"
             >
               <div className="relative">
                 {/* Subtle backdrop for text readability */}
                 <div className="absolute inset-0 -z-10 bg-[#2B3210]/40 blur-3xl scale-110" />
                 
-                <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold leading-[1.05] tracking-[-0.02em]">
-                  <span className="font-['Outfit'] block bg-clip-text text-transparent bg-gradient-to-b from-white via-white to-white/90 drop-shadow-2xl" style={{ textShadow: '0 2px 20px rgba(0,0,0,0.5), 0 0 40px rgba(0,0,0,0.3)' }}>
+                <h1 className="space-y-2">
+                  <span className="font-['Outfit'] block text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-light tracking-tight leading-[0.95] bg-clip-text text-transparent bg-gradient-to-b from-white via-white to-white/90" style={{ 
+                    textShadow: '0 2px 20px rgba(0,0,0,0.5), 0 0 40px rgba(0,0,0,0.3)',
+                    letterSpacing: '-0.03em'
+                  }}>
                     Repas Santé pour
                   </span>
                   <LayoutTextFlip 
                     words={["Prise de Masse", "Minceur", "Équilibre"]}
-                    className="font-script text-4xl sm:text-5xl md:text-6xl lg:text-7xl bg-gradient-to-r from-[#DE6E27] via-[#ff8040] to-[#DE6E27] bg-clip-text text-transparent !text-white border-[#DE6E27]/30"
+                    className="font-script text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl bg-gradient-to-r from-[#FBF8EF] via-[#DE6E27] to-[#ff8040] bg-clip-text text-transparent"
                   />
                 </h1>
               </div>
@@ -69,14 +72,17 @@ export const Hero = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
-              className="text-lg sm:text-xl md:text-2xl text-white leading-[1.6] max-w-3xl mx-auto font-medium px-4 py-3 rounded-2xl"
+              className="text-lg sm:text-xl md:text-2xl text-white/95 leading-relaxed max-w-4xl mx-auto font-normal px-6 py-4 rounded-2xl"
               style={{ 
                 textShadow: '0 2px 10px rgba(0,0,0,0.8), 0 0 20px rgba(0,0,0,0.5)',
-                backgroundColor: 'rgba(43, 50, 16, 0.3)',
-                backdropFilter: 'blur(8px)'
+                backgroundColor: 'rgba(43, 50, 16, 0.25)',
+                backdropFilter: 'blur(8px)',
+                letterSpacing: '0.01em',
+                lineHeight: '1.8'
               }}
             >
-              Des repas équilibrés, préparés par des experts nutritionnistes, 
+              Des repas équilibrés, préparés par des experts nutritionnistes,{' '}
+              <br className="hidden md:block" />
               livrés directement chez vous. Atteignez vos objectifs fitness avec plaisir.
             </motion.p>
 
@@ -97,14 +103,19 @@ export const Hero = () => {
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.5, delay: 0.8 + idx * 0.1 }}
-                  className="flex items-center gap-2 glass-strong px-4 py-2.5 rounded-full border-2 border-white/30 shadow-xl"
+                  whileHover={{ scale: 1.05 }}
+                  className="flex items-center gap-2.5 glass-strong px-5 py-3 rounded-full border-2 border-white/30 shadow-xl transition-all duration-300 hover:border-white/50"
                   style={{ 
                     backgroundColor: 'rgba(43, 50, 16, 0.6)',
                     backdropFilter: 'blur(12px)'
                   }}
                 >
-                  <indicator.icon className="w-5 h-5 text-[#DE6E27] drop-shadow-lg" />
-                  <span className="text-white font-semibold" style={{ textShadow: '0 1px 8px rgba(0,0,0,0.6)' }}>{indicator.text}</span>
+                  <indicator.icon className="w-5 h-5 text-[#DE6E27] drop-shadow-lg flex-shrink-0" />
+                  <span className="text-white font-medium tracking-wide" style={{ 
+                    textShadow: '0 1px 8px rgba(0,0,0,0.6)',
+                    fontSize: '0.95rem',
+                    letterSpacing: '0.03em'
+                  }}>{indicator.text}</span>
                 </motion.div>
               ))}
             </motion.div>
@@ -123,11 +134,15 @@ export const Hero = () => {
                 <Button
                   onClick={handleOrderClick}
                   size="lg"
-                  className="bg-gradient-to-r from-[#DE6E27] to-[#ff8040] text-white font-bold text-lg px-12 py-7 rounded-2xl hover:shadow-2xl hover:shadow-[#DE6E27]/50 transition-all duration-300 border-2 border-white/20 shadow-2xl"
-                  style={{ boxShadow: '0 10px 40px rgba(222, 110, 39, 0.4), 0 0 20px rgba(0,0,0,0.5)' }}
+                  className="bg-gradient-to-r from-[#DE6E27] to-[#ff8040] text-white font-semibold px-12 py-7 rounded-2xl hover:shadow-2xl hover:shadow-[#DE6E27]/50 transition-all duration-300 border-2 border-white/20 shadow-2xl"
+                  style={{ 
+                    boxShadow: '0 10px 40px rgba(222, 110, 39, 0.4), 0 0 20px rgba(0,0,0,0.5)',
+                    letterSpacing: '0.05em',
+                    fontSize: '1.125rem'
+                  }}
                 >
-                  Commander Maintenant
-                  <ArrowRight className="ml-2 w-5 h-5" />
+                  <span className="tracking-wide">Commander Maintenant</span>
+                  <ArrowRight className="ml-3 w-5 h-5" />
                 </Button>
               </motion.div>
 
@@ -139,9 +154,13 @@ export const Hero = () => {
                   onClick={() => document.getElementById('menu')?.scrollIntoView({ behavior: 'smooth' })}
                   size="lg"
                   variant="outline"
-                  className="glass-strong border-2 border-white/30 text-white font-bold text-lg px-12 py-7 rounded-2xl hover:bg-white/10 hover:border-white/50 transition-all duration-300 backdrop-blur-xl"
+                  className="glass-strong border-2 border-white/40 text-white font-semibold px-12 py-7 rounded-2xl hover:bg-white/10 hover:border-white/60 transition-all duration-300 backdrop-blur-xl"
+                  style={{
+                    letterSpacing: '0.05em',
+                    fontSize: '1.125rem'
+                  }}
                 >
-                  Voir le Menu
+                  <span className="tracking-wide">Voir le Menu</span>
                 </Button>
               </motion.div>
             </motion.div>
@@ -163,16 +182,24 @@ export const Hero = () => {
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.5, delay: 1.4 + idx * 0.1 }}
-                  className="text-center glass-strong rounded-2xl p-4 border border-white/20"
+                  whileHover={{ scale: 1.05 }}
+                  className="text-center glass-strong rounded-2xl p-6 border border-white/20 transition-all duration-300 hover:border-white/40"
                   style={{
                     backgroundColor: 'rgba(43, 50, 16, 0.5)',
                     backdropFilter: 'blur(12px)'
                   }}
                 >
-                  <div className="font-['Outfit'] text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-2" style={{ textShadow: '0 2px 15px rgba(0,0,0,0.8)' }}>
+                  <div className="font-['Outfit'] text-4xl sm:text-5xl md:text-6xl font-light text-white mb-3 tracking-tight" style={{ 
+                    textShadow: '0 2px 15px rgba(0,0,0,0.8)',
+                    letterSpacing: '-0.02em'
+                  }}>
                     {stat.number}
                   </div>
-                  <div className="text-white/90 text-sm font-medium" style={{ textShadow: '0 1px 8px rgba(0,0,0,0.6)' }}>
+                  <div className="text-white/90 text-sm font-medium uppercase tracking-widest" style={{ 
+                    textShadow: '0 1px 8px rgba(0,0,0,0.6)',
+                    letterSpacing: '0.15em',
+                    fontSize: '0.75rem'
+                  }}>
                     {stat.label}
                   </div>
                 </motion.div>
