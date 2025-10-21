@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { newsletterSchema } from "@/shared/validation/newsletterSchema";
@@ -35,34 +36,39 @@ export const FooterNewsletter = () => {
   };
 
   return (
-    <div className="border-t border-white/10">
-      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-md-6">
-        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col md:flex-row items-center justify-between gap-md-4">
-          <div className="flex items-center gap-md-3">
-            <Mail className="w-5 h-5 text-md-tertiary flex-shrink-0" />
-            <div>
-              <p className="md-body-medium text-white font-medium">Newsletter</p>
-              <p className="md-body-small text-white/70">Recevez nos meilleures offres</p>
-            </div>
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      className="relative border-t border-[#FBF8EF]/10 bg-[#2B3210]/50 backdrop-blur-xl py-8"
+    >
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 md:px-8">
+        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="text-center md:text-left">
+            <h3 className="font-['Space_Grotesk'] text-2xl font-bold text-[#FBF8EF] mb-2">
+              Restez informé
+            </h3>
+            <p className="text-[#FBF8EF]/70">
+              Recevez nos dernières offres et conseils nutrition
+            </p>
           </div>
-
-          <div className="flex gap-md-2 w-full md:w-auto md:min-w-96">
+          <div className="flex gap-2 w-full md:w-auto">
             <Input
               type="email"
               placeholder="Votre email"
               {...register("email")}
-              className="bg-white/10 border-white/20 text-white placeholder:text-white/50 focus:bg-white/15 h-10"
+              className="glass-dark border-[#FBF8EF]/20 text-[#FBF8EF] placeholder:text-[#FBF8EF]/50"
             />
-            <Button
+            <Button 
               type="submit"
               disabled={isSubmitting}
-              className="bg-md-tertiary text-md-on-tertiary hover:bg-md-tertiary/90 h-10 px-md-6 whitespace-nowrap"
+              className="bg-gradient-to-br from-[#DE6E27] to-[#ff8040] text-white hover:shadow-xl transition-all duration-300"
             >
-              {isSubmitting ? "..." : "S'abonner"}
+              {isSubmitting ? "..." : "S'inscrire"}
             </Button>
           </div>
         </form>
       </div>
-    </div>
+    </motion.div>
   );
 };
