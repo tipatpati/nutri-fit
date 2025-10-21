@@ -23,12 +23,11 @@ export const Hero = () => {
         style={{ y: backgroundY }}
         className="absolute inset-0 z-0"
       >
-        <div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{
-            backgroundImage: `url(${heroBackground})`,
-            backgroundAttachment: 'fixed',
-          }}
+        <img
+          src={heroBackground}
+          alt="Fitness background"
+          className="absolute inset-0 w-full h-full object-cover"
+          style={{ objectPosition: 'center' }}
         />
         {/* Cream gradient overlay for brand consistency and readability */}
         <div className="absolute inset-0 bg-gradient-to-br from-cream/40 via-cream/30 to-beige/25" />

@@ -19,11 +19,11 @@ export default {
 		},
 		extend: {
 			fontFamily: {
-				'sans': ['Montserrat', 'Helvetica', 'Arial', 'sans-serif'],
-				'serif': ['Cormorant Garamond', 'Georgia', 'serif'],
-				'script': ['Allura', 'cursive'],
-				'heading': ['Cormorant Garamond', 'Georgia', 'serif'],
-				'body': ['Montserrat', 'Helvetica', 'Arial', 'sans-serif'],
+				'sans': ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+				'serif': ['Outfit', 'system-ui', '-apple-system', 'sans-serif'],
+				'script': ['Caveat', 'cursive'],
+				'heading': ['Outfit', 'system-ui', '-apple-system', 'sans-serif'],
+				'body': ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
 			},
 			spacing: {
 				/* Material Design 3 8dp Grid System */
