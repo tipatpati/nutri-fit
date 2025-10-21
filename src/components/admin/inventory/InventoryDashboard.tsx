@@ -21,10 +21,12 @@ import {
 import { useIngredients, type Ingredient } from "@/hooks/useIngredients";
 import { useCreateIngredient, useUpdateIngredient, useDeleteIngredient } from "@/hooks/useIngredientMutations";
 import { Badge } from "@/components/ui/badge";
-import { Package, TrendingDown, TrendingUp, Plus, Pencil, Trash2 } from "lucide-react";
+import { Package, TrendingDown, TrendingUp, Plus, Pencil, Trash2, AlertTriangle } from "lucide-react";
 import InventoryStockAlert from "./InventoryStockAlert";
 import RecipeAvailabilityChecker from "./RecipeAvailabilityChecker";
 import { IngredientForm } from "./IngredientForm";
+import { motion, AnimatePresence } from "framer-motion";
+import { cn } from "@/lib/utils";
 
 const NUTRIENT_ICONS = {
   protein: '🥩',
@@ -114,129 +116,205 @@ const InventoryDashboard = () => {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mb-8"
+      >
         <div>
-          <h2 className="text-2xl font-bold">Gestion de l'inventaire</h2>
-          <p className="text-muted-foreground">Gérez vos ingrédients et stocks</p>
+          <h2 className="font-['Space_Grotesk'] text-4xl font-bold text-[#2B3210] mb-2">
+            Gestion de l'Inventaire
+          </h2>
+          <p className="text-[#505631] text-lg">
+            Gérez vos ingrédients et suivez les stocks en temps réel
+          </p>
         </div>
-        <Button onClick={handleCreate}>
-          <Plus className="h-4 w-4 mr-2" />
+        <Button 
+          onClick={handleCreate}
+          className="bg-gradient-to-br from-[#DE6E27] to-[#ff8040] text-white px-8 py-6 rounded-xl hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 font-semibold"
+        >
+          <Plus className="h-5 w-5 mr-2" />
           Nouvel ingrédient
         </Button>
-      </div>
+      </motion.div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <Card>
-          <CardHeader className="pb-3">
-            <CardTitle className="text-sm font-medium flex items-center gap-2">
-              <Package className="h-4 w-4" />
-              Total Ingrédients
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{ingredients.length}</div>
-            <p className="text-xs text-muted-foreground mt-1">Ingrédients actifs</p>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader className="pb-3">
-            <CardTitle className="text-sm font-medium flex items-center gap-2">
-              <TrendingDown className="h-4 w-4 text-orange-500" />
-              Stock Faible
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold text-orange-600">{lowStockItems.length}</div>
-            <p className="text-xs text-muted-foreground mt-1">Nécessite réapprovisionnement</p>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader className="pb-3">
-            <CardTitle className="text-sm font-medium flex items-center gap-2">
-              <TrendingUp className="h-4 w-4 text-green-500" />
-              Stock Correct
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold text-green-600">
-              {ingredients.length - lowStockItems.length}
-            </div>
-            <p className="text-xs text-muted-foreground mt-1">Bien approvisionné</p>
-          </CardContent>
-        </Card>
-      </div>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.2 }}
+        className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8"
+      >
+        {[
+          {
+            title: 'Total Ingrédients',
+            value: ingredients.length,
+            icon: Package,
+            color: '#2B3210',
+            bgGradient: 'from-[#2B3210]/10 to-[#505631]/10'
+          },
+          {
+            title: 'Stock Faible',
+            value: lowStockItems.length,
+            icon: TrendingDown,
+            color: '#ff8040',
+            bgGradient: 'from-warning/10 to-error/10',
+            alert: lowStockItems.length > 0
+          },
+          {
+            title: 'Stock Correct',
+            value: ingredients.length - lowStockItems.length,
+            icon: TrendingUp,
+            color: '#4CAF50',
+            bgGradient: 'from-success/10 to-info/10'
+          }
+        ].map((stat, idx) => (
+          <motion.div
+            key={stat.title}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 + idx * 0.1 }}
+            whileHover={{ y: -8, scale: 1.02 }}
+            className="relative overflow-hidden"
+          >
+            <Card className={`glass-strong rounded-3xl border-2 border-transparent hover:border-[#DE6E27]/30 transition-all duration-300 ${stat.alert ? 'ring-2 ring-warning/50' : ''}`}>
+              <CardContent className="p-6">
+                <div className={`absolute inset-0 bg-gradient-to-br ${stat.bgGradient} opacity-50`} />
+                <div className="relative z-10">
+                  <div className="flex items-center justify-between mb-4">
+                    <stat.icon className="w-10 h-10" style={{ color: stat.color }} />
+                    {stat.alert && (
+                      <motion.div
+                        animate={{ scale: [1, 1.2, 1] }}
+                        transition={{ duration: 2, repeat: Infinity }}
+                      >
+                        <AlertTriangle className="w-6 h-6 text-warning" />
+                      </motion.div>
+                    )}
+                  </div>
+                  <p className="text-[#505631] font-medium mb-2">{stat.title}</p>
+                  <motion.p
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ delay: 0.5 + idx * 0.1, type: "spring" }}
+                    className="font-['Space_Grotesk'] text-5xl font-bold"
+                    style={{ color: stat.color }}
+                  >
+                    {stat.value}
+                  </motion.p>
+                </div>
+              </CardContent>
+            </Card>
+          </motion.div>
+        ))}
+      </motion.div>
 
       <InventoryStockAlert lowStockItems={lowStockItems} />
 
-      <Card>
-        <CardHeader>
-          <CardTitle>Inventaire par Catégorie Nutritionnelle</CardTitle>
-          <CardDescription>
-            Organisation des ingrédients selon leur nutriment principal
+      <Card className="glass-strong rounded-3xl shadow-xl border-2 border-[#DE6E27]/20">
+        <CardHeader className="bg-gradient-to-br from-[#DE6E27]/10 to-[#ff8040]/10 border-b border-[#DE6E27]/20">
+          <CardTitle className="font-['Space_Grotesk'] text-2xl font-bold text-[#2B3210]">
+            Inventaire par Catégorie
+          </CardTitle>
+          <CardDescription className="text-[#505631]">
+            Organisation par nutriment principal
           </CardDescription>
         </CardHeader>
-        <CardContent>
-          <div className="space-y-4">
-            {Object.entries(byNutrient).map(([nutrient, items]) => (
-              <div key={nutrient} className="border rounded-lg p-4">
-                <h3 className="font-semibold mb-3 flex items-center gap-2">
-                  <span className="text-2xl">
-                    {NUTRIENT_ICONS[nutrient as keyof typeof NUTRIENT_ICONS]}
-                  </span>
-                  <span>{NUTRIENT_LABELS[nutrient as keyof typeof NUTRIENT_LABELS]}</span>
-                  <Badge variant="secondary" className="ml-auto">
+        <CardContent className="p-8">
+          <div className="space-y-6">
+            {Object.entries(byNutrient).map(([nutrient, items], idx) => (
+              <motion.div
+                key={nutrient}
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: idx * 0.1 }}
+                className="glass rounded-2xl p-6 border-2 border-transparent hover:border-[#DE6E27]/30 transition-all duration-300"
+              >
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="font-['Space_Grotesk'] text-xl font-bold text-[#2B3210] flex items-center gap-3">
+                    <span className="text-4xl">
+                      {NUTRIENT_ICONS[nutrient as keyof typeof NUTRIENT_ICONS]}
+                    </span>
+                    <span>{NUTRIENT_LABELS[nutrient as keyof typeof NUTRIENT_LABELS]}</span>
+                  </h3>
+                  <Badge className="glass border-2 border-[#DE6E27] text-[#DE6E27] px-4 py-1.5 font-bold text-base">
                     {items.length} ingrédient{items.length > 1 ? 's' : ''}
                   </Badge>
-                </h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
-                  {items.map(item => (
-                    <div
-                      key={item.id}
-                      className="flex items-center justify-between p-2 border rounded text-sm group"
-                    >
-                      <span className="font-medium">{item.name}</span>
-                      <div className="flex items-center gap-2">
-                        <Badge
-                          variant={
-                            item.current_stock === 0
-                              ? 'destructive'
-                              : item.current_stock <= item.reorder_point
-                              ? 'outline'
-                              : 'secondary'
-                          }
-                          className={
-                            item.current_stock > 0 && item.current_stock <= item.reorder_point
-                              ? 'border-orange-300 text-orange-700'
-                              : ''
-                          }
-                        >
-                          {item.current_stock} {item.unit_of_measurement}
-                        </Badge>
-                        <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                          <Button
-                            size="sm"
-                            variant="ghost"
-                            className="h-6 w-6 p-0"
-                            onClick={() => handleEdit(item)}
-                          >
-                            <Pencil className="h-3 w-3" />
-                          </Button>
-                          <Button
-                            size="sm"
-                            variant="ghost"
-                            className="h-6 w-6 p-0"
-                            onClick={() => handleDelete(item.id)}
-                          >
-                            <Trash2 className="h-3 w-3" />
-                          </Button>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
                 </div>
-              </div>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+                  {items.map((item, itemIdx) => {
+                    const isLowStock = item.current_stock <= item.reorder_point;
+                    const isOutOfStock = item.current_stock === 0;
+                    
+                    return (
+                      <motion.div
+                        key={item.id}
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ delay: idx * 0.1 + itemIdx * 0.02 }}
+                        whileHover={{ scale: 1.02, y: -2 }}
+                        className="group glass-strong rounded-xl p-4 border-2 border-transparent hover:border-[#DE6E27]/30 transition-all duration-300"
+                      >
+                        <div className="flex items-center justify-between mb-2">
+                          <span className="font-semibold text-[#2B3210] flex-1 truncate">
+                            {item.name}
+                          </span>
+                          <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                            <Button
+                              size="sm"
+                              variant="ghost"
+                              className="h-7 w-7 p-0 hover:bg-[#DE6E27]/10"
+                              onClick={() => handleEdit(item)}
+                            >
+                              <Pencil className="h-3.5 w-3.5 text-[#DE6E27]" />
+                            </Button>
+                            <Button
+                              size="sm"
+                              variant="ghost"
+                              className="h-7 w-7 p-0 hover:bg-error/10"
+                              onClick={() => handleDelete(item.id)}
+                            >
+                              <Trash2 className="h-3.5 w-3.5 text-error" />
+                            </Button>
+                          </div>
+                        </div>
+                        
+                        <div className="flex items-center justify-between">
+                          <Badge
+                            className={cn(
+                              "font-bold",
+                              isOutOfStock && "bg-error text-white",
+                              isLowStock && !isOutOfStock && "bg-warning/20 text-warning border-warning",
+                              !isLowStock && !isOutOfStock && "bg-success/20 text-success border-success"
+                            )}
+                          >
+                            {item.current_stock} {item.unit_of_measurement}
+                          </Badge>
+                          
+                          {isOutOfStock && (
+                            <span className="text-error text-xs font-bold">Rupture!</span>
+                          )}
+                        </div>
+                        
+                        {/* Stock Progress Bar */}
+                        <div className="mt-3 h-2 bg-[#E5E2D9] rounded-full overflow-hidden">
+                          <motion.div
+                            initial={{ width: 0 }}
+                            animate={{ width: `${Math.min((item.current_stock / (item.reorder_point * 2)) * 100, 100)}%` }}
+                            transition={{ duration: 1, delay: idx * 0.1 + itemIdx * 0.02 }}
+                            className={cn(
+                              "h-full rounded-full",
+                              isOutOfStock && "bg-error",
+                              isLowStock && !isOutOfStock && "bg-warning",
+                              !isLowStock && !isOutOfStock && "bg-success"
+                            )}
+                          />
+                        </div>
+                      </motion.div>
+                    );
+                  })}
+                </div>
+              </motion.div>
             ))}
           </div>
         </CardContent>

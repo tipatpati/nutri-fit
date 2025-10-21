@@ -9,6 +9,8 @@ import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
 import { toast } from '@/hooks/use-toast';
 import { Pencil, Trash2, Plus } from 'lucide-react';
+import { motion } from "framer-motion";
+import { Badge } from "@/components/ui/badge";
 import {
   Table,
   TableBody,
@@ -231,16 +233,33 @@ export const PackManager = () => {
 
   return (
     <div className="p-6 space-y-6">
-      <div className="flex justify-between items-center">
-        <h2 className="text-2xl font-bold">Gestion des Packs Repas</h2>
-        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-          <DialogTrigger asChild>
-            <Button onClick={() => setFormData(defaultFormData)}>
-              <Plus className="w-4 h-4 mr-2" />
-              Nouveau Pack
-            </Button>
-          </DialogTrigger>
-          <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mb-8"
+      >
+        <div>
+          <h2 className="font-['Space_Grotesk'] text-4xl font-bold text-[#2B3210] mb-2">
+            Gestion des Packs
+          </h2>
+          <p className="text-[#505631] text-lg">
+            Créez et gérez vos formules d'abonnement
+          </p>
+        </div>
+        <Button 
+          onClick={() => {
+            setFormData(defaultFormData);
+            setIsDialogOpen(true);
+          }}
+          className="bg-gradient-to-br from-[#DE6E27] to-[#ff8040] text-white px-8 py-6 rounded-xl hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 font-semibold"
+        >
+          <Plus className="w-5 h-5 mr-2" />
+          Nouveau Pack
+        </Button>
+      </motion.div>
+
+      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+        <DialogContent className="glass-strong max-w-2xl max-h-[90vh] overflow-y-auto border-2 border-[#DE6E27]/30 shadow-2xl">
             <DialogHeader>
               <DialogTitle>
                 {editingPack ? 'Modifier le Pack' : 'Créer un Nouveau Pack'}
@@ -256,6 +275,7 @@ export const PackManager = () => {
                     setFormData({ ...formData, name: e.target.value })
                   }
                   required
+                  className="glass-strong border-2 border-[#E5E2D9] focus:border-[#DE6E27] rounded-xl transition-all duration-300"
                 />
               </div>
 
@@ -269,6 +289,7 @@ export const PackManager = () => {
                   }
                   required
                   rows={3}
+                  className="glass-strong border-2 border-[#E5E2D9] focus:border-[#DE6E27] rounded-xl transition-all duration-300"
                 />
               </div>
 
@@ -287,6 +308,7 @@ export const PackManager = () => {
                       })
                     }
                     required
+                    className="glass-strong border-2 border-[#E5E2D9] focus:border-[#DE6E27] rounded-xl transition-all duration-300"
                   />
                 </div>
 
@@ -305,6 +327,7 @@ export const PackManager = () => {
                       })
                     }
                     required
+                    className="glass-strong border-2 border-[#E5E2D9] focus:border-[#DE6E27] rounded-xl transition-all duration-300"
                   />
                 </div>
               </div>
@@ -328,6 +351,7 @@ export const PackManager = () => {
                   }
                   rows={4}
                   placeholder="Livraison gratuite&#10;Repas équilibrés&#10;Sans engagement"
+                  className="glass-strong border-2 border-[#E5E2D9] focus:border-[#DE6E27] rounded-xl transition-all duration-300"
                 />
               </div>
 
@@ -343,6 +367,7 @@ export const PackManager = () => {
                       display_order: parseInt(e.target.value) || 0,
                     })
                   }
+                  className="glass-strong border-2 border-[#E5E2D9] focus:border-[#DE6E27] rounded-xl transition-all duration-300"
                 />
               </div>
 
@@ -385,70 +410,96 @@ export const PackManager = () => {
             </form>
           </DialogContent>
         </Dialog>
-      </div>
 
-      <Card>
-        <CardHeader>
-          <CardTitle>Packs Existants</CardTitle>
+      <Card className="glass-strong rounded-3xl overflow-hidden shadow-xl border-2 border-[#DE6E27]/20">
+        <CardHeader className="bg-gradient-to-br from-[#DE6E27]/10 to-[#ff8040]/10 border-b border-[#DE6E27]/20">
+          <CardTitle className="font-['Space_Grotesk'] text-2xl font-bold text-[#2B3210]">
+            Packs Existants
+          </CardTitle>
         </CardHeader>
-        <CardContent>
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Nom</TableHead>
-                <TableHead>Repas</TableHead>
-                <TableHead>Prix/Repas</TableHead>
-                <TableHead>Prix Total</TableHead>
-                <TableHead>Actif</TableHead>
-                <TableHead>Mis en Avant</TableHead>
-                <TableHead>Actions</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {packs?.map((pack) => (
-                <TableRow key={pack.id}>
-                  <TableCell className="font-medium">{pack.name}</TableCell>
-                  <TableCell>{pack.meals_quantity}</TableCell>
-                  <TableCell>{pack.price_per_meal.toFixed(2)} DA</TableCell>
-                  <TableCell className="font-bold">
-                    {pack.total_price.toFixed(2)} DA
-                  </TableCell>
-                  <TableCell>
-                    {pack.active ? (
-                      <span className="text-green-600">✓</span>
-                    ) : (
-                      <span className="text-red-600">✗</span>
-                    )}
-                  </TableCell>
-                  <TableCell>
-                    {pack.promoted ? (
-                      <span className="text-yellow-600">★</span>
-                    ) : (
-                      '—'
-                    )}
-                  </TableCell>
-                  <TableCell>
-                    <div className="flex space-x-2">
-                      <Button
-                        size="sm"
-                        variant="outline"
-                        onClick={() => handleEdit(pack)}
-                      >
-                        <Pencil className="w-4 h-4" />
-                      </Button>
-                      <Button
-                        size="sm"
-                        variant="destructive"
-                        onClick={() => handleDelete(pack.id)}
-                      >
-                        <Trash2 className="w-4 h-4" />
-                      </Button>
-                    </div>
-                  </TableCell>
+        <CardContent className="p-0">
+          <div className="overflow-x-auto">
+            <Table>
+              <TableHeader>
+                <TableRow className="bg-[#E5E2D9]/50 hover:bg-[#E5E2D9]/50">
+                  <TableHead className="font-bold text-[#2B3210]">Nom</TableHead>
+                  <TableHead className="font-bold text-[#2B3210]">Repas</TableHead>
+                  <TableHead className="font-bold text-[#2B3210]">Prix/Repas</TableHead>
+                  <TableHead className="font-bold text-[#2B3210]">Prix Total</TableHead>
+                  <TableHead className="font-bold text-[#2B3210]">Statut</TableHead>
+                  <TableHead className="font-bold text-[#2B3210]">Actions</TableHead>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+              </TableHeader>
+              <TableBody>
+                {packs?.map((pack, idx) => (
+                  <motion.tr
+                    key={pack.id}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: idx * 0.05 }}
+                    className="hover:bg-[#DE6E27]/5 transition-colors duration-200 border-b border-[#E5E2D9]"
+                  >
+                    <TableCell className="font-semibold text-[#2B3210]">
+                      <div className="flex items-center gap-2">
+                        {pack.name}
+                        {pack.promoted && (
+                          <Badge className="bg-gradient-to-r from-[#DE6E27] to-[#ff8040] text-white border-0">
+                            ⭐ Populaire
+                          </Badge>
+                        )}
+                      </div>
+                    </TableCell>
+                    <TableCell>
+                      <Badge className="glass border-2 border-[#2B3210] text-[#2B3210] font-bold">
+                        {pack.meals_quantity} repas
+                      </Badge>
+                    </TableCell>
+                    <TableCell className="font-semibold text-[#505631]">
+                      {pack.price_per_meal.toFixed(2)} DA
+                    </TableCell>
+                    <TableCell>
+                      <span className="font-['Space_Grotesk'] text-xl font-bold text-[#DE6E27]">
+                        {pack.total_price.toFixed(2)} DA
+                      </span>
+                    </TableCell>
+                    <TableCell>
+                      <div className="flex items-center gap-2">
+                        {pack.active ? (
+                          <Badge className="bg-success/20 text-success border-success font-bold">
+                            ✓ Actif
+                          </Badge>
+                        ) : (
+                          <Badge variant="outline" className="text-[#505631]">
+                            Inactif
+                          </Badge>
+                        )}
+                      </div>
+                    </TableCell>
+                    <TableCell>
+                      <div className="flex items-center gap-2">
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          onClick={() => handleEdit(pack)}
+                          className="hover:bg-[#DE6E27]/10 hover:border-[#DE6E27]"
+                        >
+                          <Pencil className="w-4 h-4" />
+                        </Button>
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          onClick={() => handleDelete(pack.id)}
+                          className="hover:bg-error/10 hover:border-error text-error"
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </Button>
+                      </div>
+                    </TableCell>
+                  </motion.tr>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
         </CardContent>
       </Card>
     </div>
