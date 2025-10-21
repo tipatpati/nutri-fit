@@ -1,9 +1,13 @@
 import { useNavigate } from "react-router-dom";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { HeroContent } from "./HeroContent";
 import { HeroSocialProof } from "./HeroSocialProof";
 
 export const Hero = () => {
   const navigate = useNavigate();
+  const { scrollY } = useScroll();
+  const y = useTransform(scrollY, [0, 500], [0, 150]);
+  const opacity = useTransform(scrollY, [0, 300], [1, 0]);
 
   const handleOrderClick = () => {
     navigate("/order");
@@ -14,8 +18,33 @@ export const Hero = () => {
       {/* Premium gradient background with animated orbs */}
       <div className="absolute inset-0 bg-gradient-to-br from-cream via-beige to-cream">
         {/* Large animated orbs */}
-        <div className="absolute w-[700px] h-[700px] rounded-full bg-gradient-to-br from-orange-primary/20 via-orange-primary/10 to-transparent blur-3xl top-[-150px] right-[-150px] animate-pulse" style={{ animationDuration: '8s' }} />
-        <div className="absolute w-[600px] h-[600px] rounded-full bg-gradient-to-br from-olive-muted/15 via-olive-dark/10 to-transparent blur-3xl bottom-[-100px] left-[-100px] animate-pulse" style={{ animationDuration: '10s', animationDelay: '2s' }} />
+        <motion.div
+          animate={{ 
+            y: [0, -30, 0],
+            scale: [1, 1.1, 1],
+            rotate: [0, 5, 0]
+          }}
+          transition={{ 
+            duration: 8, 
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+          className="absolute w-[700px] h-[700px] rounded-full bg-gradient-to-br from-orange-primary/20 via-orange-primary/10 to-transparent blur-3xl top-[-150px] right-[-150px]"
+        />
+        <motion.div
+          animate={{ 
+            y: [0, 30, 0],
+            scale: [1, 1.1, 1],
+            rotate: [0, -5, 0]
+          }}
+          transition={{ 
+            duration: 10, 
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 2
+          }}
+          className="absolute w-[600px] h-[600px] rounded-full bg-gradient-to-br from-olive-muted/15 via-olive-dark/10 to-transparent blur-3xl bottom-[-100px] left-[-100px]"
+        />
         <div className="absolute w-[800px] h-[800px] rounded-full bg-gradient-to-br from-olive-dark/5 to-transparent blur-3xl top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 animate-pulse" style={{ animationDuration: '12s', animationDelay: '4s' }} />
         
         {/* Medium orbs for depth */}
@@ -54,18 +83,31 @@ export const Hero = () => {
 
       {/* Content */}
       <div className="container mx-auto px-6 sm:px-8 lg:px-12 relative z-10 max-w-7xl">
-        <HeroContent onOrderClick={handleOrderClick} />
+        <motion.div style={{ y, opacity }}>
+          <HeroContent onOrderClick={handleOrderClick} />
+        </motion.div>
       </div>
 
       {/* Scroll indicator */}
-      <div 
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce cursor-pointer"
+      <motion.div 
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1.5 }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 cursor-pointer group"
         onClick={() => window.scrollTo({ top: window.innerHeight, behavior: 'smooth' })}
       >
-        <div className="w-6 h-10 rounded-full border-2 border-olive-dark/30 flex items-start justify-center p-2 hover:border-orange-primary transition-colors duration-300">
-          <div className="w-1 h-2 bg-orange-primary rounded-full animate-pulse" />
-        </div>
-      </div>
+        <motion.div
+          animate={{ y: [0, 8, 0] }}
+          transition={{ duration: 1.5, repeat: Infinity }}
+          className="glass-strong w-8 h-12 rounded-full border-2 border-[#DE6E27]/50 flex items-start justify-center p-2 group-hover:border-[#DE6E27] transition-colors duration-300 shadow-lg"
+        >
+          <motion.div 
+            animate={{ y: [0, 12, 0] }}
+            transition={{ duration: 1.5, repeat: Infinity }}
+            className="w-1.5 h-3 bg-gradient-to-b from-[#DE6E27] to-[#ff8040] rounded-full"
+          />
+        </motion.div>
+      </motion.div>
     </section>
   );
 };

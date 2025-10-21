@@ -28,10 +28,18 @@ export const HeroContent = ({ onOrderClick }: HeroContentProps) => {
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
-        className="inline-flex items-center gap-2 px-6 py-3 bg-[#DE6E27] rounded-full shadow-lg"
+        whileHover={{ scale: 1.05 }}
+        className="inline-flex items-center gap-2 px-6 py-3 glass-strong rounded-full border-2 border-[#DE6E27]/30 shadow-lg backdrop-blur-xl"
       >
-        <Icon name="stopwatch" size={16} className="text-white" />
-        <span className="text-white font-semibold text-sm">Livraison express en 30 min</span>
+        <motion.div
+          animate={{ rotate: 360 }}
+          transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+        >
+          <Icon name="stopwatch" size={16} className="text-[#DE6E27]" />
+        </motion.div>
+        <span className="bg-gradient-to-r from-[#DE6E27] to-[#ff8040] bg-clip-text text-transparent font-semibold text-sm">
+          Livraison express en 30 min
+        </span>
       </motion.div>
       
       {/* Hero heading with modern typography */}
@@ -67,12 +75,18 @@ export const HeroContent = ({ onOrderClick }: HeroContentProps) => {
             key={goal.label}
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
+            whileHover={{ scale: 1.1, y: -4 }}
             transition={{ delay: 0.7 + index * 0.1 }}
-            className="glass px-4 py-2 rounded-full flex items-center gap-2 border hover:scale-105 transition-transform duration-300"
-            style={{ borderColor: goal.color, borderWidth: '1px' }}
+            className="glass-strong px-6 py-3 rounded-full flex items-center gap-2 border-2 hover:shadow-xl transition-all duration-300 cursor-pointer"
+            style={{ borderColor: goal.color }}
           >
-            <goal.icon className="w-4 h-4" style={{ color: goal.color }} />
-            <span className="text-sm font-semibold text-olive-dark">{goal.label}</span>
+            <motion.div
+              whileHover={{ rotate: 360 }}
+              transition={{ duration: 0.5 }}
+            >
+              <goal.icon className="w-5 h-5" style={{ color: goal.color }} />
+            </motion.div>
+            <span className="text-sm font-bold text-[#2B3210]">{goal.label}</span>
           </motion.div>
         ))}
       </motion.div>
