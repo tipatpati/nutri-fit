@@ -31,9 +31,9 @@ export const Hero = () => {
           }}
         />
         {/* Cream gradient overlay for brand consistency and readability */}
-        <div className="absolute inset-0 bg-gradient-to-br from-cream/85 via-cream/75 to-beige/70" />
+        <div className="absolute inset-0 bg-gradient-to-br from-cream/40 via-cream/30 to-beige/25" />
         {/* Dark gradient for depth */}
-        <div className="absolute inset-0 bg-gradient-to-b from-olive-dark/20 via-transparent to-olive-dark/30" />
+        <div className="absolute inset-0 bg-gradient-to-b from-olive-dark/10 via-transparent to-olive-dark/15" />
       </motion.div>
 
       {/* Premium gradient background with animated orbs */}
@@ -56,7 +56,7 @@ export const Hero = () => {
             repeat: Infinity,
             ease: "easeInOut"
           }}
-          className="absolute w-[700px] h-[700px] rounded-full bg-gradient-to-br from-orange-primary/20 via-orange-primary/10 to-transparent blur-3xl top-[-150px] right-[-150px]"
+          className="absolute w-[700px] h-[700px] rounded-full bg-gradient-to-br from-orange-primary/10 via-orange-primary/5 to-transparent blur-3xl top-[-150px] right-[-150px]"
         />
         <motion.div
           animate={{ 
@@ -70,17 +70,17 @@ export const Hero = () => {
             ease: "easeInOut",
             delay: 2
           }}
-          className="absolute w-[600px] h-[600px] rounded-full bg-gradient-to-br from-olive-muted/15 via-olive-dark/10 to-transparent blur-3xl bottom-[-100px] left-[-100px]"
+          className="absolute w-[600px] h-[600px] rounded-full bg-gradient-to-br from-olive-muted/8 via-olive-dark/5 to-transparent blur-3xl bottom-[-100px] left-[-100px]"
         />
-        <div className="absolute w-[800px] h-[800px] rounded-full bg-gradient-to-br from-olive-dark/5 to-transparent blur-3xl top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 animate-pulse" style={{ animationDuration: '12s', animationDelay: '4s' }} />
+        <div className="absolute w-[800px] h-[800px] rounded-full bg-gradient-to-br from-olive-dark/3 to-transparent blur-3xl top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 animate-pulse" style={{ animationDuration: '12s', animationDelay: '4s' }} />
         
         {/* Medium orbs for depth */}
-        <div className="absolute w-[350px] h-[350px] rounded-full bg-gradient-to-br from-orange-primary/15 to-transparent blur-2xl top-1/4 left-1/4 animate-pulse" style={{ animationDuration: '9s', animationDelay: '1s' }} />
-        <div className="absolute w-[400px] h-[400px] rounded-full bg-gradient-to-br from-olive-muted/10 to-transparent blur-2xl bottom-1/4 right-1/4 animate-pulse" style={{ animationDuration: '11s', animationDelay: '3s' }} />
+        <div className="absolute w-[350px] h-[350px] rounded-full bg-gradient-to-br from-orange-primary/8 to-transparent blur-2xl top-1/4 left-1/4 animate-pulse" style={{ animationDuration: '9s', animationDelay: '1s' }} />
+        <div className="absolute w-[400px] h-[400px] rounded-full bg-gradient-to-br from-olive-muted/5 to-transparent blur-2xl bottom-1/4 right-1/4 animate-pulse" style={{ animationDuration: '11s', animationDelay: '3s' }} />
         
         {/* Small accent orbs */}
-        <div className="absolute w-[200px] h-[200px] rounded-full bg-gradient-to-br from-orange-light/20 to-transparent blur-xl top-1/3 right-1/3 animate-pulse" style={{ animationDuration: '7s', animationDelay: '0.5s' }} />
-        <div className="absolute w-[250px] h-[250px] rounded-full bg-gradient-to-br from-orange-primary/10 to-transparent blur-xl bottom-1/3 left-1/3 animate-pulse" style={{ animationDuration: '9s', animationDelay: '2.5s' }} />
+        <div className="absolute w-[200px] h-[200px] rounded-full bg-gradient-to-br from-orange-light/10 to-transparent blur-xl top-1/3 right-1/3 animate-pulse" style={{ animationDuration: '7s', animationDelay: '0.5s' }} />
+        <div className="absolute w-[250px] h-[250px] rounded-full bg-gradient-to-br from-orange-primary/5 to-transparent blur-xl bottom-1/3 left-1/3 animate-pulse" style={{ animationDuration: '9s', animationDelay: '2.5s' }} />
       </div>
 
       {/* Subtle noise texture for depth */}
