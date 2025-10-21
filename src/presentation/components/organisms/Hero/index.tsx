@@ -22,9 +22,14 @@ export const Hero = () => {
           alt="Meal prep background"
           className="absolute inset-0 w-full h-full object-cover"
         />
-        {/* Much darker overlay for text readability */}
-        <div className="absolute inset-0 bg-gradient-to-br from-[#2B3210]/98 via-[#1a1f0a]/95 to-[#2B3210]/98" />
+        {/* Strategic gradient to show image better */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#2B3210]/70 via-[#2B3210]/60 to-[#2B3210]/80" />
       </div>
+
+      {/* Subtle vignette to keep focus on center */}
+      <div className="absolute inset-0 bg-gradient-radial from-transparent via-transparent to-[#2B3210]/50 z-[1]" style={{
+        background: 'radial-gradient(ellipse at center, transparent 0%, transparent 40%, rgba(43, 50, 16, 0.4) 100%)'
+      }} />
 
       {/* Aceternity BackgroundLines Component */}
       <BackgroundLines className="flex items-center justify-center w-full flex-col px-4 py-20 relative z-10">
@@ -43,15 +48,20 @@ export const Hero = () => {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="space-y-4"
             >
-              <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold leading-[1.05] tracking-[-0.02em]">
-                <span className="font-['Outfit'] block bg-clip-text text-transparent bg-gradient-to-b from-white via-white to-white/80">
-                  Repas Santé pour
-                </span>
-                <LayoutTextFlip 
-                  words={["Prise de Masse", "Minceur", "Équilibre"]}
-                  className="font-script text-4xl sm:text-5xl md:text-6xl lg:text-7xl bg-gradient-to-r from-[#DE6E27] via-[#ff8040] to-[#DE6E27] bg-clip-text text-transparent !text-white border-[#DE6E27]/30"
-                />
-              </h1>
+              <div className="relative">
+                {/* Subtle backdrop for text readability */}
+                <div className="absolute inset-0 -z-10 bg-[#2B3210]/40 blur-3xl scale-110" />
+                
+                <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold leading-[1.05] tracking-[-0.02em]">
+                  <span className="font-['Outfit'] block bg-clip-text text-transparent bg-gradient-to-b from-white via-white to-white/90 drop-shadow-2xl" style={{ textShadow: '0 2px 20px rgba(0,0,0,0.5), 0 0 40px rgba(0,0,0,0.3)' }}>
+                    Repas Santé pour
+                  </span>
+                  <LayoutTextFlip 
+                    words={["Prise de Masse", "Minceur", "Équilibre"]}
+                    className="font-script text-4xl sm:text-5xl md:text-6xl lg:text-7xl bg-gradient-to-r from-[#DE6E27] via-[#ff8040] to-[#DE6E27] bg-clip-text text-transparent !text-white border-[#DE6E27]/30"
+                  />
+                </h1>
+              </div>
             </motion.div>
 
             {/* Description */}
@@ -59,7 +69,12 @@ export const Hero = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
-              className="text-lg sm:text-xl md:text-2xl text-white/90 leading-[1.6] max-w-3xl mx-auto font-medium"
+              className="text-lg sm:text-xl md:text-2xl text-white leading-[1.6] max-w-3xl mx-auto font-medium px-4 py-3 rounded-2xl"
+              style={{ 
+                textShadow: '0 2px 10px rgba(0,0,0,0.8), 0 0 20px rgba(0,0,0,0.5)',
+                backgroundColor: 'rgba(43, 50, 16, 0.3)',
+                backdropFilter: 'blur(8px)'
+              }}
             >
               Des repas équilibrés, préparés par des experts nutritionnistes, 
               livrés directement chez vous. Atteignez vos objectifs fitness avec plaisir.
@@ -82,10 +97,14 @@ export const Hero = () => {
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.5, delay: 0.8 + idx * 0.1 }}
-                  className="flex items-center gap-2 glass-strong px-4 py-2 rounded-full border border-white/20"
+                  className="flex items-center gap-2 glass-strong px-4 py-2.5 rounded-full border-2 border-white/30 shadow-xl"
+                  style={{ 
+                    backgroundColor: 'rgba(43, 50, 16, 0.6)',
+                    backdropFilter: 'blur(12px)'
+                  }}
                 >
-                  <indicator.icon className="w-5 h-5 text-[#DE6E27]" />
-                  <span className="text-white/90 font-medium">{indicator.text}</span>
+                  <indicator.icon className="w-5 h-5 text-[#DE6E27] drop-shadow-lg" />
+                  <span className="text-white font-semibold" style={{ textShadow: '0 1px 8px rgba(0,0,0,0.6)' }}>{indicator.text}</span>
                 </motion.div>
               ))}
             </motion.div>
@@ -104,7 +123,8 @@ export const Hero = () => {
                 <Button
                   onClick={handleOrderClick}
                   size="lg"
-                  className="bg-gradient-to-r from-[#DE6E27] to-[#ff8040] text-white font-bold text-lg px-12 py-7 rounded-2xl hover:shadow-2xl hover:shadow-[#DE6E27]/50 transition-all duration-300 border-2 border-white/20"
+                  className="bg-gradient-to-r from-[#DE6E27] to-[#ff8040] text-white font-bold text-lg px-12 py-7 rounded-2xl hover:shadow-2xl hover:shadow-[#DE6E27]/50 transition-all duration-300 border-2 border-white/20 shadow-2xl"
+                  style={{ boxShadow: '0 10px 40px rgba(222, 110, 39, 0.4), 0 0 20px rgba(0,0,0,0.5)' }}
                 >
                   Commander Maintenant
                   <ArrowRight className="ml-2 w-5 h-5" />
@@ -143,12 +163,16 @@ export const Hero = () => {
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.5, delay: 1.4 + idx * 0.1 }}
-                  className="text-center"
+                  className="text-center glass-strong rounded-2xl p-4 border border-white/20"
+                  style={{
+                    backgroundColor: 'rgba(43, 50, 16, 0.5)',
+                    backdropFilter: 'blur(12px)'
+                  }}
                 >
-                  <div className="font-['Space_Grotesk'] text-3xl sm:text-4xl md:text-5xl font-bold bg-gradient-to-r from-white to-white/80 bg-clip-text text-transparent mb-2">
+                  <div className="font-['Outfit'] text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-2" style={{ textShadow: '0 2px 15px rgba(0,0,0,0.8)' }}>
                     {stat.number}
                   </div>
-                  <div className="text-white/70 text-sm font-medium">
+                  <div className="text-white/90 text-sm font-medium" style={{ textShadow: '0 1px 8px rgba(0,0,0,0.6)' }}>
                     {stat.label}
                   </div>
                 </motion.div>
