@@ -29,7 +29,7 @@ const Packs = () => {
   }
 
   return (
-    <section ref={containerRef} className="py-20 md:py-28 lg:py-32 relative overflow-hidden">
+    <section ref={containerRef} className="py-16 md:py-24 lg:py-32 relative overflow-hidden">
       {/* Parallax Background Image */}
       <motion.div 
         style={{ y: backgroundY }}
@@ -49,13 +49,13 @@ const Packs = () => {
         />
       </motion.div>
 
-      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-16 md:mb-20"
+          className="text-center mb-12 md:mb-16"
         >
           <motion.div
             initial={{ scale: 0.8 }}
@@ -76,7 +76,7 @@ const Packs = () => {
         </motion.div>
 
         {/* Packs Grid */}
-        <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-10 mb-12">
+        <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 mb-16 md:mb-20">
           {plans.map((plan, index) => {
             const features = Array.isArray(plan.features) ? plan.features : [];
             const colorClasses = [
