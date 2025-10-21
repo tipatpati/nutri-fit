@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { HeroContent } from "./HeroContent";
 import { HeroSocialProof } from "./HeroSocialProof";
+import { BackgroundLines } from "@/components/ui/background-lines";
 
 export const Hero = () => {
   const navigate = useNavigate();
@@ -17,6 +18,9 @@ export const Hero = () => {
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden py-20">
       {/* Premium gradient background with animated orbs */}
       <div className="absolute inset-0 bg-gradient-to-br from-cream via-beige to-cream">
+        {/* Animated Background Lines */}
+        <BackgroundLines svgOptions={{ duration: 12 }} />
+        
         {/* Large animated orbs */}
         <motion.div
           animate={{ 
