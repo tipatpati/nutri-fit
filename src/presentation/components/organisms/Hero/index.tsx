@@ -39,21 +39,21 @@ export const Hero = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className="text-center space-y-8"
+            className="text-center space-y-12 md:space-y-16"
           >
             {/* Main Heading */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-              className="space-y-2 mb-8"
+              className="space-y-8"
             >
-              <div className="relative flex flex-col items-center">
+              <div className="relative flex flex-col items-center gap-6">
                 <h1 className="text-center">
-                  <span className="font-['Outfit'] block text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-semibold tracking-tight leading-tight text-white drop-shadow-2xl">
+                  <span className="font-['Outfit'] block text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-semibold tracking-tight leading-tight text-white drop-shadow-2xl mb-6">
                     Repas Santé pour
                   </span>
-                  <div className="mt-6 flex justify-center">
+                  <div className="flex justify-center">
                     <LayoutTextFlip 
                       words={["Prise de Masse", "Minceur", "Équilibré"]}
                     />
@@ -67,7 +67,7 @@ export const Hero = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
-              className="text-xl md:text-2xl text-white/95 leading-relaxed max-w-4xl mx-auto font-normal"
+              className="text-lg md:text-xl text-white/90 leading-relaxed max-w-3xl mx-auto font-normal px-4"
             >
               Des repas équilibrés, préparés par des experts nutritionnistes,{' '}
               <br className="hidden md:block" />
@@ -79,7 +79,7 @@ export const Hero = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.6 }}
-              className="flex flex-wrap items-center justify-center gap-6 text-sm sm:text-base"
+              className="flex flex-wrap items-center justify-center gap-4 md:gap-6 text-sm sm:text-base pt-4"
             >
               {[
                 { icon: CheckCircle, text: "100% nutrition contrôlée" },
@@ -107,7 +107,7 @@ export const Hero = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 1 }}
-              className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4"
+              className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-8"
             >
               <motion.div
                 whileHover={{ scale: 1.05, y: -2 }}
@@ -142,7 +142,7 @@ export const Hero = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 1.2 }}
-              className="grid grid-cols-3 gap-8 max-w-2xl mx-auto pt-12"
+              className="grid grid-cols-3 gap-4 md:gap-8 max-w-3xl mx-auto pt-16 px-4"
             >
               {[
                 { number: "1000+", label: "Clients Satisfaits" },
@@ -155,12 +155,12 @@ export const Hero = () => {
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.5, delay: 1.4 + idx * 0.1 }}
                   whileHover={{ scale: 1.05 }}
-                  className="text-center bg-white/90 rounded-2xl p-6 shadow-lg"
+                  className="text-center bg-white/90 rounded-2xl p-5 md:p-6 shadow-lg"
                 >
-                  <div className="text-5xl font-bold text-[#2B3210] mb-2">
+                  <div className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#2B3210] mb-1 md:mb-2">
                     {stat.number}
                   </div>
-                  <div className="text-sm font-medium text-[#505631] uppercase tracking-wide">
+                  <div className="text-xs md:text-sm font-medium text-[#505631] uppercase tracking-wide">
                     {stat.label}
                   </div>
                 </motion.div>
