@@ -48,15 +48,16 @@ export const Hero = () => {
               transition={{ duration: 1, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
               className="space-y-2 mb-8"
             >
-              <div className="relative">
-                <h1>
+              <div className="relative flex flex-col items-center">
+                <h1 className="text-center">
                   <span className="font-['Outfit'] block text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-semibold tracking-tight leading-tight text-white drop-shadow-2xl">
                     Repas Santé pour
                   </span>
-                  <LayoutTextFlip 
-                    words={["Prise de Masse", "Minceur", "Équilibre"]}
-                    className="font-script text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl mt-4 block bg-gradient-to-r from-[#DE6E27] to-[#ff8040] bg-clip-text text-transparent drop-shadow-xl"
-                  />
+                  <div className="mt-6 flex justify-center">
+                    <LayoutTextFlip 
+                      words={["Prise de Masse", "Minceur", "Équilibré"]}
+                    />
+                  </div>
                 </h1>
               </div>
             </motion.div>
