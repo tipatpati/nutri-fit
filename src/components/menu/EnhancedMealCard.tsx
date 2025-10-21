@@ -6,7 +6,7 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Di
 import MealNutritionalInfo from "./MealNutritionalInfo";
 import { motion } from "framer-motion";
 import { useCart } from "@/hooks/useCart";
-import { ShoppingCart } from "lucide-react";
+import { ShoppingCart, Heart, Flame, Activity, Wheat } from "lucide-react";
 
 interface EnhancedMealCardProps {
   meal: {
@@ -32,6 +32,8 @@ const EnhancedMealCard = ({ meal, selectedCategory = 'equilibre', viewMode = 'gr
   const { data: mealIngredients = [] } = useMealIngredients(meal.id);
   const [showDetails, setShowDetails] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(false);
+  const [isAdding, setIsAdding] = useState(false);
   const { addItem } = useCart();
 
   const calculateQuickNutrition = () => {
@@ -89,12 +91,19 @@ const EnhancedMealCard = ({ meal, selectedCategory = 'equilibre', viewMode = 'gr
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-100px" }}
-      transition={{ duration: 0.6, ease: [0.4, 0.0, 0.2, 1] }}
-      whileHover={{ scale: 1.02, y: -8 }}
+      transition={{ duration: 0.6 }}
+      whileHover={{ y: -12, scale: 1.02 }}
       onHoverStart={() => setIsHovered(true)}
       onHoverEnd={() => setIsHovered(false)}
-      className="group glass rounded-2xl overflow-hidden hover:shadow-2xl transition-shadow duration-500"
+      className="group glass-strong rounded-3xl overflow-hidden shadow-xl border-2 border-transparent hover:border-[#DE6E27]/30 hover:shadow-2xl transition-all duration-500 relative"
     >
+      {/* Shimmer effect */}
+      <motion.div
+        initial={{ x: '-100%' }}
+        whileHover={{ x: '200%' }}
+        transition={{ duration: 1 }}
+        className="absolute inset-0 w-1/3 bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12 pointer-events-none z-10"
+      />
       {meal.image_url && (
         <div className="relative h-56 overflow-hidden">
           <motion.img
@@ -104,25 +113,57 @@ const EnhancedMealCard = ({ meal, selectedCategory = 'equilibre', viewMode = 'gr
             animate={{ scale: isHovered ? 1.15 : 1 }}
             transition={{ duration: 0.7, ease: "easeOut" }}
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-olive-dark/90 via-olive-dark/30 to-transparent" />
+          
+          {/* Gradient overlay */}
+          <div className="absolute inset-0 bg-gradient-to-t from-[#2B3210]/90 via-[#2B3210]/30 to-transparent" />
+          
+          {/* Favorite Heart Button */}
+          <motion.button
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            whileHover={{ scale: 1.2 }}
+            whileTap={{ scale: 0.9 }}
+            onClick={(e) => {
+              e.stopPropagation();
+              setIsFavorite(!isFavorite);
+            }}
+            className="absolute top-4 right-4 w-12 h-12 glass-strong rounded-full flex items-center justify-center border-2 border-white/30 backdrop-blur-xl hover:bg-white/20 transition-all duration-300 z-10"
+          >
+            <Heart 
+              className={`w-6 h-6 transition-all duration-300 ${
+                isFavorite 
+                  ? 'fill-[#DE6E27] text-[#DE6E27]' 
+                  : 'text-white'
+              }`}
+            />
+          </motion.button>
           
           {/* Meal name overlay */}
-          <div className="absolute bottom-0 left-0 right-0 p-4">
-            <h3 className="font-heading text-2xl font-bold text-cream leading-tight">
+          <div className="absolute bottom-0 left-0 right-0 p-6">
+            <h3 className="font-['Space_Grotesk'] text-3xl font-bold text-[#FBF8EF] leading-tight drop-shadow-xl">
               {meal.name}
             </h3>
           </div>
 
-          {/* Badges */}
+          {/* Enhanced Badges */}
           {meal.badge && (
-            <Badge className="absolute top-4 left-4 glass-strong text-olive-dark border-none">
+            <motion.div
+              initial={{ x: -20, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              className="absolute top-4 left-4 glass-strong px-4 py-2 rounded-full text-[#2B3210] font-bold border-2 border-white/30"
+            >
               {meal.badge}
-            </Badge>
+            </motion.div>
           )}
           {meal.premium && (
-            <Badge className="absolute top-4 right-4 bg-gradient-to-r from-orange-primary to-orange-light text-white border-none">
-              Premium
-            </Badge>
+            <motion.div
+              initial={{ x: -20, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{ delay: 0.1 }}
+              className="absolute top-16 left-4 bg-gradient-to-r from-[#DE6E27] to-[#ff8040] text-white px-4 py-2 rounded-full text-sm font-bold shadow-xl"
+            >
+              ⭐ Premium
+            </motion.div>
           )}
         </div>
       )}
@@ -152,48 +193,83 @@ const EnhancedMealCard = ({ meal, selectedCategory = 'equilibre', viewMode = 'gr
           </div>
         )}
 
-        <div className="glass rounded-xl p-6">
-          <div className="flex justify-between items-center text-sm">
-            <div className="flex items-center gap-1.5">
-              <span className="w-2 h-2 rounded-full bg-olive-dark"></span>
-              <span className="text-olive-muted font-medium">{nutrition.calories} cal</span>
-            </div>
-            <div className="flex items-center gap-1.5">
-              <span className="w-2 h-2 rounded-full bg-orange-primary"></span>
-              <span className="text-olive-muted font-medium">{nutrition.protein}g protein</span>
-            </div>
-            <div className="flex items-center gap-1.5">
-              <span className="w-2 h-2 rounded-full bg-info"></span>
-              <span className="text-olive-muted font-medium">{nutrition.carbs}g carbs</span>
-            </div>
+        {/* Enhanced Nutrition Info */}
+        <div className="glass rounded-2xl p-6 border-2 border-[#E5E2D9]">
+          <div className="grid grid-cols-3 gap-4 text-center">
+            {[
+              { icon: Flame, label: 'Calories', value: nutrition.calories, color: '#DE6E27' },
+              { icon: Activity, label: 'Protéines', value: `${nutrition.protein}g`, color: '#2B3210' },
+              { icon: Wheat, label: 'Glucides', value: `${nutrition.carbs}g`, color: '#505631' }
+            ].map((item, idx) => (
+              <motion.div
+                key={item.label}
+                whileHover={{ scale: 1.1, y: -4 }}
+                className="flex flex-col items-center gap-2"
+              >
+                <motion.div
+                  animate={{ rotate: [0, 5, -5, 0] }}
+                  transition={{ duration: 2, repeat: Infinity, delay: idx * 0.3 }}
+                >
+                  <item.icon className="w-5 h-5" style={{ color: item.color }} />
+                </motion.div>
+                <span className="text-xs text-[#505631] font-medium">{item.label}</span>
+                <span className="font-['Space_Grotesk'] text-lg font-bold text-[#2B3210]">
+                  {item.value}
+                </span>
+              </motion.div>
+            ))}
           </div>
         </div>
 
+        {/* Enhanced Action Buttons */}
         <div className="flex gap-3 pt-2">
           <Dialog open={showDetails} onOpenChange={setShowDetails}>
             <DialogTrigger asChild>
-              <Button variant="outlined" className="flex-1 border-2 border-orange-primary text-orange-primary hover:bg-orange-primary hover:text-white" size="default">
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="flex-1 glass border-2 border-[#DE6E27] text-[#DE6E27] py-3 px-6 rounded-xl font-semibold hover:bg-[#DE6E27] hover:text-white transition-all duration-300"
+              >
                 Détails
-              </Button>
+              </motion.button>
             </DialogTrigger>
-            <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
+            <DialogContent className="glass-strong max-w-2xl max-h-[80vh] overflow-y-auto border-2 border-[#DE6E27]/30">
               <DialogHeader>
-                <DialogTitle className="text-2xl font-heading">{meal.name}</DialogTitle>
-                <DialogDescription className="text-base">{meal.description}</DialogDescription>
+                <DialogTitle className="font-['Space_Grotesk'] text-3xl">{meal.name}</DialogTitle>
+                <DialogDescription className="text-lg text-[#505631]">{meal.description}</DialogDescription>
               </DialogHeader>
               <MealNutritionalInfo mealId={meal.id} mealName={meal.name} />
             </DialogContent>
           </Dialog>
 
-          <Button 
-            onClick={handleAddToCart} 
-            variant="filled" 
-            className="flex-1 bg-gradient-to-r from-orange-primary to-orange-light hover:shadow-xl shadow-orange-primary/30 hover:-translate-y-1" 
-            size="default"
+          <motion.button
+            whileHover={{ scale: 1.05, y: -2 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => {
+              setIsAdding(true);
+              handleAddToCart();
+              setTimeout(() => setIsAdding(false), 1000);
+            }}
+            disabled={isAdding}
+            className="flex-1 bg-gradient-to-r from-[#DE6E27] to-[#ff8040] text-white py-3 px-6 rounded-xl font-semibold hover:shadow-2xl hover:shadow-[#DE6E27]/40 transition-all duration-300 flex items-center justify-center gap-2 disabled:opacity-70"
           >
-            <ShoppingCart className="w-4 h-4 mr-2" />
-            Ajouter
-          </Button>
+            {isAdding ? (
+              <>
+                <motion.div
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                >
+                  <ShoppingCart className="w-5 h-5" />
+                </motion.div>
+                Ajout...
+              </>
+            ) : (
+              <>
+                <ShoppingCart className="w-5 h-5" />
+                Ajouter
+              </>
+            )}
+          </motion.button>
         </div>
       </div>
     </motion.div>
