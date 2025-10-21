@@ -39,14 +39,14 @@ export const Hero = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className="text-center space-y-10 sm:space-y-12 md:space-y-14 lg:space-y-16"
+            className="text-center space-y-6 sm:space-y-7 md:space-y-8"
           >
             {/* Main Heading */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-              className="space-y-6 sm:space-y-8"
+              className="space-y-4 sm:space-y-5"
             >
               <div className="relative flex flex-col items-center gap-4 sm:gap-6">
                 <h1 className="text-center px-4">
@@ -79,7 +79,7 @@ export const Hero = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.6 }}
-              className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 md:gap-5 lg:gap-6 text-xs sm:text-sm md:text-base pt-2 sm:pt-4 px-4"
+              className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 md:gap-5 text-xs sm:text-sm md:text-base px-4"
             >
               {[
                 { icon: CheckCircle, text: "100% nutrition contrôlée" },
@@ -107,7 +107,7 @@ export const Hero = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 1 }}
-              className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4 pt-6 sm:pt-8 px-4"
+              className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4 px-4"
             >
               <motion.div
                 whileHover={{ scale: 1.05, y: -2 }}
@@ -144,7 +144,7 @@ export const Hero = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 1.2 }}
-              className="grid grid-cols-3 gap-3 sm:gap-4 md:gap-6 lg:gap-8 max-w-4xl mx-auto pt-12 sm:pt-14 md:pt-16 px-4 sm:px-6"
+              className="grid grid-cols-3 gap-3 sm:gap-4 md:gap-6 max-w-4xl mx-auto pt-8 sm:pt-10 px-4 sm:px-6"
             >
               {[
                 { number: "1000+", label: "Clients Satisfaits" },
