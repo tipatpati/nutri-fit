@@ -112,13 +112,7 @@ const Checkout = () => {
     submitOrder(
       {
         items: orderItems,
-        address: {
-          street: addressData.street,
-          city: addressData.city,
-          postalCode: addressData.postalCode,
-          country: addressData.country,
-          instructions: addressData.instructions,
-        },
+        address: addressData,
         userId: user.id,
       },
       {
