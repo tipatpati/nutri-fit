@@ -3,10 +3,20 @@ import { Button } from "@/components/ui/button";
 import { Icon } from "@/components/ui/icon";
 import { Link } from "react-router-dom";
 import { useSubscriptionPlans } from "@/hooks/useSubscriptionPlans";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
+import packsBackground from "@/assets/packs-background.jpg";
 
 const Packs = () => {
   const { data: plans = [], isLoading } = useSubscriptionPlans();
+  const containerRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"]
+  });
+  
+  const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
+  const opacity = useTransform(scrollYProgress, [0, 0.5, 1], [0.3, 0.6, 0.3]);
 
   if (isLoading) {
     return (
@@ -19,16 +29,25 @@ const Packs = () => {
   }
 
   return (
-    <section className="py-20 md:py-28 lg:py-32 bg-gradient-to-br from-[#FBF8EF] via-[#E5E2D9] to-[#FBF8EF] relative overflow-hidden">
-      {/* Animated Background */}
-      <motion.div
-        animate={{ 
-          rotate: [0, 360],
-          scale: [1, 1.2, 1]
-        }}
-        transition={{ duration: 25, repeat: Infinity }}
-        className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-[#DE6E27]/5 rounded-full blur-3xl"
-      />
+    <section ref={containerRef} className="py-20 md:py-28 lg:py-32 relative overflow-hidden">
+      {/* Parallax Background Image */}
+      <motion.div 
+        style={{ y: backgroundY }}
+        className="absolute inset-0 w-full h-full"
+      >
+        <div 
+          className="absolute inset-0 w-full h-full bg-cover bg-center"
+          style={{ 
+            backgroundImage: `url(${packsBackground})`,
+            backgroundAttachment: 'fixed'
+          }}
+        />
+        {/* Cream overlay for readability */}
+        <motion.div 
+          style={{ opacity }}
+          className="absolute inset-0 bg-gradient-to-br from-[#FBF8EF]/95 via-[#E5E2D9]/90 to-[#FBF8EF]/95"
+        />
+      </motion.div>
 
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 relative z-10">
         {/* Header */}
