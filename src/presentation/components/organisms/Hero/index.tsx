@@ -16,14 +16,13 @@ export const Hero = () => {
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background Image Layer */}
       <div className="absolute inset-0 z-0">
-        <div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{
-            backgroundImage: `url('https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=1920&h=1080&fit=crop&q=80')`,
-          }}
+        <img 
+          src="/hero-background.jpg"
+          alt="Meal prep background"
+          className="absolute inset-0 w-full h-full object-cover"
         />
-        {/* Dark overlay for text readability */}
-        <div className="absolute inset-0 bg-gradient-to-br from-[#2B3210]/95 via-[#2B3210]/90 to-[#505631]/95" />
+        {/* Much darker overlay for text readability */}
+        <div className="absolute inset-0 bg-gradient-to-br from-[#2B3210]/98 via-[#1a1f0a]/95 to-[#2B3210]/98" />
       </div>
 
       {/* Aceternity BackgroundLines Component */}
