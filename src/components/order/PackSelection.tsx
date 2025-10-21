@@ -1,8 +1,9 @@
-import { Check, Package } from "lucide-react";
+import { Check, Package, Star, CheckCircle } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Icon } from "@/components/ui/icon";
 import { useSubscriptionPlans, MealPack } from "@/hooks/useSubscriptionPlans";
+import { motion } from "framer-motion";
 
 interface PackSelectionProps {
   selectedPackage: MealPack | null;
@@ -46,118 +47,150 @@ const PackSelection = ({ selectedPackage, onPackageSelect }: PackSelectionProps)
           const isSelected = selectedPackage?.id === plan.id;
 
           return (
-            <Card 
+            <motion.div
               key={plan.id}
-              className={`cursor-pointer relative overflow-hidden transition-all duration-md-medium2 hover:md-elevation-3 hover:scale-[1.02] border-2 ${
-                isSelected
-                  ? 'md-elevation-2 scale-[1.02] bg-md-primary-container border-md-primary' 
-                  : plan.promoted
-                  ? 'border-md-outline md-elevation-1 bg-md-surface-container border-md-primary/30'
-                  : 'md-elevation-1 bg-md-surface-container border-md-outline-variant hover:bg-md-surface-container-high'
-              }`}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1, duration: 0.6 }}
+              whileHover={{ y: -8, scale: 1.02 }}
               onClick={() => onPackageSelect(plan)}
+              className="cursor-pointer relative"
             >
-              {plan.promoted && !isSelected && (
-                <div className="absolute top-0 right-0 left-0 h-1 bg-gradient-to-r from-md-primary to-md-tertiary" />
-              )}
-              
-              <CardHeader className="space-y-4 pb-6">
+              <Card className={`glass-strong overflow-hidden transition-all duration-500 shadow-xl border-2 h-full ${
+                isSelected
+                  ? 'border-[#DE6E27] scale-[1.02] shadow-2xl shadow-[#DE6E27]/20' 
+                  : plan.promoted
+                  ? 'border-[#DE6E27]/50 shadow-xl'
+                  : 'border-transparent hover:border-[#DE6E27]/30'
+              }`}>
+                {/* Shimmer Effect */}
+                <motion.div
+                  initial={{ x: '-100%' }}
+                  whileHover={{ x: '200%' }}
+                  transition={{ duration: 1 }}
+                  className="absolute inset-0 w-1/3 bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12 pointer-events-none z-10"
+                />
+                
+                {/* Popular Badge */}
                 {plan.promoted && !isSelected && (
-                  <Badge className="w-fit bg-gradient-to-r from-md-primary to-md-tertiary text-md-on-primary border-0">
-                    Plus populaire
-                  </Badge>
-                )}
-                
-                {isSelected && (
-                  <div className="flex items-center justify-center">
-                    <div className="bg-md-primary text-md-on-primary px-md-3 py-md-2 rounded-full md-label-large font-semibold">
-                      ✓ Sélectionné
-                    </div>
-                  </div>
-                )}
-                
-                <div>
-                  <CardTitle className="md-title-large text-md-on-surface mb-2">
-                    {plan.name}
-                  </CardTitle>
-                  <div className="flex items-baseline gap-2">
-                    <span className="text-3xl font-bold text-md-on-surface">
-                      {plan.total_price.toFixed(2)} DA
+                  <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    whileHover={{ scale: 1.05 }}
+                    className="absolute -top-3 left-1/2 -translate-x-1/2 px-6 py-2 rounded-full bg-gradient-to-r from-[#DE6E27] to-[#ff8040] shadow-2xl shadow-[#DE6E27]/50 z-20 border-2 border-white"
+                  >
+                    <span className="text-white font-bold text-sm flex items-center gap-2">
+                      <Star className="w-4 h-4 fill-current" />
+                      Le plus populaire
                     </span>
-                  </div>
-                  <p className="md-body-small text-md-on-surface-variant mt-1">
-                    {plan.price_per_meal.toFixed(2)} DA par repas
-                  </p>
-                </div>
-
-                <div className={`inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r ${color} rounded-full text-white`}>
-                  <Icon name="shaker-bottle" size={16} className="brightness-0 invert" />
-                  <span className="md-label-medium">{plan.meals_quantity} repas</span>
-                </div>
-              </CardHeader>
-
-              <CardContent className="space-y-4">
-                {plan.description && (
-                  <p className="md-body-small text-md-on-surface-variant">
-                    {plan.description}
-                  </p>
+                  </motion.div>
                 )}
                 
-                <div className="space-y-2">
-                  {features.slice(0, 3).map((feature: any, idx: number) => (
-                    <div key={idx} className="flex items-start gap-3">
-                      <div className="mt-0.5 flex-shrink-0">
-                        <Check className="w-4 h-4 text-md-primary" />
-                      </div>
-                      <span className="md-body-small text-md-on-surface-variant">
-                        {typeof feature === 'string' ? feature : feature.name || ''}
+                {/* Selected Badge */}
+                {isSelected && (
+                  <motion.div
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ type: "spring", stiffness: 200 }}
+                    className="absolute -top-3 left-1/2 -translate-x-1/2 px-6 py-2 rounded-full bg-gradient-to-r from-[#2B3210] to-[#505631] shadow-2xl z-20 border-2 border-white"
+                  >
+                    <span className="text-white font-bold text-sm flex items-center gap-2">
+                      <CheckCircle className="w-4 h-4" />
+                      Sélectionné
+                    </span>
+                  </motion.div>
+                )}
+                
+                <CardHeader className="space-y-4 pb-6 pt-8">
+                  <div>
+                    <CardTitle className="font-['Space_Grotesk'] text-2xl font-bold text-[#2B3210] mb-3">
+                      {plan.name}
+                    </CardTitle>
+                    <motion.div
+                      whileHover={{ scale: 1.05 }}
+                      className="flex items-baseline gap-2"
+                    >
+                      <span className="text-5xl font-bold bg-gradient-to-r from-[#2B3210] to-[#DE6E27] bg-clip-text text-transparent">
+                        {plan.total_price.toFixed(0)}
                       </span>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
+                      <span className="text-xl text-[#505631]">.00 DA</span>
+                    </motion.div>
+                    <p className="text-sm text-[#505631] mt-2">
+                      {plan.price_per_meal.toFixed(2)} DA par repas
+                    </p>
+                  </div>
+
+                  <motion.div
+                    whileHover={{ scale: 1.05 }}
+                    className={`inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r ${color} rounded-full text-white shadow-lg`}
+                  >
+                    <Icon name="shaker-bottle" size={18} className="brightness-0 invert" />
+                    <span className="font-semibold">{plan.meals_quantity} repas</span>
+                  </motion.div>
+                </CardHeader>
+
+                <CardContent className="space-y-4 pb-8">
+                  {plan.description && (
+                    <p className="text-[#505631] leading-relaxed">
+                      {plan.description}
+                    </p>
+                  )}
+                  
+                  <div className="space-y-3">
+                    {features.slice(0, 3).map((feature: any, idx: number) => (
+                      <motion.div
+                        key={idx}
+                        initial={{ opacity: 0, x: -10 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: 0.1 + idx * 0.05 }}
+                        className="flex items-start gap-3"
+                      >
+                        <Check className="w-5 h-5 text-[#DE6E27] mt-0.5 flex-shrink-0" />
+                        <span className="text-[#505631] leading-relaxed">
+                          {typeof feature === 'string' ? feature : feature.name || ''}
+                        </span>
+                      </motion.div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
           );
         })}
       </div>
 
       {/* Additional Info */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-5xl mx-auto mt-8">
-        <div className="text-center p-4 bg-md-surface-container rounded-xl border border-md-outline-variant">
-          <div className="w-10 h-10 mx-auto mb-3 bg-gradient-to-br from-md-primary-container to-md-secondary-container rounded-lg flex items-center justify-center">
-            <Icon name="calendar" size={20} className="brightness-0 opacity-70" />
-          </div>
-          <h4 className="md-title-small text-md-on-surface mb-1">
-            Sans engagement
-          </h4>
-          <p className="md-body-small text-md-on-surface-variant">
-            Pause ou annulation à tout moment
-          </p>
-        </div>
-
-        <div className="text-center p-4 bg-md-surface-container rounded-xl border border-md-outline-variant">
-          <div className="w-10 h-10 mx-auto mb-3 bg-gradient-to-br from-md-primary-container to-md-secondary-container rounded-lg flex items-center justify-center">
-            <Icon name="delivery-truck" size={20} className="brightness-0 opacity-70" />
-          </div>
-          <h4 className="md-title-small text-md-on-surface mb-1">
-            Livraison gratuite
-          </h4>
-          <p className="md-body-small text-md-on-surface-variant">
-            Sur tous nos packs, directement chez vous
-          </p>
-        </div>
-
-        <div className="text-center p-4 bg-md-surface-container rounded-xl border border-md-outline-variant">
-          <div className="w-10 h-10 mx-auto mb-3 bg-gradient-to-br from-md-primary-container to-md-secondary-container rounded-lg flex items-center justify-center">
-            <Icon name="scale-balance" size={20} className="brightness-0 opacity-70" />
-          </div>
-          <h4 className="md-title-small text-md-on-surface mb-1">
-            Personnalisable
-          </h4>
-          <p className="md-body-small text-md-on-surface-variant">
-            Adaptez votre menu selon vos préférences
-          </p>
-        </div>
+        {[
+          { icon: 'calendar' as const, title: 'Sans engagement', desc: 'Pause ou annulation à tout moment' },
+          { icon: 'delivery-truck' as const, title: 'Livraison gratuite', desc: 'Sur tous nos packs' },
+          { icon: 'scale-balance' as const, title: 'Personnalisable', desc: 'Adaptez votre menu' }
+        ].map((item, idx) => (
+          <motion.div
+            key={item.title}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: idx * 0.1 }}
+            whileHover={{ scale: 1.05, y: -5 }}
+            className="text-center p-6 glass-strong rounded-2xl border-2 border-transparent hover:border-[#DE6E27]/30 transition-all duration-300"
+          >
+            <motion.div
+              whileHover={{ rotate: 360, scale: 1.2 }}
+              transition={{ duration: 0.6 }}
+              className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-[#DE6E27]/20 to-[#ff8040]/20 rounded-2xl flex items-center justify-center"
+            >
+              <Icon name={item.icon} size={28} className="text-[#DE6E27]" />
+            </motion.div>
+            <h4 className="font-['Space_Grotesk'] text-lg font-bold text-[#2B3210] mb-2">
+              {item.title}
+            </h4>
+            <p className="text-[#505631]">
+              {item.desc}
+            </p>
+          </motion.div>
+        ))}
       </div>
     </div>
   );
