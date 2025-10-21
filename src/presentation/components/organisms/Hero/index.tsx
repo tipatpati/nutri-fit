@@ -1,119 +1,182 @@
-import { useNavigate } from "react-router-dom";
-import { motion, useScroll, useTransform } from "framer-motion";
-import { HeroContent } from "./HeroContent";
-import { HeroSocialProof } from "./HeroSocialProof";
+import React from "react";
 import { BackgroundLines } from "@/components/ui/background-lines";
+import { motion } from "framer-motion";
+import { Button } from "@/components/ui/button";
+import { CheckCircle, ArrowRight, TrendingUp, Award, Clock } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 export const Hero = () => {
   const navigate = useNavigate();
-  const { scrollY } = useScroll();
-  const y = useTransform(scrollY, [0, 500], [0, 150]);
-  const opacity = useTransform(scrollY, [0, 600], [1, 0]);
-  const backgroundY = useTransform(scrollY, [0, 500], [0, 100]);
 
   const handleOrderClick = () => {
     navigate("/order");
   };
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden py-20">
-      {/* Parallax Background Image */}
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      {/* Background Image Layer */}
+      <div className="absolute inset-0 z-0">
+        <div 
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{
+            backgroundImage: `url('https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=1920&h=1080&fit=crop&q=80')`,
+          }}
+        />
+        {/* Dark overlay for text readability */}
+        <div className="absolute inset-0 bg-gradient-to-br from-[#2B3210]/95 via-[#2B3210]/90 to-[#505631]/95" />
+      </div>
+
+      {/* Aceternity BackgroundLines Component */}
+      <BackgroundLines className="flex items-center justify-center w-full flex-col px-4 py-20 relative z-10">
+        <div className="container mx-auto px-6 sm:px-8 lg:px-12 max-w-7xl">
+          {/* Hero Content */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="text-center space-y-8"
+          >
+            {/* Main Heading */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="space-y-4"
+            >
+              <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold leading-[1.05] tracking-[-0.02em]">
+                <span className="font-['Space_Grotesk'] block bg-clip-text text-transparent bg-gradient-to-b from-white via-white to-white/80">
+                  Repas Santé
+                </span>
+                <span className="font-script text-4xl sm:text-5xl md:text-6xl lg:text-7xl bg-gradient-to-r from-[#DE6E27] via-[#ff8040] to-[#DE6E27] bg-clip-text text-transparent block mt-4">
+                  Premium
+                </span>
+              </h1>
+            </motion.div>
+
+            {/* Description */}
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="text-lg sm:text-xl md:text-2xl text-white/90 leading-[1.6] max-w-3xl mx-auto font-medium"
+            >
+              Des repas équilibrés, préparés par des experts nutritionnistes, 
+              livrés directement chez vous. Atteignez vos objectifs fitness avec plaisir.
+            </motion.p>
+
+            {/* Trust Indicators */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+              className="flex flex-wrap items-center justify-center gap-6 text-sm sm:text-base"
+            >
+              {[
+                { icon: CheckCircle, text: "100% nutrition contrôlée" },
+                { icon: Award, text: "Chefs certifiés" },
+                { icon: Clock, text: "Livraison express" }
+              ].map((indicator, idx) => (
+                <motion.div
+                  key={indicator.text}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.5, delay: 0.8 + idx * 0.1 }}
+                  className="flex items-center gap-2 glass-strong px-4 py-2 rounded-full border border-white/20"
+                >
+                  <indicator.icon className="w-5 h-5 text-[#DE6E27]" />
+                  <span className="text-white/90 font-medium">{indicator.text}</span>
+                </motion.div>
+              ))}
+            </motion.div>
+
+            {/* CTA Buttons */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 1 }}
+              className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4"
+            >
+              <motion.div
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Button
+                  onClick={handleOrderClick}
+                  size="lg"
+                  className="bg-gradient-to-r from-[#DE6E27] to-[#ff8040] text-white font-bold text-lg px-12 py-7 rounded-2xl hover:shadow-2xl hover:shadow-[#DE6E27]/50 transition-all duration-300 border-2 border-white/20"
+                >
+                  Commander Maintenant
+                  <ArrowRight className="ml-2 w-5 h-5" />
+                </Button>
+              </motion.div>
+
+              <motion.div
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Button
+                  onClick={() => document.getElementById('menu')?.scrollIntoView({ behavior: 'smooth' })}
+                  size="lg"
+                  variant="outline"
+                  className="glass-strong border-2 border-white/30 text-white font-bold text-lg px-12 py-7 rounded-2xl hover:bg-white/10 hover:border-white/50 transition-all duration-300 backdrop-blur-xl"
+                >
+                  Voir le Menu
+                </Button>
+              </motion.div>
+            </motion.div>
+
+            {/* Stats Section */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 1.2 }}
+              className="grid grid-cols-3 gap-8 max-w-2xl mx-auto pt-12"
+            >
+              {[
+                { number: "1000+", label: "Clients Satisfaits" },
+                { number: "50+", label: "Recettes" },
+                { number: "4.9", label: "Note Moyenne" }
+              ].map((stat, idx) => (
+                <motion.div
+                  key={stat.label}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.5, delay: 1.4 + idx * 0.1 }}
+                  className="text-center"
+                >
+                  <div className="font-['Space_Grotesk'] text-3xl sm:text-4xl md:text-5xl font-bold bg-gradient-to-r from-white to-white/80 bg-clip-text text-transparent mb-2">
+                    {stat.number}
+                  </div>
+                  <div className="text-white/70 text-sm font-medium">
+                    {stat.label}
+                  </div>
+                </motion.div>
+              ))}
+            </motion.div>
+          </motion.div>
+        </div>
+      </BackgroundLines>
+
+      {/* Scroll Indicator */}
       <motion.div
-        style={{ y: backgroundY }}
-        className="absolute inset-0 z-0"
-      >
-        <img
-          src="/hero-background.jpg"
-          alt="Fitness meal prep background"
-          className="absolute inset-0 w-full h-full object-cover"
-          style={{ objectPosition: 'center' }}
-        />
-        {/* Cream gradient overlay for brand consistency and readability */}
-        <div className="absolute inset-0 bg-gradient-to-br from-cream/40 via-cream/30 to-beige/25" />
-        {/* Dark gradient for depth */}
-        <div className="absolute inset-0 bg-gradient-to-b from-olive-dark/10 via-transparent to-olive-dark/15" />
-      </motion.div>
-
-      {/* Premium gradient background with animated orbs */}
-      <div className="absolute inset-0 z-10 pointer-events-none">
-        {/* Animated Background Lines - Top Layer */}
-        <BackgroundLines 
-          className="absolute inset-0 z-10" 
-          svgOptions={{ duration: 10 }}
-        />
-        
-        {/* Large animated orbs */}
-        <motion.div
-          animate={{ 
-            y: [0, -30, 0],
-            scale: [1, 1.1, 1],
-            rotate: [0, 5, 0]
-          }}
-          transition={{ 
-            duration: 8, 
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-          className="absolute w-[700px] h-[700px] rounded-full bg-gradient-to-br from-orange-primary/10 via-orange-primary/5 to-transparent blur-3xl top-[-150px] right-[-150px]"
-        />
-        <motion.div
-          animate={{ 
-            y: [0, 30, 0],
-            scale: [1, 1.1, 1],
-            rotate: [0, -5, 0]
-          }}
-          transition={{ 
-            duration: 10, 
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: 2
-          }}
-          className="absolute w-[600px] h-[600px] rounded-full bg-gradient-to-br from-olive-muted/8 via-olive-dark/5 to-transparent blur-3xl bottom-[-100px] left-[-100px]"
-        />
-        <div className="absolute w-[800px] h-[800px] rounded-full bg-gradient-to-br from-olive-dark/3 to-transparent blur-3xl top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 animate-pulse" style={{ animationDuration: '12s', animationDelay: '4s' }} />
-        
-        {/* Medium orbs for depth */}
-        <div className="absolute w-[350px] h-[350px] rounded-full bg-gradient-to-br from-orange-primary/8 to-transparent blur-2xl top-1/4 left-1/4 animate-pulse" style={{ animationDuration: '9s', animationDelay: '1s' }} />
-        <div className="absolute w-[400px] h-[400px] rounded-full bg-gradient-to-br from-olive-muted/5 to-transparent blur-2xl bottom-1/4 right-1/4 animate-pulse" style={{ animationDuration: '11s', animationDelay: '3s' }} />
-        
-        {/* Small accent orbs */}
-        <div className="absolute w-[200px] h-[200px] rounded-full bg-gradient-to-br from-orange-light/10 to-transparent blur-xl top-1/3 right-1/3 animate-pulse" style={{ animationDuration: '7s', animationDelay: '0.5s' }} />
-        <div className="absolute w-[250px] h-[250px] rounded-full bg-gradient-to-br from-orange-primary/5 to-transparent blur-xl bottom-1/3 left-1/3 animate-pulse" style={{ animationDuration: '9s', animationDelay: '2.5s' }} />
-      </div>
-
-      {/* Subtle noise texture for depth */}
-      <div 
-        className="absolute inset-0 z-20 opacity-[0.03] mix-blend-overlay pointer-events-none"
-        style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' /%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23noise)' /%3E%3C/svg%3E")`,
-        }}
-      />
-
-      {/* Content */}
-      <div className="container mx-auto px-6 sm:px-8 lg:px-12 relative z-30 max-w-7xl">
-        <motion.div style={{ y, opacity }}>
-          <HeroContent onOrderClick={handleOrderClick} />
-        </motion.div>
-      </div>
-
-      {/* Scroll indicator */}
-      <motion.div 
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1.5 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 cursor-pointer group z-30"
-        onClick={() => window.scrollTo({ top: window.innerHeight, behavior: 'smooth' })}
+        transition={{ duration: 0.8, delay: 1.6 }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20"
       >
         <motion.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{ duration: 1.5, repeat: Infinity }}
-          className="glass-strong w-8 h-12 rounded-full border-2 border-[#DE6E27]/50 flex items-start justify-center p-2 group-hover:border-[#DE6E27] transition-colors duration-300 shadow-lg"
+          animate={{ y: [0, 10, 0] }}
+          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+          className="cursor-pointer"
+          onClick={() => window.scrollTo({ top: window.innerHeight, behavior: 'smooth' })}
         >
-          <motion.div 
-            animate={{ y: [0, 12, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity }}
-            className="w-1.5 h-3 bg-gradient-to-b from-[#DE6E27] to-[#ff8040] rounded-full"
-          />
+          <div className="w-6 h-10 rounded-full border-2 border-white/50 flex items-start justify-center p-2 hover:border-white transition-colors duration-300">
+            <motion.div
+              animate={{ y: [0, 12, 0] }}
+              transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+              className="w-1 h-2 bg-white rounded-full"
+            />
+          </div>
         </motion.div>
       </motion.div>
     </section>
