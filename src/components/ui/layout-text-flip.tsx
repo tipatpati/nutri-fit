@@ -48,10 +48,9 @@ export const LayoutTextFlip = ({
       <motion.span
         layout
         className={cn(
-          "relative inline-block w-fit overflow-hidden rounded-xl glass-strong px-6 py-3 font-body text-xl md:text-2xl lg:text-3xl font-bold tracking-tight text-olive-dark shadow-lg backdrop-blur-xl border-2 transition-colors duration-500",
+          "relative inline-block w-fit",
           className
         )}
-        style={{ borderColor }}
         aria-live="polite"
         aria-atomic="true"
       >
