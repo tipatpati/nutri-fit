@@ -3,7 +3,6 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { HeroContent } from "./HeroContent";
 import { HeroSocialProof } from "./HeroSocialProof";
 import { BackgroundLines } from "@/components/ui/background-lines";
-import heroBackground from "@/assets/hero-background.jpg";
 
 export const Hero = () => {
   const navigate = useNavigate();
@@ -24,8 +23,8 @@ export const Hero = () => {
         className="absolute inset-0 z-0"
       >
         <img
-          src={heroBackground}
-          alt="Fitness background"
+          src="/hero-background.jpg"
+          alt="Fitness meal prep background"
           className="absolute inset-0 w-full h-full object-cover"
           style={{ objectPosition: 'center' }}
         />
