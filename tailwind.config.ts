@@ -19,12 +19,11 @@ export default {
 		},
 		extend: {
 			fontFamily: {
-				'sans': ['Inter', 'Helvetica', 'Arial', 'sans-serif'],
-				'serif': ['Playfair Display', 'Georgia', 'serif'],
-				'script': ['Dancing Script', 'cursive'],
-				'roboto': ['Roboto', 'sans-serif'],
-				'heading': ['Inter', 'Helvetica', 'Arial', 'sans-serif'],
-				'body': ['Inter', 'Helvetica', 'Arial', 'sans-serif'],
+				'sans': ['Montserrat', 'Helvetica', 'Arial', 'sans-serif'],
+				'serif': ['Cormorant Garamond', 'Georgia', 'serif'],
+				'script': ['Allura', 'cursive'],
+				'heading': ['Cormorant Garamond', 'Georgia', 'serif'],
+				'body': ['Montserrat', 'Helvetica', 'Arial', 'sans-serif'],
 			},
 			spacing: {
 				/* Material Design 3 8dp Grid System */
