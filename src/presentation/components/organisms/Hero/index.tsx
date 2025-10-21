@@ -8,7 +8,7 @@ export const Hero = () => {
   const navigate = useNavigate();
   const { scrollY } = useScroll();
   const y = useTransform(scrollY, [0, 500], [0, 150]);
-  const opacity = useTransform(scrollY, [0, 300], [1, 0]);
+  const opacity = useTransform(scrollY, [0, 600], [1, 0]);
 
   const handleOrderClick = () => {
     navigate("/order");
