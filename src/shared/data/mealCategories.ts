@@ -27,7 +27,7 @@ export const mealCategories: MealCategory[] = [
   },
   {
     id: 'cutting',
-    name: 'Perte de poids',
+    name: 'Minceur',
     description: 'Repas faibles en calories mais riches en nutriments essentiels pour votre bien-être',
     step: '02',
     meals: [

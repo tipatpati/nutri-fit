@@ -22,7 +22,7 @@ const CATEGORY_INFO = {
     benefits: ['Équilibre nutritionnel optimal', 'Maintien du poids', 'Énergie stable'],
   },
   perte_poids: {
-    label: 'Perte de poids',
+    label: 'Minceur',
     icon: TrendingDown,
     color: '#4CAF50',
     gradient: 'from-success to-success',

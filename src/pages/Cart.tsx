@@ -135,7 +135,7 @@ const Cart = () => {
                             <span>•</span>
                             <span>
                               {item.nutritionalGoal === 'equilibre' && 'Équilibré'}
-                              {item.nutritionalGoal === 'perte_poids' && 'Perte de poids'}
+                              {item.nutritionalGoal === 'perte_poids' && 'Minceur'}
                               {item.nutritionalGoal === 'prise_masse' && 'Prise de masse'}
                             </span>
                           </div>

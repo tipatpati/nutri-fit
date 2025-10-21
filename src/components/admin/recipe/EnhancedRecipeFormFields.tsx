@@ -82,7 +82,7 @@ const EnhancedRecipeFormFields = ({ formData, setFormData }: EnhancedRecipeFormF
         <Alert className="glass-strong border-2 border-[#DE6E27]/30 shadow-lg">
           <Info className="h-5 w-5 text-[#DE6E27]" />
           <AlertDescription className="text-[#505631] leading-relaxed">
-            <span className="font-bold text-[#2B3210]">Mode automatique activé:</span> Les quantités pour les 3 objectifs nutritionnels (Équilibré, Perte de poids, Prise de masse) sont calculées automatiquement selon les ingrédients sélectionnés.
+            <span className="font-bold text-[#2B3210]">Mode automatique activé:</span> Les quantités pour les 3 objectifs nutritionnels (Équilibré, Minceur, Prise de masse) sont calculées automatiquement selon les ingrédients sélectionnés.
           </AlertDescription>
         </Alert>
       </motion.div>

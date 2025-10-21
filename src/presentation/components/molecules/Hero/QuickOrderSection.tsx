@@ -10,7 +10,7 @@ interface QuickOrderSectionProps {
 export const QuickOrderSection = ({ onOrderClick }: QuickOrderSectionProps) => {
   const categories = [
     { icon: "muscle", label: "Prise de masse", gradient: "from-orange-500/20 to-orange-600/20" },
-    { icon: "running", label: "Perte de poids", gradient: "from-emerald-500/20 to-emerald-600/20" },
+    { icon: "running", label: "Minceur", gradient: "from-emerald-500/20 to-emerald-600/20" },
     { icon: "scale-balance", label: "Équilibré", gradient: "from-yellow-500/20 to-yellow-600/20" },
   ] as const;
 

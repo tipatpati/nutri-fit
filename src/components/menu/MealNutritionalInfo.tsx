@@ -54,7 +54,7 @@ const MealNutritionalInfo = ({ mealId, mealName }: MealNutritionalInfoProps) => 
   const getCategoryLabel = (category: string) => {
     switch (category) {
       case 'equilibre': return 'Équilibré';
-      case 'perte_poids': return 'Perte de poids';
+      case 'perte_poids': return 'Minceur';
       case 'prise_masse': return 'Prise de masse';
       default: return category;
     }
@@ -67,7 +67,7 @@ const MealNutritionalInfo = ({ mealId, mealName }: MealNutritionalInfoProps) => 
       <Tabs defaultValue="equilibre" className="w-full">
         <TabsList className="grid w-full grid-cols-3">
           <TabsTrigger value="equilibre">Équilibré</TabsTrigger>
-          <TabsTrigger value="perte_poids">Perte de poids</TabsTrigger>
+          <TabsTrigger value="perte_poids">Minceur</TabsTrigger>
           <TabsTrigger value="prise_masse">Prise de masse</TabsTrigger>
         </TabsList>
 

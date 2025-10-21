@@ -67,7 +67,7 @@ const RecipeAvailabilityChecker = () => {
               size="sm"
               onClick={() => setSelectedCategory('perte_poids')}
             >
-              Perte de poids
+              Minceur
             </Button>
             <Button
               variant={selectedCategory === 'prise_masse' ? 'default' : 'outline'}

@@ -114,7 +114,7 @@ const Forfaits = () => {
               
               <div className="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-4 lg:space-x-12">
                 {[
-                  { goal: "weight_loss", label: "Perte de poids", mealSize: "300-450 cal", bgClass: "from-blue-400 to-blue-500", icon: "running" as const },
+                  { goal: "weight_loss", label: "Minceur", mealSize: "300-450 cal", bgClass: "from-blue-400 to-blue-500", icon: "running" as const },
                   { goal: "balanced", label: "Équilibre", mealSize: "450-600 cal", bgClass: "from-emerald-400 to-green-500", popular: true, icon: "scale-balance" as const },
                   { goal: "muscle_gain", label: "Prise de masse", mealSize: "650-800 cal", bgClass: "from-purple-400 to-pink-500", icon: "muscle" as const }
                 ].map((item) => (

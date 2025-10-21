@@ -34,7 +34,7 @@ export const NUTRITIONAL_CATEGORIES: NutritionalCategory[] = [
   },
   {
     id: "perte_poids",
-    name: "Perte de poids",
+    name: "Minceur",
     description: "Faible en calories, riche en protéines",
     color: "#113B39",
     nutritional_profile: {

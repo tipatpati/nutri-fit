@@ -48,7 +48,7 @@ export const Hero = () => {
                   Repas Santé pour
                 </span>
                 <LayoutTextFlip 
-                  words={["Prise de Masse", "Perte de Poids", "Équilibre"]}
+                  words={["Prise de Masse", "Minceur", "Équilibre"]}
                   className="font-script text-4xl sm:text-5xl md:text-6xl lg:text-7xl bg-gradient-to-r from-[#DE6E27] via-[#ff8040] to-[#DE6E27] bg-clip-text text-transparent !text-white border-[#DE6E27]/30"
                 />
               </h1>

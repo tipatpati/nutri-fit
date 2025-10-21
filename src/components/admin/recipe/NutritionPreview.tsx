@@ -48,7 +48,7 @@ const NutritionPreview = ({ selectedIngredients, allIngredients }: NutritionPrev
       { nutrientType: 'vegetables', quantity: veggiesQty.quantity_equilibre, nutrition: veggiesIng.nutritional_info }
     ]);
 
-    // Calculate nutrition for Perte de Poids
+    // Calculate nutrition for Minceur
     const pertePoids = calculateRecipeNutrition([
       { nutrientType: 'protein', quantity: proteinQty.quantity_perte_poids, nutrition: proteinIng.nutritional_info },
       { nutrientType: 'carbs', quantity: carbsQty.quantity_perte_poids, nutrition: carbsIng.nutritional_info },
@@ -229,7 +229,7 @@ const NutritionPreview = ({ selectedIngredients, allIngredients }: NutritionPrev
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <GoalCard
-          title="Perte de Poids"
+          title="Minceur"
           color="text-success"
           borderColor="border-success"
           nutrition={calculations.pertePoids}

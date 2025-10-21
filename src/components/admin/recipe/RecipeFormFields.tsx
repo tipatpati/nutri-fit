@@ -31,7 +31,7 @@ const RecipeFormFields = ({ formData, setFormData }: RecipeFormFieldsProps) => {
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="Équilibré">Équilibré</SelectItem>
-              <SelectItem value="Perte de poids">Perte de poids</SelectItem>
+              <SelectItem value="Minceur">Minceur</SelectItem>
               <SelectItem value="Prise de masse">Prise de masse</SelectItem>
             </SelectContent>
           </Select>

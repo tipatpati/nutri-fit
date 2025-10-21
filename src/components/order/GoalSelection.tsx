@@ -20,7 +20,7 @@ const GoalSelection = ({ selectedGoal, onGoalSelect, onProceed }: GoalSelectionP
     },
     {
       id: 'cutting',
-      name: 'Perte de poids',
+      name: 'Minceur',
       description: 'Repas faibles en calories mais riches en nutriments essentiels pour votre bien-être',
       gradient: 'from-success to-success',
       iconColor: '#4CAF50',

@@ -9,7 +9,7 @@ export const HeroSocialProof = () => {
     color: "from-orange-500/20 to-red-500/20 border-orange-500/30"
   }, {
     icon: "running",
-    title: "Perte de poids",
+    title: "Minceur",
     desc: "Faibles calories, riches nutriments",
     cal: "350-420 cal",
     color: "from-emerald-500/20 to-green-500/20 border-emerald-500/30"

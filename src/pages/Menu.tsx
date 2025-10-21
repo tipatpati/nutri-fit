@@ -98,7 +98,7 @@ const Menu = () => {
                     >
                       Toutes
                     </Button>
-                    {['Équilibré', 'Perte de poids', 'Prise de masse'].map((cat) => (
+                    {['Équilibré', 'Minceur', 'Prise de masse'].map((cat) => (
                       <Button
                         key={cat}
                         variant={selectedCategory === cat ? 'filled' : 'outlined'}

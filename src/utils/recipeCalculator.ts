@@ -191,7 +191,7 @@ export class RecipeCalculator {
     // Add category-specific cooking tips
     switch (category) {
       case 'perte_poids':
-        instructions.unshift('💡 Version Perte de poids: Utilisez des méthodes de cuisson sans matière grasse (vapeur, grill, papillote)');
+        instructions.unshift('💡 Version Minceur: Utilisez des méthodes de cuisson sans matière grasse (vapeur, grill, papillote)');
         instructions.push('🔥 Astuce: Assaisonnez généreusement avec des herbes et épices pour plus de saveur sans calories');
         break;
         

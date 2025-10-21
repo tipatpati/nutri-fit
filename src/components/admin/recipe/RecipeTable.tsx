@@ -18,7 +18,7 @@ const RecipeTable = ({ meals, onEdit, onDelete }: RecipeTableProps) => {
   const getCategoryColor = (category: string) => {
     switch (category) {
       case "Prise de masse": return "text-md-error";
-      case "Perte de poids": return "text-md-primary";
+      case "Minceur": return "text-md-primary";
       case "Équilibré": return "text-md-tertiary";
       default: return "text-emerald-800";
     }

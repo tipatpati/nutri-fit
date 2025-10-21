@@ -84,7 +84,7 @@ export const mockOrders: Order[] = [
         id: 2,
         name: "Crevettes à l'ail épicé",
         image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=400&h=300&fit=crop&crop=center",
-        category: "Perte de poids",
+        category: "Minceur",
         premium: true,
         quantity: 1,
         price: 15.99
@@ -93,7 +93,7 @@ export const mockOrders: Order[] = [
         id: 7,
         name: "Salade de poulet et riz",
         image: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop&crop=center",
-        category: "Perte de poids",
+        category: "Minceur",
         premium: false,
         quantity: 2,
         price: 12.99

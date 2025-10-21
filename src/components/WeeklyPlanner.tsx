@@ -9,13 +9,13 @@ import { useMeals } from "@/presentation/hooks/useMeals";
 import { Link } from "react-router-dom";
 
 const WeeklyPlanner = () => {
-  const [selectedGoal, setSelectedGoal] = useState<"Prise de masse" | "Perte de poids" | "Équilibré">("Équilibré");
+  const [selectedGoal, setSelectedGoal] = useState<"Prise de masse" | "Minceur" | "Équilibré">("Équilibré");
   const { data: meals = [], isLoading } = useMeals({ active: true });
 
   const goals = [
     { name: "Prise de masse", multiplier: 1.3, description: "Portions augmentées" },
     { name: "Équilibré", multiplier: 1.0, description: "Portions standards" },
-    { name: "Perte de poids", multiplier: 0.8, description: "Portions réduites" }
+    { name: "Minceur", multiplier: 0.8, description: "Portions réduites" }
   ];
 
   const currentGoal = goals.find(g => g.name === selectedGoal) || goals[1];
@@ -29,7 +29,7 @@ const WeeklyPlanner = () => {
     switch (goal) {
       case 'Prise de masse': 
         return { bg: 'bg-gradient-to-br from-orange-500 to-red-500', text: 'text-white', light: 'from-orange-50 to-red-50' };
-      case 'Perte de poids': 
+      case 'Minceur': 
         return { bg: 'bg-gradient-to-br from-emerald-500 to-green-500', text: 'text-white', light: 'from-emerald-50 to-green-50' };
       case 'Équilibré': 
         return { bg: 'bg-gradient-to-br from-yellow-500 to-amber-500', text: 'text-white', light: 'from-yellow-50 to-amber-50' };

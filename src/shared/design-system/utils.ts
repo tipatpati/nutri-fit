@@ -62,14 +62,14 @@ export const buildTransition = (
  */
 export const categoryColors = {
   'Prise de masse': '#FF4D00',
-  'Perte de poids': '#113B39',
+  'Minceur': '#113B39',
   'Équilibré': '#D4B961',
 } as const;
 
 export const getCategoryColor = (category: string): { bg: string; text: string; hex: string } => {
   const colorMap = {
     'Prise de masse': { bg: 'bg-gradient-to-r from-orange-500 to-red-500', text: 'text-white', hex: '#FF4D00' },
-    'Perte de poids': { bg: 'bg-gradient-to-r from-emerald-600 to-emerald-700', text: 'text-white', hex: '#113B39' },
+    'Minceur': { bg: 'bg-gradient-to-r from-emerald-600 to-emerald-700', text: 'text-white', hex: '#113B39' },
     'Équilibré': { bg: 'bg-gradient-to-r from-yellow-500 to-amber-500', text: 'text-white', hex: '#D4B961' },
   };
   return colorMap[category as keyof typeof colorMap] || colorMap['Équilibré'];

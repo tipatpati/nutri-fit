@@ -45,7 +45,7 @@ const faqData = [
     id: 7,
     category: "Nutrition",
     question: "Comment sont calculées les valeurs nutritionnelles?",
-    answer: "Toutes nos valeurs nutritionnelles sont calculées avec précision par nos nutritionnistes et ajustées selon votre objectif (prise de masse, perte de poids, équilibré)."
+    answer: "Toutes nos valeurs nutritionnelles sont calculées avec précision par nos nutritionnistes et ajustées selon votre objectif (prise de masse, minceur, équilibré)."
   },
   {
     id: 8,
