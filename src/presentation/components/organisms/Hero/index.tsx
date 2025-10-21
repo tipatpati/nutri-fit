@@ -18,8 +18,10 @@ export const Hero = () => {
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden py-20">
       {/* Premium gradient background with animated orbs */}
       <div className="absolute inset-0 bg-gradient-to-br from-cream via-beige to-cream">
-        {/* Animated Background Lines */}
-        <BackgroundLines svgOptions={{ duration: 12 }} />
+        {/* Animated Background Lines - Top Layer */}
+        <div className="absolute inset-0 z-20">
+          <BackgroundLines svgOptions={{ duration: 12 }} />
+        </div>
         
         {/* Large animated orbs */}
         <motion.div

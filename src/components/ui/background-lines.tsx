@@ -15,7 +15,7 @@ export const BackgroundLines = ({
   };
 }) => {
   return (
-    <div className={cn("relative w-full z-10", className)}>
+    <div className={cn("absolute inset-0 w-full h-full", className)}>
       <SVG svgOptions={svgOptions} />
       {children}
     </div>
@@ -23,11 +23,15 @@ export const BackgroundLines = ({
 };
 
 const pathVariants = {
-  initial: { strokeDashoffset: 800, strokeDasharray: "50 800" },
+  initial: {
+    strokeDashoffset: 1000,
+    strokeDasharray: "1000 0",
+    opacity: 1,
+  },
   animate: {
-    strokeDashoffset: 0,
-    strokeDasharray: "20 800",
-    opacity: [0, 1, 1, 0],
+    strokeDashoffset: [1000, 0],
+    strokeDasharray: ["1000 0", "1000 0"],
+    opacity: 1,
   },
 };
 
@@ -50,25 +54,9 @@ const SVG = ({
   const colors = [
     "#DE6E27", // orange-primary
     "#ff8040", // orange-light
-    "#DE6E27",
-    "#ff8040",
-    "#DE6E27",
-    "#ff8040",
-    "#DE6E27",
-    "#ff8040",
-    "#DE6E27",
-    "#ff8040",
-    "#DE6E27",
-    "#ff8040",
-    "#DE6E27",
-    "#ff8040",
-    "#DE6E27",
-    "#ff8040",
-    "#DE6E27",
-    "#ff8040",
-    "#DE6E27",
-    "#ff8040",
-    "#DE6E27",
+    "#DE6E27", // orange-primary (repeat for more orange)
+    "#ff8040", // orange-light (repeat)
+    "#DE6E27", // orange-primary (repeat)
   ];
 
   return (
@@ -79,25 +67,26 @@ const SVG = ({
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 1 }}
-      className="absolute inset-0 w-full h-full pointer-events-none z-10"
+      className="absolute inset-0 w-full h-full pointer-events-none"
       preserveAspectRatio="xMidYMid slice"
     >
       <defs>
         <filter id="glow">
-          <feGaussianBlur stdDeviation="1.5" result="coloredBlur"/>
+          <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
           <feMerge>
             <feMergeNode in="coloredBlur"/>
             <feMergeNode in="SourceGraphic"/>
           </feMerge>
         </filter>
       </defs>
-      {paths.map((path, idx) => (
+      {paths.slice(0, 5).map((path, idx) => (
         <motion.path
           d={path}
-          stroke={colors[idx]}
-          strokeWidth="2.5"
+          stroke={colors[idx % colors.length]}
+          strokeWidth="3.5"
           strokeLinecap="round"
-          strokeOpacity="0.6"
+          strokeOpacity="0.8"
+          fill="none"
           filter="url(#glow)"
           variants={pathVariants}
           initial="initial"
@@ -107,8 +96,7 @@ const SVG = ({
             ease: "linear",
             repeat: Infinity,
             repeatType: "loop",
-            delay: Math.floor(Math.random() * 10),
-            repeatDelay: Math.floor(Math.random() * 10 + 2),
+            delay: idx * 0.5,
           }}
           key={`path-${idx}`}
         />
