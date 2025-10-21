@@ -32,25 +32,25 @@ export const Hero = () => {
       }} />
 
       {/* Aceternity BackgroundLines Component */}
-      <BackgroundLines className="flex items-center justify-center w-full flex-col px-4 py-20 relative z-10">
-        <div className="container mx-auto px-6 sm:px-8 lg:px-12 max-w-7xl">
+      <BackgroundLines className="flex items-center justify-center w-full flex-col px-4 sm:px-6 py-16 sm:py-20 md:py-24 lg:py-28 relative z-10">
+        <div className="container mx-auto px-4 sm:px-6 md:px-8 lg:px-12 max-w-7xl">
           {/* Hero Content */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className="text-center space-y-12 md:space-y-16"
+            className="text-center space-y-10 sm:space-y-12 md:space-y-14 lg:space-y-16"
           >
             {/* Main Heading */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-              className="space-y-8"
+              className="space-y-6 sm:space-y-8"
             >
-              <div className="relative flex flex-col items-center gap-6">
-                <h1 className="text-center">
-                  <span className="font-['Outfit'] block text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-semibold tracking-tight leading-tight text-white drop-shadow-2xl mb-6">
+              <div className="relative flex flex-col items-center gap-4 sm:gap-6">
+                <h1 className="text-center px-4">
+                  <span className="font-['Outfit'] block text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-semibold tracking-tight leading-[1.1] sm:leading-tight text-white drop-shadow-2xl mb-4 sm:mb-6">
                     Repas Santé pour
                   </span>
                   <div className="flex justify-center">
@@ -67,7 +67,7 @@ export const Hero = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
-              className="text-lg md:text-xl text-white/90 leading-relaxed max-w-3xl mx-auto font-normal px-4"
+              className="text-base sm:text-lg md:text-xl lg:text-2xl text-white/90 leading-relaxed max-w-3xl mx-auto font-normal px-6 sm:px-8"
             >
               Des repas équilibrés, préparés par des experts nutritionnistes,{' '}
               <br className="hidden md:block" />
@@ -79,7 +79,7 @@ export const Hero = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.6 }}
-              className="flex flex-wrap items-center justify-center gap-4 md:gap-6 text-sm sm:text-base pt-4"
+              className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 md:gap-5 lg:gap-6 text-xs sm:text-sm md:text-base pt-2 sm:pt-4 px-4"
             >
               {[
                 { icon: CheckCircle, text: "100% nutrition contrôlée" },
@@ -92,10 +92,10 @@ export const Hero = () => {
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.5, delay: 0.8 + idx * 0.1 }}
                   whileHover={{ scale: 1.05 }}
-                  className="flex items-center gap-3 bg-white/95 px-5 py-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
+                  className="flex items-center gap-2 sm:gap-3 bg-white/95 px-4 sm:px-5 py-2.5 sm:py-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
                 >
-                  <indicator.icon className="w-5 h-5 text-[#DE6E27] flex-shrink-0" />
-                  <span className="text-[#2B3210] font-medium">
+                  <indicator.icon className="w-4 h-4 sm:w-5 sm:h-5 text-[#DE6E27] flex-shrink-0" />
+                  <span className="text-[#2B3210] font-medium whitespace-nowrap">
                     {indicator.text}
                   </span>
                 </motion.div>
@@ -107,30 +107,32 @@ export const Hero = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 1 }}
-              className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-8"
+              className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4 pt-6 sm:pt-8 px-4"
             >
               <motion.div
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.95 }}
+                className="w-full sm:w-auto"
               >
                 <Button
                   onClick={handleOrderClick}
                   size="lg"
-                  className="bg-gradient-to-r from-[#DE6E27] to-[#ff8040] text-white font-bold text-lg px-12 py-6 rounded-xl shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300"
+                  className="w-full sm:w-auto bg-gradient-to-r from-[#DE6E27] to-[#ff8040] text-white font-bold text-base sm:text-lg px-8 sm:px-10 md:px-12 py-5 sm:py-6 rounded-xl shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 min-h-[56px]"
                 >
                   Commander Maintenant
-                  <ArrowRight className="ml-2 w-5 h-5" />
+                  <ArrowRight className="ml-2 w-4 h-4 sm:w-5 sm:h-5" />
                 </Button>
               </motion.div>
 
               <motion.div
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.95 }}
+                className="w-full sm:w-auto"
               >
                 <Button
                   onClick={() => document.getElementById('menu')?.scrollIntoView({ behavior: 'smooth' })}
                   size="lg"
-                  className="bg-white/95 text-[#2B3210] font-bold text-lg px-12 py-6 rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300"
+                  className="w-full sm:w-auto bg-white/95 text-[#2B3210] font-bold text-base sm:text-lg px-8 sm:px-10 md:px-12 py-5 sm:py-6 rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 min-h-[56px]"
                 >
                   Voir le Menu
                 </Button>
@@ -142,7 +144,7 @@ export const Hero = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 1.2 }}
-              className="grid grid-cols-3 gap-4 md:gap-8 max-w-3xl mx-auto pt-16 px-4"
+              className="grid grid-cols-3 gap-3 sm:gap-4 md:gap-6 lg:gap-8 max-w-4xl mx-auto pt-12 sm:pt-14 md:pt-16 px-4 sm:px-6"
             >
               {[
                 { number: "1000+", label: "Clients Satisfaits" },
@@ -155,12 +157,12 @@ export const Hero = () => {
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.5, delay: 1.4 + idx * 0.1 }}
                   whileHover={{ scale: 1.05 }}
-                  className="text-center bg-white/90 rounded-2xl p-5 md:p-6 shadow-lg"
+                  className="text-center bg-white/90 rounded-xl sm:rounded-2xl p-4 sm:p-5 md:p-6 lg:p-7 shadow-lg"
                 >
-                  <div className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#2B3210] mb-1 md:mb-2">
+                  <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-[#2B3210] mb-1 sm:mb-2">
                     {stat.number}
                   </div>
-                  <div className="text-xs md:text-sm font-medium text-[#505631] uppercase tracking-wide">
+                  <div className="text-[10px] sm:text-xs md:text-sm font-medium text-[#505631] uppercase tracking-wide leading-tight">
                     {stat.label}
                   </div>
                 </motion.div>
