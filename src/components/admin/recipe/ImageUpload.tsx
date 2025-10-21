@@ -3,6 +3,8 @@ import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { Upload, X, Loader2, Image as ImageIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { motion } from "framer-motion";
+import { cn } from "@/lib/utils";
 
 interface ImageUploadProps {
   currentImageUrl?: string;
@@ -158,19 +160,21 @@ const ImageUpload = ({ currentImageUrl, onImageChange }: ImageUploadProps) => {
   }
 
   return (
-    <div
+    <motion.div
       onDragEnter={handleDrag}
       onDragLeave={handleDrag}
       onDragOver={handleDrag}
       onDrop={handleDrop}
-      className={`
-        glass rounded-2xl p-12 border-2 border-dashed transition-all duration-300
-        ${dragActive 
-          ? 'border-orange-primary bg-orange-primary/5 scale-[1.02]' 
-          : 'border-orange-primary/30 hover:border-orange-primary hover:bg-orange-primary/5'
-        }
-        ${uploading ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}
-      `}
+      animate={{
+        scale: dragActive ? 1.02 : 1,
+        borderColor: dragActive ? '#DE6E27' : 'rgba(222, 110, 39, 0.3)'
+      }}
+      transition={{ duration: 0.2 }}
+      className={cn(
+        "glass-strong rounded-3xl p-12 border-2 border-dashed transition-all duration-300 cursor-pointer",
+        dragActive && "bg-[#DE6E27]/5 shadow-xl",
+        uploading && "opacity-50 cursor-not-allowed"
+      )}
       onClick={() => !uploading && fileInputRef.current?.click()}
     >
       <div className="flex flex-col items-center justify-center gap-4">
@@ -220,7 +224,7 @@ const ImageUpload = ({ currentImageUrl, onImageChange }: ImageUploadProps) => {
         className="hidden"
         disabled={uploading}
       />
-    </div>
+    </motion.div>
   );
 };
 
