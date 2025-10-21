@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { CheckCircle, ArrowRight, TrendingUp, Award, Clock } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { LayoutTextFlip } from "@/components/ui/layout-text-flip";
 
 export const Hero = () => {
   const navigate = useNavigate();
@@ -43,12 +44,13 @@ export const Hero = () => {
               className="space-y-4"
             >
               <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold leading-[1.05] tracking-[-0.02em]">
-                <span className="font-['Space_Grotesk'] block bg-clip-text text-transparent bg-gradient-to-b from-white via-white to-white/80">
-                  Repas Santé
+                <span className="font-['Outfit'] block bg-clip-text text-transparent bg-gradient-to-b from-white via-white to-white/80">
+                  Repas Santé pour
                 </span>
-                <span className="font-script text-4xl sm:text-5xl md:text-6xl lg:text-7xl bg-gradient-to-r from-[#DE6E27] via-[#ff8040] to-[#DE6E27] bg-clip-text text-transparent block mt-4">
-                  Premium
-                </span>
+                <LayoutTextFlip 
+                  words={["Prise de Masse", "Perte de Poids", "Équilibre"]}
+                  className="font-script text-4xl sm:text-5xl md:text-6xl lg:text-7xl bg-gradient-to-r from-[#DE6E27] via-[#ff8040] to-[#DE6E27] bg-clip-text text-transparent !text-white border-[#DE6E27]/30"
+                />
               </h1>
             </motion.div>
 

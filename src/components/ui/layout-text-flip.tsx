@@ -4,13 +4,15 @@ import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 export const LayoutTextFlip = ({
-  text = "Build Amazing",
+  text = "",
   words = ["Landing Pages", "Component Blocks", "Page Sections"],
   duration = 3000,
+  className,
 }: {
-  text: string;
+  text?: string;
   words: string[];
   duration?: number;
+  className?: string;
 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -34,16 +36,21 @@ export const LayoutTextFlip = ({
 
   return (
     <>
-      <motion.span
-        layoutId="subtext"
-        className="text-xl md:text-2xl lg:text-3xl font-body font-semibold tracking-tight text-olive-muted"
-      >
-        {text}
-      </motion.span>
+      {text && (
+        <motion.span
+          layoutId="subtext"
+          className="text-xl md:text-2xl lg:text-3xl font-body font-semibold tracking-tight text-olive-muted"
+        >
+          {text}
+        </motion.span>
+      )}
 
       <motion.span
         layout
-        className="relative w-fit overflow-hidden rounded-xl glass-strong px-6 py-3 font-body text-xl md:text-2xl lg:text-3xl font-bold tracking-tight text-olive-dark shadow-lg backdrop-blur-xl border-2 transition-colors duration-500"
+        className={cn(
+          "relative inline-block w-fit overflow-hidden rounded-xl glass-strong px-6 py-3 font-body text-xl md:text-2xl lg:text-3xl font-bold tracking-tight text-olive-dark shadow-lg backdrop-blur-xl border-2 transition-colors duration-500",
+          className
+        )}
         style={{ borderColor }}
         aria-live="polite"
         aria-atomic="true"
