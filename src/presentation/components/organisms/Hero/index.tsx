@@ -3,12 +3,14 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { HeroContent } from "./HeroContent";
 import { HeroSocialProof } from "./HeroSocialProof";
 import { BackgroundLines } from "@/components/ui/background-lines";
+import heroBackground from "@/assets/hero-background.jpg";
 
 export const Hero = () => {
   const navigate = useNavigate();
   const { scrollY } = useScroll();
   const y = useTransform(scrollY, [0, 500], [0, 150]);
   const opacity = useTransform(scrollY, [0, 600], [1, 0]);
+  const backgroundY = useTransform(scrollY, [0, 500], [0, 100]);
 
   const handleOrderClick = () => {
     navigate("/order");
@@ -16,8 +18,26 @@ export const Hero = () => {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden py-20">
+      {/* Parallax Background Image */}
+      <motion.div
+        style={{ y: backgroundY }}
+        className="absolute inset-0 z-0"
+      >
+        <div 
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{
+            backgroundImage: `url(${heroBackground})`,
+            backgroundAttachment: 'fixed',
+          }}
+        />
+        {/* Cream gradient overlay for brand consistency and readability */}
+        <div className="absolute inset-0 bg-gradient-to-br from-cream/85 via-cream/75 to-beige/70" />
+        {/* Dark gradient for depth */}
+        <div className="absolute inset-0 bg-gradient-to-b from-olive-dark/20 via-transparent to-olive-dark/30" />
+      </motion.div>
+
       {/* Premium gradient background with animated orbs */}
-      <div className="absolute inset-0 bg-gradient-to-br from-cream via-beige to-cream">
+      <div className="absolute inset-0 z-10 pointer-events-none">
         {/* Animated Background Lines - Top Layer */}
         <BackgroundLines 
           className="absolute inset-0 z-10" 
@@ -65,14 +85,14 @@ export const Hero = () => {
 
       {/* Subtle noise texture for depth */}
       <div 
-        className="absolute inset-0 opacity-[0.03] mix-blend-overlay pointer-events-none"
+        className="absolute inset-0 z-20 opacity-[0.03] mix-blend-overlay pointer-events-none"
         style={{
           backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' /%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23noise)' /%3E%3C/svg%3E")`,
         }}
       />
 
       {/* Content */}
-      <div className="container mx-auto px-6 sm:px-8 lg:px-12 relative z-10 max-w-7xl">
+      <div className="container mx-auto px-6 sm:px-8 lg:px-12 relative z-30 max-w-7xl">
         <motion.div style={{ y, opacity }}>
           <HeroContent onOrderClick={handleOrderClick} />
         </motion.div>
@@ -83,7 +103,7 @@ export const Hero = () => {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 1.5 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 cursor-pointer group"
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 cursor-pointer group z-30"
         onClick={() => window.scrollTo({ top: window.innerHeight, behavior: 'smooth' })}
       >
         <motion.div
