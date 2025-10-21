@@ -58,23 +58,6 @@ export const Hero = () => {
         {/* Small accent orbs */}
         <div className="absolute w-[200px] h-[200px] rounded-full bg-gradient-to-br from-orange-light/20 to-transparent blur-xl top-1/3 right-1/3 animate-pulse" style={{ animationDuration: '7s', animationDelay: '0.5s' }} />
         <div className="absolute w-[250px] h-[250px] rounded-full bg-gradient-to-br from-orange-primary/10 to-transparent blur-xl bottom-1/3 left-1/3 animate-pulse" style={{ animationDuration: '9s', animationDelay: '2.5s' }} />
-        
-        {/* Floating particles */}
-        {[...Array(40)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute rounded-full animate-float"
-            style={{
-              width: `${2 + Math.random() * 5}px`,
-              height: `${2 + Math.random() * 5}px`,
-              backgroundColor: i % 3 === 0 ? 'rgba(222, 110, 39, 0.4)' : i % 3 === 1 ? 'rgba(80, 86, 49, 0.3)' : 'rgba(43, 50, 16, 0.25)',
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 5}s`,
-              animationDuration: `${15 + Math.random() * 10}s`
-            }}
-          />
-        ))}
       </div>
 
       {/* Subtle noise texture for depth */}

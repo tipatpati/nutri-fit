@@ -15,7 +15,7 @@ export const BackgroundLines = ({
   };
 }) => {
   return (
-    <div className={cn("relative w-full", className)}>
+    <div className={cn("relative w-full z-10", className)}>
       <SVG svgOptions={svgOptions} />
       {children}
     </div>
@@ -79,7 +79,7 @@ const SVG = ({
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 1 }}
-      className="absolute inset-0 w-full h-full pointer-events-none"
+      className="absolute inset-0 w-full h-full pointer-events-none z-10"
       preserveAspectRatio="xMidYMid slice"
     >
       <defs>
