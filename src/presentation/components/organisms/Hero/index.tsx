@@ -19,9 +19,10 @@ export const Hero = () => {
       {/* Premium gradient background with animated orbs */}
       <div className="absolute inset-0 bg-gradient-to-br from-cream via-beige to-cream">
         {/* Animated Background Lines - Top Layer */}
-        <div className="absolute inset-0 z-20">
-          <BackgroundLines svgOptions={{ duration: 12 }} />
-        </div>
+        <BackgroundLines 
+          className="absolute inset-0 z-10" 
+          svgOptions={{ duration: 10 }}
+        />
         
         {/* Large animated orbs */}
         <motion.div
