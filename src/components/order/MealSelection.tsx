@@ -5,6 +5,7 @@ import { Minus, Plus, ArrowLeft, ArrowRight } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { MealCardSkeleton } from "@/presentation/components/molecules/Loading/MealCardSkeleton";
 import { getCategoryColor } from "@/shared/design-system";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface Meal {
   id: string;
@@ -91,127 +92,184 @@ const MealSelection = ({
   const hasSelectedMeals = totalMealsForDate > 0;
 
   return (
-    <div className="space-y-md-6 sm:space-y-md-8">
+    <div className="space-y-8">
       {/* Header */}
-      <div className="text-center">
-        <h2 className="md-headline-medium mb-md-3 text-md-on-surface">
-          Sélectionnez vos repas
-        </h2>
-        {selectedDate ? (
-          <p className="md-body-large text-md-on-surface-variant mb-md-5 capitalize">
-            {selectedDate.toLocaleDateString('fr-FR', { 
-              weekday: 'long', 
-              day: 'numeric',
-              month: 'long',
-              year: 'numeric'
-            })}
-          </p>
-        ) : (
-          <p className="md-body-large text-md-on-surface-variant mb-md-5">
-            Choisissez les repas que vous souhaitez commander
-          </p>
-        )}
+      <div className="text-center mb-8">
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+        >
+          <h2 className="font-['Space_Grotesk'] text-4xl md:text-5xl font-bold text-[#2B3210] mb-3">
+            Sélectionnez vos repas
+          </h2>
+          {selectedDate ? (
+            <p className="text-xl text-[#505631] mb-6 capitalize">
+              {selectedDate.toLocaleDateString('fr-FR', { 
+                weekday: 'long', 
+                day: 'numeric',
+                month: 'long',
+                year: 'numeric'
+              })}
+            </p>
+          ) : (
+            <p className="text-xl text-[#505631] mb-6">
+              Choisissez les repas que vous souhaitez commander
+            </p>
+          )}
+        </motion.div>
         
-        {/* Capacity indicator */}
-        <div className="bg-md-primary-container p-md-4 sm:p-md-5 rounded-md-lg max-w-md mx-auto md-elevation-1 border border-md-outline-variant">
+        {/* Enhanced Capacity Indicator */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.2 }}
+          className="glass-strong p-6 rounded-2xl max-w-md mx-auto shadow-xl border-2 border-[#DE6E27]/30"
+        >
           {selectedPackage ? (
             <>
-              <p className="md-label-large text-md-on-primary-container mb-md-1">
-                {selectedPackage.title}
+              <p className="font-semibold text-[#2B3210] mb-2">
+                {selectedPackage.name}
               </p>
-              <p className="md-title-medium text-md-on-primary-container font-semibold">
-                {totalMealsForDate} / {packLimit} repas sélectionnés
+              <p className="font-['Space_Grotesk'] text-3xl font-bold text-[#2B3210] mb-3">
+                {totalMealsForDate} / {packLimit} repas
               </p>
             </>
           ) : (
-            <p className="md-title-medium text-md-on-primary-container font-semibold">
-              {totalMealsForDate} / {availableSlots} repas sélectionnés
+            <p className="font-['Space_Grotesk'] text-3xl font-bold text-[#2B3210] mb-3">
+              {totalMealsForDate} / {availableSlots} repas
             </p>
           )}
-          <div className="w-full bg-md-surface-variant/30 rounded-full h-3 mt-md-3">
-            <div 
-              className="bg-md-primary h-3 rounded-full transition-all duration-md-medium2"
-              style={{ width: `${(totalMealsForDate / (packLimit || availableSlots)) * 100}%` }}
-            ></div>
+          <div className="w-full bg-[#E5E2D9] rounded-full h-3 overflow-hidden">
+            <motion.div 
+              initial={{ width: 0 }}
+              animate={{ width: `${(totalMealsForDate / (packLimit || availableSlots)) * 100}%` }}
+              transition={{ duration: 0.5, ease: "easeOut" }}
+              className="h-3 rounded-full bg-gradient-to-r from-[#DE6E27] to-[#ff8040] shadow-lg"
+            />
           </div>
-        </div>
+        </motion.div>
       </div>
 
       {/* Meals Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-md-4 sm:gap-md-5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {loading ? (
           [...Array(8)].map((_, i) => <MealCardSkeleton key={i} />)
         ) : (
-          meals.map((meal) => {
+          meals.map((meal, index) => {
           const quantity = getMealQuantity(meal.id);
           
           return (
-            <Card key={meal.id} className="overflow-hidden hover:md-elevation-3 transition-all duration-md-medium2 bg-md-surface-container border-md-outline-variant border md-elevation-1">
-              <CardContent className="p-0">
-                <div className="relative overflow-hidden">
-                  <img 
-                    src={meal.image_url || 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop&crop=center'} 
-                    alt={meal.name}
-                    className="w-full h-48 sm:h-52 object-cover"
-                    loading="lazy"
-                  />
-                  {meal.badge && (
-                    <div 
-                      className="absolute top-md-2 left-md-2 px-md-3 py-md-1 rounded-md-sm text-white md-label-medium font-semibold backdrop-blur-sm md-elevation-2"
-                      style={{ backgroundColor: getCategoryColor(meal.category).hex }}
-                    >
-                      {meal.badge}
-                    </div>
-                  )}
-                  {meal.premium && (
-                    <div className="absolute top-md-2 right-md-2 bg-md-tertiary text-md-on-tertiary px-md-3 py-md-1 rounded-md-sm md-label-medium font-semibold md-elevation-2">
-                      Premium
-                    </div>
-                  )}
-                </div>
-                
-                <div className="p-md-4">
-                  <h3 className="md-title-medium text-md-on-surface mb-md-4 line-clamp-2 min-h-[3rem]">
-                    {meal.name}
-                  </h3>
-                  
-                  {/* Quantity selector */}
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-md-2">
-                      <Button
-                        variant="outlined"
-                        size="sm"
-                        onClick={() => onMealSelect(meal, Math.max(0, quantity - 1))}
-                        disabled={quantity === 0}
-                        className="w-9 h-9 p-0 rounded-full"
-                      >
-                        <Minus className="w-4 h-4" />
-                      </Button>
-                      
-                      <span className="w-10 text-center md-title-medium font-bold text-md-on-surface">
-                        {quantity}
-                      </span>
-                      
-                      <Button
-                        variant="outlined"
-                        size="sm"
-                        onClick={() => onMealSelect(meal, quantity + 1)}
-                        disabled={!canAddMeal()}
-                        className="w-9 h-9 p-0 rounded-full"
-                      >
-                        <Plus className="w-4 h-4" />
-                      </Button>
-                    </div>
+            <motion.div
+              key={meal.id}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.05 }}
+              whileHover={{ y: -4, scale: 1.02 }}
+              layout
+            >
+              <Card className="glass-strong overflow-hidden hover:shadow-2xl transition-all duration-300 border-2 border-transparent hover:border-[#DE6E27]/30 h-full">
+                <CardContent className="p-0">
+                  {/* Image with overlay */}
+                  <div className="relative overflow-hidden group">
+                    <motion.img 
+                      whileHover={{ scale: 1.1 }}
+                      transition={{ duration: 0.4 }}
+                      src={meal.image_url || 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c'} 
+                      alt={meal.name}
+                      className="w-full h-52 object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                     
-                    {quantity > 0 && (
-                      <div className="bg-md-primary text-md-on-primary px-md-3 py-md-1 rounded-full md-label-medium font-semibold">
-                        ✓
-                      </div>
+                    {/* Badges */}
+                    {meal.badge && (
+                      <motion.div
+                        initial={{ x: -20, opacity: 0 }}
+                        animate={{ x: 0, opacity: 1 }}
+                        className="absolute top-3 left-3 px-4 py-2 rounded-full bg-[#DE6E27] text-white font-bold text-sm shadow-xl"
+                      >
+                        {meal.badge}
+                      </motion.div>
+                    )}
+                    {meal.premium && (
+                      <motion.div
+                        initial={{ x: 20, opacity: 0 }}
+                        animate={{ x: 0, opacity: 1 }}
+                        className="absolute top-3 right-3 px-4 py-2 rounded-full glass-dark text-white font-bold text-sm border border-white/30"
+                      >
+                        ⭐ Premium
+                      </motion.div>
+                    )}
+                    
+                    {/* Quick Add Overlay */}
+                    {quantity === 0 && (
+                      <motion.div
+                        initial={{ opacity: 0 }}
+                        whileHover={{ opacity: 1 }}
+                        className="absolute inset-0 bg-[#DE6E27]/90 flex items-center justify-center cursor-pointer"
+                        onClick={() => onMealSelect(meal, 1)}
+                      >
+                        <span className="text-white font-bold text-lg">+ Ajouter</span>
+                      </motion.div>
                     )}
                   </div>
-                </div>
-              </CardContent>
-            </Card>
+                  
+                  <div className="p-5">
+                    <h3 className="font-['Space_Grotesk'] text-xl font-bold text-[#2B3210] mb-4 line-clamp-2 min-h-[3.5rem]">
+                      {meal.name}
+                    </h3>
+                    
+                    {/* Quantity Controls */}
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-3">
+                        <motion.button
+                          whileHover={{ scale: 1.1 }}
+                          whileTap={{ scale: 0.9 }}
+                          onClick={() => onMealSelect(meal, Math.max(0, quantity - 1))}
+                          disabled={quantity === 0}
+                          className="w-10 h-10 rounded-full glass-strong border-2 border-[#DE6E27] flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
+                        >
+                          <Minus className="w-5 h-5 text-[#DE6E27]" />
+                        </motion.button>
+                        
+                        <motion.span
+                          key={quantity}
+                          initial={{ scale: 1.5, opacity: 0 }}
+                          animate={{ scale: 1, opacity: 1 }}
+                          className="w-12 text-center font-['Space_Grotesk'] text-2xl font-bold text-[#2B3210]"
+                        >
+                          {quantity}
+                        </motion.span>
+                        
+                        <motion.button
+                          whileHover={{ scale: 1.1 }}
+                          whileTap={{ scale: 0.9 }}
+                          onClick={() => onMealSelect(meal, quantity + 1)}
+                          disabled={!canAddMeal()}
+                          className="w-10 h-10 rounded-full bg-gradient-to-br from-[#DE6E27] to-[#ff8040] flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed shadow-lg"
+                        >
+                          <Plus className="w-5 h-5 text-white" />
+                        </motion.button>
+                      </div>
+                      
+                      {/* Selected Indicator */}
+                      <AnimatePresence>
+                        {quantity > 0 && (
+                          <motion.div
+                            initial={{ scale: 0, rotate: -180 }}
+                            animate={{ scale: 1, rotate: 0 }}
+                            exit={{ scale: 0, rotate: 180 }}
+                            transition={{ type: "spring", stiffness: 200 }}
+                            className="bg-gradient-to-br from-[#DE6E27] to-[#ff8040] text-white px-4 py-2 rounded-full font-bold text-sm shadow-xl"
+                          >
+                            ✓ Ajouté
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
           );
         })
         )}
