@@ -46,28 +46,28 @@ const SVG = ({
     "M720 450C720 450 696.366 458.841 682.407 472.967C668.448 487.093 673.23 487.471 647.919 492.882C622.608 498.293 636.85 499.899 609.016 512.944C581.182 525.989 596.778 528.494 571.937 533.778C547.095 539.062 551.762 548.656 536.862 556.816C521.962 564.975 515.626 563.279 497.589 575.159C479.552 587.04 484.343 590.435 461.111 598.728C437.879 607.021 442.512 605.226 423.603 618.397C404.694 631.569 402.411 629.541 390.805 641.555C379.2 653.568 369.754 658.175 353.238 663.929C336.722 669.683 330.161 674.689 312.831 684.116C295.5 693.543 288.711 698.815 278.229 704.041C267.747 709.267 258.395 712.506 240.378 726.65C222.361 740.795 230.097 738.379 203.447 745.613C176.797 752.847 193.747 752.523 166.401 767.148C139.056 781.774 151.342 783.641 130.156 791.074C108.97 798.507 116.461 802.688 96.0974 808.817C75.7334 814.946 83.8553 819.505 59.4513 830.576C35.0473 841.648 48.2548 847.874 21.8337 853.886C-4.58739 859.898 10.5966 869.102 -16.396 874.524",
   ];
 
-  // NutriFit brand colors
+  // NutriFit brand colors - using brighter orange tones for visibility
   const colors = [
     "#DE6E27", // orange-primary
     "#ff8040", // orange-light
-    "#2B3210", // olive-dark
-    "#505631", // olive-muted
     "#DE6E27",
     "#ff8040",
-    "#2B3210",
-    "#505631",
     "#DE6E27",
     "#ff8040",
-    "#2B3210",
-    "#505631",
     "#DE6E27",
     "#ff8040",
-    "#2B3210",
-    "#505631",
     "#DE6E27",
     "#ff8040",
-    "#2B3210",
-    "#505631",
+    "#DE6E27",
+    "#ff8040",
+    "#DE6E27",
+    "#ff8040",
+    "#DE6E27",
+    "#ff8040",
+    "#DE6E27",
+    "#ff8040",
+    "#DE6E27",
+    "#ff8040",
     "#DE6E27",
   ];
 
@@ -82,13 +82,23 @@ const SVG = ({
       className="absolute inset-0 w-full h-full pointer-events-none"
       preserveAspectRatio="xMidYMid slice"
     >
+      <defs>
+        <filter id="glow">
+          <feGaussianBlur stdDeviation="1.5" result="coloredBlur"/>
+          <feMerge>
+            <feMergeNode in="coloredBlur"/>
+            <feMergeNode in="SourceGraphic"/>
+          </feMerge>
+        </filter>
+      </defs>
       {paths.map((path, idx) => (
         <motion.path
           d={path}
           stroke={colors[idx]}
-          strokeWidth="1.5"
+          strokeWidth="2.5"
           strokeLinecap="round"
-          strokeOpacity="0.3"
+          strokeOpacity="0.6"
+          filter="url(#glow)"
           variants={pathVariants}
           initial="initial"
           animate="animate"
