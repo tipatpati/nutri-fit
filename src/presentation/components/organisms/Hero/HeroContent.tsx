@@ -4,6 +4,7 @@ import { TrustBadge } from "../../atoms/Badge/TrustBadge";
 import { Icon } from "@/components/ui/icon";
 import { GlassCard } from "@/components/ui/glass-card";
 import { Button } from "@/components/ui/button";
+import { LayoutTextFlip } from "@/components/ui/layout-text-flip";
 import { motion } from "framer-motion";
 import { ArrowRight, Target, TrendingDown, TrendingUp, CheckCircle, Star } from "lucide-react";
 import { useNavigate } from "react-router-dom";
@@ -14,12 +15,6 @@ interface HeroContentProps {
 
 export const HeroContent = ({ onOrderClick }: HeroContentProps) => {
   const navigate = useNavigate();
-  
-  const goals = [
-    { icon: Target, label: "Équilibré", color: "#29B6F6" },
-    { icon: TrendingDown, label: "Perte de Poids", color: "#4CAF50" },
-    { icon: TrendingUp, label: "Prise de Masse", color: "#DE6E27" }
-  ];
 
   return (
     <div className="space-y-8 md:space-y-12 lg:space-y-16 text-center max-w-5xl mx-auto relative">
@@ -63,32 +58,18 @@ export const HeroContent = ({ onOrderClick }: HeroContentProps) => {
         </p>
       </motion.div>
 
-      {/* Goal Tags */}
+      {/* Animated Goal Text Flip */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.6, duration: 0.6 }}
-        className="flex flex-wrap justify-center gap-2 md:gap-3 px-4"
+        className="flex flex-wrap justify-center items-center gap-3 px-4"
       >
-        {goals.map((goal, index) => (
-          <motion.div
-            key={goal.label}
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            whileHover={{ scale: 1.1, y: -4 }}
-            transition={{ delay: 0.7 + index * 0.1 }}
-            className="glass-strong px-4 md:px-6 py-2.5 md:py-3 rounded-full flex items-center gap-2 border-2 hover:shadow-xl transition-all duration-300 cursor-pointer"
-            style={{ borderColor: goal.color }}
-          >
-            <motion.div
-              whileHover={{ rotate: 360 }}
-              transition={{ duration: 0.5 }}
-            >
-              <goal.icon className="w-4 md:w-5 h-4 md:h-5" style={{ color: goal.color }} />
-            </motion.div>
-            <span className="text-xs md:text-sm font-bold text-[#2B3210]">{goal.label}</span>
-          </motion.div>
-        ))}
+        <LayoutTextFlip
+          text="Pour votre objectif"
+          words={["Équilibré", "Minceur", "Prise de masse"]}
+          duration={2500}
+        />
       </motion.div>
 
       {/* CTA Buttons */}
