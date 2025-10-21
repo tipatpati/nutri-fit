@@ -1,7 +1,7 @@
-
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Truck, MapPin, Clock, CheckCircle, LogOut, Navigation, Phone } from "lucide-react";
+import { motion } from "framer-motion";
+import { Truck, MapPin, Clock, CheckCircle, LogOut, Navigation, Phone, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
@@ -22,6 +22,8 @@ import {
 } from "@/components/ui/sidebar";
 import { useToast } from "@/hooks/use-toast";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { cn } from "@/lib/utils";
+import { Badge } from "@/components/ui/badge";
 import { useDeliveryRoutes } from "@/hooks/useDeliveryRoutes";
 import { useDeliveryHistory } from "@/hooks/useDeliveryHistory";
 
@@ -63,7 +65,13 @@ const DeliveryDashboard = () => {
 
   const renderContent = () => {
     if (routesLoading || historyLoading) {
-      return <div className="text-center py-8 text-blue-800">Chargement...</div>;
+      return (
+        <div className="flex items-center justify-center py-12">
+          <motion.div animate={{ rotate: 360 }} transition={{ duration: 1, repeat: Infinity, ease: "linear" }}>
+            <Loader2 className="h-10 w-10 text-[#DE6E27]" />
+          </motion.div>
+        </div>
+      );
     }
 
     const allDeliveries = routesData?.routes.flatMap((route: any) => route.assignments) || [];
@@ -73,38 +81,50 @@ const DeliveryDashboard = () => {
         return (
           <div className="space-y-4 md:space-y-6">
             <div className="grid grid-cols-3 gap-2 md:gap-4 lg:gap-6 mb-4 md:mb-6 lg:mb-8">
-              <Card>
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 px-2 pt-2 md:px-6 md:pt-6">
-                  <CardTitle className="text-[#FF4D00] text-xs md:text-lg lg:text-xl truncate">À Livrer</CardTitle>
-                  <Clock className="h-3 w-3 md:h-4 md:w-4 lg:h-5 lg:w-5 text-[#FF4D00] flex-shrink-0" />
-                </CardHeader>
-                <CardContent className="px-2 pb-2 md:px-6 md:pb-6">
-                  <div className="text-lg md:text-xl lg:text-2xl font-bold">{routesData?.stats.pending || 0}</div>
-                  <p className="text-xs lg:text-sm text-gray-600">planifiées</p>
-                </CardContent>
-              </Card>
+              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
+                <Card className="glass hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                  <CardHeader className="flex flex-row items-center justify-between pb-2 px-2 pt-2 md:px-6 md:pt-6">
+                    <CardTitle className="text-xs md:text-sm font-medium text-[#2B3210] truncate">À Livrer</CardTitle>
+                    <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#DE6E27] to-[#ff8040] flex items-center justify-center flex-shrink-0">
+                      <Clock className="h-5 w-5 text-white" />
+                    </div>
+                  </CardHeader>
+                  <CardContent className="px-2 pb-2 md:px-6 md:pb-6">
+                    <div className="text-lg md:text-3xl font-bold text-[#2B3210]">{routesData?.stats.pending || 0}</div>
+                    <p className="text-xs text-[#505631]">planifiées</p>
+                  </CardContent>
+                </Card>
+              </motion.div>
               
-              <Card>
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 px-2 pt-2 md:px-6 md:pt-6">
-                  <CardTitle className="text-[#113B39] text-xs md:text-lg lg:text-xl truncate">En Route</CardTitle>
-                  <Truck className="h-3 w-3 md:h-4 md:w-4 lg:h-5 lg:w-5 text-[#113B39] flex-shrink-0" />
-                </CardHeader>
-                <CardContent className="px-2 pb-2 md:px-6 md:pb-6">
-                  <div className="text-lg md:text-xl lg:text-2xl font-bold">{routesData?.stats.inProgress || 0}</div>
-                  <p className="text-xs lg:text-sm text-gray-600">en cours</p>
-                </CardContent>
-              </Card>
+              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
+                <Card className="glass hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                  <CardHeader className="flex flex-row items-center justify-between pb-2 px-2 pt-2 md:px-6 md:pt-6">
+                    <CardTitle className="text-xs md:text-sm font-medium text-[#2B3210] truncate">En Route</CardTitle>
+                    <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#DE6E27] to-[#ff8040] flex items-center justify-center flex-shrink-0">
+                      <Truck className="h-5 w-5 text-white" />
+                    </div>
+                  </CardHeader>
+                  <CardContent className="px-2 pb-2 md:px-6 md:pb-6">
+                    <div className="text-lg md:text-3xl font-bold text-[#2B3210]">{routesData?.stats.inProgress || 0}</div>
+                    <p className="text-xs text-[#505631]">en cours</p>
+                  </CardContent>
+                </Card>
+              </motion.div>
               
-              <Card>
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 px-2 pt-2 md:px-6 md:pt-6">
-                  <CardTitle className="text-green-600 text-xs md:text-lg lg:text-xl truncate">Terminées</CardTitle>
-                  <CheckCircle className="h-3 w-3 md:h-4 md:w-4 lg:h-5 lg:w-5 text-green-600 flex-shrink-0" />
-                </CardHeader>
-                <CardContent className="px-2 pb-2 md:px-6 md:pb-6">
-                  <div className="text-lg md:text-xl lg:text-2xl font-bold">{routesData?.stats.completed || 0}</div>
-                  <p className="text-xs lg:text-sm text-gray-600">aujourd'hui</p>
-                </CardContent>
-              </Card>
+              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
+                <Card className="glass hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                  <CardHeader className="flex flex-row items-center justify-between pb-2 px-2 pt-2 md:px-6 md:pt-6">
+                    <CardTitle className="text-xs md:text-sm font-medium text-[#2B3210] truncate">Terminées</CardTitle>
+                    <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-success to-green-600 flex items-center justify-center flex-shrink-0">
+                      <CheckCircle className="h-5 w-5 text-white" />
+                    </div>
+                  </CardHeader>
+                  <CardContent className="px-2 pb-2 md:px-6 md:pb-6">
+                    <div className="text-lg md:text-3xl font-bold text-[#2B3210]">{routesData?.stats.completed || 0}</div>
+                    <p className="text-xs text-[#505631]">aujourd'hui</p>
+                  </CardContent>
+                </Card>
+              </motion.div>
             </div>
             
             <Card>
@@ -297,11 +317,11 @@ const DeliveryDashboard = () => {
 
   return (
     <SidebarProvider>
-      <div className="min-h-screen flex w-full bg-gradient-to-br from-slate-50 via-white to-blue-50/30 overflow-x-hidden">
-        <Sidebar className={`border-r border-blue-100/50 bg-white/90 backdrop-blur-sm ${isMobile ? 'hidden' : 'block'}`}>
-          <SidebarHeader className="border-b border-blue-100/50 p-3 sm:p-4 md:p-6 bg-gradient-to-r from-blue-50/80 to-blue-100/40">
-            <h2 className="text-lg sm:text-xl md:text-2xl font-bold bg-gradient-to-r from-blue-600 to-blue-700 bg-clip-text text-transparent">NutiFit Delivery</h2>
-            <p className="text-xs sm:text-sm md:text-base text-slate-600 font-medium">Livreur</p>
+      <div className="min-h-screen flex w-full bg-gradient-to-br from-[#FBF8EF] via-[#FBF8EF] to-[#E5E2D9] overflow-x-hidden">
+        <Sidebar className={`glass-strong border-r border-[#DE6E27]/20 ${isMobile ? 'hidden' : 'block'}`}>
+          <SidebarHeader className="border-b border-[#DE6E27]/20 p-3 sm:p-4 md:p-6">
+            <h2 className="text-lg sm:text-xl md:text-2xl font-bold bg-gradient-to-r from-[#2B3210] to-[#DE6E27] bg-clip-text text-transparent">NutriFit Delivery</h2>
+            <p className="text-xs sm:text-sm md:text-base text-[#505631] font-medium">Livreur</p>
           </SidebarHeader>
           <SidebarContent className="bg-gradient-to-b from-white/95 to-blue-50/50">
             <SidebarGroup>
@@ -313,7 +333,7 @@ const DeliveryDashboard = () => {
                       <SidebarMenuButton 
                         isActive={activeSection === item.id}
                         onClick={() => setActiveSection(item.id)}
-                        className="text-xs sm:text-sm md:text-base hover:bg-blue-50/80 transition-all duration-300 data-[active=true]:bg-gradient-to-r data-[active=true]:from-blue-100 data-[active=true]:to-blue-50 data-[active=true]:text-blue-800 data-[active=true]:font-semibold rounded-xl"
+                        className="text-xs sm:text-sm md:text-base hover:bg-[#DE6E27]/5 transition-all duration-300 data-[active=true]:bg-gradient-to-r data-[active=true]:from-[#DE6E27]/20 data-[active=true]:to-[#ff8040]/20 data-[active=true]:text-[#DE6E27] data-[active=true]:font-semibold rounded-xl"
                       >
                         <item.icon className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 flex-shrink-0" />
                         <span className="truncate">{item.title}</span>

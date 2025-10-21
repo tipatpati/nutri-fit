@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ChefHat, ClipboardList, Calculator, Package, LogOut, Clock, CheckCircle2, Users } from "lucide-react";
+import { motion } from "framer-motion";
+import { ChefHat, ClipboardList, Calculator, Package, LogOut, Clock, CheckCircle2, Users, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
@@ -21,6 +22,8 @@ import {
 } from "@/components/ui/sidebar";
 import { useToast } from "@/hooks/use-toast";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { cn } from "@/lib/utils";
+import { Badge } from "@/components/ui/badge";
 import { useCookOrders } from "@/hooks/useCookOrders";
 import { useCookRecipes } from "@/hooks/useCookRecipes";
 
@@ -63,7 +66,13 @@ const CookDashboard = () => {
 
   const renderContent = () => {
     if (ordersLoading || recipesLoading) {
-      return <div className="text-center py-8 text-emerald-800">Chargement...</div>;
+      return (
+        <div className="flex items-center justify-center py-12">
+          <motion.div animate={{ rotate: 360 }} transition={{ duration: 1, repeat: Infinity, ease: "linear" }}>
+            <Loader2 className="h-10 w-10 text-[#DE6E27]" />
+          </motion.div>
+        </div>
+      );
     }
     switch (activeSection) {
       case "orders":
@@ -89,63 +98,72 @@ const CookDashboard = () => {
             </Card>
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 md:gap-4 lg:gap-6 mb-4 md:mb-6 lg:mb-8">
-              <Card>
-              <CardHeader className="px-3 py-3 md:px-6 md:py-6">
-                <CardTitle className="text-[#FF4D00] text-sm md:text-lg lg:text-xl">Total Commandes</CardTitle>
-                <CardDescription className="text-emerald-800 text-xs md:text-sm lg:text-base">{ordersData?.totalOrders || 0} commandes pour le {new Date(selectedDate).toLocaleDateString('fr-FR')}</CardDescription>
-              </CardHeader>
-                <CardContent className="px-3 pb-3 md:px-6 md:pb-6">
-                  <div className="flex items-center justify-center gap-2">
-                    <Users className="w-5 h-5 text-[#FF4D00]" />
-                    <p className="text-2xl font-bold text-[#113B39]">{totalMealsOrdered}</p>
-                    <span className="text-sm text-gray-600">repas</span>
-                  </div>
-                </CardContent>
-              </Card>
+              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
+                <Card className="glass hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                  <CardHeader className="flex flex-row items-center justify-between pb-2 px-3 pt-3 md:px-6 md:pt-6">
+                    <CardTitle className="text-xs md:text-sm font-medium text-[#2B3210]">Total Commandes</CardTitle>
+                    <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#DE6E27] to-[#ff8040] flex items-center justify-center">
+                      <Users className="w-5 h-5 text-white" />
+                    </div>
+                  </CardHeader>
+                  <CardContent className="px-3 pb-3 md:px-6 md:pb-6">
+                    <div className="text-lg md:text-3xl font-bold text-[#2B3210]">{totalMealsOrdered}</div>
+                    <p className="text-xs text-[#505631]">repas pour le {new Date(selectedDate).toLocaleDateString('fr-FR')}</p>
+                  </CardContent>
+                </Card>
+              </motion.div>
               
-              <Card>
-                <CardHeader className="px-3 py-3 md:px-6 md:py-6">
-                  <CardTitle className="text-[#FF4D00] text-sm md:text-lg lg:text-xl">Progression</CardTitle>
-                  <CardDescription className="text-emerald-800 text-xs md:text-sm lg:text-base">Avancement de la préparation</CardDescription>
-                </CardHeader>
-                <CardContent className="px-3 pb-3 md:px-6 md:pb-6">
-                  <div className="space-y-2">
-                    <div className="flex justify-between">
-                      <span className="text-emerald-800 text-xs md:text-sm lg:text-base">Progression globale</span>
-                      <span className="font-bold text-emerald-800 text-xs md:text-sm lg:text-base">
-                        {totalMealsOrdered > 0 ? Math.round((totalMealsPrepared / totalMealsOrdered) * 100) : 0}%
-                      </span>
+              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
+                <Card className="glass hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                  <CardHeader className="flex flex-row items-center justify-between pb-2 px-3 pt-3 md:px-6 md:pt-6">
+                    <CardTitle className="text-xs md:text-sm font-medium text-[#2B3210]">Progression</CardTitle>
+                    <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#DE6E27] to-[#ff8040] flex items-center justify-center">
+                      <Clock className="w-5 h-5 text-white" />
                     </div>
-                    <div className="w-full bg-gray-200 rounded-full h-2">
-                      <div 
-                        className="bg-green-600 h-2 rounded-full" 
-                        style={{ 
-                          width: `${totalMealsOrdered > 0 ? (totalMealsPrepared / totalMealsOrdered) * 100 : 0}%` 
-                        }}
-                      ></div>
+                  </CardHeader>
+                  <CardContent className="px-3 pb-3 md:px-6 md:pb-6">
+                    <div className="space-y-2">
+                      <div className="flex justify-between">
+                        <span className="text-[#505631] text-xs md:text-sm">Progression globale</span>
+                        <span className="font-bold text-[#2B3210] text-xs md:text-sm">
+                          {totalMealsOrdered > 0 ? Math.round((totalMealsPrepared / totalMealsOrdered) * 100) : 0}%
+                        </span>
+                      </div>
+                      <div className="w-full bg-[#E5E2D9] rounded-full h-2">
+                        <div 
+                          className="bg-gradient-to-r from-[#DE6E27] to-[#ff8040] h-2 rounded-full transition-all duration-500" 
+                          style={{ 
+                            width: `${totalMealsOrdered > 0 ? (totalMealsPrepared / totalMealsOrdered) * 100 : 0}%` 
+                          }}
+                        ></div>
+                      </div>
                     </div>
-                  </div>
-                </CardContent>
-              </Card>
+                  </CardContent>
+                </Card>
+              </motion.div>
 
-              <Card>
-                <CardHeader className="px-3 py-3 md:px-6 md:py-6">
-                  <CardTitle className="text-[#FF4D00] text-sm md:text-lg lg:text-xl">Status</CardTitle>
-                  <CardDescription className="text-emerald-800 text-xs md:text-sm lg:text-base">Répartition des préparations</CardDescription>
-                </CardHeader>
-                <CardContent className="px-3 pb-3 md:px-6 md:pb-6">
-                  <div className="flex items-center justify-center gap-3 md:gap-4 lg:gap-6">
-                    <div className="text-center">
-                      <p className="text-lg md:text-xl lg:text-2xl font-bold text-green-600">{totalMealsPrepared}</p>
-                      <p className="text-xs lg:text-sm text-gray-600">Préparées</p>
+              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
+                <Card className="glass hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                  <CardHeader className="flex flex-row items-center justify-between pb-2 px-3 pt-3 md:px-6 md:pt-6">
+                    <CardTitle className="text-xs md:text-sm font-medium text-[#2B3210]">Status</CardTitle>
+                    <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#DE6E27] to-[#ff8040] flex items-center justify-center">
+                      <CheckCircle2 className="w-5 h-5 text-white" />
                     </div>
-                    <div className="text-center">
-                      <p className="text-lg md:text-xl lg:text-2xl font-bold text-[#FF4D00]">{totalMealsRemaining}</p>
-                      <p className="text-xs lg:text-sm text-gray-600">Restantes</p>
+                  </CardHeader>
+                  <CardContent className="px-3 pb-3 md:px-6 md:pb-6">
+                    <div className="flex items-center justify-center gap-3 md:gap-4 lg:gap-6">
+                      <div className="text-center">
+                        <p className="text-lg md:text-xl lg:text-2xl font-bold text-success">{totalMealsPrepared}</p>
+                        <p className="text-xs lg:text-sm text-[#505631]">Préparées</p>
+                      </div>
+                      <div className="text-center">
+                        <p className="text-lg md:text-xl lg:text-2xl font-bold text-[#DE6E27]">{totalMealsRemaining}</p>
+                        <p className="text-xs lg:text-sm text-[#505631]">Restantes</p>
+                      </div>
                     </div>
-                  </div>
-                </CardContent>
-              </Card>
+                  </CardContent>
+                </Card>
+              </motion.div>
             </div>
             
             <Card>
@@ -296,11 +314,11 @@ const CookDashboard = () => {
 
   return (
     <SidebarProvider>
-      <div className="min-h-screen flex w-full bg-gradient-to-br from-slate-50 via-white to-orange-50/30 overflow-x-hidden">
-        <Sidebar className={`border-r border-orange-100/50 bg-white/90 backdrop-blur-sm ${isMobile ? 'hidden' : 'block'}`}>
-          <SidebarHeader className="border-b border-orange-100/50 p-3 sm:p-4 md:p-6 bg-gradient-to-r from-orange-50/80 to-orange-100/40">
-            <h2 className="text-lg sm:text-xl md:text-2xl font-bold bg-gradient-to-r from-orange-600 to-orange-700 bg-clip-text text-transparent">NutiFit Kitchen</h2>
-            <p className="text-xs sm:text-sm md:text-base text-slate-600 font-medium">Cuisinier</p>
+      <div className="min-h-screen flex w-full bg-gradient-to-br from-[#FBF8EF] via-[#FBF8EF] to-[#E5E2D9] overflow-x-hidden">
+        <Sidebar className={`glass-strong border-r border-[#DE6E27]/20 ${isMobile ? 'hidden' : 'block'}`}>
+          <SidebarHeader className="border-b border-[#DE6E27]/20 p-3 sm:p-4 md:p-6">
+            <h2 className="text-lg sm:text-xl md:text-2xl font-bold bg-gradient-to-r from-[#2B3210] to-[#DE6E27] bg-clip-text text-transparent">NutriFit Kitchen</h2>
+            <p className="text-xs sm:text-sm md:text-base text-[#505631] font-medium">Cuisinier</p>
           </SidebarHeader>
           <SidebarContent className="bg-gradient-to-b from-white/95 to-orange-50/50">
             <SidebarGroup>
@@ -312,7 +330,7 @@ const CookDashboard = () => {
                       <SidebarMenuButton 
                         isActive={activeSection === item.id}
                         onClick={() => setActiveSection(item.id)}
-                        className="text-xs sm:text-sm md:text-base hover:bg-orange-50/80 transition-all duration-300 data-[active=true]:bg-gradient-to-r data-[active=true]:from-orange-100 data-[active=true]:to-orange-50 data-[active=true]:text-orange-800 data-[active=true]:font-semibold rounded-xl"
+                        className="text-xs sm:text-sm md:text-base hover:bg-[#DE6E27]/5 transition-all duration-300 data-[active=true]:bg-gradient-to-r data-[active=true]:from-[#DE6E27]/20 data-[active=true]:to-[#ff8040]/20 data-[active=true]:text-[#DE6E27] data-[active=true]:font-semibold rounded-xl"
                       >
                         <item.icon className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 flex-shrink-0" />
                         <span className="truncate">{item.title}</span>
