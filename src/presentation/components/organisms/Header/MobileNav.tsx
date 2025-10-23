@@ -28,12 +28,12 @@ export const MobileNav = ({ isOpen, onClose }: MobileNavProps) => {
       id="mobile-navigation"
     >
       <div
-        className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+        className="absolute inset-0 bg-black/60 backdrop-blur-md"
         onClick={onClose}
         aria-hidden="true"
       />
       <nav 
-        className="absolute right-0 top-0 h-full w-64 sm:w-80 glass-surface-elevated md-elevation-4 p-md-4 sm:p-md-6 animate-slide-in-right"
+        className="absolute right-0 top-0 h-full w-64 sm:w-80 glass-surface-elevated md-elevation-4 p-6 animate-slide-in-right duration-200"
         aria-label="Navigation mobile"
       >
         <h2 id="mobile-nav-title" className="sr-only">Menu de navigation</h2>
@@ -55,10 +55,10 @@ export const MobileNav = ({ isOpen, onClose }: MobileNavProps) => {
                 key={item.path}
                 to={item.path}
                 onClick={onClose}
-                className={`min-h-[48px] flex items-center px-md-4 py-md-3 rounded-md-3 transition-standard md-state-layer md-label-large animate-slide-in-right ${
+                className={`min-h-[48px] flex items-center px-6 py-4 rounded-xl transition-all duration-200 md-label-large animate-slide-in-right active:scale-[0.97] select-none ${
                   isActive
-                    ? "bg-md-primary-container text-md-on-primary-container font-semibold"
-                    : "text-md-on-surface hover:bg-md-surface-container-highest"
+                    ? "bg-md-primary-container text-md-on-primary-container font-bold"
+                    : "text-md-on-surface hover:bg-md-surface-container-highest active:bg-md-surface-container-high"
                 }`}
                 style={{ animationDelay: `${index * 50}ms` }}
                 aria-current={isActive ? "page" : undefined}

@@ -108,10 +108,10 @@ export const ResizableHeader = () => {
                     key={`mobile-link-${idx}`}
                     to={item.link}
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className={`px-4 py-3 rounded-xl font-semibold transition-all duration-200 ${
+                    className={`px-6 py-4 rounded-xl font-bold text-base transition-all duration-200 active:scale-[0.97] select-none ${
                       isActive
                         ? "bg-orange-primary/10 text-orange-primary border border-orange-primary/20"
-                        : "text-olive-dark hover:bg-beige"
+                        : "text-olive-dark hover:bg-beige active:bg-beige/70"
                     }`}
                   >
                     {item.name}
@@ -129,7 +129,7 @@ export const ResizableHeader = () => {
                       navigate("/profile");
                     }}
                     variant="outline"
-                    className="w-full glass border-2 border-orange-primary text-orange-primary hover:bg-orange-primary hover:text-white"
+                    className="w-full min-h-[56px] text-base font-bold glass border-2 border-orange-primary text-orange-primary hover:bg-orange-primary hover:text-white active:scale-[0.97] transition-all duration-200"
                   >
                     Profil
                   </Button>
@@ -138,7 +138,7 @@ export const ResizableHeader = () => {
                       setIsMobileMenuOpen(false);
                       handleSignOut();
                     }}
-                    className="w-full bg-gradient-to-br from-orange-primary to-orange-light text-white shadow-lg"
+                    className="w-full min-h-[56px] text-base font-bold bg-gradient-to-br from-orange-primary to-orange-light text-white shadow-lg active:scale-[0.97] transition-all duration-200"
                   >
                     Déconnexion
                   </Button>
@@ -151,7 +151,7 @@ export const ResizableHeader = () => {
                       navigate("/auth");
                     }}
                     variant="outline"
-                    className="w-full glass border-2 border-orange-primary text-orange-primary hover:bg-orange-primary hover:text-white"
+                    className="w-full min-h-[56px] text-base font-bold glass border-2 border-orange-primary text-orange-primary hover:bg-orange-primary hover:text-white active:scale-[0.97] transition-all duration-200"
                   >
                     Connexion
                   </Button>
@@ -160,7 +160,7 @@ export const ResizableHeader = () => {
                       setIsMobileMenuOpen(false);
                       navigate("/order");
                     }}
-                    className="w-full bg-gradient-to-br from-orange-primary to-orange-light text-white shadow-lg"
+                    className="w-full min-h-[56px] text-base font-bold bg-gradient-to-br from-orange-primary to-orange-light text-white shadow-lg active:scale-[0.97] transition-all duration-200"
                   >
                     Commander
                   </Button>

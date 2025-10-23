@@ -24,8 +24,8 @@ export const Hero = () => {
     }} />
 
       {/* Aceternity BackgroundLines Component */}
-      <BackgroundLines className="flex items-center justify-center w-full flex-col px-4 sm:px-6 py-16 sm:py-20 md:py-24 lg:py-28 relative z-10">
-        <div className="container mx-auto px-4 sm:px-6 md:px-8 lg:px-12 max-w-7xl">
+      <BackgroundLines className="flex items-center justify-center w-full flex-col px-5 sm:px-6 py-20 sm:py-24 md:py-28 relative z-10">
+        <div className="container mx-auto px-4 sm:px-6 md:px-8 max-w-7xl">
           {/* Hero Content */}
           <motion.div initial={{
           opacity: 0,
@@ -36,7 +36,7 @@ export const Hero = () => {
         }} transition={{
           duration: 0.8,
           ease: "easeOut"
-        }} className="text-center space-y-6 sm:space-y-7 md:space-y-8">
+        }} className="text-center space-y-8 sm:space-y-9 md:space-y-10">
             {/* Main Heading */}
             <motion.div initial={{
             opacity: 0,
@@ -48,10 +48,10 @@ export const Hero = () => {
             duration: 1,
             delay: 0.2,
             ease: [0.22, 1, 0.36, 1]
-          }} className="space-y-4 sm:space-y-5">
+          }} className="space-y-6">
               <div className="relative flex flex-col items-center gap-4 sm:gap-6">
                 <h1 className="text-center px-4">
-                  <span className="font-['Outfit'] block text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-semibold tracking-tight leading-[1.1] sm:leading-tight text-white drop-shadow-2xl mb-4 sm:mb-6">
+                  <span className="font-['Outfit'] block text-[2.5rem] sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-extrabold tracking-tight leading-[1.15] text-white drop-shadow-2xl mb-4 sm:mb-6">
                     Repas Santé pour
                   </span>
                   <div className="flex justify-center">
@@ -71,7 +71,7 @@ export const Hero = () => {
           }} transition={{
             duration: 0.8,
             delay: 0.4
-          }} className="text-base sm:text-lg md:text-xl lg:text-2xl text-white/90 leading-relaxed max-w-3xl mx-auto font-normal px-6 sm:px-8">
+          }} className="text-lg sm:text-xl md:text-2xl text-white/95 leading-[1.6] max-w-3xl mx-auto font-normal px-4">
               Des repas équilibrés, préparés par des experts nutritionnistes,{' '}
               <br className="hidden md:block" />
               livrés directement chez vous. Atteignez vos objectifs fitness avec plaisir.
@@ -87,7 +87,7 @@ export const Hero = () => {
           }} transition={{
             duration: 0.8,
             delay: 0.6
-          }} className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 md:gap-5 text-xs sm:text-sm md:text-base px-4">
+          }} className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-5 text-sm sm:text-base px-4">
               {[{
               icon: CheckCircle,
               text: "100% nutrition contrôlée"
@@ -108,9 +108,9 @@ export const Hero = () => {
               delay: 0.8 + idx * 0.1
             }} whileHover={{
               scale: 1.05
-            }} className="flex items-center gap-2 sm:gap-3 bg-white/95 px-4 sm:px-5 py-2.5 sm:py-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300">
-                  <indicator.icon className="w-4 h-4 sm:w-5 sm:h-5 text-[#DE6E27] flex-shrink-0" />
-                  <span className="text-[#2B3210] font-medium whitespace-nowrap">
+            }} className="flex items-center gap-2.5 sm:gap-3 bg-white/95 px-5 sm:px-6 py-3 sm:py-3.5 rounded-full shadow-lg md:hover:shadow-xl transition-all duration-300 select-none active:scale-[0.97] md:active:scale-100">
+                  <indicator.icon className="w-5 h-5 text-[#DE6E27] flex-shrink-0" />
+                  <span className="text-[#2B3210] font-semibold whitespace-nowrap">
                     {indicator.text}
                   </span>
                 </motion.div>)}
@@ -133,9 +133,9 @@ export const Hero = () => {
             }} whileTap={{
               scale: 0.95
             }} className="w-full sm:w-auto">
-                <Button onClick={handleOrderClick} size="lg" className="w-full sm:w-auto bg-gradient-to-r from-[#DE6E27] to-[#ff8040] text-white font-bold text-base sm:text-lg px-8 sm:px-10 md:px-12 py-5 sm:py-6 rounded-xl shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 min-h-[56px]">
+                <Button onClick={handleOrderClick} size="lg" className="no-hover-on-touch w-full sm:w-auto bg-gradient-to-r from-[#DE6E27] to-[#ff8040] text-white font-bold text-base sm:text-lg px-10 sm:px-12 py-6 rounded-xl shadow-xl md:hover:shadow-2xl md:hover:scale-105 transition-all duration-300 min-h-[56px] active:scale-[0.97] select-none">
                   Commander Maintenant
-                  <ArrowRight className="ml-2 w-4 h-4 sm:w-5 sm:h-5" />
+                  <ArrowRight className="ml-2 w-5 h-5" />
                 </Button>
               </motion.div>
 
@@ -159,7 +159,7 @@ export const Hero = () => {
           }} transition={{
             duration: 0.8,
             delay: 1.2
-          }} className="grid grid-cols-3 gap-3 sm:gap-4 md:gap-6 max-w-4xl mx-auto pt-8 sm:pt-10 px-4 sm:px-6">
+          }} className="grid grid-cols-3 gap-2.5 sm:gap-4 md:gap-6 max-w-4xl mx-auto pt-12 sm:pt-14 md:pt-16 px-4 sm:px-6">
               {[{
               number: "1000+",
               label: "Clients Satisfaits"
@@ -180,11 +180,11 @@ export const Hero = () => {
               delay: 1.4 + idx * 0.1
             }} whileHover={{
               scale: 1.05
-            }} className="text-center bg-white/90 rounded-xl sm:rounded-2xl p-4 sm:p-5 md:p-6 lg:p-7 shadow-lg">
-                  <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-[#2B3210] mb-1 sm:mb-2">
+            }} className="text-center bg-white/90 rounded-2xl p-5 sm:p-6 md:p-7 shadow-lg select-none active:scale-[0.98] md:active:scale-100">
+                  <div className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-[#2B3210] mb-2 sm:mb-2.5">
                     {stat.number}
                   </div>
-                  <div className="text-[10px] sm:text-xs md:text-sm font-medium text-[#505631] uppercase tracking-wide leading-tight">
+                  <div className="text-xs sm:text-sm font-semibold text-[#505631] uppercase tracking-wider leading-tight">
                     {stat.label}
                   </div>
                 </motion.div>)}

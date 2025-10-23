@@ -28,9 +28,9 @@ const MealCategories = () => {
     bgColor: 'bg-[hsl(var(--md-sys-color-tertiary-container))]',
     numberColor: 'text-[hsl(var(--md-sys-color-tertiary))]'
   }];
-  return <section className="relative py-16 md:py-20 lg:py-32 bg-gradient-to-br from-[#FBF8EF] via-[#E5E2D9] to-[#FBF8EF] overflow-hidden">
-      {/* Animated Background */}
-      <div className="absolute inset-0">
+  return <section className="relative py-16 md:py-20 lg:py-28 bg-gradient-to-br from-[#FBF8EF] via-[#E5E2D9] to-[#FBF8EF] overflow-hidden">
+      {/* Animated Background - Reduced on mobile */}
+      <div className="absolute inset-0 hidden md:block">
         <motion.div
           animate={{ 
             scale: [1, 1.2, 1],
@@ -49,7 +49,7 @@ const MealCategories = () => {
         />
       </div>
       
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12">
+      <div className="relative z-10 max-w-7xl mx-auto px-5 sm:px-6 md:px-8">
         {/* Header */}
         <motion.div 
           initial={{ opacity: 0, y: -20 }}
@@ -67,16 +67,16 @@ const MealCategories = () => {
             <Icon name="stopwatch" size={16} className="text-[#DE6E27]" />
             <span className="font-semibold text-[#2B3210]">3 étapes simples</span>
           </motion.div>
-          <h2 className="font-['Space_Grotesk'] text-4xl md:text-5xl lg:text-6xl font-bold text-[#2B3210] mb-4">
+          <h2 className="font-['Space_Grotesk'] text-4xl md:text-5xl lg:text-6xl font-extrabold text-[#2B3210] mb-6 leading-[1.2]">
             Comment ça fonctionne ?
           </h2>
-          <p className="text-lg text-[#505631] max-w-2xl mx-auto">
+          <p className="text-base md:text-lg text-[#505631] max-w-2xl mx-auto leading-[1.7]">
             Économisez du temps et profitez de repas prêts-à-manger nutritifs en 3 étapes faciles
           </p>
         </motion.div>
 
         {/* Steps Grid */}
-        <div className="grid sm:grid-cols-1 md:grid-cols-3 gap-8 md:gap-10 lg:gap-12 mb-12 md:mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 lg:gap-10 mb-12 md:mb-16">
           {steps.map((step, index) => (
             <motion.div
               key={step.number}
@@ -88,7 +88,7 @@ const MealCategories = () => {
               className="relative group"
             >
               {/* Glass Card Background */}
-              <div className="glass-strong rounded-3xl p-8 h-full relative overflow-hidden border-2 border-transparent hover:border-[#DE6E27]/30 transition-all duration-300 shadow-lg">
+              <div className="glass-strong rounded-3xl p-6 md:p-8 h-full relative overflow-hidden border-2 border-transparent hover:border-[#DE6E27]/30 transition-all duration-300 shadow-lg select-none active:scale-[0.98] md:active:scale-100">
                 {/* Gradient on Hover */}
                 <motion.div
                   initial={{ opacity: 0 }}
@@ -105,20 +105,20 @@ const MealCategories = () => {
                 <motion.div
                   whileHover={{ scale: 1.1, rotate: 5 }}
                   transition={{ type: "spring", stiffness: 400 }}
-                  className={`inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-to-br ${step.bgColor.replace('bg-', 'from-')} to-[#DE6E27]/20 mb-6 shadow-xl`}
+                  className={`inline-flex items-center justify-center w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-gradient-to-br ${step.bgColor.replace('bg-', 'from-')} to-[#DE6E27]/20 mb-6 shadow-xl`}
                 >
                   <img 
                     src={step.icon} 
                     alt={step.title} 
-                    className="w-10 h-10"
+                    className="w-8 h-8 md:w-10 md:h-10"
                   />
                 </motion.div>
                 
                 {/* Content */}
-                <h3 className="font-['Space_Grotesk'] text-2xl font-bold text-[#2B3210] mb-4">
+                <h3 className="font-['Space_Grotesk'] text-xl md:text-2xl font-bold text-[#2B3210] mb-4 leading-[1.25]">
                   {step.title}
                 </h3>
-                <p className="text-[#505631] leading-relaxed">
+                <p className="text-[#505631] leading-[1.7] text-base">
                   {step.description}
                 </p>
               </div>
@@ -158,10 +158,10 @@ const MealCategories = () => {
           transition={{ delay: 0.5 }}
           className="text-center"
         >
-          <Link to="/menu">
+          <Link to="/menu" className="inline-block w-full sm:w-auto">
             <Button 
               size="lg"
-              className="px-12 py-6 text-lg bg-gradient-to-br from-[#DE6E27] to-[#ff8040] text-white rounded-xl hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 font-semibold"
+              className="w-full sm:w-auto min-h-[56px] px-10 py-6 text-base md:text-lg bg-gradient-to-br from-[#DE6E27] to-[#ff8040] text-white rounded-xl shadow-lg hover:shadow-2xl md:hover:-translate-y-1 transition-all duration-300 font-bold active:scale-[0.97] select-none"
             >
               Commencer maintenant
               <motion.span
