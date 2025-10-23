@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { AnimatedGoalCard } from "@/components/ui/animated-goal-card";
+import minceurGoalImage from "@/assets/minceur-goal.jpg";
 
 interface GoalSelectionProps {
   selectedGoal: string | null;
@@ -24,7 +25,7 @@ const GoalSelection = ({ selectedGoal, onGoalSelect, onProceed }: GoalSelectionP
       description: 'Repas faibles en calories mais riches en nutriments essentiels pour votre bien-être',
       gradient: 'from-success to-success',
       icon: 'running' as const,
-      staticBg: 'https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?q=80&w=2070&auto=format&fit=crop',
+      staticBg: minceurGoalImage,
       animatedBg: 'https://media.giphy.com/media/3o6Zt6fzS6qEbLhKWQ/giphy.gif'
     },
     {
