@@ -9,7 +9,7 @@ import { footerSections } from "@/shared/data/footerData";
 
 const Footer = () => {
   return (
-    <footer className="relative bg-gradient-to-br from-[#2B3210] via-[#1a1f0a] to-[#2B3210] text-[#FBF8EF] mt-16 md:mt-20 lg:mt-32 overflow-hidden">
+    <footer className="relative bg-gradient-to-br from-[#2B3210] via-[#1a1f0a] to-[#2B3210] text-[#FBF8EF] mt-16 md:mt-20 lg:mt-32 overflow-hidden safe-area-bottom">
       {/* Top Border with Gradient */}
       <div className="h-1 bg-gradient-to-r from-transparent via-[#DE6E27] to-transparent" />
       
