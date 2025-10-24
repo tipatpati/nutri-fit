@@ -1,13 +1,12 @@
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { Icon } from "@/components/ui/icon";
 import { CheckCircle } from "lucide-react";
 
 interface AnimatedGoalCardProps {
   id: string;
   name: string;
   description: string;
-  icon: "muscle" | "running" | "scale-balance";
+  iconSrc: string;
   staticBg: string;
   animatedBg?: string;
   gradient: string;
@@ -20,7 +19,7 @@ export const AnimatedGoalCard = ({
   id,
   name,
   description,
-  icon,
+  iconSrc,
   staticBg,
   animatedBg,
   gradient,
@@ -80,8 +79,9 @@ export const AnimatedGoalCard = ({
           <motion.div
             animate={{ y: [0, -5, 0] }}
             transition={{ duration: 2, repeat: Infinity }}
+            className="w-24 h-24 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center"
           >
-            <Icon name={icon} size={72} className="brightness-0 invert drop-shadow-2xl" />
+            <img src={iconSrc} alt={name} className="w-16 h-16 brightness-0 invert drop-shadow-2xl" />
           </motion.div>
           <h3 className="font-['Space_Grotesk'] text-3xl font-bold text-white drop-shadow-lg mt-4">
             {name}

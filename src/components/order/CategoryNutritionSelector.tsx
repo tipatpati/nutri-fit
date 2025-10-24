@@ -1,8 +1,10 @@
 import { motion } from "framer-motion";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Flame, Activity, Wheat, Target, TrendingDown, TrendingUp, CheckCircle, Info } from "lucide-react";
-import { Icon } from "@/components/ui/icon";
+import { Flame, Activity, Wheat, CheckCircle, Info } from "lucide-react";
+import priseMasseIcon from "@/assets/icons/prise-masse-icon.png";
+import equilibreIcon from "@/assets/icons/equilibre-icon.png";
+import minceurIcon from "@/assets/icons/minceur-icon.png";
 
 interface CategoryNutritionSelectorProps {
   selectedCategory: 'equilibre' | 'perte_poids' | 'prise_masse';
@@ -12,7 +14,7 @@ interface CategoryNutritionSelectorProps {
 const CATEGORY_INFO = {
   equilibre: {
     label: 'Équilibré',
-    icon: Target,
+    iconSrc: equilibreIcon,
     color: '#29B6F6',
     gradient: 'from-info to-info',
     description: 'Alimentation équilibrée pour maintenir votre forme',
@@ -23,7 +25,7 @@ const CATEGORY_INFO = {
   },
   perte_poids: {
     label: 'Minceur',
-    icon: TrendingDown,
+    iconSrc: minceurIcon,
     color: '#4CAF50',
     gradient: 'from-success to-success',
     description: 'Programme optimisé pour perdre du poids sainement',
@@ -34,7 +36,7 @@ const CATEGORY_INFO = {
   },
   prise_masse: {
     label: 'Prise de masse',
-    icon: TrendingUp,
+    iconSrc: priseMasseIcon,
     color: '#DE6E27',
     gradient: 'from-orange-primary to-orange-light',
     description: 'Programme riche pour développer votre masse musculaire',
@@ -69,7 +71,6 @@ const CategoryNutritionSelector = ({ selectedCategory, onSelectCategory }: Categ
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {(Object.keys(CATEGORY_INFO) as Array<keyof typeof CATEGORY_INFO>).map((category, index) => {
           const info = CATEGORY_INFO[category];
-          const Icon = info.icon;
           const isSelected = selectedCategory === category;
 
           return (
@@ -104,9 +105,9 @@ const CategoryNutritionSelector = ({ selectedCategory, onSelectCategory }: Categ
                   <motion.div
                     whileHover={{ scale: 1.15, rotate: 10 }}
                     transition={{ type: "spring", stiffness: 300 }}
-                    className="p-4 rounded-2xl glass-dark"
+                    className="p-4 rounded-2xl bg-white/20 backdrop-blur-sm"
                   >
-                    <Icon className="h-10 w-10 text-white" />
+                    <img src={info.iconSrc} alt={info.label} className="h-10 w-10 brightness-0 invert" />
                   </motion.div>
                   {isSelected && (
                     <motion.div

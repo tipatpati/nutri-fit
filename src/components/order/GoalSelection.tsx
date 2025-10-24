@@ -2,6 +2,9 @@ import { motion } from "framer-motion";
 import { AnimatedGoalCard } from "@/components/ui/animated-goal-card";
 import minceurGoalImage from "@/assets/minceur-goal.jpg";
 import equilibreGoalImage from "@/assets/equilibre-goal.jpg";
+import priseMasseIcon from "@/assets/icons/prise-masse-icon.png";
+import equilibreIcon from "@/assets/icons/equilibre-icon.png";
+import minceurIcon from "@/assets/icons/minceur-icon.png";
 
 interface GoalSelectionProps {
   selectedGoal: string | null;
@@ -16,7 +19,7 @@ const GoalSelection = ({ selectedGoal, onGoalSelect, onProceed }: GoalSelectionP
       name: 'Prise de masse',
       description: 'Repas riches en protéines et calories pour développer votre masse musculaire de façon optimale',
       gradient: 'from-orange-primary to-orange-light',
-      icon: 'muscle' as const,
+      iconSrc: priseMasseIcon,
       staticBg: 'https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?q=80&w=2070&auto=format&fit=crop',
       animatedBg: 'https://media.giphy.com/media/5h47LsEYbofzcgOz19/giphy.gif'
     },
@@ -25,7 +28,7 @@ const GoalSelection = ({ selectedGoal, onGoalSelect, onProceed }: GoalSelectionP
       name: 'Minceur',
       description: 'Repas faibles en calories mais riches en nutriments essentiels pour votre bien-être',
       gradient: 'from-success to-success',
-      icon: 'running' as const,
+      iconSrc: minceurIcon,
       staticBg: minceurGoalImage,
       animatedBg: 'https://media.giphy.com/media/3o6Zt6fzS6qEbLhKWQ/giphy.gif'
     },
@@ -34,7 +37,7 @@ const GoalSelection = ({ selectedGoal, onGoalSelect, onProceed }: GoalSelectionP
       name: 'Équilibré',
       description: 'Repas parfaitement équilibrés pour maintenir votre forme optimale au quotidien',
       gradient: 'from-info to-info',
-      icon: 'scale-balance' as const,
+      iconSrc: equilibreIcon,
       staticBg: equilibreGoalImage,
       animatedBg: 'https://media.giphy.com/media/l2QDSt60JFjOdgQjC/giphy.gif'
     }
@@ -70,7 +73,7 @@ const GoalSelection = ({ selectedGoal, onGoalSelect, onProceed }: GoalSelectionP
             id={goal.id}
             name={goal.name}
             description={goal.description}
-            icon={goal.icon}
+            iconSrc={goal.iconSrc}
             staticBg={goal.staticBg}
             animatedBg={goal.animatedBg}
             gradient={goal.gradient}
