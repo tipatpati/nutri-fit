@@ -116,9 +116,9 @@ const Forfaits = () => {
               
               <div className="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-4 lg:space-x-12">
                 {[
-                  { goal: "weight_loss", label: "Minceur", mealSize: "300-450 cal", bgClass: "from-success to-success", iconSrc: minceurIcon },
-                  { goal: "balanced", label: "Équilibre", mealSize: "450-600 cal", bgClass: "from-info to-info", popular: true, iconSrc: equilibreIcon },
-                  { goal: "muscle_gain", label: "Prise de masse", mealSize: "650-800 cal", bgClass: "from-orange-primary to-orange-light", iconSrc: priseMasseIcon }
+                  { goal: "weight_loss", label: "Minceur", mealSize: "300-450 cal", bgClass: "from-[#4CAF50] via-[#66BB6A] to-[#81C784]", iconSrc: minceurIcon },
+                  { goal: "balanced", label: "Équilibre", mealSize: "450-600 cal", bgClass: "from-[#29B6F6] via-[#4FC3F7] to-[#81D4FA]", popular: true, iconSrc: equilibreIcon },
+                  { goal: "muscle_gain", label: "Prise de masse", mealSize: "650-800 cal", bgClass: "from-[#DE6E27] via-[#FF8142] to-[#ff9057]", iconSrc: priseMasseIcon }
                 ].map((item) => (
                   <div 
                     key={item.goal}

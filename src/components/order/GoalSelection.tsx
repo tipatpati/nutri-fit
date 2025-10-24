@@ -18,7 +18,7 @@ const GoalSelection = ({ selectedGoal, onGoalSelect, onProceed }: GoalSelectionP
       id: 'bulking',
       name: 'Prise de masse',
       description: 'Repas riches en protéines et calories pour développer votre masse musculaire de façon optimale',
-      gradient: 'from-orange-primary to-orange-light',
+      gradient: 'from-orange-primary via-orange-light to-[#ff9057]',
       iconSrc: priseMasseIcon,
       staticBg: 'https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?q=80&w=2070&auto=format&fit=crop',
       animatedBg: 'https://media.giphy.com/media/5h47LsEYbofzcgOz19/giphy.gif'
@@ -27,7 +27,7 @@ const GoalSelection = ({ selectedGoal, onGoalSelect, onProceed }: GoalSelectionP
       id: 'cutting',
       name: 'Minceur',
       description: 'Repas faibles en calories mais riches en nutriments essentiels pour votre bien-être',
-      gradient: 'from-success to-success',
+      gradient: 'from-[#4CAF50] via-[#66BB6A] to-[#81C784]',
       iconSrc: minceurIcon,
       staticBg: minceurGoalImage,
       animatedBg: 'https://media.giphy.com/media/3o6Zt6fzS6qEbLhKWQ/giphy.gif'
@@ -36,7 +36,7 @@ const GoalSelection = ({ selectedGoal, onGoalSelect, onProceed }: GoalSelectionP
       id: 'balanced',
       name: 'Équilibré',
       description: 'Repas parfaitement équilibrés pour maintenir votre forme optimale au quotidien',
-      gradient: 'from-info to-info',
+      gradient: 'from-[#29B6F6] via-[#4FC3F7] to-[#81D4FA]',
       iconSrc: equilibreIcon,
       staticBg: equilibreGoalImage,
       animatedBg: 'https://media.giphy.com/media/l2QDSt60JFjOdgQjC/giphy.gif'
