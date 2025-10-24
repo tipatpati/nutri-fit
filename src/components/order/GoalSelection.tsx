@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { AnimatedGoalCard } from "@/components/ui/animated-goal-card";
 import minceurGoalImage from "@/assets/minceur-goal.jpg";
+import equilibreGoalImage from "@/assets/equilibre-goal.jpg";
 
 interface GoalSelectionProps {
   selectedGoal: string | null;
@@ -34,7 +35,7 @@ const GoalSelection = ({ selectedGoal, onGoalSelect, onProceed }: GoalSelectionP
       description: 'Repas parfaitement équilibrés pour maintenir votre forme optimale au quotidien',
       gradient: 'from-info to-info',
       icon: 'scale-balance' as const,
-      staticBg: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=2020&auto=format&fit=crop',
+      staticBg: equilibreGoalImage,
       animatedBg: 'https://media.giphy.com/media/l2QDSt60JFjOdgQjC/giphy.gif'
     }
   ];
