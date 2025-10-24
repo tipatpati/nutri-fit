@@ -79,7 +79,7 @@ export const AnimatedGoalCard = ({
           <motion.div
             animate={{ y: [0, -5, 0] }}
             transition={{ duration: 2, repeat: Infinity }}
-            className="w-24 h-24 rounded-full bg-gradient-to-br from-white/30 via-white/20 to-white/10 backdrop-blur-md flex items-center justify-center shadow-xl"
+            className="w-24 h-24 rounded-full bg-gradient-to-br from-white/40 via-white/20 to-transparent backdrop-blur-lg flex items-center justify-center shadow-2xl border border-white/30"
           >
             <img src={iconSrc} alt={name} className="w-16 h-16 brightness-0 invert drop-shadow-2xl" />
           </motion.div>
