@@ -70,7 +70,7 @@ export const AnimatedGoalCard = ({
         gradient,
         "flex items-center justify-center z-20"
       )}>
-        <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black/50" />
         <motion.div
           whileHover={{ scale: 1.15, rotate: 10 }}
           transition={{ type: "spring", stiffness: 300 }}
@@ -79,7 +79,7 @@ export const AnimatedGoalCard = ({
           <motion.div
             animate={{ y: [0, -5, 0] }}
             transition={{ duration: 2, repeat: Infinity }}
-            className="w-24 h-24 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center"
+            className="w-24 h-24 rounded-full bg-gradient-to-br from-white/30 via-white/20 to-white/10 backdrop-blur-md flex items-center justify-center shadow-xl"
           >
             <img src={iconSrc} alt={name} className="w-16 h-16 brightness-0 invert drop-shadow-2xl" />
           </motion.div>
