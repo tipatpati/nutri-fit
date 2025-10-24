@@ -61,8 +61,8 @@ export const AnimatedGoalCard = ({
       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent z-10" />
       
       {/* Icon Header */}
-      <div className={cn("absolute top-0 left-0 right-0 h-44 bg-gradient-to-br", gradient, "flex items-center justify-center z-20")}>
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black/50 bg-[#000a00]/[0.27]" />
+      <div className={cn("absolute top-0 left-0 right-0 h-44 bg-gradient-to-br", gradient, "opacity-40 flex items-center justify-center z-20")}>
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/30" />
         <motion.div whileHover={{
         scale: 1.15,
         rotate: 10
