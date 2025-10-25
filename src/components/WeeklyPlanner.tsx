@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState, useRef } from "react";
+import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import { Button } from "./ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { Badge } from "./ui/badge";
@@ -7,10 +7,21 @@ import { Flame, Beef, Apple, Loader2 } from "lucide-react";
 import { Icon } from "./ui/icon";
 import { useMeals } from "@/presentation/hooks/useMeals";
 import { Link } from "react-router-dom";
+import { GlowingEffect } from "./ui/glowing-effect";
 
 const WeeklyPlanner = () => {
   const [selectedGoal, setSelectedGoal] = useState<"Prise de masse" | "Minceur" | "Équilibré">("Équilibré");
   const { data: meals = [], isLoading } = useMeals({ active: true });
+  
+  // Parallax scroll tracking
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"]
+  });
+  
+  // Transform scroll progress to Y position
+  const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
 
   const goals = [
     { name: "Prise de masse", multiplier: 1.3, description: "Portions augmentées" },
@@ -40,19 +51,23 @@ const WeeklyPlanner = () => {
 
   if (isLoading) {
     return (
-      <section className="relative py-20 lg:py-28 overflow-hidden">
+      <section ref={sectionRef} className="relative py-20 lg:py-28 overflow-hidden">
         {/* Background Image with Dark Olive Overlay */}
         <div className="absolute inset-0 z-0">
-          <img 
+          <motion.img 
             src="/weekly-planner-background.jpg" 
             alt="Fresh healthy meal background" 
             className="absolute inset-0 w-full h-full object-cover"
+            style={{
+              y: backgroundY,
+              scale: 1.2
+            }}
           />
-          <div className="absolute inset-0 bg-gradient-to-br from-[#2B3210]/80 via-[#2B3210]/70 to-[#505631]/65" />
+          <div className="absolute inset-0 bg-gradient-to-br from-[#2B3210]/55 via-[#2B3210]/45 to-[#505631]/40" />
           <div 
             className="absolute inset-0"
             style={{
-              background: 'radial-gradient(ellipse at center, transparent 0%, rgba(43, 50, 16, 0.35) 60%, rgba(43, 50, 16, 0.55) 100%)'
+              background: 'radial-gradient(ellipse at center, transparent 0%, rgba(43, 50, 16, 0.15) 60%, rgba(43, 50, 16, 0.30) 100%)'
             }}
           />
         </div>
@@ -71,19 +86,23 @@ const WeeklyPlanner = () => {
   }
 
   return (
-    <section className="relative py-16 md:py-20 lg:py-32 overflow-hidden">
+    <section ref={sectionRef} className="relative py-16 md:py-20 lg:py-32 overflow-hidden">
       {/* Background Image with Dark Olive Overlay */}
       <div className="absolute inset-0 z-0">
-        <img 
+        <motion.img 
           src="/weekly-planner-background.jpg" 
           alt="Fresh healthy meal background" 
           className="absolute inset-0 w-full h-full object-cover"
+          style={{
+            y: backgroundY,
+            scale: 1.2
+          }}
         />
-        <div className="absolute inset-0 bg-gradient-to-br from-[#2B3210]/80 via-[#2B3210]/70 to-[#505631]/65" />
+        <div className="absolute inset-0 bg-gradient-to-br from-[#2B3210]/55 via-[#2B3210]/45 to-[#505631]/40" />
         <div 
           className="absolute inset-0"
           style={{
-            background: 'radial-gradient(ellipse at center, transparent 0%, rgba(43, 50, 16, 0.35) 60%, rgba(43, 50, 16, 0.55) 100%)'
+            background: 'radial-gradient(ellipse at center, transparent 0%, rgba(43, 50, 16, 0.15) 60%, rgba(43, 50, 16, 0.30) 100%)'
           }}
         />
       </div>
@@ -166,14 +185,27 @@ const WeeklyPlanner = () => {
                   transition={{ delay: index * 0.05 }}
                   layout
                 >
-                  <Card 
-                    className="overflow-hidden hover:shadow-2xl transition-all duration-300 border-2 border-[#FBF8EF]/20 hover:border-[#DE6E27]/50"
-                    style={{
-                      background: 'rgba(251, 248, 239, 0.15)',
-                      backdropFilter: 'blur(32px) saturate(180%)',
-                      WebkitBackdropFilter: 'blur(32px) saturate(180%)'
-                    }}
-                  >
+                  <div className="relative h-full">
+                    <div className="relative h-full rounded-2xl border-2 border-[#FBF8EF]/20 hover:border-[#DE6E27]/50 transition-colors duration-300 p-2">
+                      {/* Glowing Effect - Highly visible on dark background */}
+                      <GlowingEffect
+                        spread={50}
+                        glow={true}
+                        disabled={false}
+                        proximity={100}
+                        inactiveZone={0.01}
+                        borderWidth={2}
+                      />
+                      
+                      {/* Original Card with Glassmorphism */}
+                      <Card 
+                        className="h-full overflow-hidden hover:shadow-2xl transition-all duration-300 border-0 rounded-xl"
+                        style={{
+                          background: 'rgba(251, 248, 239, 0.15)',
+                          backdropFilter: 'blur(32px) saturate(180%)',
+                          WebkitBackdropFilter: 'blur(32px) saturate(180%)'
+                        }}
+                      >
                     <CardHeader className={`${colors.bg} ${colors.text} p-6 relative overflow-hidden`}>
                       {/* Shine effect */}
                       <motion.div
@@ -274,6 +306,8 @@ const WeeklyPlanner = () => {
                     </div>
                   </CardContent>
                 </Card>
+                    </div>
+                  </div>
               </motion.div>
               );
             })}
