@@ -6,11 +6,13 @@ export const GlareCard = ({
   className,
   backgroundImage,
   backgroundClassName,
+  hoverBackgroundImage,
 }: {
   children: React.ReactNode;
   className?: string;
   backgroundImage?: string;
   backgroundClassName?: string;
+  hoverBackgroundImage?: string;
 }) => {
   const isPointerInside = useRef(false);
   const refElement = useRef<HTMLDivElement>(null);
@@ -121,12 +123,39 @@ export const GlareCard = ({
     >
       <div className="h-full grid will-change-transform origin-center transition-transform duration-[var(--duration)] ease-[var(--easing)] delay-[var(--delay)] [transform:rotateY(var(--r-x))_rotateX(var(--r-y))] rounded-[var(--radius)] border border-olive-dark/20 hover:[--opacity:0.6] hover:[--duration:200ms] hover:[--easing:linear] hover:filter-none overflow-hidden">
         <div className="w-full h-full grid [grid-area:1/1] [clip-path:inset(0_0_0_0_round_var(--radius))]">
-          <div className={cn("h-full w-full relative", className)}>
+          <div className={cn("h-full w-full relative group", className)}>
             {backgroundImage && (
-              <div 
-                className={cn("absolute inset-0 bg-cover bg-center", backgroundClassName)}
-                style={{ backgroundImage: `url(${backgroundImage})` }}
-              />
+              <>
+                {/* Static background */}
+                <div 
+                  className={cn(
+                    "absolute inset-0 bg-cover bg-center transition-opacity duration-500",
+                    hoverBackgroundImage && "group-hover:opacity-0",
+                    backgroundClassName
+                  )}
+                  style={{ backgroundImage: `url(${backgroundImage})` }}
+                />
+                {/* Animated background on hover */}
+                {hoverBackgroundImage && (
+                  <>
+                    {/* Preload hover image */}
+                    <div 
+                      className="fixed inset-0 opacity-0 -z-10 pointer-events-none"
+                      style={{ backgroundImage: `url(${hoverBackgroundImage})` }}
+                    />
+                    {/* Hover background */}
+                    <div 
+                      className={cn(
+                        "absolute inset-0 bg-cover bg-center opacity-0 group-hover:opacity-100 transition-opacity duration-500",
+                        backgroundClassName
+                      )}
+                      style={{ backgroundImage: `url(${hoverBackgroundImage})` }}
+                    />
+                  </>
+                )}
+                {/* Darker overlay on hover */}
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-500" />
+              </>
             )}
             <div className="relative z-10">
               {children}

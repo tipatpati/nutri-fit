@@ -79,6 +79,7 @@ const GoalSelection = ({ selectedGoal, onGoalSelect, onProceed }: GoalSelectionP
           >
             <GlareCard
               backgroundImage={goal.staticBg}
+              hoverBackgroundImage={goal.animatedBg}
               backgroundClassName="bg-gradient-to-t from-olive-dark/90 via-olive-dark/40 to-transparent"
               className={
                 selectedGoal === goal.id ? 'ring-4 ring-orange-primary ring-offset-4 ring-offset-cream' : ''
