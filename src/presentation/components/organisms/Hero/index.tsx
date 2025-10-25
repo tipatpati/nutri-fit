@@ -39,7 +39,7 @@ export const Hero = () => {
         }} transition={{
           duration: 0.8,
           ease: "easeOut"
-        }} className="text-center space-y-12 md:space-y-16 lg:space-y-20">
+        }} className="text-center space-y-12 md:space-y-16 lg:space-y-20 my-0 py-md-5">
             {/* Heading & Description Group */}
             <motion.div initial={{
             opacity: 0,
