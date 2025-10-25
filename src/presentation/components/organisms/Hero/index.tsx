@@ -14,7 +14,7 @@ export const Hero = () => {
     navigate("/order");
   };
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-32 md:pt-24">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24 md:pt-28 lg:pt-32">
       {/* Background with combined overlays */}
       <div className="absolute inset-0 z-0">
         <img 
@@ -31,12 +31,12 @@ export const Hero = () => {
       </div>
 
       {/* Content with BackgroundLines */}
-      <BackgroundLines className="flex items-center justify-center w-full flex-col px-6 py-32 md:py-44 lg:py-56 pb-40 md:pb-48 lg:pb-56 relative z-10">
+      <BackgroundLines className="flex items-center justify-center w-full flex-col px-6 py-16 md:py-20 lg:py-24 pb-20 md:pb-24 lg:pb-28 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="container mx-auto px-6 md:px-8 max-w-7xl text-center space-y-16 md:space-y-20 lg:space-y-24"
+          className="container mx-auto px-6 md:px-8 max-w-7xl text-center space-y-12 md:space-y-16 lg:space-y-20"
         >
           {/* Heading & Description */}
           <motion.div
