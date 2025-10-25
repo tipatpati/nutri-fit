@@ -78,19 +78,12 @@ const GoalSelection = ({ selectedGoal, onGoalSelect, onProceed }: GoalSelectionP
             className="cursor-pointer"
           >
             <GlareCard
-              className={`relative ${
-                selectedGoal === goal.id ? 'ring-4 ring-orange-primary ring-offset-4' : ''
-              }`}
+              backgroundImage={goal.staticBg}
+              backgroundClassName="bg-gradient-to-t from-olive-dark/90 via-olive-dark/40 to-transparent"
+              className={
+                selectedGoal === goal.id ? 'ring-4 ring-orange-primary ring-offset-4 ring-offset-cream' : ''
+              }
             >
-              {/* Background Image */}
-              <div 
-                className="absolute inset-0 bg-cover bg-center"
-                style={{ backgroundImage: `url(${goal.staticBg})` }}
-              />
-              
-              {/* Dark gradient overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
-              
               {/* Icon Header */}
               <div className={`absolute top-0 left-0 right-0 h-32 bg-gradient-to-br ${goal.gradient} opacity-40 flex items-center justify-center`}>
                 <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/30" />
@@ -105,7 +98,7 @@ const GoalSelection = ({ selectedGoal, onGoalSelect, onProceed }: GoalSelectionP
               </div>
               
               {/* Content */}
-              <div className="absolute bottom-0 left-0 right-0 p-6 z-10">
+              <div className="absolute bottom-0 left-0 right-0 p-6">
                 <h3 className="font-['Space_Grotesk'] text-2xl font-bold text-white drop-shadow-lg text-center mb-3">
                   {goal.name}
                 </h3>
