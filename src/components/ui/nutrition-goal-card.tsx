@@ -199,9 +199,19 @@ export function NutritionGoalCard({
           aria-hidden="true"
         />
 
-        {/* Gradient overlay for text readability */}
+        {/* Gradient overlay for text readability with goal-specific color */}
         <div
-          className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent z-10"
+          className={cn(
+            "absolute inset-0 z-10",
+            "bg-gradient-to-t from-black/90 via-black/30 to-transparent"
+          )}
+          aria-hidden="true"
+        />
+        <div
+          className={cn(
+            "absolute inset-0 z-10 opacity-40 bg-gradient-to-br",
+            gradientClass
+          )}
           aria-hidden="true"
         />
 
