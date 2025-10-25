@@ -38,23 +38,23 @@ export const HowItWorks = () => {
 
   return (
     <section className="relative py-16 md:py-20 lg:py-28 bg-gradient-to-br from-[#FBF8EF] via-[#E5E2D9] to-[#FBF8EF] overflow-hidden">
-      {/* Animated Background */}
-      <div className="absolute inset-0 hidden md:block">
-        <motion.div
-          animate={{
-            scale: [1, 1.2, 1],
-            rotate: [0, 90, 0]
-          }}
-          transition={{ duration: 20, repeat: Infinity }}
-          className="absolute top-20 right-20 w-96 h-96 bg-[#DE6E27]/5 rounded-full blur-3xl"
+      {/* Background Image with Dark Olive Overlay */}
+      <div className="absolute inset-0">
+        <img 
+          src="/how-it-works-background.jpg" 
+          alt="Fresh healthy meal background" 
+          className="absolute inset-0 w-full h-full object-cover"
         />
-        <motion.div
-          animate={{
-            scale: [1, 1.3, 1],
-            rotate: [0, -90, 0]
+        {/* Dark olive-green overlay for glassmorphism compatibility */}
+        <div 
+          className="absolute inset-0 bg-gradient-to-br from-[#2B3210]/75 via-[#2B3210]/65 to-[#505631]/60"
+        />
+        {/* Subtle radial gradient for depth */}
+        <div 
+          className="absolute inset-0"
+          style={{
+            background: 'radial-gradient(ellipse at center, transparent 0%, rgba(43, 50, 16, 0.3) 70%, rgba(43, 50, 16, 0.5) 100%)'
           }}
-          transition={{ duration: 25, repeat: Infinity, delay: 5 }}
-          className="absolute bottom-20 left-20 w-96 h-96 bg-[#2B3210]/5 rounded-full blur-3xl"
         />
       </div>
 
