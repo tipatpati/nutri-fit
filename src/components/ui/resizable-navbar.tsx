@@ -84,7 +84,8 @@ export const NavBody = ({ children, className, visible }: NavBodyProps) => {
   return (
     <motion.div
       animate={{
-        backdropFilter: visible ? "blur(24px) saturate(180%)" : "blur(10px) saturate(150%)",
+        backdropFilter: visible ? "blur(32px) saturate(200%)" : "blur(24px) saturate(180%)",
+        backgroundColor: visible ? "rgba(251, 248, 239, 0.85)" : "rgba(251, 248, 239, 0.6)",
         width: visible ? "60%" : "100%",
         y: visible ? 16 : 0,
       }}
@@ -95,12 +96,13 @@ export const NavBody = ({ children, className, visible }: NavBodyProps) => {
       }}
       style={{
         minWidth: visible ? "800px" : "100%",
+        WebkitBackdropFilter: visible ? "blur(32px) saturate(200%)" : "blur(24px) saturate(180%)",
       }}
       className={cn(
         "relative z-[60] mx-auto hidden w-full max-w-7xl flex-row items-center justify-between self-start rounded-2xl px-6 py-3 lg:flex",
         visible 
-          ? "glass-strong shadow-[0_8px_32px_0_rgba(43,50,16,0.12)] border border-orange-primary/20" 
-          : "bg-white/60 backdrop-blur-md border border-beige/50",
+          ? "border border-orange-primary/20 shadow-[0_12px_40px_0_rgba(43,50,16,0.12)]" 
+          : "border border-orange-primary/15 shadow-[0_8px_32px_0_rgba(43,50,16,0.08)]",
         className,
       )}
     >
@@ -145,7 +147,8 @@ export const MobileNav = ({ children, className, visible }: MobileNavProps) => {
   return (
     <motion.div
       animate={{
-        backdropFilter: visible ? "blur(24px) saturate(180%)" : "blur(10px) saturate(150%)",
+        backdropFilter: visible ? "blur(32px) saturate(200%)" : "blur(24px) saturate(180%)",
+        backgroundColor: visible ? "rgba(251, 248, 239, 0.85)" : "rgba(251, 248, 239, 0.6)",
         width: visible ? "90%" : "100%",
         paddingRight: visible ? "16px" : "24px",
         paddingLeft: visible ? "16px" : "24px",
@@ -157,11 +160,14 @@ export const MobileNav = ({ children, className, visible }: MobileNavProps) => {
         stiffness: 200,
         damping: 50,
       }}
+      style={{
+        WebkitBackdropFilter: visible ? "blur(32px) saturate(200%)" : "blur(24px) saturate(180%)",
+      }}
       className={cn(
         "relative z-50 mx-auto flex w-full max-w-[calc(100vw-1rem)] flex-col items-center justify-between py-3 lg:hidden",
         visible 
-          ? "glass-strong shadow-[0_8px_32px_0_rgba(43,50,16,0.12)] border border-orange-primary/20" 
-          : "bg-white/60 backdrop-blur-md border-b border-beige/50",
+          ? "border border-orange-primary/20 shadow-[0_12px_40px_0_rgba(43,50,16,0.12)]" 
+          : "border-b border-orange-primary/15",
         className,
       )}
     >
@@ -211,8 +217,13 @@ export const MobileNavMenu = ({
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: 300 }}
             transition={{ type: "spring", stiffness: 300, damping: 30 }}
+            style={{
+              backgroundColor: "rgba(251, 248, 239, 0.95)",
+              backdropFilter: "blur(40px) saturate(200%)",
+              WebkitBackdropFilter: "blur(40px) saturate(200%)",
+            }}
             className={cn(
-              "fixed right-0 top-0 z-50 h-full w-72 flex flex-col gap-6 glass-strong shadow-[0_8px_32px_0_rgba(43,50,16,0.3)] border-l border-orange-primary/20 p-6",
+              "fixed right-0 top-0 z-50 h-full w-72 flex flex-col gap-6 shadow-[0_12px_48px_0_rgba(43,50,16,0.3)] border-l-2 border-orange-primary/25 p-6",
               className,
             )}
           >
