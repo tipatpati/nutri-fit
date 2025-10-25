@@ -18,16 +18,16 @@ export const Hero = () => {
       {/* Background with combined overlays */}
       <div className="absolute inset-0 z-0">
         <img 
-          src="/hero-background.jpg" 
+          src="/hero-meal-prep.jpg" 
           alt="Meal prep background" 
           className="absolute inset-0 w-full h-full object-cover" 
         />
-        <div 
-          className="absolute inset-0 bg-gradient-to-b from-[#2B3210]/80 via-[#2B3210]/75 to-[#2B3210]/85"
-          style={{
-            background: 'linear-gradient(to bottom, rgba(43, 50, 16, 0.8), rgba(43, 50, 16, 0.75), rgba(43, 50, 16, 0.85)), radial-gradient(ellipse at center, transparent 0%, transparent 40%, rgba(43, 50, 16, 0.4) 100%)'
-          }}
-        />
+      <div 
+        className="absolute inset-0"
+        style={{
+          background: 'linear-gradient(to right, rgba(43, 50, 16, 0.75) 0%, rgba(43, 50, 16, 0.4) 50%, transparent 100%), linear-gradient(to bottom, rgba(43, 50, 16, 0.3) 0%, rgba(43, 50, 16, 0.2) 100%)'
+        }}
+      />
       </div>
 
       {/* Content with BackgroundLines */}
@@ -36,7 +36,7 @@ export const Hero = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="container mx-auto px-6 md:px-8 max-w-7xl text-center space-y-12 md:space-y-16 lg:space-y-20"
+          className="container mx-auto px-6 md:px-8 lg:px-12 max-w-7xl text-left lg:text-left space-y-12 md:space-y-16 lg:space-y-20 lg:max-w-4xl lg:mr-auto"
         >
           {/* Heading & Description */}
           <motion.div
@@ -45,7 +45,7 @@ export const Hero = () => {
             transition={{ duration: 1, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
             className="space-y-10 md:space-y-12 lg:space-y-14"
           >
-            <h1 className="text-center">
+            <h1 className="text-left lg:text-left">
               <span className="font-['Outfit'] block text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-extrabold tracking-tight leading-[1.1] text-white drop-shadow-2xl mb-5 md:mb-7">
                 Repas Santé pour
               </span>
@@ -69,7 +69,7 @@ export const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
-            className="flex flex-col sm:flex-row items-center justify-center gap-5 md:gap-7 lg:gap-8 text-sm md:text-base"
+            className="flex flex-col sm:flex-row items-start lg:items-start justify-start gap-5 md:gap-6 text-sm md:text-base"
           >
             {[
               { icon: CheckCircle, text: "100% nutrition contrôlée" },
@@ -99,7 +99,7 @@ export const Hero = () => {
             transition={{ duration: 0.8, delay: 1 }}
             whileHover={{ scale: 1.05, y: -2 }}
             whileTap={{ scale: 0.95 }}
-            className="flex justify-center"
+            className="flex justify-start"
           >
             <Button
               onClick={handleOrderClick}
@@ -116,7 +116,7 @@ export const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 1.2 }}
-            className="grid grid-cols-1 sm:grid-cols-3 gap-6 md:gap-8 lg:gap-10 max-w-5xl mx-auto pt-8 md:pt-12 lg:pt-14 px-4 sm:px-6"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-6 lg:gap-8 max-w-4xl lg:mx-0 pt-8 md:pt-12 lg:pt-14"
           >
             {[
               {
