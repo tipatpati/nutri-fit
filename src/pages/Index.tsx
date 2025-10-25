@@ -66,7 +66,7 @@ const Index = () => {
         )}
       </AnimatePresence>
 
-      <main className="w-full">
+      <main className="w-full pt-20">
         <Hero />
         
         {/* Add stagger animations to sections */}
