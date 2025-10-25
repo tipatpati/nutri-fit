@@ -3,11 +3,14 @@ import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion"
 import { Button } from "./ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { Badge } from "./ui/badge";
-import { Flame, Beef, Apple, Loader2, Dumbbell, Scale, TrendingDown } from "lucide-react";
+import { Flame, Beef, Apple, Loader2 } from "lucide-react";
 import { Icon } from "./ui/icon";
 import { useMeals } from "@/presentation/hooks/useMeals";
 import { Link } from "react-router-dom";
 import { GlowingEffect } from "./ui/glowing-effect";
+import armMuscleIcon from "@/assets/icons/arm-muscle-4.png";
+import slimBodyIcon from "@/assets/icons/slim-body-4.png";
+import yogaIcon from "@/assets/icons/yoga-4.png";
 
 const WeeklyPlanner = () => {
   const [selectedGoal, setSelectedGoal] = useState<"Prise de masse" | "Minceur" | "Équilibré">("Équilibré");
@@ -24,9 +27,9 @@ const WeeklyPlanner = () => {
   const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
 
   const goals = [
-    { name: "Prise de masse", multiplier: 1.3, description: "Portions augmentées", icon: Dumbbell },
-    { name: "Équilibré", multiplier: 1.0, description: "Portions standards", icon: Scale },
-    { name: "Minceur", multiplier: 0.8, description: "Portions réduites", icon: TrendingDown }
+    { name: "Prise de masse", multiplier: 1.3, description: "Portions augmentées", icon: armMuscleIcon },
+    { name: "Équilibré", multiplier: 1.0, description: "Portions standards", icon: yogaIcon },
+    { name: "Minceur", multiplier: 0.8, description: "Portions réduites", icon: slimBodyIcon }
   ];
 
   const currentGoal = goals.find(g => g.name === selectedGoal) || goals[1];
@@ -152,7 +155,12 @@ const WeeklyPlanner = () => {
                       : 'glass-strong border-2 border-[#DE6E27]/30 text-[#FBF8EF] hover:border-[#DE6E27]/50 hover:bg-[#FBF8EF]/5'
                   }`}
                 >
-                  <goal.icon className={`w-8 h-8 mb-3 mx-auto ${selectedGoal === goal.name ? 'text-white' : 'text-[#DE6E27]'}`} />
+                  <img 
+                    src={goal.icon} 
+                    alt={goal.name}
+                    className={`w-12 h-12 mb-3 mx-auto ${selectedGoal === goal.name ? 'brightness-0 invert' : 'brightness-0 invert-0'}`}
+                    style={selectedGoal === goal.name ? {} : { filter: 'brightness(0) saturate(100%) invert(36%) sepia(45%) saturate(1175%) hue-rotate(348deg) brightness(92%) contrast(88%)' }}
+                  />
                   <div className="font-['Space_Grotesk'] text-xl font-bold mb-2">{goal.name}</div>
                   <div className={`text-sm ${selectedGoal === goal.name ? 'text-white/90' : 'text-[#FBF8EF]/75'}`}>
                     {goal.description}
