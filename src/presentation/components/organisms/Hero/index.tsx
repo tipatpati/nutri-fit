@@ -13,7 +13,7 @@ export const Hero = () => {
   const handleOrderClick = () => {
     navigate("/order");
   };
-  return <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
+  return <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-32 md:pt-24">
       {/* Background Image Layer */}
       <div className="absolute inset-0 z-0">
         <img src="/hero-background.jpg" alt="Meal prep background" className="absolute inset-0 w-full h-full object-cover" />
@@ -27,7 +27,7 @@ export const Hero = () => {
     }} />
 
       {/* Aceternity BackgroundLines Component */}
-      <BackgroundLines className="flex items-center justify-center w-full flex-col px-6 py-24 md:py-36 lg:py-48 pb-32 md:pb-40 lg:pb-48 relative z-10">
+      <BackgroundLines className="flex items-center justify-center w-full flex-col px-6 py-32 md:py-44 lg:py-56 pb-40 md:pb-48 lg:pb-56 relative z-10">
         <div className="container mx-auto px-6 md:px-8 max-w-7xl">
           {/* Hero Content */}
           <motion.div initial={{
@@ -39,7 +39,7 @@ export const Hero = () => {
         }} transition={{
           duration: 0.8,
           ease: "easeOut"
-        }} className="text-center space-y-12 md:space-y-16 lg:space-y-20 my-0 py-md-5">
+        }} className="text-center space-y-16 md:space-y-20 lg:space-y-24 my-0">
             {/* Heading & Description Group */}
             <motion.div initial={{
             opacity: 0,
@@ -51,7 +51,7 @@ export const Hero = () => {
             duration: 1,
             delay: 0.2,
             ease: [0.22, 1, 0.36, 1]
-          }} className="space-y-8 md:space-y-10">
+          }} className="space-y-10 md:space-y-12 lg:space-y-14">
               {/* Main Heading */}
               <div className="relative flex flex-col items-center gap-6 md:gap-8">
                 <h1 className="text-center">
@@ -88,10 +88,10 @@ export const Hero = () => {
           }} animate={{
             opacity: 1,
             y: 0
-          }} transition={{
-            duration: 0.8,
-            delay: 0.6
-          }} className="flex flex-col sm:flex-row items-center justify-center gap-4 md:gap-6 text-sm md:text-base">
+            }} transition={{
+              duration: 0.8,
+              delay: 0.6
+            }} className="flex flex-col sm:flex-row items-center justify-center gap-5 md:gap-7 lg:gap-8 text-sm md:text-base">
               {[{
               icon: CheckCircle,
               text: "100% nutrition contrôlée"
@@ -151,10 +151,10 @@ export const Hero = () => {
           }} animate={{
             opacity: 1,
             y: 0
-          }} transition={{
-            duration: 0.8,
-            delay: 1.2
-          }} className="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-6 lg:gap-8 max-w-5xl mx-auto pt-8 md:pt-12 pb-16 md:pb-20 px-4 sm:px-6">
+            }} transition={{
+              duration: 0.8,
+              delay: 1.2
+            }} className="grid grid-cols-1 sm:grid-cols-3 gap-6 md:gap-8 lg:gap-10 max-w-5xl mx-auto pt-12 md:pt-16 lg:pt-20 px-4 sm:px-6">
               {[{
               title: "Minceur",
               description: "Perte de poids",
