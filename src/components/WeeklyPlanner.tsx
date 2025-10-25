@@ -42,13 +42,33 @@ const WeeklyPlanner = () => {
   const getGoalColor = (goal: string) => {
     switch (goal) {
       case 'Prise de masse': 
-        return { bg: 'bg-gradient-to-br from-orange-500 to-red-500', text: 'text-white', light: 'from-orange-50 to-red-50' };
+        return { 
+          bg: 'bg-gradient-to-br from-[#DE6E27] to-[#FF8142]', 
+          text: 'text-white', 
+          light: 'from-orange-50 to-orange-100',
+          iconFilter: 'brightness(0) invert(1)'
+        };
       case 'Minceur': 
-        return { bg: 'bg-gradient-to-br from-emerald-500 to-green-500', text: 'text-white', light: 'from-emerald-50 to-green-50' };
+        return { 
+          bg: 'bg-gradient-to-br from-[#4CAF50] to-[#66BB6A]', 
+          text: 'text-white', 
+          light: 'from-green-50 to-green-100',
+          iconFilter: 'brightness(0) invert(1)'
+        };
       case 'Équilibré': 
-        return { bg: 'bg-gradient-to-br from-yellow-500 to-amber-500', text: 'text-white', light: 'from-yellow-50 to-amber-50' };
+        return { 
+          bg: 'bg-gradient-to-br from-[#E5E2D9] to-[#D4D1C8]', 
+          text: 'text-[#2B3210]',
+          light: 'from-[#E5E2D9] to-[#D4D1C8]',
+          iconFilter: 'brightness(0) saturate(100%) invert(15%) sepia(19%) saturate(2435%) hue-rotate(53deg) brightness(93%) contrast(95%)'
+        };
       default: 
-        return { bg: 'bg-gray-500', text: 'text-white', light: 'from-gray-50 to-gray-100' };
+        return { 
+          bg: 'bg-gray-500', 
+          text: 'text-white', 
+          light: 'from-gray-50 to-gray-100',
+          iconFilter: 'brightness(0) invert(1)'
+        };
     }
   };
 
@@ -158,14 +178,18 @@ const WeeklyPlanner = () => {
                   <img 
                     src={goal.icon} 
                     alt={goal.name}
-                    className={`w-12 h-12 mb-3 mx-auto ${selectedGoal === goal.name ? 'brightness-0 invert' : 'brightness-0 invert-0'}`}
-                    style={selectedGoal === goal.name ? {} : { filter: 'brightness(0) saturate(100%) invert(36%) sepia(45%) saturate(1175%) hue-rotate(348deg) brightness(92%) contrast(88%)' }}
+                    className="w-12 h-12 mb-3 mx-auto transition-all duration-300"
+                    style={{ 
+                      filter: selectedGoal === goal.name 
+                        ? colors.iconFilter 
+                        : 'brightness(0) saturate(100%) invert(36%) sepia(45%) saturate(1175%) hue-rotate(348deg) brightness(92%) contrast(88%)'
+                    }}
                   />
-                  <div className="font-['Space_Grotesk'] text-xl font-bold mb-2">{goal.name}</div>
-                  <div className={`text-sm ${selectedGoal === goal.name ? 'text-white/90' : 'text-[#FBF8EF]/75'}`}>
+                  <div className={`font-['Space_Grotesk'] text-xl font-bold mb-2 ${colors.text}`}>{goal.name}</div>
+                  <div className={`text-sm ${selectedGoal === goal.name ? (goal.name === 'Équilibré' ? 'text-[#2B3210]/80' : 'text-white/90') : 'text-[#FBF8EF]/75'}`}>
                     {goal.description}
                   </div>
-                  <div className={`text-lg font-bold mt-3 ${selectedGoal === goal.name ? 'text-white' : 'text-[#DE6E27]'}`}>
+                  <div className={`text-lg font-bold mt-3 ${selectedGoal === goal.name ? colors.text : 'text-[#DE6E27]'}`}>
                     × {goal.multiplier}
                   </div>
                 </motion.button>
