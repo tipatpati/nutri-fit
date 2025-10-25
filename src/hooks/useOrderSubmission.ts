@@ -2,6 +2,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from '@/hooks/use-toast';
 import { AddressFormData } from '@/shared/validation';
+import { useAuthStore } from '@/shared/stores/useAuthStore';
 
 interface OrderItem {
   mealId: string;
@@ -14,14 +15,50 @@ interface OrderItem {
 interface OrderSubmissionData {
   items: OrderItem[];
   address: AddressFormData;
-  userId: string;
+  userId?: string;
 }
 
 export const useOrderSubmission = () => {
   const queryClient = useQueryClient();
+  const { setSession } = useAuthStore();
 
   return useMutation({
     mutationFn: async ({ items, address, userId }: OrderSubmissionData) => {
+      let finalUserId = userId;
+
+      // Auto-create account if user is not authenticated
+      if (!finalUserId) {
+        const tempPassword = Math.random().toString(36).slice(-8) + 'Aa1!';
+        
+        const { data: signUpData, error: signUpError } = await supabase.auth.signUp({
+          email: address.email,
+          password: tempPassword,
+          options: {
+            data: {
+              first_name: address.firstName,
+              last_name: address.lastName,
+            },
+            emailRedirectTo: `${window.location.origin}/`,
+          }
+        });
+
+        if (signUpError) {
+          // If account exists, try to sign in or use existing session
+          if (signUpError.message.includes('already registered')) {
+            throw new Error('Un compte existe déjà avec cet email. Veuillez vous connecter.');
+          }
+          throw signUpError;
+        }
+
+        if (signUpData.user) {
+          finalUserId = signUpData.user.id;
+          if (signUpData.session) {
+            setSession(signUpData.session);
+          }
+        } else {
+          throw new Error('Impossible de créer le compte');
+        }
+      }
       // Group items by delivery date
       const itemsByDate = items.reduce((acc, item) => {
         if (!acc[item.date]) acc[item.date] = [];
@@ -41,7 +78,7 @@ export const useOrderSubmission = () => {
         const { data: addressData, error: addressError } = await supabase
           .from('addresses')
           .insert({
-            user_id: userId,
+            user_id: finalUserId,
             label: 'Delivery Address',
             street_address: address.street,
             city: address.city,
@@ -62,7 +99,7 @@ export const useOrderSubmission = () => {
         const { data: order, error: orderError } = await supabase
           .from('orders')
           .insert({
-            user_id: userId,
+            user_id: finalUserId,
             order_number: orderNumber,
             status: 'confirmed',
             order_type: 'one_time',

@@ -15,7 +15,7 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { MapPin, ArrowRight } from 'lucide-react';
-import { addressSchema, type AddressFormData } from '@/shared/validation';
+import { addressFormSchema, type AddressFormData } from '@/shared/validation';
 import { motion } from 'framer-motion';
 
 interface AddressFormProps {
@@ -25,12 +25,16 @@ interface AddressFormProps {
 
 const AddressForm = ({ onSubmit, defaultValues }: AddressFormProps) => {
   const form = useForm<AddressFormData>({
-    resolver: zodResolver(addressSchema),
+    resolver: zodResolver(addressFormSchema),
     defaultValues: {
+      email: defaultValues?.email || '',
+      firstName: defaultValues?.firstName || '',
+      lastName: defaultValues?.lastName || '',
+      phone: defaultValues?.phone || '',
       street: defaultValues?.street || '',
       city: defaultValues?.city || '',
       postalCode: defaultValues?.postalCode || '',
-      country: defaultValues?.country || 'France',
+      country: defaultValues?.country || 'Algérie',
       instructions: defaultValues?.instructions || '',
     },
   });
@@ -59,7 +63,115 @@ const AddressForm = ({ onSubmit, defaultValues }: AddressFormProps) => {
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
+              transition={{ delay: 0.05 }}
+            >
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-[#2B3210] font-semibold">
+                      Email
+                    </FormLabel>
+                    <FormControl>
+                      <Input
+                        {...field}
+                        type="email"
+                        className="glass border-2 border-[#E5E2D9] focus:border-[#DE6E27] transition-colors duration-300"
+                        placeholder="email@exemple.com"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </motion.div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 }}
+              >
+                <FormField
+                  control={form.control}
+                  name="firstName"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="text-[#2B3210] font-semibold">
+                        Prénom
+                      </FormLabel>
+                      <FormControl>
+                        <Input
+                          {...field}
+                          className="glass border-2 border-[#E5E2D9] focus:border-[#DE6E27] transition-colors duration-300"
+                          placeholder="Jean"
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.15 }}
+              >
+                <FormField
+                  control={form.control}
+                  name="lastName"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="text-[#2B3210] font-semibold">
+                        Nom
+                      </FormLabel>
+                      <FormControl>
+                        <Input
+                          {...field}
+                          className="glass border-2 border-[#E5E2D9] focus:border-[#DE6E27] transition-colors duration-300"
+                          placeholder="Dupont"
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </motion.div>
+            </div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+            >
+              <FormField
+                control={form.control}
+                name="phone"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-[#2B3210] font-semibold">
+                      Téléphone
+                    </FormLabel>
+                    <FormControl>
+                      <Input
+                        {...field}
+                        type="tel"
+                        className="glass border-2 border-[#E5E2D9] focus:border-[#DE6E27] transition-colors duration-300"
+                        placeholder="0612345678"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.25 }}
             >
               <FormField
                 control={form.control}
@@ -86,7 +198,7 @@ const AddressForm = ({ onSubmit, defaultValues }: AddressFormProps) => {
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 }}
+                transition={{ delay: 0.3 }}
               >
                 <FormField
                   control={form.control}
@@ -110,7 +222,7 @@ const AddressForm = ({ onSubmit, defaultValues }: AddressFormProps) => {
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3 }}
+                transition={{ delay: 0.35 }}
               >
                 <FormField
                   control={form.control}
@@ -147,7 +259,7 @@ const AddressForm = ({ onSubmit, defaultValues }: AddressFormProps) => {
                       <Input
                         {...field}
                         className="glass border-2 border-[#E5E2D9] focus:border-[#DE6E27] transition-colors duration-300"
-                        placeholder="France"
+                        placeholder="Algérie"
                       />
                     </FormControl>
                     <FormMessage />
