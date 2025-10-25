@@ -6,6 +6,7 @@ import { MealCategory } from "@/shared/data/mealCategories";
 import { SampleMealItem } from "./SampleMealItem";
 import { StepBadge } from "@/presentation/components/atoms/Badge/StepBadge";
 import { getCategoryColor } from "@/shared/design-system";
+import { GlowingEffect } from "@/components/ui/glowing-effect";
 
 interface CategoryCardProps {
   category: MealCategory;
@@ -15,8 +16,21 @@ export const CategoryCard = ({ category }: CategoryCardProps) => {
   const categoryColor = getCategoryColor(category.name);
   
   return (
-    <Card className="group overflow-hidden border border-[#E5E2D9] hover:border-[#DE6E27] transition-all duration-300 hover:shadow-2xl md:hover:scale-[1.03] bg-white/80 backdrop-blur-sm animate-scale-in select-none active:scale-[0.98] md:active:scale-100">
-      <CardContent className="p-0">
+    <div className="min-h-[480px]">
+      <div className="relative h-full rounded-2xl border-2 border-[#E5E2D9] hover:border-[#DE6E27]/50 transition-colors duration-300 p-2 md:hover:scale-[1.03]">
+        {/* Glowing Effect */}
+        <GlowingEffect
+          spread={40}
+          glow={true}
+          disabled={false}
+          proximity={80}
+          inactiveZone={0.01}
+          borderWidth={2}
+        />
+        
+        {/* Card */}
+        <Card className="group h-full overflow-hidden bg-white/80 backdrop-blur-sm animate-scale-in select-none active:scale-[0.98] md:active:scale-100 border-0 rounded-xl">
+          <CardContent className="p-0">
         {/* Header with gradient */}
         <div 
           className="h-32 md:h-36 flex items-center justify-center text-white text-center relative overflow-hidden"
@@ -51,8 +65,10 @@ export const CategoryCard = ({ category }: CategoryCardProps) => {
               <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </Button>
           </Link>
-        </div>
-      </CardContent>
-    </Card>
+          </div>
+        </CardContent>
+      </Card>
+      </div>
+    </div>
   );
 };

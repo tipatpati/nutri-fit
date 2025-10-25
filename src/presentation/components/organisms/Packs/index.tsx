@@ -6,6 +6,7 @@ import { useSubscriptionPlans } from "@/hooks/useSubscriptionPlans";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import packsBackground from "@/assets/packs-background.jpg";
+import { GlowingEffect } from "@/components/ui/glowing-effect";
 
 const Packs = () => {
   const { data: plans = [], isLoading } = useSubscriptionPlans();
@@ -90,13 +91,28 @@ const Packs = () => {
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.15, duration: 0.6 }}
                 whileHover={{ y: -12, scale: 1.03 }}
-                className={`relative overflow-hidden glass-strong rounded-3xl shadow-xl border-2 select-none active:scale-[0.98] md:active:scale-100 ${
-                  plan.promoted 
-                    ? 'border-[#DE6E27] md:scale-105 shadow-2xl shadow-[#DE6E27]/20' 
-                    : 'border-transparent hover:border-[#DE6E27]/30'
-                } transition-all duration-300`}
+                className="min-h-[500px]"
               >
-                {/* Shimmer effect on hover */}
+                <div
+                  className={`relative h-full overflow-hidden rounded-3xl shadow-xl border-2 p-2 ${
+                    plan.promoted 
+                      ? 'border-[#DE6E27] md:scale-105 shadow-2xl shadow-[#DE6E27]/20' 
+                      : 'border-[#E5E2D9] hover:border-[#DE6E27]/40'
+                  } transition-all duration-300`}
+                >
+                  {/* Glowing Effect */}
+                  <GlowingEffect
+                    spread={45}
+                    glow={true}
+                    disabled={false}
+                    proximity={plan.promoted ? 100 : 80}
+                    inactiveZone={0.01}
+                    borderWidth={2}
+                  />
+                  
+                  {/* Card Content */}
+                  <div className="relative h-full glass-strong rounded-2xl overflow-hidden select-none active:scale-[0.98] md:active:scale-100">
+                    {/* Shimmer effect on hover */}
                 <motion.div
                   initial={{ x: '-100%' }}
                   whileHover={{ x: '200%' }}
@@ -181,8 +197,10 @@ const Packs = () => {
                       Choisir ce pack
                     </Button>
                   </Link>
+                  </div>
                 </div>
-              </motion.div>
+              </div>
+            </motion.div>
             );
           })}
         </div>
