@@ -74,6 +74,11 @@ interface NutritionGoalCardProps {
   isPopular?: boolean;
 
   /**
+   * Icon to display in the card header
+   */
+  icon?: string;
+
+  /**
    * Additional CSS classes
    */
   className?: string;
@@ -107,6 +112,7 @@ export function NutritionGoalCard({
   onSelect,
   index = 0,
   isPopular = false,
+  icon,
   className,
 }: NutritionGoalCardProps) {
   const gradientClass = getGradientClasses(goalType);
@@ -199,7 +205,7 @@ export function NutritionGoalCard({
           aria-hidden="true"
         />
 
-        {/* Top gradient badge */}
+        {/* Top gradient badge with icon */}
         <div
           className={cn(
             "absolute top-0 left-0 right-0 h-32 bg-gradient-to-br",
@@ -209,6 +215,16 @@ export function NutritionGoalCard({
           aria-hidden="true"
         >
           <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/40" />
+          {icon && (
+            <motion.img
+              initial={{ opacity: 0, scale: 0.5 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.2 + index * 0.1, type: "spring" }}
+              src={icon}
+              alt=""
+              className="w-12 h-12 relative z-10 drop-shadow-lg filter brightness-0 invert"
+            />
+          )}
         </div>
 
         {/* Content */}

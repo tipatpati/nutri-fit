@@ -1,6 +1,9 @@
 import { motion } from "framer-motion";
 import { NutritionGoalCard } from "@/components/ui/nutrition-goal-card";
 import minceurBackground from "@/assets/minceur-background.jpg";
+import slimBodyIcon from "@/assets/icons/slim-body.png";
+import yogaIcon from "@/assets/icons/yoga.png";
+import armMuscleIcon from "@/assets/icons/arm-muscle.png";
 
 interface GoalSelectionProps {
   selectedGoal: string | null;
@@ -18,6 +21,7 @@ const GoalSelection = ({ selectedGoal, onGoalSelect, onProceed }: GoalSelectionP
       goalType: "weight_loss" as const,
       staticBg: minceurBackground,
       animatedBg: minceurBackground,
+      icon: slimBodyIcon,
       isPopular: true,
     },
     {
@@ -28,6 +32,7 @@ const GoalSelection = ({ selectedGoal, onGoalSelect, onProceed }: GoalSelectionP
       goalType: "balanced" as const,
       staticBg: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=800&auto=format&fit=crop",
       animatedBg: "https://images.unsplash.com/photo-1547496502-affa22d38842?w=800&auto=format&fit=crop",
+      icon: yogaIcon,
     },
     {
       id: "muscle_gain",
@@ -37,6 +42,7 @@ const GoalSelection = ({ selectedGoal, onGoalSelect, onProceed }: GoalSelectionP
       goalType: "muscle_gain" as const,
       staticBg: "https://images.unsplash.com/photo-1532384816664-01b8b7238c8d?w=800&auto=format&fit=crop",
       animatedBg: "https://images.unsplash.com/photo-1606787366850-de6330128bfc?w=800&auto=format&fit=crop",
+      icon: armMuscleIcon,
     },
   ];
 
@@ -78,6 +84,7 @@ const GoalSelection = ({ selectedGoal, onGoalSelect, onProceed }: GoalSelectionP
             onSelect={() => onGoalSelect(goal.id)}
             index={index}
             isPopular={goal.isPopular}
+            icon={goal.icon}
           />
         ))}
       </div>
