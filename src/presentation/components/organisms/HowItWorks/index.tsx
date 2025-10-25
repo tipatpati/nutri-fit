@@ -38,23 +38,23 @@ export const HowItWorks = () => {
 
   return (
     <section className="relative py-16 md:py-20 lg:py-28 bg-gradient-to-br from-[#FBF8EF] via-[#E5E2D9] to-[#FBF8EF] overflow-hidden">
-      {/* Background Image with Dark Olive Overlay */}
-      <div className="absolute inset-0">
-        <img 
-          src="/how-it-works-background.jpg" 
-          alt="Fresh healthy meal background" 
-          className="absolute inset-0 w-full h-full object-cover"
-        />
-        {/* Dark olive-green overlay for glassmorphism compatibility */}
-        <div 
-          className="absolute inset-0 bg-gradient-to-br from-[#2B3210]/75 via-[#2B3210]/65 to-[#505631]/60"
-        />
-        {/* Subtle radial gradient for depth */}
-        <div 
-          className="absolute inset-0"
-          style={{
-            background: 'radial-gradient(ellipse at center, transparent 0%, rgba(43, 50, 16, 0.3) 70%, rgba(43, 50, 16, 0.5) 100%)'
+      {/* Animated Background */}
+      <div className="absolute inset-0 hidden md:block">
+        <motion.div
+          animate={{
+            scale: [1, 1.2, 1],
+            rotate: [0, 90, 0]
           }}
+          transition={{ duration: 20, repeat: Infinity }}
+          className="absolute top-20 right-20 w-96 h-96 bg-[#DE6E27]/5 rounded-full blur-3xl"
+        />
+        <motion.div
+          animate={{
+            scale: [1, 1.3, 1],
+            rotate: [0, -90, 0]
+          }}
+          transition={{ duration: 25, repeat: Infinity, delay: 5 }}
+          className="absolute bottom-20 left-20 w-96 h-96 bg-[#2B3210]/5 rounded-full blur-3xl"
         />
       </div>
 
@@ -156,12 +156,7 @@ const GridItem = ({ area, icon, IconComponent, number, title, description, index
           proximity={64}
           inactiveZone={0.01}
         />
-        <div className="relative flex h-full flex-col justify-between gap-6 overflow-hidden rounded-xl p-6 md:p-8 shadow-lg" style={{
-          background: 'rgba(251, 248, 239, 0.25)',
-          backdropFilter: 'blur(40px) saturate(180%)',
-          WebkitBackdropFilter: 'blur(40px) saturate(180%)',
-          border: '1px solid rgba(222, 110, 39, 0.2)'
-        }}>
+        <div className="relative flex h-full flex-col justify-between gap-6 overflow-hidden rounded-xl p-6 md:p-8 glass-strong shadow-lg">
           {/* Step Number Background */}
           <div className="absolute -top-4 -right-4 text-8xl md:text-9xl font-bold text-[#DE6E27]/10 leading-none pointer-events-none">
             {number}
