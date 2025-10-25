@@ -216,14 +216,23 @@ export function NutritionGoalCard({
         >
           <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/40" />
           {icon && (
-            <motion.img
+            <motion.div
               initial={{ opacity: 0, scale: 0.5 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.2 + index * 0.1, type: "spring" }}
-              src={icon}
-              alt=""
-              className="w-12 h-12 relative z-10 drop-shadow-lg filter brightness-0 invert"
-            />
+              className={cn(
+                "relative z-10 w-16 h-16 rounded-[var(--md-sys-shape-corner-large)] flex items-center justify-center",
+                "bg-gradient-to-br",
+                gradientClass,
+                "bg-opacity-90 md-elevation-2"
+              )}
+            >
+              <img
+                src={icon}
+                alt=""
+                className="w-10 h-10 drop-shadow-lg filter brightness-0 invert"
+              />
+            </motion.div>
           )}
         </div>
 
