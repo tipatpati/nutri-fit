@@ -57,13 +57,13 @@ export const initPerformanceMonitoring = () => {
 const trackWebVitals = async () => {
   try {
     // Try to use web-vitals library if available
-    const { getCLS, getFID, getFCP, getLCP, getTTFB } = await import('web-vitals');
+    const { onCLS, onINP, onFCP, onLCP, onTTFB } = await import('web-vitals');
 
-    getCLS(onPerfEntry);
-    getFID(onPerfEntry);
-    getFCP(onPerfEntry);
-    getLCP(onPerfEntry);
-    getTTFB(onPerfEntry);
+    onCLS(onPerfEntry);
+    onINP(onPerfEntry);
+    onFCP(onPerfEntry);
+    onLCP(onPerfEntry);
+    onTTFB(onPerfEntry);
   } catch {
     // Fallback: manual tracking using PerformanceObserver
     trackWebVitalsManually();
