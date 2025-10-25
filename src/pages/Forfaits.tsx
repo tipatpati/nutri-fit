@@ -17,25 +17,25 @@ const Forfaits = () => {
       icon: Truck,
       title: "Frais, jamais congelé",
       description: "Livraison fraîche directement chez vous",
-      gradient: "from-blue-500 to-cyan-500"
+      gradient: "from-md-primary to-md-secondary"
     },
     {
       icon: Leaf,
       title: "Ingrédients sains",
       description: "Produits de qualité et biologiques",
-      gradient: "from-emerald-500 to-green-500"
+      gradient: "from-[hsl(var(--color-success))] to-[hsl(var(--color-success-light))]"
     },
     {
       icon: Clock,
       title: "Prêt en 2 minutes",
       description: "Réchauffez et savourez rapidement",
-      gradient: "from-orange-500 to-red-500"
+      gradient: "from-md-secondary to-[hsl(var(--md-sys-color-secondary-light))]"
     },
     {
       icon: ChefHat,
       title: "Pas de préparation ni de cuisine",
       description: "Tout est prêt, plus qu'à déguster",
-      gradient: "from-purple-500 to-pink-500"
+      gradient: "from-md-tertiary to-[hsl(var(--md-sys-color-tertiary-container))]"
     }
   ];
 
@@ -116,9 +116,9 @@ const Forfaits = () => {
               
               <div className="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-4 lg:space-x-12">
                 {[
-                  { goal: "weight_loss", label: "Minceur", mealSize: "300-450 cal", bgClass: "from-[#4CAF50] via-[#66BB6A] to-[#81C784]", iconSrc: minceurIcon },
-                  { goal: "balanced", label: "Équilibre", mealSize: "450-600 cal", bgClass: "from-[#29B6F6] via-[#4FC3F7] to-[#81D4FA]", popular: true, iconSrc: equilibreIcon },
-                  { goal: "muscle_gain", label: "Prise de masse", mealSize: "650-800 cal", bgClass: "from-[#DE6E27] via-[#FF8142] to-[#ff9057]", iconSrc: priseMasseIcon }
+                  { goal: "weight_loss", label: "Minceur", mealSize: "300-450 cal", bgClass: "from-[hsl(var(--nutrition-weight-loss))] via-[hsl(var(--color-success))] to-[hsl(var(--color-success-light))]", iconSrc: minceurIcon },
+                  { goal: "balanced", label: "Équilibre", mealSize: "450-600 cal", bgClass: "from-[hsl(var(--nutrition-balanced))] via-[hsl(var(--md-sys-color-tertiary))] to-[hsl(var(--md-sys-color-tertiary-container))]", popular: true, iconSrc: equilibreIcon },
+                  { goal: "muscle_gain", label: "Prise de masse", mealSize: "650-800 cal", bgClass: "from-md-secondary via-[hsl(var(--md-sys-color-secondary-light))] to-[hsl(var(--md-sys-color-secondary-container))]", iconSrc: priseMasseIcon }
                 ].map((item) => (
                   <div 
                     key={item.goal}
