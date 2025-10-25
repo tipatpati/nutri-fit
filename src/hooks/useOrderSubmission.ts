@@ -16,7 +16,6 @@ interface OrderSubmissionData {
   items: OrderItem[];
   address: AddressFormData;
   userId?: string;
-  packId?: string;
 }
 
 export const useOrderSubmission = () => {
@@ -24,7 +23,7 @@ export const useOrderSubmission = () => {
   const { setSession } = useAuthStore();
 
   return useMutation({
-    mutationFn: async ({ items, address, userId, packId }: OrderSubmissionData) => {
+    mutationFn: async ({ items, address, userId }: OrderSubmissionData) => {
       let finalUserId = userId;
 
       // Auto-create account if user is not authenticated
@@ -103,7 +102,7 @@ export const useOrderSubmission = () => {
             user_id: finalUserId,
             order_number: orderNumber,
             status: 'confirmed',
-            order_type: packId ? 'subscription' : 'one_time',
+            order_type: 'one_time',
             subtotal,
             delivery_fee: deliveryFee,
             tax_amount: 0,
@@ -112,7 +111,6 @@ export const useOrderSubmission = () => {
             delivery_address_id: addressData.id,
             delivery_date: deliveryDate,
             delivery_instructions: address.instructions || null,
-            subscription_id: packId || null,
           })
           .select()
           .single();
