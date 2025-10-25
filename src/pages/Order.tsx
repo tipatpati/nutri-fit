@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { CheckCircle, ChevronLeft } from "lucide-react";
-import Header from "@/components/Header";
+import NutriFitNavbar from "@/components/NutriFitNavbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import GoalSelection from "@/components/order/GoalSelection";
@@ -189,7 +189,7 @@ const Order = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#FBF8EF] via-[#FBF8EF] to-[#E5E2D9] overflow-x-hidden">
-      <Header />
+      <NutriFitNavbar />
       
       <main className="container mx-auto px-4 sm:px-6 py-8 lg:py-12 max-w-6xl">
         {/* Page Header */}

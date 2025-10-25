@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import Header from "@/components/Header";
+import NutriFitNavbar from "@/components/NutriFitNavbar";
 import Footer from "@/components/Footer";
 import MenuHeader from "@/components/menu/MenuHeader";
 import CustomerReview from "@/components/menu/CustomerReview";
@@ -28,7 +28,7 @@ const Menu = () => {
 
   return (
     <>
-      <Header />
+      <NutriFitNavbar />
       <main className="min-h-screen bg-gradient-to-br from-[#FBF8EF] via-[#FBF8EF] to-[#E5E2D9]">
         <motion.div 
           initial={{ opacity: 0 }}

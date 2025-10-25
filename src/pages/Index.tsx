@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import Header from "@/components/Header";
+import NutriFitNavbar from "@/components/NutriFitNavbar";
 import Hero from "@/components/Hero";
 import MealCategories from "@/components/MealCategories";
 import WeeklyPlanner from "@/components/WeeklyPlanner";
@@ -27,7 +27,7 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#FBF8EF] via-[#FBF8EF] to-[#E5E2D9] overflow-x-hidden">
-      <Header />
+      <NutriFitNavbar />
       
       <AnimatePresence>
         {user && showBanner && (

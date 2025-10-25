@@ -1,7 +1,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { ShoppingCart, Trash2, Plus, Minus, ArrowLeft, ArrowRight, Calendar } from "lucide-react";
-import Header from "@/components/Header";
+import NutriFitNavbar from "@/components/NutriFitNavbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -17,7 +17,7 @@ const Cart = () => {
   if (items.length === 0) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-[#FBF8EF] via-[#FBF8EF] to-[#E5E2D9]">
-        <Header />
+        <NutriFitNavbar />
         <main className="container mx-auto px-4 py-20">
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
@@ -58,7 +58,7 @@ const Cart = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#FBF8EF] via-[#FBF8EF] to-[#E5E2D9]">
-      <Header />
+      <NutriFitNavbar />
       
       <main className="container mx-auto px-4 py-12 max-w-7xl">
         {/* Header */}
