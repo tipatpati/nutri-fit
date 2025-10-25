@@ -1,11 +1,5 @@
 import { motion } from "framer-motion";
-import { GlareCard } from "@/components/ui/glare-card";
-import { CheckCircle } from "lucide-react";
-import minceurGoalImage from "@/assets/minceur-goal.jpg";
-import equilibreGoalImage from "@/assets/equilibre-goal.jpg";
-import priseMasseIcon from "@/assets/icons/prise-masse-icon.png";
-import equilibreIcon from "@/assets/icons/equilibre-icon.png";
-import minceurIcon from "@/assets/icons/minceur-icon.png";
+import { NutritionGoalCard } from "@/components/ui/nutrition-goal-card";
 
 interface GoalSelectionProps {
   selectedGoal: string | null;
@@ -16,32 +10,33 @@ interface GoalSelectionProps {
 const GoalSelection = ({ selectedGoal, onGoalSelect, onProceed }: GoalSelectionProps) => {
   const goals = [
     {
-      id: 'bulking',
-      name: 'Prise de masse',
-      description: 'Repas riches en protéines et calories pour développer votre masse musculaire de façon optimale',
-      gradient: 'from-orange-primary via-orange-light to-[#ff9057]',
-      iconSrc: priseMasseIcon,
-      staticBg: 'https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?q=80&w=2070&auto=format&fit=crop',
-      animatedBg: 'https://media.giphy.com/media/5h47LsEYbofzcgOz19/giphy.gif'
+      id: "weight_loss",
+      title: "Perte de Poids",
+      description: "Perdez du poids sainement avec nos repas équilibrés et contrôlés en calories",
+      calorieRange: "1200-1500 kcal/jour",
+      goalType: "weight_loss" as const,
+      staticBg: "https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=800&auto=format&fit=crop",
+      animatedBg: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=800&auto=format&fit=crop",
+      isPopular: true,
     },
     {
-      id: 'cutting',
-      name: 'Minceur',
-      description: 'Repas faibles en calories mais riches en nutriments essentiels pour votre bien-être',
-      gradient: 'from-[#4CAF50] via-[#66BB6A] to-[#81C784]',
-      iconSrc: minceurIcon,
-      staticBg: minceurGoalImage,
-      animatedBg: 'https://media.giphy.com/media/3o6Zt6fzS6qEbLhKWQ/giphy.gif'
+      id: "balanced",
+      title: "Équilibre Nutritionnel",
+      description: "Maintenez un équilibre parfait entre protéines, glucides et lipides pour votre bien-être",
+      calorieRange: "1600-2000 kcal/jour",
+      goalType: "balanced" as const,
+      staticBg: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=800&auto=format&fit=crop",
+      animatedBg: "https://images.unsplash.com/photo-1547496502-affa22d38842?w=800&auto=format&fit=crop",
     },
     {
-      id: 'balanced',
-      name: 'Équilibré',
-      description: 'Repas parfaitement équilibrés pour maintenir votre forme optimale au quotidien',
-      gradient: 'from-[#29B6F6] via-[#4FC3F7] to-[#81D4FA]',
-      iconSrc: equilibreIcon,
-      staticBg: equilibreGoalImage,
-      animatedBg: 'https://media.giphy.com/media/l2QDSt60JFjOdgQjC/giphy.gif'
-    }
+      id: "muscle_gain",
+      title: "Prise de Masse",
+      description: "Développez votre masse musculaire avec des repas riches en protéines et nutriments essentiels",
+      calorieRange: "2200-2800 kcal/jour",
+      goalType: "muscle_gain" as const,
+      staticBg: "https://images.unsplash.com/photo-1532384816664-01b8b7238c8d?w=800&auto=format&fit=crop",
+      animatedBg: "https://images.unsplash.com/photo-1606787366850-de6330128bfc?w=800&auto=format&fit=crop",
+    },
   ];
 
   return (
@@ -67,62 +62,22 @@ const GoalSelection = ({ selectedGoal, onGoalSelect, onProceed }: GoalSelectionP
       </motion.div>
 
       {/* Goals Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 max-w-7xl mx-auto">
         {goals.map((goal, index) => (
-          <motion.div
+          <NutritionGoalCard
             key={goal.id}
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 + index * 0.1, duration: 0.5 }}
-            onClick={() => onGoalSelect(goal.id)}
-            className="cursor-pointer"
-          >
-            <GlareCard
-              backgroundImage={goal.staticBg}
-              hoverBackgroundImage={goal.animatedBg}
-              backgroundClassName="bg-gradient-to-t from-olive-dark/90 via-olive-dark/40 to-transparent"
-              className={
-                selectedGoal === goal.id ? 'ring-4 ring-orange-primary ring-offset-4 ring-offset-cream' : ''
-              }
-            >
-              {/* Icon Header */}
-              <div className={`absolute top-0 left-0 right-0 h-32 bg-gradient-to-br ${goal.gradient} opacity-40 flex items-center justify-center`}>
-                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/30" />
-                <motion.div
-                  whileHover={{ scale: 1.1, rotate: 5 }}
-                  className="relative z-10 flex flex-col items-center"
-                >
-                  <div className="w-16 h-16 rounded-full bg-gradient-to-br from-white/40 via-white/20 to-transparent backdrop-blur-lg flex items-center justify-center shadow-2xl border border-white/30">
-                    <img src={goal.iconSrc} alt={goal.name} className="w-10 h-10 brightness-0 invert drop-shadow-2xl" />
-                  </div>
-                </motion.div>
-              </div>
-              
-              {/* Content */}
-              <div className="absolute bottom-0 left-0 right-0 p-6">
-                <h3 className="font-['Space_Grotesk'] text-2xl font-bold text-white drop-shadow-lg text-center mb-3">
-                  {goal.name}
-                </h3>
-                <p className="text-white/90 leading-relaxed text-center text-sm mb-4 drop-shadow-lg">
-                  {goal.description}
-                </p>
-                
-                {selectedGoal === goal.id && (
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ type: "spring", stiffness: 200 }}
-                    className="flex items-center justify-center"
-                  >
-                    <div className="bg-gradient-to-r from-orange-primary to-orange-light text-white px-4 py-2 rounded-full text-sm font-bold flex items-center gap-2 shadow-xl">
-                      <CheckCircle className="w-4 h-4" />
-                      Sélectionné
-                    </div>
-                  </motion.div>
-                )}
-              </div>
-            </GlareCard>
-          </motion.div>
+            id={goal.id}
+            title={goal.title}
+            description={goal.description}
+            calorieRange={goal.calorieRange}
+            staticBg={goal.staticBg}
+            animatedBg={goal.animatedBg}
+            goalType={goal.goalType}
+            isSelected={selectedGoal === goal.id}
+            onSelect={() => onGoalSelect(goal.id)}
+            index={index}
+            isPopular={goal.isPopular}
+          />
         ))}
       </div>
     </motion.div>
