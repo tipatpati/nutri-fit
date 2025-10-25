@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import NutriFitNavbar from "@/components/NutriFitNavbar";
 import Hero from "@/components/Hero";
-import MealCategories from "@/components/MealCategories";
+import HowItWorks from "@/components/HowItWorks";
 import WeeklyPlanner from "@/components/WeeklyPlanner";
 import Packs from "@/components/Packs";
 import Features from "@/components/Features";
@@ -44,7 +44,7 @@ const Index = () => {
           }}
         >
           <motion.div variants={{ hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0 } }}>
-            <MealCategories />
+            <HowItWorks />
           </motion.div>
           
           <motion.div variants={{ hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0 } }}>
