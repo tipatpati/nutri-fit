@@ -29,7 +29,7 @@ const Index = () => {
     <div className="min-h-screen bg-gradient-to-br from-[#FBF8EF] via-[#FBF8EF] to-[#E5E2D9] overflow-x-hidden">
       <NutriFitNavbar />
 
-      <main className="w-full">
+      <main className="w-full pt-20">
         <Hero />
         
         {/* Add stagger animations to sections */}

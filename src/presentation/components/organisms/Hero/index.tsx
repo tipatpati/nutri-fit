@@ -13,7 +13,7 @@ export const Hero = () => {
   const handleOrderClick = () => {
     navigate("/order");
   };
-  return <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
+  return <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background Image Layer */}
       <div className="absolute inset-0 z-0">
         <img src="/hero-background.jpg" alt="Meal prep background" className="absolute inset-0 w-full h-full object-cover" />
@@ -27,7 +27,7 @@ export const Hero = () => {
     }} />
 
       {/* Aceternity BackgroundLines Component */}
-      <BackgroundLines className="flex items-center justify-center w-full flex-col px-6 py-20 md:py-32 lg:py-40 relative z-10">
+      <BackgroundLines className="flex items-center justify-center w-full flex-col px-6 py-24 md:py-36 lg:py-48 pb-32 md:pb-40 lg:pb-48 relative z-10">
         <div className="container mx-auto px-6 md:px-8 max-w-7xl">
           {/* Hero Content */}
           <motion.div initial={{
@@ -39,7 +39,7 @@ export const Hero = () => {
         }} transition={{
           duration: 0.8,
           ease: "easeOut"
-        }} className="text-center space-y-16 md:space-y-20">
+        }} className="text-center space-y-12 md:space-y-16 lg:space-y-20">
             {/* Heading & Description Group */}
             <motion.div initial={{
             opacity: 0,
@@ -154,7 +154,7 @@ export const Hero = () => {
           }} transition={{
             duration: 0.8,
             delay: 1.2
-          }} className="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-6 lg:gap-8 max-w-5xl mx-auto pt-8 md:pt-12 px-4 sm:px-6">
+          }} className="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-6 lg:gap-8 max-w-5xl mx-auto pt-8 md:pt-12 pb-16 md:pb-20 px-4 sm:px-6">
               {[{
               title: "Minceur",
               description: "Perte de poids",
@@ -227,7 +227,7 @@ export const Hero = () => {
     }} transition={{
       duration: 0.8,
       delay: 1.6
-    }} className="absolute bottom-10 md:bottom-12 left-1/2 -translate-x-1/2 z-20">
+    }} className="absolute bottom-6 md:bottom-8 lg:bottom-10 left-1/2 -translate-x-1/2 z-20">
         <motion.div animate={{
         y: [0, 10, 0]
       }} transition={{
