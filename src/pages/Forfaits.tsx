@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import priseMasseIcon from "@/assets/icons/prise-masse-icon.png";
 import equilibreIcon from "@/assets/icons/equilibre-icon.png";
 import minceurIcon from "@/assets/icons/minceur-icon.png";
+import minceurBackground from "@/assets/minceur-background.jpg";
 
 const Forfaits = () => {
   const [selectedGoal, setSelectedGoal] = useState<string | null>(null);
@@ -127,12 +128,12 @@ const Forfaits = () => {
                 {[
                   {
                     id: "weight_loss",
-                    title: "Perte de Poids",
+                    title: "Minceur",
                     description: "Perdez du poids sainement avec nos repas équilibrés et contrôlés en calories",
                     calorieRange: "1200-1500 kcal/jour",
                     goalType: "weight_loss" as const,
-                    staticBg: "https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=800&auto=format&fit=crop",
-                    animatedBg: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=800&auto=format&fit=crop",
+                    staticBg: minceurBackground,
+                    animatedBg: minceurBackground,
                     isPopular: true,
                   },
                   {
@@ -180,7 +181,7 @@ const Forfaits = () => {
                   <p className="md-body-large text-[hsl(var(--md-sys-color-on-surface))] mb-4">
                     Excellent choix ! Objectif sélectionné : <strong>{
                       [
-                        { id: "weight_loss", title: "Perte de Poids" },
+                        { id: "weight_loss", title: "Minceur" },
                         { id: "balanced", title: "Équilibre Nutritionnel" },
                         { id: "muscle_gain", title: "Prise de Masse" },
                       ].find(g => g.id === selectedGoal)?.title

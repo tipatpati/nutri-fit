@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { NutritionGoalCard } from "@/components/ui/nutrition-goal-card";
+import minceurBackground from "@/assets/minceur-background.jpg";
 
 interface GoalSelectionProps {
   selectedGoal: string | null;
@@ -11,12 +12,12 @@ const GoalSelection = ({ selectedGoal, onGoalSelect, onProceed }: GoalSelectionP
   const goals = [
     {
       id: "weight_loss",
-      title: "Perte de Poids",
+      title: "Minceur",
       description: "Perdez du poids sainement avec nos repas équilibrés et contrôlés en calories",
       calorieRange: "1200-1500 kcal/jour",
       goalType: "weight_loss" as const,
-      staticBg: "https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=800&auto=format&fit=crop",
-      animatedBg: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=800&auto=format&fit=crop",
+      staticBg: minceurBackground,
+      animatedBg: minceurBackground,
       isPopular: true,
     },
     {
