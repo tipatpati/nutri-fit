@@ -13,7 +13,7 @@ export const Hero = () => {
   const handleOrderClick = () => {
     navigate("/order");
   };
-  return <section className="relative min-h-[calc(100vh-80px)] pt-20 flex items-center justify-center overflow-hidden">
+  return <section className="relative min-h-[calc(100vh-80px)] flex items-center justify-center overflow-hidden">
       {/* Background Image Layer */}
       <div className="absolute inset-0 z-0">
         <img src="/hero-background.jpg" alt="Meal prep background" className="absolute inset-0 w-full h-full object-cover" />
