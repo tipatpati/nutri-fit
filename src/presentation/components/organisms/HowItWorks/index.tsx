@@ -156,7 +156,12 @@ const GridItem = ({ area, icon, IconComponent, number, title, description, index
           proximity={64}
           inactiveZone={0.01}
         />
-        <div className="relative flex h-full flex-col justify-between gap-6 overflow-hidden rounded-xl p-6 md:p-8 glass-strong shadow-lg">
+        <div className="relative flex h-full flex-col justify-between gap-6 overflow-hidden rounded-xl p-6 md:p-8 shadow-lg" style={{
+          background: 'rgba(251, 248, 239, 0.25)',
+          backdropFilter: 'blur(40px) saturate(180%)',
+          WebkitBackdropFilter: 'blur(40px) saturate(180%)',
+          border: '1px solid rgba(222, 110, 39, 0.2)'
+        }}>
           {/* Step Number Background */}
           <div className="absolute -top-4 -right-4 text-8xl md:text-9xl font-bold text-[#DE6E27]/10 leading-none pointer-events-none">
             {number}
