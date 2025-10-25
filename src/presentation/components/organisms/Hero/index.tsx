@@ -14,7 +14,7 @@ export const Hero = () => {
     navigate("/order");
   };
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24 md:pt-28 lg:pt-32">
+    <section className="relative min-h-screen flex items-center justify-center pt-24 md:pt-28 lg:pt-32 pb-16 md:pb-20">
       {/* Background with combined overlays */}
       <div className="absolute inset-0 z-0">
         <img 
@@ -31,7 +31,7 @@ export const Hero = () => {
       </div>
 
       {/* Content with BackgroundLines */}
-      <BackgroundLines className="flex items-center justify-center w-full flex-col px-6 py-16 md:py-20 lg:py-24 pb-20 md:pb-24 lg:pb-28 relative z-10">
+      <BackgroundLines className="flex items-center justify-center w-full flex-col px-6 py-16 md:py-20 lg:py-24 pb-24 md:pb-28 lg:pb-32 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -116,7 +116,7 @@ export const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 1.2 }}
-            className="grid grid-cols-1 sm:grid-cols-3 gap-6 md:gap-8 lg:gap-10 max-w-5xl mx-auto pt-12 md:pt-16 lg:pt-20 px-4 sm:px-6"
+            className="grid grid-cols-1 sm:grid-cols-3 gap-6 md:gap-8 lg:gap-10 max-w-5xl mx-auto pt-8 md:pt-12 lg:pt-14 px-4 sm:px-6"
           >
             {[
               {
