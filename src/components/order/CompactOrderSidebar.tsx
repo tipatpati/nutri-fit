@@ -28,12 +28,14 @@ interface CompactOrderSidebarProps {
   selectedMeals: SelectedMeal[];
   onRemoveMeal: (mealId: string) => void;
   totalPrice: number;
+  selectedPackId: string | null;
 }
 
 const CompactOrderSidebar = ({ 
   selectedMeals, 
   onRemoveMeal,
-  totalPrice 
+  totalPrice,
+  selectedPackId
 }: CompactOrderSidebarProps) => {
   const [deliveryAddress, setDeliveryAddress] = useState<AddressFormData | null>(null);
   const [deliveryDate, setDeliveryDate] = useState<Date>();
@@ -48,7 +50,7 @@ const CompactOrderSidebar = ({
   };
 
   const handleConfirmOrder = async () => {
-    if (!deliveryAddress || !deliveryDate) {
+    if (!deliveryAddress || !deliveryDate || !selectedPackId) {
       return;
     }
 
@@ -65,7 +67,8 @@ const CompactOrderSidebar = ({
       {
         items: orderItems,
         address: deliveryAddress,
-        userId: user?.id
+        userId: user?.id,
+        packId: selectedPackId
       },
       {
         onSuccess: () => {
@@ -75,7 +78,7 @@ const CompactOrderSidebar = ({
     );
   };
 
-  const canConfirm = deliveryAddress && deliveryDate && totalMeals > 0;
+  const canConfirm = deliveryAddress && deliveryDate && totalMeals > 0 && selectedPackId;
 
   return (
     <div className="space-y-4">

@@ -1,10 +1,12 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Minus, Plus } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { MealCardSkeleton } from "@/presentation/components/molecules/Loading/MealCardSkeleton";
 import { motion, AnimatePresence } from "framer-motion";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import CompactGoalSelector from "./CompactGoalSelector";
+import PackSelector from "./PackSelector";
+import { useSubscriptionPlans } from "@/hooks/useSubscriptionPlans";
 
 interface Meal {
   id: string;
@@ -30,17 +32,30 @@ interface CompactMealGridProps {
   onMealSelect: (meal: Meal, quantity: number) => void;
   selectedGoal: string;
   onGoalChange: (goal: string) => void;
+  selectedPackId: string | null;
+  onPackSelect: (packId: string) => void;
 }
 
 const CompactMealGrid = ({ 
   selectedMeals, 
   onMealSelect,
   selectedGoal,
-  onGoalChange
+  onGoalChange,
+  selectedPackId,
+  onPackSelect
 }: CompactMealGridProps) => {
   const [meals, setMeals] = useState<Meal[]>([]);
   const [loading, setLoading] = useState(true);
   const [categoryFilter, setCategoryFilter] = useState<string>("all");
+  const { data: plans = [] } = useSubscriptionPlans();
+
+  const selectedPack = useMemo(() => {
+    return plans.find(p => p.id === selectedPackId) || null;
+  }, [selectedPackId, plans]);
+
+  const maxMeals = selectedPack?.meals_quantity || 0;
+  const currentMealCount = selectedMeals.reduce((sum, m) => sum + m.quantity, 0);
+  const canAddMore = currentMealCount < maxMeals;
 
   useEffect(() => {
     fetchMeals();
@@ -75,46 +90,57 @@ const CompactMealGrid = ({
   const categories = ["all", "breakfast", "lunch", "dinner", "snack"];
 
   return (
-    <div className="space-y-6">
-      {/* Goal and Category Filters */}
-      <div className="glass-strong p-6 rounded-2xl space-y-4">
-        <div>
-          <label className="text-sm font-semibold text-[#2B3210] mb-2 block">
-            Objectif nutritionnel
-          </label>
-          <Select value={selectedGoal} onValueChange={onGoalChange}>
-            <SelectTrigger className="w-full">
-              <SelectValue placeholder="Sélectionnez votre objectif" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="balanced">🎯 Équilibré</SelectItem>
-              <SelectItem value="cutting">🥗 Minceur</SelectItem>
-              <SelectItem value="bulking">💪 Prise de masse</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
+    <div className="space-y-8">
+      {/* Section 1: Goal Selection */}
+      <CompactGoalSelector 
+        selectedGoal={selectedGoal}
+        onGoalChange={onGoalChange}
+      />
 
-        <div>
-          <label className="text-sm font-semibold text-[#2B3210] mb-2 block">
-            Catégorie
-          </label>
-          <div className="flex flex-wrap gap-2">
-            {categories.map(cat => (
-              <button
-                key={cat}
-                onClick={() => setCategoryFilter(cat)}
-                className={`px-4 py-2 rounded-full text-sm font-semibold transition-all duration-300 ${
-                  categoryFilter === cat
-                    ? 'bg-gradient-to-r from-[#DE6E27] to-[#ff8040] text-white shadow-lg'
-                    : 'glass text-[#505631] hover:bg-[#E5E2D9]'
-                }`}
-              >
-                {cat === "all" ? "Tous" : cat.charAt(0).toUpperCase() + cat.slice(1)}
-              </button>
-            ))}
-          </div>
-        </div>
-      </div>
+      {/* Section 2: Pack Selection */}
+      {selectedGoal && (
+        <PackSelector
+          selectedPackId={selectedPackId}
+          onPackSelect={onPackSelect}
+        />
+      )}
+
+      {/* Section 3: Meal Selection */}
+      {selectedGoal && selectedPackId && (
+        <>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="space-y-4"
+          >
+            <div className="flex items-center justify-between">
+              <h2 className="font-['Space_Grotesk'] text-2xl md:text-3xl font-bold text-[#2B3210]">
+                3. Choisissez vos repas ({currentMealCount}/{maxMeals})
+              </h2>
+            </div>
+
+            {/* Category Filter */}
+            <div className="glass-strong p-4 rounded-2xl">
+              <label className="text-sm font-semibold text-[#2B3210] mb-2 block">
+                Catégorie
+              </label>
+              <div className="flex flex-wrap gap-2">
+                {categories.map(cat => (
+                  <button
+                    key={cat}
+                    onClick={() => setCategoryFilter(cat)}
+                    className={`px-4 py-2 rounded-full text-sm font-semibold transition-all duration-300 ${
+                      categoryFilter === cat
+                        ? 'bg-gradient-to-r from-[#DE6E27] to-[#ff8040] text-white shadow-lg'
+                        : 'glass text-[#505631] hover:bg-[#E5E2D9]'
+                    }`}
+                  >
+                    {cat === "all" ? "Tous" : cat.charAt(0).toUpperCase() + cat.slice(1)}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </motion.div>
 
       {/* Meals Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -188,7 +214,8 @@ const CompactMealGrid = ({
                             whileHover={{ scale: 1.1 }}
                             whileTap={{ scale: 0.9 }}
                             onClick={() => onMealSelect(meal, quantity + 1)}
-                            className="w-8 h-8 rounded-full bg-gradient-to-br from-[#DE6E27] to-[#ff8040] flex items-center justify-center shadow-lg"
+                            disabled={!canAddMore && quantity === 0}
+                            className="w-8 h-8 rounded-full bg-gradient-to-br from-[#DE6E27] to-[#ff8040] flex items-center justify-center shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
                           >
                             <Plus className="w-4 h-4 text-white" />
                           </motion.button>
@@ -216,6 +243,8 @@ const CompactMealGrid = ({
           })
         )}
       </div>
+        </>
+      )}
     </div>
   );
 };

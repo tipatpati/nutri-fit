@@ -12,6 +12,7 @@ interface AnimatedGoalCardProps {
   isSelected: boolean;
   onSelect: () => void;
   index: number;
+  compact?: boolean;
 }
 export const AnimatedGoalCard = ({
   id,
@@ -23,8 +24,11 @@ export const AnimatedGoalCard = ({
   gradient,
   isSelected,
   onSelect,
-  index
+  index,
+  compact = false
 }: AnimatedGoalCardProps) => {
+  const heightClass = compact ? 'h-[280px]' : 'h-[500px]';
+  
   return <motion.div initial={{
     opacity: 0,
     y: 30
@@ -37,7 +41,7 @@ export const AnimatedGoalCard = ({
   }} whileHover={{
     y: -12,
     scale: 1.03
-  }} onClick={onSelect} className={cn("group cursor-pointer overflow-hidden relative h-[500px] rounded-3xl shadow-xl transition-all duration-500 border-2", isSelected ? "border-[#DE6E27] scale-[1.03] shadow-2xl shadow-[#DE6E27]/20" : "border-transparent hover:border-[#DE6E27]/30 hover:shadow-2xl",
+  }} onClick={onSelect} className={cn("group cursor-pointer overflow-hidden relative rounded-3xl shadow-xl transition-all duration-500 border-2", heightClass, isSelected ? "border-[#DE6E27] scale-[1.03] shadow-2xl shadow-[#DE6E27]/20" : "border-transparent hover:border-[#DE6E27]/30 hover:shadow-2xl",
   // Static background
   `bg-cover bg-center`,
   // Preload animated background

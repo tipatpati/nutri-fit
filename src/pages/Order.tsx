@@ -18,7 +18,8 @@ interface SelectedMeal {
 }
 
 const Order = () => {
-  const [selectedGoal, setSelectedGoal] = useState<string>('balanced');
+  const [selectedGoal, setSelectedGoal] = useState<string>('equilibre');
+  const [selectedPackId, setSelectedPackId] = useState<string | null>(null);
   const [selectedMeals, setSelectedMeals] = useState<SelectedMeal[]>([]);
 
   const handleMealSelect = (meal: any, quantity: number) => {
@@ -79,6 +80,8 @@ const Order = () => {
               onMealSelect={handleMealSelect}
               selectedGoal={selectedGoal}
               onGoalChange={setSelectedGoal}
+              selectedPackId={selectedPackId}
+              onPackSelect={setSelectedPackId}
             />
           }
           orderSidebar={
@@ -86,6 +89,7 @@ const Order = () => {
               selectedMeals={selectedMeals}
               onRemoveMeal={handleRemoveMeal}
               totalPrice={calculateTotalPrice()}
+              selectedPackId={selectedPackId}
             />
           }
         />
