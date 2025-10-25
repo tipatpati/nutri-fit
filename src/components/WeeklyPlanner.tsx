@@ -11,10 +11,12 @@ import { GlowingEffect } from "./ui/glowing-effect";
 import armMuscleIcon from "@/assets/icons/arm-muscle-4.png";
 import slimBodyIcon from "@/assets/icons/slim-body-4.png";
 import yogaIcon from "@/assets/icons/yoga-4.png";
+import { useRecipeNutritionalBreakdown } from "@/hooks/useRecipeNutritionalBreakdown";
 
 const WeeklyPlanner = () => {
   const [selectedGoal, setSelectedGoal] = useState<"Prise de masse" | "Minceur" | "Équilibré">("Équilibré");
   const { data: meals = [], isLoading } = useMeals({ active: true });
+  const { data: nutritionalBreakdowns = [] } = useRecipeNutritionalBreakdown();
   
   // Parallax scroll tracking
   const sectionRef = useRef<HTMLElement>(null);
@@ -34,9 +36,35 @@ const WeeklyPlanner = () => {
 
   const currentGoal = goals.find(g => g.name === selectedGoal) || goals[1];
 
-  const adjustNutrition = (value: number | null) => {
-    if (!value) return 0;
-    return Math.round(value * currentGoal.multiplier);
+  // Get nutritional values based on selected goal
+  const getNutritionForMeal = (mealId: string) => {
+    const breakdown = nutritionalBreakdowns.find(b => b.meal_id === mealId);
+    if (!breakdown) return null;
+
+    switch (selectedGoal) {
+      case 'Prise de masse':
+        return {
+          calories: Math.round(breakdown.prise_masse_calories || 0),
+          protein: Math.round(breakdown.prise_masse_protein || 0),
+          carbs: Math.round(breakdown.prise_masse_carbs || 0),
+          fat: Math.round(breakdown.prise_masse_fat || 0),
+        };
+      case 'Minceur':
+        return {
+          calories: Math.round(breakdown.perte_poids_calories || 0),
+          protein: Math.round(breakdown.perte_poids_protein || 0),
+          carbs: Math.round(breakdown.perte_poids_carbs || 0),
+          fat: Math.round(breakdown.perte_poids_fat || 0),
+        };
+      case 'Équilibré':
+      default:
+        return {
+          calories: Math.round(breakdown.equilibre_calories || 0),
+          protein: Math.round(breakdown.equilibre_protein || 0),
+          carbs: Math.round(breakdown.equilibre_carbs || 0),
+          fat: Math.round(breakdown.equilibre_fat || 0),
+        };
+    }
   };
 
   const getGoalColor = (goal: string) => {
@@ -306,12 +334,16 @@ const WeeklyPlanner = () => {
                           Valeurs nutritionnelles
                         </h4>
                     <div className="grid grid-cols-2 gap-3">
-                      {[
-                        { label: 'Calories', value: adjustNutrition(meal.calories_per_serving) },
-                        { label: 'Protéines', value: `${adjustNutrition(meal.protein_grams)}g` },
-                        { label: 'Glucides', value: `${adjustNutrition(meal.carbs_grams)}g` },
-                        { label: 'Lipides', value: `${adjustNutrition(meal.fat_grams)}g` }
-                      ].map((item, idx) => (
+                      {(() => {
+                        const nutrition = getNutritionForMeal(meal.id);
+                        if (!nutrition) return null;
+                        
+                        return [
+                          { label: 'Calories', value: nutrition.calories },
+                          { label: 'Protéines', value: `${nutrition.protein}g` },
+                          { label: 'Glucides', value: `${nutrition.carbs}g` },
+                          { label: 'Lipides', value: `${nutrition.fat}g` }
+                        ].map((item, idx) => (
                         <motion.div
                           key={item.label}
                           initial={{ opacity: 0, scale: 0.8 }}
@@ -334,7 +366,8 @@ const WeeklyPlanner = () => {
                             {item.value}
                           </motion.div>
                         </motion.div>
-                      ))}
+                        ));
+                      })()}
                     </div>
                     </div>
                   </CardContent>
