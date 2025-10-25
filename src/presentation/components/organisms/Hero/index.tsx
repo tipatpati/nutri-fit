@@ -52,9 +52,9 @@ export const Hero = () => {
             delay: 0.2,
             ease: [0.22, 1, 0.36, 1]
           }} className="space-y-6">
-              <div className="relative flex flex-col items-center gap-4 sm:gap-6">
+              <div className="relative flex flex-col items-center gap-4 sm:gap-6 my-[50px]">
                 <h1 className="text-center px-4">
-                  <span className="font-['Outfit'] block text-[2.5rem] sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-extrabold tracking-tight leading-[1.15] text-white drop-shadow-2xl mb-4 sm:mb-6">
+                  <span className="font-['Outfit'] block text-[2.5rem] sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-extrabold tracking-tight leading-[1.15] text-white drop-shadow-2xl mb-4 sm:mb-6 my-0 px-[15px]">
                     Repas Santé pour
                   </span>
                   <div className="flex justify-center">
@@ -197,11 +197,9 @@ export const Hero = () => {
                     <div className={`absolute inset-0 bg-gradient-to-br ${goal.gradient} opacity-20 group-hover:opacity-30 transition-opacity duration-300`} />
                     
                     {/* Content */}
-                    <div className="relative z-10 flex flex-col items-center text-center space-y-4">
+                    <div className="relative z-10 flex flex-col items-center text-center space-y-4 bg-transparent">
                       {/* Icon Container with gradient background */}
-                      <div className={`w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-gradient-to-br ${goal.gradient} p-4 shadow-lg flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300`}>
-                        <img src={goal.icon} alt={goal.title} className="w-full h-full object-contain filter brightness-0 invert" />
-                      </div>
+                      
                       
                       {/* Title */}
                       <div className="text-xl md:text-2xl font-bold text-white drop-shadow-lg">
@@ -215,7 +213,7 @@ export const Hero = () => {
                     </div>
 
                     {/* Shimmer effect on hover */}
-                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-transparent">
                       <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
                     </div>
                   </div>
