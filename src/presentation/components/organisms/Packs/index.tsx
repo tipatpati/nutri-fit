@@ -31,25 +31,17 @@ const Packs = () => {
 
   return (
     <section ref={containerRef} className="py-16 md:py-24 lg:py-32 relative overflow-hidden">
-      {/* Background Image with Parallax */}
-      <div className="absolute inset-0 z-0">
-        <motion.img 
-          src={packsBackground}
-          alt="Fresh healthy meal background" 
-          className="absolute inset-0 w-full h-full object-cover"
-          style={{
-            y: backgroundY,
-            scale: 1.2
+      {/* Background Image - No parallax on mobile */}
+      <div className="absolute inset-0 w-full h-full">
+        <div 
+          className="absolute inset-0 w-full h-full bg-cover bg-center md:bg-fixed"
+          style={{ 
+            backgroundImage: `url(${packsBackground})`,
           }}
         />
-        {/* Dark olive overlay for contrast */}
-        <div className="absolute inset-0 bg-gradient-to-br from-[#2B3210]/55 via-[#2B3210]/45 to-[#505631]/40" />
-        {/* Radial vignette */}
+        {/* Cream overlay for readability */}
         <div 
-          className="absolute inset-0"
-          style={{
-            background: 'radial-gradient(ellipse at center, transparent 0%, rgba(43, 50, 16, 0.15) 60%, rgba(43, 50, 16, 0.30) 100%)'
-          }}
+          className="absolute inset-0 bg-gradient-to-br from-[#FBF8EF]/95 via-[#E5E2D9]/90 to-[#FBF8EF]/95"
         />
       </div>
 
@@ -69,12 +61,12 @@ const Packs = () => {
             className="inline-flex items-center gap-2 px-6 py-3 glass-strong rounded-full border-2 border-[#DE6E27]/20 mb-6"
           >
             <Package className="w-5 h-5 text-[#DE6E27]" />
-            <span className="font-semibold text-[#FBF8EF]">Nos formules</span>
+            <span className="font-semibold text-[#2B3210]">Nos formules</span>
           </motion.div>
-          <h2 className="font-['Space_Grotesk'] text-4xl md:text-5xl lg:text-6xl font-extrabold text-[#FBF8EF] mb-6 leading-[1.2]">
+          <h2 className="font-['Space_Grotesk'] text-4xl md:text-5xl lg:text-6xl font-extrabold text-[#2B3210] mb-6 leading-[1.2]">
             Choisissez votre pack
           </h2>
-          <p className="text-base md:text-lg lg:text-xl text-[#FBF8EF]/90 max-w-3xl mx-auto leading-[1.7]">
+          <p className="text-base md:text-lg lg:text-xl text-[#505631] max-w-3xl mx-auto leading-[1.7]">
             Des formules flexibles adaptées à vos besoins et votre rythme de vie
           </p>
         </motion.div>
@@ -119,13 +111,7 @@ const Packs = () => {
                   />
                   
                   {/* Card Content */}
-                  <div className="relative h-full rounded-2xl overflow-hidden select-none active:scale-[0.98] md:active:scale-100"
-                    style={{
-                      background: 'rgba(251, 248, 239, 0.95)',
-                      backdropFilter: 'blur(32px) saturate(180%)',
-                      WebkitBackdropFilter: 'blur(32px) saturate(180%)'
-                    }}
-                  >
+                  <div className="relative h-full glass-strong rounded-2xl overflow-hidden select-none active:scale-[0.98] md:active:scale-100">
                     {/* Shimmer effect on hover */}
                 <motion.div
                   initial={{ x: '-100%' }}
@@ -239,12 +225,7 @@ const Packs = () => {
               viewport={{ once: true }}
               transition={{ delay: 0.5 + index * 0.1 }}
               whileHover={{ scale: 1.05, y: -5 }}
-              className="text-center p-6 md:p-8 rounded-3xl hover:shadow-2xl transition-all duration-300 group border-2 border-[#FBF8EF]/20 hover:border-[#DE6E27]/50 select-none active:scale-[0.98] md:active:scale-100"
-              style={{
-                background: 'rgba(251, 248, 239, 0.15)',
-                backdropFilter: 'blur(32px) saturate(180%)',
-                WebkitBackdropFilter: 'blur(32px) saturate(180%)'
-              }}
+              className="text-center p-6 md:p-8 glass-strong rounded-3xl hover:shadow-2xl transition-all duration-300 group border-2 border-transparent hover:border-[#DE6E27]/30 select-none active:scale-[0.98] md:active:scale-100"
             >
               <motion.div
                 whileHover={{ rotate: 360, scale: 1.2 }}
@@ -253,10 +234,10 @@ const Packs = () => {
               >
                 <Icon name={item.icon} size={28} className="text-[#DE6E27] md:w-8 md:h-8" />
               </motion.div>
-              <h4 className="font-['Space_Grotesk'] text-lg md:text-xl font-bold text-[#FBF8EF] mb-3 group-hover:text-[#DE6E27] transition-colors leading-[1.25]">
+              <h4 className="font-['Space_Grotesk'] text-lg md:text-xl font-bold text-[#2B3210] mb-3 group-hover:text-[#DE6E27] transition-colors leading-[1.25]">
                 {item.title}
               </h4>
-              <p className="text-[#FBF8EF]/85 leading-[1.7] text-sm md:text-base">
+              <p className="text-[#505631] leading-[1.7] text-sm md:text-base">
                 {item.description}
               </p>
             </motion.div>
