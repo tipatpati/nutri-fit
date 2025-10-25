@@ -167,17 +167,17 @@ export const Hero = () => {
               title: "Minceur",
               description: "Perte de poids",
               icon: slimBodyIcon,
-              gradient: "from-[hsl(var(--nutrition-weight-loss))] to-orange-400"
+              gradient: "from-[hsl(var(--color-success))] to-emerald-400"
             }, {
               title: "Équilibré",
               description: "Maintien forme",
               icon: yogaIcon,
-              gradient: "from-[hsl(var(--nutrition-balanced))] to-green-400"
+              gradient: "from-[#E5E2D9] to-[#D4C5B0]"
             }, {
               title: "Prise de Masse",
               description: "Gain musculaire",
               icon: armMuscleIcon,
-              gradient: "from-[hsl(var(--md-sys-color-secondary))] to-blue-400"
+              gradient: "from-[#DE6E27] to-[#FF8142]"
             }].map((goal, idx) => <motion.div key={goal.title} initial={{
               opacity: 0,
               scale: 0.8
