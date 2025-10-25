@@ -1,11 +1,13 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import UnifiedOrderLayout from "@/components/order/UnifiedOrderLayout";
 import CompactMealGrid from "@/components/order/CompactMealGrid";
 import CompactOrderSidebar from "@/components/order/CompactOrderSidebar";
+import { useSubscriptionPlans } from "@/hooks/useSubscriptionPlans";
+import { toast } from "@/hooks/use-toast";
 
 interface SelectedMeal {
   id: string;
@@ -21,6 +23,39 @@ const Order = () => {
   const [selectedGoal, setSelectedGoal] = useState<string>('equilibre');
   const [selectedPackId, setSelectedPackId] = useState<string | null>(null);
   const [selectedMeals, setSelectedMeals] = useState<SelectedMeal[]>([]);
+  const { data: plans = [] } = useSubscriptionPlans();
+
+  // Sync meal selection when pack changes
+  useEffect(() => {
+    if (!selectedPackId) return;
+
+    const selectedPack = plans.find(p => p.id === selectedPackId);
+    if (!selectedPack) return;
+
+    const maxMeals = selectedPack.meals_quantity;
+    const currentTotal = selectedMeals.reduce((sum, m) => sum + m.quantity, 0);
+
+    // If current selection exceeds new pack limit, trim excess
+    if (currentTotal > maxMeals) {
+      let remaining = maxMeals;
+      const trimmedMeals = selectedMeals
+        .map(meal => {
+          if (remaining <= 0) return null;
+          const allowedQty = Math.min(meal.quantity, remaining);
+          remaining -= allowedQty;
+          return { ...meal, quantity: allowedQty };
+        })
+        .filter((m): m is SelectedMeal => m !== null && m.quantity > 0);
+
+      setSelectedMeals(trimmedMeals);
+      
+      toast({
+        title: "Sélection ajustée",
+        description: `Votre sélection a été réduite pour correspondre au pack de ${maxMeals} repas`,
+        variant: "default"
+      });
+    }
+  }, [selectedPackId, plans]);
 
   const handleMealSelect = (meal: any, quantity: number) => {
     const existingMealIndex = selectedMeals.findIndex(m => m.id === meal.id);
