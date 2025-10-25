@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
-import { AnimatedGoalCard } from "@/components/ui/animated-goal-card";
+import { GlareCard } from "@/components/ui/glare-card";
+import { CheckCircle } from "lucide-react";
 import minceurGoalImage from "@/assets/minceur-goal.jpg";
 import equilibreGoalImage from "@/assets/equilibre-goal.jpg";
 import priseMasseIcon from "@/assets/icons/prise-masse-icon.png";
@@ -68,19 +69,66 @@ const GoalSelection = ({ selectedGoal, onGoalSelect, onProceed }: GoalSelectionP
       {/* Goals Grid */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
         {goals.map((goal, index) => (
-          <AnimatedGoalCard
+          <motion.div
             key={goal.id}
-            id={goal.id}
-            name={goal.name}
-            description={goal.description}
-            iconSrc={goal.iconSrc}
-            staticBg={goal.staticBg}
-            animatedBg={goal.animatedBg}
-            gradient={goal.gradient}
-            isSelected={selectedGoal === goal.id}
-            onSelect={() => onGoalSelect(goal.id)}
-            index={index}
-          />
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 + index * 0.1, duration: 0.5 }}
+            onClick={() => onGoalSelect(goal.id)}
+            className="cursor-pointer"
+          >
+            <GlareCard
+              className={`relative ${
+                selectedGoal === goal.id ? 'ring-4 ring-orange-primary ring-offset-4' : ''
+              }`}
+            >
+              {/* Background Image */}
+              <div 
+                className="absolute inset-0 bg-cover bg-center"
+                style={{ backgroundImage: `url(${goal.staticBg})` }}
+              />
+              
+              {/* Dark gradient overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
+              
+              {/* Icon Header */}
+              <div className={`absolute top-0 left-0 right-0 h-32 bg-gradient-to-br ${goal.gradient} opacity-40 flex items-center justify-center`}>
+                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/30" />
+                <motion.div
+                  whileHover={{ scale: 1.1, rotate: 5 }}
+                  className="relative z-10 flex flex-col items-center"
+                >
+                  <div className="w-16 h-16 rounded-full bg-gradient-to-br from-white/40 via-white/20 to-transparent backdrop-blur-lg flex items-center justify-center shadow-2xl border border-white/30">
+                    <img src={goal.iconSrc} alt={goal.name} className="w-10 h-10 brightness-0 invert drop-shadow-2xl" />
+                  </div>
+                </motion.div>
+              </div>
+              
+              {/* Content */}
+              <div className="absolute bottom-0 left-0 right-0 p-6 z-10">
+                <h3 className="font-['Space_Grotesk'] text-2xl font-bold text-white drop-shadow-lg text-center mb-3">
+                  {goal.name}
+                </h3>
+                <p className="text-white/90 leading-relaxed text-center text-sm mb-4 drop-shadow-lg">
+                  {goal.description}
+                </p>
+                
+                {selectedGoal === goal.id && (
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ type: "spring", stiffness: 200 }}
+                    className="flex items-center justify-center"
+                  >
+                    <div className="bg-gradient-to-r from-orange-primary to-orange-light text-white px-4 py-2 rounded-full text-sm font-bold flex items-center gap-2 shadow-xl">
+                      <CheckCircle className="w-4 h-4" />
+                      Sélectionné
+                    </div>
+                  </motion.div>
+                )}
+              </div>
+            </GlareCard>
+          </motion.div>
         ))}
       </div>
     </motion.div>
