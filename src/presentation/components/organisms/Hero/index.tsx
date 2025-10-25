@@ -49,14 +49,16 @@ export const Hero = () => {
               <span className="font-['Outfit'] block text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-extrabold tracking-tight leading-[1.1] text-white drop-shadow-2xl mb-5 md:mb-7">
                 Repas Santé pour
               </span>
-              <LayoutTextFlip words={["Prise de Masse", "Minceur", "Équilibré"]} />
+              <div className="flex justify-start">
+                <LayoutTextFlip words={["Prise de Masse", "Minceur", "Équilibré"]} />
+              </div>
             </h1>
 
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
-              className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-white/95 leading-relaxed max-w-4xl mx-auto font-normal"
+              className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-white/95 leading-relaxed max-w-4xl font-normal"
             >
               Des repas équilibrés, préparés par des experts nutritionnistes,{' '}
               <br className="hidden md:block" />
