@@ -3,7 +3,7 @@ import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion"
 import { Button } from "./ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { Badge } from "./ui/badge";
-import { Flame, Beef, Apple, Loader2 } from "lucide-react";
+import { Flame, Beef, Apple, Loader2, Dumbbell, Scale, TrendingDown } from "lucide-react";
 import { Icon } from "./ui/icon";
 import { useMeals } from "@/presentation/hooks/useMeals";
 import { Link } from "react-router-dom";
@@ -24,9 +24,9 @@ const WeeklyPlanner = () => {
   const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
 
   const goals = [
-    { name: "Prise de masse", multiplier: 1.3, description: "Portions augmentées" },
-    { name: "Équilibré", multiplier: 1.0, description: "Portions standards" },
-    { name: "Minceur", multiplier: 0.8, description: "Portions réduites" }
+    { name: "Prise de masse", multiplier: 1.3, description: "Portions augmentées", icon: Dumbbell },
+    { name: "Équilibré", multiplier: 1.0, description: "Portions standards", icon: Scale },
+    { name: "Minceur", multiplier: 0.8, description: "Portions réduites", icon: TrendingDown }
   ];
 
   const currentGoal = goals.find(g => g.name === selectedGoal) || goals[1];
@@ -152,6 +152,7 @@ const WeeklyPlanner = () => {
                       : 'glass-strong border-2 border-[#DE6E27]/30 text-[#FBF8EF] hover:border-[#DE6E27]/50 hover:bg-[#FBF8EF]/5'
                   }`}
                 >
+                  <goal.icon className={`w-8 h-8 mb-3 mx-auto ${selectedGoal === goal.name ? 'text-white' : 'text-[#DE6E27]'}`} />
                   <div className="font-['Space_Grotesk'] text-xl font-bold mb-2">{goal.name}</div>
                   <div className={`text-sm ${selectedGoal === goal.name ? 'text-white/90' : 'text-[#FBF8EF]/75'}`}>
                     {goal.description}
