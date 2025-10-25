@@ -50,7 +50,7 @@ const WeeklyPlanner = () => {
         };
       case 'Minceur': 
         return { 
-          bg: 'bg-gradient-to-br from-[#4CAF50] to-[#66BB6A]', 
+          bg: 'bg-gradient-to-br from-[#505631] to-[#6B7042]', 
           text: 'text-white', 
           light: 'from-green-50 to-green-100',
           iconFilter: 'brightness(0) invert(1)'
