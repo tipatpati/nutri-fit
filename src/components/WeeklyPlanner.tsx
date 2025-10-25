@@ -40,8 +40,23 @@ const WeeklyPlanner = () => {
 
   if (isLoading) {
     return (
-      <section className="py-20 lg:py-28 bg-gradient-to-br from-[#FBF8EF] via-[#FBF8EF] to-[#E5E2D9]">
-        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+      <section className="relative py-20 lg:py-28 overflow-hidden">
+        {/* Background Image with Dark Olive Overlay */}
+        <div className="absolute inset-0 z-0">
+          <img 
+            src="/weekly-planner-background.jpg" 
+            alt="Fresh healthy meal background" 
+            className="absolute inset-0 w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-br from-[#2B3210]/80 via-[#2B3210]/70 to-[#505631]/65" />
+          <div 
+            className="absolute inset-0"
+            style={{
+              background: 'radial-gradient(ellipse at center, transparent 0%, rgba(43, 50, 16, 0.35) 60%, rgba(43, 50, 16, 0.55) 100%)'
+            }}
+          />
+        </div>
+        <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
           <div className="flex items-center justify-center py-12">
             <motion.div
               animate={{ rotate: 360 }}
@@ -56,8 +71,23 @@ const WeeklyPlanner = () => {
   }
 
   return (
-    <section className="py-16 md:py-20 lg:py-32 bg-gradient-to-br from-[#FBF8EF] via-[#FBF8EF] to-[#E5E2D9]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12">
+    <section className="relative py-16 md:py-20 lg:py-32 overflow-hidden">
+      {/* Background Image with Dark Olive Overlay */}
+      <div className="absolute inset-0 z-0">
+        <img 
+          src="/weekly-planner-background.jpg" 
+          alt="Fresh healthy meal background" 
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-br from-[#2B3210]/80 via-[#2B3210]/70 to-[#505631]/65" />
+        <div 
+          className="absolute inset-0"
+          style={{
+            background: 'radial-gradient(ellipse at center, transparent 0%, rgba(43, 50, 16, 0.35) 60%, rgba(43, 50, 16, 0.55) 100%)'
+          }}
+        />
+      </div>
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
@@ -73,19 +103,19 @@ const WeeklyPlanner = () => {
             className="inline-flex items-center gap-2 px-6 py-3 glass-strong rounded-full border-2 border-[#DE6E27]/20 mb-6"
           >
             <Beef className="w-5 h-5 text-[#DE6E27]" />
-            <span className="font-semibold text-[#2B3210]">Menu complet</span>
+            <span className="font-semibold text-[#FBF8EF]">Menu complet</span>
           </motion.div>
-          <h2 className="font-['Space_Grotesk'] text-5xl md:text-6xl lg:text-7xl font-bold text-[#2B3210] mb-6">
+          <h2 className="font-['Space_Grotesk'] text-5xl md:text-6xl lg:text-7xl font-bold text-[#FBF8EF] mb-6">
             Tous nos repas disponibles
           </h2>
-          <p className="text-xl text-[#505631] max-w-3xl mx-auto">
+          <p className="text-xl text-[#FBF8EF]/90 max-w-3xl mx-auto">
             Chaque repas est disponible pour tous les objectifs - seules les quantités changent
           </p>
         </motion.div>
 
         {/* Goal Selector */}
         <div className="max-w-4xl mx-auto mb-10 md:mb-12">
-          <h3 className="font-['Space_Grotesk'] text-2xl md:text-3xl font-bold text-[#2B3210] text-center mb-8">
+          <h3 className="font-['Space_Grotesk'] text-2xl md:text-3xl font-bold text-[#FBF8EF] text-center mb-8">
             Choisissez votre objectif
           </h3>
           <div className="grid sm:grid-cols-1 md:grid-cols-3 gap-4">
@@ -100,11 +130,11 @@ const WeeklyPlanner = () => {
                   className={`p-6 rounded-2xl transition-all duration-300 ${
                     selectedGoal === goal.name
                       ? `${colors.bg} ${colors.text} shadow-2xl scale-105`
-                      : 'glass-strong border-2 border-[#DE6E27]/20 text-[#2B3210] hover:border-[#DE6E27]/40'
+                      : 'glass-strong border-2 border-[#DE6E27]/30 text-[#FBF8EF] hover:border-[#DE6E27]/50 hover:bg-[#FBF8EF]/5'
                   }`}
                 >
                   <div className="font-['Space_Grotesk'] text-xl font-bold mb-2">{goal.name}</div>
-                  <div className={`text-sm ${selectedGoal === goal.name ? 'text-white/90' : 'text-[#505631]'}`}>
+                  <div className={`text-sm ${selectedGoal === goal.name ? 'text-white/90' : 'text-[#FBF8EF]/75'}`}>
                     {goal.description}
                   </div>
                   <div className={`text-lg font-bold mt-3 ${selectedGoal === goal.name ? 'text-white' : 'text-[#DE6E27]'}`}>
@@ -137,7 +167,12 @@ const WeeklyPlanner = () => {
                   layout
                 >
                   <Card 
-                    className="glass-strong overflow-hidden hover:shadow-2xl transition-all duration-300 border-2 border-transparent hover:border-[#DE6E27]/30"
+                    className="overflow-hidden hover:shadow-2xl transition-all duration-300 border-2 border-[#FBF8EF]/20 hover:border-[#DE6E27]/50"
+                    style={{
+                      background: 'rgba(251, 248, 239, 0.15)',
+                      backdropFilter: 'blur(32px) saturate(180%)',
+                      WebkitBackdropFilter: 'blur(32px) saturate(180%)'
+                    }}
                   >
                     <CardHeader className={`${colors.bg} ${colors.text} p-6 relative overflow-hidden`}>
                       {/* Shine effect */}
@@ -167,33 +202,33 @@ const WeeklyPlanner = () => {
 
                     <CardContent className="p-6 space-y-6">
                       {/* Description */}
-                      <p className="text-[#505631]">
+                      <p className="text-[#FBF8EF]/85">
                         {meal.description}
                       </p>
 
                       {/* Ingredients */}
                       <div>
-                        <h4 className="font-['Space_Grotesk'] text-lg font-bold text-[#2B3210] mb-3 flex items-center gap-2">
+                        <h4 className="font-['Space_Grotesk'] text-lg font-bold text-[#FBF8EF] mb-3 flex items-center gap-2">
                           <Apple className="w-4 h-4" />
                           Ingrédients
                         </h4>
                         <div className="space-y-2">
                           <div className="flex items-center gap-2">
                             <Icon name="fish" size={16} className="text-[#DE6E27]" />
-                            <span className="text-sm text-[#505631]">
-                              <strong className="text-[#2B3210]">Protéine:</strong> {meal.meat}
+                            <span className="text-sm text-[#FBF8EF]/80">
+                              <strong className="text-[#FBF8EF]">Protéine:</strong> {meal.meat}
                             </span>
                           </div>
                           <div className="flex items-center gap-2">
                             <Icon name="leaves" size={16} className="text-[#DE6E27]" />
-                            <span className="text-sm text-[#505631]">
-                              <strong className="text-[#2B3210]">Légumes:</strong> {meal.vegetables}
+                            <span className="text-sm text-[#FBF8EF]/80">
+                              <strong className="text-[#FBF8EF]">Légumes:</strong> {meal.vegetables}
                             </span>
                           </div>
                           <div className="flex items-center gap-2">
                             <Icon name="apple" size={16} className="text-[#DE6E27]" />
-                            <span className="text-sm text-[#505631]">
-                              <strong className="text-[#2B3210]">Glucides:</strong> {meal.carbs}
+                            <span className="text-sm text-[#FBF8EF]/80">
+                              <strong className="text-[#FBF8EF]">Glucides:</strong> {meal.carbs}
                             </span>
                           </div>
                         </div>
@@ -201,7 +236,7 @@ const WeeklyPlanner = () => {
 
                       {/* Nutritional Values */}
                       <div>
-                        <h4 className="font-['Space_Grotesk'] text-lg font-bold text-[#2B3210] mb-3 flex items-center gap-2">
+                        <h4 className="font-['Space_Grotesk'] text-lg font-bold text-[#FBF8EF] mb-3 flex items-center gap-2">
                           <Flame className="w-4 h-4" />
                           Valeurs nutritionnelles
                         </h4>
@@ -218,13 +253,18 @@ const WeeklyPlanner = () => {
                           animate={{ opacity: 1, scale: 1 }}
                           transition={{ delay: idx * 0.05 }}
                           whileHover={{ scale: 1.05, rotate: 2 }}
-                          className="glass-strong rounded-xl p-4 text-center border border-transparent hover:border-[#DE6E27]/30 transition-all duration-300"
+                          className="rounded-xl p-4 text-center border border-[#FBF8EF]/15 hover:border-[#DE6E27]/50 transition-all duration-300"
+                          style={{
+                            background: 'rgba(251, 248, 239, 0.2)',
+                            backdropFilter: 'blur(24px) saturate(180%)',
+                            WebkitBackdropFilter: 'blur(24px) saturate(180%)'
+                          }}
                         >
-                          <div className="text-xs text-[#505631] mb-1">{item.label}</div>
+                          <div className="text-xs text-[#FBF8EF]/70 mb-1">{item.label}</div>
                           <motion.div
                             animate={{ scale: [1, 1.1, 1] }}
                             transition={{ duration: 2, repeat: Infinity, delay: idx * 0.2 }}
-                            className="font-['Space_Grotesk'] text-xl font-bold text-[#2B3210]"
+                            className="font-['Space_Grotesk'] text-xl font-bold text-[#FBF8EF]"
                           >
                             {item.value}
                           </motion.div>
