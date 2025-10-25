@@ -1,4 +1,4 @@
-import Header from "@/components/Header";
+import NutriFitNavbar from "@/components/NutriFitNavbar";
 import Footer from "@/components/Footer";
 import Packs from "@/components/Packs";
 import { Badge } from "@/components/ui/badge";
@@ -48,7 +48,7 @@ const Forfaits = () => {
 
   return (
     <div className="min-h-screen bg-[hsl(var(--md-sys-color-surface))] overflow-x-hidden">
-      <Header />
+      <NutriFitNavbar />
       
       {/* Enhanced Hero Section */}
       <section className="relative bg-gradient-to-br from-[hsl(var(--md-sys-color-surface-dim))] via-[hsl(var(--md-sys-color-surface))] to-[hsl(var(--md-sys-color-surface-dim))] py-12 sm:py-24 lg:py-32 overflow-hidden">

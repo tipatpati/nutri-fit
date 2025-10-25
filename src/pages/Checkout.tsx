@@ -15,7 +15,7 @@ import {
   Package,
   ChevronRight
 } from "lucide-react";
-import Header from "@/components/Header";
+import NutriFitNavbar from "@/components/NutriFitNavbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -134,7 +134,7 @@ const Checkout = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#FBF8EF] via-[#FBF8EF] to-[#E5E2D9]">
-      <Header />
+      <NutriFitNavbar />
 
       <main className="container mx-auto px-4 py-12 max-w-7xl">
         {/* Header */}
