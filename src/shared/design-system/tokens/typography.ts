@@ -269,10 +269,11 @@ export const typographyClasses = {
  */
 export const getResponsiveType = (category: TypeCategory, size: TypeSize) => {
   const styles = typeScale[category][size];
+  const hasMobile = 'mobile' in styles;
 
   return {
-    fontSize: styles.mobile?.fontSize || styles.fontSize,
-    lineHeight: styles.mobile?.lineHeight || styles.lineHeight,
+    fontSize: hasMobile && styles.mobile ? styles.mobile.fontSize : styles.fontSize,
+    lineHeight: hasMobile && styles.mobile ? styles.mobile.lineHeight : styles.lineHeight,
     letterSpacing: styles.letterSpacing,
     fontWeight: styles.fontWeight,
     fontFamily: styles.fontFamily,

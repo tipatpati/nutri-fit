@@ -18,8 +18,7 @@ export {
   addressSchema,
   mealSchema,
   phoneSchema,
-  type OrderFormData,
-  type AddressFormData
+  type OrderFormData
 } from './orderSchema';
 
 export {
@@ -31,5 +30,5 @@ export {
 
 export {
   addressFormSchema,
-  type AddressFormData as CheckoutAddressFormData
+  type AddressFormData
 } from './addressSchema';

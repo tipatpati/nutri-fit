@@ -69,16 +69,6 @@ const OrderSummary = ({ selectedMeals, selectedPackage, onBack, onConfirm }: Ord
   };
 
   const handleFinalConfirm = () => {
-    if (!user) {
-      toast({
-        title: 'Erreur',
-        description: 'Vous devez être connecté pour passer commande',
-        variant: 'destructive',
-      });
-      navigate('/auth');
-      return;
-    }
-
     if (!deliveryAddress) {
       toast({
         title: 'Erreur',
@@ -100,7 +90,7 @@ const OrderSummary = ({ selectedMeals, selectedPackage, onBack, onConfirm }: Ord
       {
         items,
         address: deliveryAddress,
-        userId: user.id,
+        userId: user?.id,
       },
       {
         onSuccess: () => {
@@ -238,7 +228,10 @@ const OrderSummary = ({ selectedMeals, selectedPackage, onBack, onConfirm }: Ord
                   </Button>
                 </div>
                 <div className="md-body-medium text-md-on-surface space-y-md-1">
-                  <p>{deliveryAddress.street}</p>
+                  <p className="font-semibold">{deliveryAddress.firstName} {deliveryAddress.lastName}</p>
+                  <p>{deliveryAddress.email}</p>
+                  <p>{deliveryAddress.phone}</p>
+                  <p className="mt-2">{deliveryAddress.street}</p>
                   <p>{deliveryAddress.postalCode} {deliveryAddress.city}</p>
                   <p>{deliveryAddress.country}</p>
                   {deliveryAddress.instructions && (

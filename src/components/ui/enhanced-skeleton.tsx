@@ -34,8 +34,7 @@ export const TextSkeleton = ({ lines = 1, className }: SkeletonProps) => (
     {Array.from({ length: lines }).map((_, i) => (
       <BaseSkeleton
         key={i}
-        className="h-4"
-        style={{ width: `${100 - (i * 10)}%` }}
+        className={cn("h-4", i === lines - 1 ? "w-3/5" : "w-full")}
       />
     ))}
   </div>

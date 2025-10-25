@@ -1,10 +1,9 @@
 import { motion } from "framer-motion";
-import { AnimatedGoalCard } from "@/components/ui/animated-goal-card";
-import minceurGoalImage from "@/assets/minceur-goal.jpg";
-import equilibreGoalImage from "@/assets/equilibre-goal.jpg";
-import priseMasseIcon from "@/assets/icons/prise-masse-icon.png";
-import equilibreIcon from "@/assets/icons/equilibre-icon.png";
-import minceurIcon from "@/assets/icons/minceur-icon.png";
+import { NutritionGoalCard } from "@/components/ui/nutrition-goal-card";
+import minceurBackground from "@/assets/minceur-background.jpg";
+import slimBodyIcon from "@/assets/icons/slim-body.png";
+import yogaIcon from "@/assets/icons/yoga.png";
+import armMuscleIcon from "@/assets/icons/arm-muscle.png";
 
 interface GoalSelectionProps {
   selectedGoal: string | null;
@@ -15,32 +14,36 @@ interface GoalSelectionProps {
 const GoalSelection = ({ selectedGoal, onGoalSelect, onProceed }: GoalSelectionProps) => {
   const goals = [
     {
-      id: 'bulking',
-      name: 'Prise de masse',
-      description: 'Repas riches en protéines et calories pour développer votre masse musculaire de façon optimale',
-      gradient: 'from-orange-primary via-orange-light to-[#ff9057]',
-      iconSrc: priseMasseIcon,
-      staticBg: 'https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?q=80&w=2070&auto=format&fit=crop',
-      animatedBg: 'https://media.giphy.com/media/5h47LsEYbofzcgOz19/giphy.gif'
+      id: "weight_loss",
+      title: "Minceur",
+      description: "Perdez du poids sainement avec nos repas équilibrés et contrôlés en calories",
+      calorieRange: "1200-1500 kcal/jour",
+      goalType: "weight_loss" as const,
+      staticBg: minceurBackground,
+      animatedBg: minceurBackground,
+      icon: slimBodyIcon,
+      isPopular: true,
     },
     {
-      id: 'cutting',
-      name: 'Minceur',
-      description: 'Repas faibles en calories mais riches en nutriments essentiels pour votre bien-être',
-      gradient: 'from-[#4CAF50] via-[#66BB6A] to-[#81C784]',
-      iconSrc: minceurIcon,
-      staticBg: minceurGoalImage,
-      animatedBg: 'https://media.giphy.com/media/3o6Zt6fzS6qEbLhKWQ/giphy.gif'
+      id: "balanced",
+      title: "Équilibre Nutritionnel",
+      description: "Maintenez un équilibre parfait entre protéines, glucides et lipides pour votre bien-être",
+      calorieRange: "1600-2000 kcal/jour",
+      goalType: "balanced" as const,
+      staticBg: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=800&auto=format&fit=crop",
+      animatedBg: "https://images.unsplash.com/photo-1547496502-affa22d38842?w=800&auto=format&fit=crop",
+      icon: yogaIcon,
     },
     {
-      id: 'balanced',
-      name: 'Équilibré',
-      description: 'Repas parfaitement équilibrés pour maintenir votre forme optimale au quotidien',
-      gradient: 'from-[#29B6F6] via-[#4FC3F7] to-[#81D4FA]',
-      iconSrc: equilibreIcon,
-      staticBg: equilibreGoalImage,
-      animatedBg: 'https://media.giphy.com/media/l2QDSt60JFjOdgQjC/giphy.gif'
-    }
+      id: "muscle_gain",
+      title: "Prise de Masse",
+      description: "Développez votre masse musculaire avec des repas riches en protéines et nutriments essentiels",
+      calorieRange: "2200-2800 kcal/jour",
+      goalType: "muscle_gain" as const,
+      staticBg: "https://images.unsplash.com/photo-1532384816664-01b8b7238c8d?w=800&auto=format&fit=crop",
+      animatedBg: "https://images.unsplash.com/photo-1606787366850-de6330128bfc?w=800&auto=format&fit=crop",
+      icon: armMuscleIcon,
+    },
   ];
 
   return (
@@ -66,20 +69,22 @@ const GoalSelection = ({ selectedGoal, onGoalSelect, onProceed }: GoalSelectionP
       </motion.div>
 
       {/* Goals Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 max-w-7xl mx-auto">
         {goals.map((goal, index) => (
-          <AnimatedGoalCard
+          <NutritionGoalCard
             key={goal.id}
             id={goal.id}
-            name={goal.name}
+            title={goal.title}
             description={goal.description}
-            iconSrc={goal.iconSrc}
+            calorieRange={goal.calorieRange}
             staticBg={goal.staticBg}
             animatedBg={goal.animatedBg}
-            gradient={goal.gradient}
+            goalType={goal.goalType}
             isSelected={selectedGoal === goal.id}
             onSelect={() => onGoalSelect(goal.id)}
             index={index}
+            isPopular={goal.isPopular}
+            icon={goal.icon}
           />
         ))}
       </div>

@@ -74,6 +74,11 @@ interface NutritionGoalCardProps {
   isPopular?: boolean;
 
   /**
+   * Icon to display in the card header
+   */
+  icon?: string;
+
+  /**
    * Additional CSS classes
    */
   className?: string;
@@ -107,6 +112,7 @@ export function NutritionGoalCard({
   onSelect,
   index = 0,
   isPopular = false,
+  icon,
   className,
 }: NutritionGoalCardProps) {
   const gradientClass = getGradientClasses(goalType);
@@ -193,13 +199,23 @@ export function NutritionGoalCard({
           aria-hidden="true"
         />
 
-        {/* Gradient overlay for text readability */}
+        {/* Gradient overlay for text readability with goal-specific color */}
         <div
-          className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent z-10"
+          className={cn(
+            "absolute inset-0 z-10",
+            "bg-gradient-to-t from-black/90 via-black/30 to-transparent"
+          )}
+          aria-hidden="true"
+        />
+        <div
+          className={cn(
+            "absolute inset-0 z-10 opacity-40 bg-gradient-to-br",
+            gradientClass
+          )}
           aria-hidden="true"
         />
 
-        {/* Top gradient badge */}
+        {/* Top gradient badge with icon */}
         <div
           className={cn(
             "absolute top-0 left-0 right-0 h-32 bg-gradient-to-br",
@@ -209,6 +225,25 @@ export function NutritionGoalCard({
           aria-hidden="true"
         >
           <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/40" />
+          {icon && (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.5 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.2 + index * 0.1, type: "spring" }}
+              className={cn(
+                "relative z-10 w-16 h-16 rounded-[var(--md-sys-shape-corner-large)] flex items-center justify-center",
+                "bg-gradient-to-br",
+                gradientClass,
+                "bg-opacity-90 md-elevation-2"
+              )}
+            >
+              <img
+                src={icon}
+                alt=""
+                className="w-10 h-10 drop-shadow-lg filter brightness-0 invert"
+              />
+            </motion.div>
+          )}
         </div>
 
         {/* Content */}

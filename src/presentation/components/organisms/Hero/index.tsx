@@ -5,6 +5,9 @@ import { Button } from "@/components/ui/button";
 import { CheckCircle, ArrowRight, TrendingUp, Award, Clock } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { LayoutTextFlip } from "@/components/ui/layout-text-flip";
+import slimBodyIcon from "@/assets/icons/slim-body-3.png";
+import yogaIcon from "@/assets/icons/yoga-3.png";
+import armMuscleIcon from "@/assets/icons/arm-muscle-3.png";
 export const Hero = () => {
   const navigate = useNavigate();
   const handleOrderClick = () => {
@@ -141,7 +144,7 @@ export const Hero = () => {
               </motion.div>
             </motion.div>
 
-            {/* Stats Section */}
+            {/* Nutrition Goals Section */}
             <motion.div initial={{
             opacity: 0,
             y: 20
@@ -151,17 +154,23 @@ export const Hero = () => {
           }} transition={{
             duration: 0.8,
             delay: 1.2
-          }} className="grid grid-cols-3 gap-4 md:gap-6 lg:gap-8 max-w-5xl mx-auto pt-8 md:pt-12">
+          }} className="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-6 lg:gap-8 max-w-5xl mx-auto pt-8 md:pt-12 px-4 sm:px-6">
               {[{
-              number: "1000+",
-              label: "Clients Satisfaits"
+              title: "Minceur",
+              description: "Perte de poids",
+              icon: slimBodyIcon,
+              gradient: "from-[hsl(var(--color-success))] to-emerald-400"
             }, {
-              number: "50+",
-              label: "Recettes"
+              title: "Équilibré",
+              description: "Maintien forme",
+              icon: yogaIcon,
+              gradient: "from-[#E5E2D9] to-[#D4C5B0]"
             }, {
-              number: "4.9",
-              label: "Note Moyenne"
-            }].map((stat, idx) => <motion.div key={stat.label} initial={{
+              title: "Prise de Masse",
+              description: "Gain musculaire",
+              icon: armMuscleIcon,
+              gradient: "from-[#DE6E27] to-[#FF8142]"
+            }].map((goal, idx) => <motion.div key={goal.title} initial={{
               opacity: 0,
               scale: 0.8
             }} animate={{
@@ -173,12 +182,34 @@ export const Hero = () => {
             }} whileHover={{
               scale: 1.05,
               y: -4
-            }} className="text-center bg-white/95 backdrop-blur-sm rounded-2xl md:rounded-3xl p-6 md:p-8 lg:p-10 shadow-lg md:hover:shadow-2xl transition-all duration-300 select-none active:scale-[0.98] md:active:scale-100">
-                  <div className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-[#2B3210] mb-3 md:mb-4 tabular-nums">
-                    {stat.number}
-                  </div>
-                  <div className="text-xs sm:text-sm md:text-base font-semibold text-[#505631] uppercase tracking-wide leading-tight">
-                    {stat.label}
+            }} className="group cursor-pointer select-none active:scale-[0.98]">
+                  {/* Glassmorphism Card */}
+                  <div className="relative overflow-hidden rounded-2xl md:rounded-3xl p-6 md:p-8 lg:p-10 h-full backdrop-blur-xl bg-white/10 border border-white/20 shadow-2xl hover:shadow-3xl transition-all duration-300">
+                    {/* Gradient Overlay */}
+                    <div className={`absolute inset-0 bg-gradient-to-br ${goal.gradient} opacity-20 group-hover:opacity-30 transition-opacity duration-300`} />
+
+                    {/* Content */}
+                    <div className="relative z-10 flex flex-col items-center text-center space-y-4 md:space-y-5">
+                      {/* Icon Container with gradient background */}
+                      <div className={`w-16 h-16 md:w-20 md:h-20 lg:w-24 lg:h-24 rounded-2xl bg-gradient-to-br ${goal.gradient} p-4 shadow-lg flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300`}>
+                        <img src={goal.icon} alt={goal.title} className="w-full h-full object-contain filter brightness-0 invert" />
+                      </div>
+
+                      {/* Title */}
+                      <div className="text-xl md:text-2xl lg:text-3xl font-bold text-white drop-shadow-lg">
+                        {goal.title}
+                      </div>
+
+                      {/* Description */}
+                      <div className="text-sm md:text-base text-white/90 font-medium">
+                        {goal.description}
+                      </div>
+                    </div>
+
+                    {/* Shimmer effect on hover */}
+                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
+                    </div>
                   </div>
                 </motion.div>)}
             </motion.div>

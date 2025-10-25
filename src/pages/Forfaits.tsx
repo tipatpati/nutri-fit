@@ -5,12 +5,19 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Truck, Clock, ChefHat, Leaf, Star, Heart, Zap, Shield } from "lucide-react";
 import { useState } from "react";
+import { motion } from "framer-motion";
+import { NutritionGoalCard } from "@/components/ui/nutrition-goal-card";
+import { Button } from "@/components/ui/button";
 import priseMasseIcon from "@/assets/icons/prise-masse-icon.png";
 import equilibreIcon from "@/assets/icons/equilibre-icon.png";
 import minceurIcon from "@/assets/icons/minceur-icon.png";
+import minceurBackground from "@/assets/minceur-background.jpg";
+import slimBodyIcon from "@/assets/icons/slim-body.png";
+import yogaIcon from "@/assets/icons/yoga.png";
+import armMuscleIcon from "@/assets/icons/arm-muscle.png";
 
 const Forfaits = () => {
-  const [selectedGoal, setSelectedGoal] = useState("balanced");
+  const [selectedGoal, setSelectedGoal] = useState<string | null>(null);
 
   const features = [
     {
@@ -108,38 +115,95 @@ const Forfaits = () => {
               </p>
             </div>
 
-            {/* Enhanced Fitness Goals Selector */}
-            <div className="glass-card rounded-[var(--md-sys-shape-corner-extra-large)] p-6 lg:p-10 md-elevation-2">
-              <h3 className="md-title-large text-[hsl(var(--md-sys-color-on-surface))] text-center mb-6 lg:mb-8">
-                Choisissez votre objectif fitness
-              </h3>
-              
-              <div className="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-4 lg:space-x-12">
+            {/* Enhanced Fitness Goals Selector with NutritionGoalCard */}
+            <div>
+              <div className="text-center mb-8 lg:mb-10">
+                <h2 className="md-headline-large text-[hsl(var(--md-sys-color-on-surface))] mb-4">
+                  Choisissez Votre Objectif Nutritionnel
+                </h2>
+                <p className="md-body-large text-[hsl(var(--md-sys-color-on-surface-variant))] max-w-2xl mx-auto">
+                  Sélectionnez l'objectif qui correspond le mieux à vos besoins.
+                  Nos plans sont conçus par des nutritionnistes professionnels.
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto mb-8">
                 {[
-                  { goal: "weight_loss", label: "Minceur", mealSize: "300-450 cal", bgClass: "from-[hsl(var(--nutrition-weight-loss))] via-[hsl(var(--color-success))] to-[hsl(var(--color-success-light))]", iconSrc: minceurIcon },
-                  { goal: "balanced", label: "Équilibre", mealSize: "450-600 cal", bgClass: "from-[hsl(var(--nutrition-balanced))] via-[hsl(var(--md-sys-color-tertiary))] to-[hsl(var(--md-sys-color-tertiary-container))]", popular: true, iconSrc: equilibreIcon },
-                  { goal: "muscle_gain", label: "Prise de masse", mealSize: "650-800 cal", bgClass: "from-md-secondary via-[hsl(var(--md-sys-color-secondary-light))] to-[hsl(var(--md-sys-color-secondary-container))]", iconSrc: priseMasseIcon }
-                ].map((item) => (
-                  <div 
-                    key={item.goal}
-                    className={`group cursor-pointer p-4 sm:p-6 lg:p-8 rounded-[var(--md-sys-shape-corner-large)] border-2 transition-all duration-300 hover:scale-105 relative w-full sm:w-auto ${
-                      selectedGoal === item.goal ? "border-[hsl(var(--md-sys-color-primary))] bg-[hsl(var(--md-sys-color-primary-container))] md-elevation-2" : "border-[hsl(var(--md-sys-color-outline-variant))] hover:border-[hsl(var(--md-sys-color-outline))]"
-                    }`}
-                    onClick={() => setSelectedGoal(item.goal)}
-                  >
-                    {item.popular && (
-                      <Badge className="absolute -top-2 sm:-top-3 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-[hsl(var(--md-sys-color-primary))] to-[hsl(var(--md-sys-color-secondary))] text-white md-label-small px-3 sm:px-4 py-1">
-                        Le plus populaire !
-                      </Badge>
-                    )}
-                    <div className={`w-16 h-12 sm:w-20 sm:h-16 lg:w-24 lg:h-20 bg-gradient-to-br ${item.bgClass} rounded-[var(--md-sys-shape-corner-medium)] mb-3 sm:mb-4 group-hover:scale-110 transition-transform mx-auto flex items-center justify-center`}>
-                      <img src={item.iconSrc} alt={item.label} className="w-10 h-10 sm:w-12 sm:h-12 brightness-0 invert" />
-                    </div>
-                    <p className="text-center md-title-medium text-[hsl(var(--md-sys-color-on-surface))]">{item.label}</p>
-                    <p className="text-center md-body-small text-[hsl(var(--md-sys-color-on-surface-variant))] mt-1">Repas de {item.mealSize}</p>
-                  </div>
+                  {
+                    id: "weight_loss",
+                    title: "Minceur",
+                    description: "Perdez du poids sainement avec nos repas équilibrés et contrôlés en calories",
+                    calorieRange: "1200-1500 kcal/jour",
+                    goalType: "weight_loss" as const,
+                    staticBg: minceurBackground,
+                    animatedBg: minceurBackground,
+                    icon: slimBodyIcon,
+                    isPopular: true,
+                  },
+                  {
+                    id: "balanced",
+                    title: "Équilibre Nutritionnel",
+                    description: "Maintenez un équilibre parfait entre protéines, glucides et lipides pour votre bien-être",
+                    calorieRange: "1600-2000 kcal/jour",
+                    goalType: "balanced" as const,
+                    staticBg: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=800&auto=format&fit=crop",
+                    animatedBg: "https://images.unsplash.com/photo-1547496502-affa22d38842?w=800&auto=format&fit=crop",
+                    icon: yogaIcon,
+                  },
+                  {
+                    id: "muscle_gain",
+                    title: "Prise de Masse",
+                    description: "Développez votre masse musculaire avec des repas riches en protéines et nutriments essentiels",
+                    calorieRange: "2200-2800 kcal/jour",
+                    goalType: "muscle_gain" as const,
+                    staticBg: "https://images.unsplash.com/photo-1532384816664-01b8b7238c8d?w=800&auto=format&fit=crop",
+                    animatedBg: "https://images.unsplash.com/photo-1606787366850-de6330128bfc?w=800&auto=format&fit=crop",
+                    icon: armMuscleIcon,
+                  },
+                ].map((goal, index) => (
+                  <NutritionGoalCard
+                    key={goal.id}
+                    id={goal.id}
+                    title={goal.title}
+                    description={goal.description}
+                    calorieRange={goal.calorieRange}
+                    staticBg={goal.staticBg}
+                    animatedBg={goal.animatedBg}
+                    goalType={goal.goalType}
+                    isSelected={selectedGoal === goal.id}
+                    onSelect={() => setSelectedGoal(goal.id)}
+                    index={index}
+                    isPopular={goal.isPopular}
+                    icon={goal.icon}
+                  />
                 ))}
               </div>
+
+              {selectedGoal && (
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="p-6 bg-[hsl(var(--md-sys-color-surface-container))] rounded-[var(--md-sys-shape-corner-extra-large)] border border-[hsl(var(--md-sys-color-outline-variant))] max-w-2xl mx-auto text-center"
+                >
+                  <p className="md-body-large text-[hsl(var(--md-sys-color-on-surface))] mb-4">
+                    Excellent choix ! Objectif sélectionné : <strong>{
+                      [
+                        { id: "weight_loss", title: "Minceur" },
+                        { id: "balanced", title: "Équilibre Nutritionnel" },
+                        { id: "muscle_gain", title: "Prise de Masse" },
+                      ].find(g => g.id === selectedGoal)?.title
+                    }</strong>
+                  </p>
+                  <Button
+                    className="bg-gradient-to-r from-[hsl(var(--md-sys-color-primary))] to-[hsl(var(--md-sys-color-secondary))] text-white px-8 py-3 rounded-[var(--md-sys-shape-corner-full)] hover:scale-105 transition-transform"
+                    onClick={() => {
+                      console.log("Proceeding with goal:", selectedGoal);
+                    }}
+                  >
+                    Continuer avec cet objectif
+                  </Button>
+                </motion.div>
+              )}
             </div>
           </div>
 
